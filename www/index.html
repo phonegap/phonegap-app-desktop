@@ -2,10 +2,56 @@
 <html>
   <head>
     <title>PhoneGap</title>
+
+
+    <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    #left, #area-3 {
+      float: left;
+      height: 100%;
+      width: 50%;
+    }
+
+    #area-1 {
+      height: 50%;
+      background-color: #CC3333;
+    }
+
+    #area-2 {
+      height: 50%;
+      background-color: #FF9933;
+    }
+
+    #area-3 {
+      background-color: #0099FF;
+    }
+    </style>    
+    
+    
+    
   </head>
   <body>
     <h1>Hello World!</h1>
     We are using node.js <script>document.write(process.version)</script> to prototype a PhoneGap GUI.<br>
     <script>document.write(new Date());</script>
+    
+    <div id="left">
+      <div id="area-1"></div>
+      <div id="area-2"></div>
+    </div>
+    <div id="area-3"></div>
+    
+    
+    <script src="js/menu.js"></script>
+
+    
   </body>
 </html>

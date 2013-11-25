@@ -1,4 +1,10 @@
 {
   "name": "PhoneGap-UI",
-  "main": "www/index.html"
+  "main": "www/index.html",
+  "window": {
+    "show": false,
+    "position": "center",
+    "width": 500,
+    "height": 500
+  }
 }
