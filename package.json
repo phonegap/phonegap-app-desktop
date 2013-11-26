@@ -1,0 +1,40 @@
+{
+    "name": "phonegap-gui",
+    "description": "PhoneGap GUI.",
+    "version": "0.0.1",
+    "main": "www/index.html",
+    "window": {
+      "show": false,
+      "position": "center",
+      "width": 500,
+      "height": 500
+    },
+    "homepage": "http://github.com/hermwong/phonegap-gui",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/hermwong/phonegap-gui.git"
+    },
+    "keywords": [
+        "phonegap"
+    ],
+    "preferGlobal": "false",
+    "scripts": {
+    },
+    "dependencies": {
+    },
+    "devDependencies": {
+        "grunt": "0.4.1",
+        "grunt-node-webkit-builder": "0.1.11"
+    },
+    "contributors": [
+        {
+            "name": "Herm Wong",
+            "email": "herm.wong@gmail.com"
+        },
+        {
+            "name": "Michael Brooks",
+            "email": "michael@michaelbrooks.ca",
+            "url": "http://michaelbrooks.ca/"
+        }
+    ]
+}
