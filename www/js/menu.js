@@ -1,5 +1,5 @@
-var gui = require('nw.gui');
-gui.Window.get().show();
+var menuPage = require('nw.gui');
+menuPage.Window.get().show();
 
 var menu1 = new gui.Menu();
 var submenu = new gui.Menu();
