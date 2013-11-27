@@ -7,7 +7,8 @@
       "show": false,
       "position": "center",
       "width": 500,
-      "height": 500
+      "height": 500,
+      "toolbar": true
     },
     "homepage": "http://github.com/hermwong/phonegap-gui",
     "repository": {
