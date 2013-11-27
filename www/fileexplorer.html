@@ -2,13 +2,23 @@
 <html>
   <head>
     <title>PhoneGap</title> 
-    <script src="js/fileexplorer.js"></script>  
+         
+    <script>
+        function onChangeHandler() {
+            console.log("onChangeHandler invoked");
+            console.log(document.getElementById("projectDirectory").value.toString());
+        }
+    </script> 
+     
   </head>
   <body>
+
       <h1>File Explorer Example</h1> 
       
       <a href="index.html">back</a><br>
-      <input type="file" id="projectDirectory" nwdirectory></input><br>
+      <input type="file" id="projectDirectory" onchange="onChangeHandler();" nwdirectory><br> 
+      
+      <script src="js/fileexplorer.js"></script> 
             
   </body>
 </html>     
