@@ -2,13 +2,25 @@
 <html>
   <head>
     <title>PhoneGap</title> 
-         
+     
+    <script src="js/jquery-2.0.3.min.js"></script>   
     <script>
-        function onChangeHandler() {
-            console.log("onChangeHandler invoked");
-            console.log(document.getElementById("projectDirectory").value.toString());
-        }
+        global.jQuery = jQuery;
+
+        global.jQuery(document).ready(function() {
+           console.log("ready"); 
+           global.projDir = ""; 
+           
+           global.jQuery("#projectDirectory").change(function() {
+               console.log("change handler");
+               console.log(global.jQuery("#projectDirectory").val());
+               global.projDir = global.jQuery("#projectDirectory").val();
+           });
+           
+        });
+        
     </script> 
+    <script src="js/fileexplorer.js"></script> 
      
   </head>
   <body>
@@ -16,9 +28,13 @@
       <h1>File Explorer Example</h1> 
       
       <a href="index.html">back</a><br>
-      <input type="file" id="projectDirectory" onchange="onChangeHandler();" nwdirectory><br> 
-      
-      <script src="js/fileexplorer.js"></script> 
+      <input type="file" id="projectDirectory" nwdirectory><br> 
+       
+      <script>      
+ 
+
+         
+      </script> 
             
   </body>
 </html>     
