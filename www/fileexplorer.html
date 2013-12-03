@@ -5,6 +5,8 @@
      
     <script src="js/jquery-2.0.3.min.js"></script>   
     <script>
+        var fs = require("fs");
+    
         global.jQuery = jQuery;
 
         global.jQuery(document).ready(function() {
@@ -15,7 +17,23 @@
                console.log("change handler");
                console.log(global.jQuery("#projectDirectory").val());
                global.projDir = global.jQuery("#projectDirectory").val();
+               
+               if (global.projDir != "") {
+                   global.jQuery("#createProject").prop("disabled", false);
+               }
            });
+           
+           global.jQuery("#createProject").click(function() {
+               console.log("click handler");
+               fs.openSync(global.projDir + "/phonegap-gui.txt", "w", function(err) {
+                   if (err) {
+                       throw err;
+                   }
+               });
+           });
+           
+           global.jQuery("#createProject").val("Create Project");
+           global.jQuery("#createProject").prop("disabled", true);
            
         });
         
@@ -30,11 +48,7 @@
       <a href="index.html">back</a><br>
       <input type="file" id="projectDirectory" nwdirectory><br> 
        
-      <script>      
- 
-
-         
-      </script> 
+      <input type="button" id="createProject"><br>
             
   </body>
 </html>     
