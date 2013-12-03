@@ -25,7 +25,7 @@
     },
     "devDependencies": {
         "grunt": "0.4.1",
-        "grunt-node-webkit-builder": "0.1.11"
+        "grunt-node-webkit-builder": "git+ssh://git@github.com/mwbrooks/grunt-node-webkit-builder.git#fix-download-request"
     },
     "contributors": [
         {
