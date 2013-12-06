@@ -15,7 +15,8 @@
     },
     "devDependencies": {
         "grunt": "0.4.1",
-        "grunt-node-webkit-builder": "0.1.13"
+        "grunt-node-webkit-builder": "0.1.13",
+        "opener": "1.3.0"
     },
     "contributors": [
         {

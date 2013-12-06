@@ -15,7 +15,9 @@ Initial prototype of creating a GUI for the PhoneGap CLI.
 
 ### Run App
 
-- __OS X__: `build/releases/phonegap-gui/mac/phonegap-gui.app`
-- __Windows__: `build/releases/phonegap-gui/win/phonegap-gui/phonegap-gui.exe`
+    $ grunt open
 
-__Known Issue__: If the directories are missing then re-run `grunt`.
+Opens the application located in:
+
+  - __OS X__: `build/releases/phonegap-gui/mac/phonegap-gui.app`
+  - __Windows__: `build/releases/phonegap-gui/win/phonegap-gui/phonegap-gui.exe`

@@ -18,6 +18,20 @@ module.exports = function(grunt) {
   // Load the grunt plugins.
   grunt.loadNpmTasks('grunt-node-webkit-builder');
 
+  // Load task to launch app
+  grunt.task.registerTask('open', 'Open the app', function() {
+    var os = require('os'),
+        opener = require('opener'),
+        appName = grunt.config('pkg.name'),
+        macPath = 'build/releases/appName/mac/appName.app',
+        winPath = 'build/releases/appName/win/appName/appName.exe';
+
+    macPath = macPath.replace(/appName/g, appName);
+    winPath = winPath.replace(/appName/g, appName);
+
+    opener((os.platform() === 'darwin') ? macPath : winPath);
+  });
+
   // Default tasks.
   grunt.registerTask('default', ['nodewebkit']);
 
