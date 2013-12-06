@@ -2,7 +2,7 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    pkg: grunt.file.readJSON('build.json'),
+    pkg: grunt.file.readJSON('package.json'),
     nodewebkit: {
         options: {
             build_dir: './build', // Destination for built apps.
@@ -11,7 +11,7 @@ module.exports = function(grunt) {
             linux32: false,       // Linux 32-bit support.
             linux64: false        // Linux 64-bit support.
         },
-        src: ['./package.json', './www/**/*', './node_modules/phonegap/**/*']
+        src: ['./www/**/*', './node_modules/phonegap/**/*']
     }
   });
 

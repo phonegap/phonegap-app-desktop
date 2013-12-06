@@ -1,0 +1,16 @@
+{
+    "name": "phonegap-forge",
+    "description": "PhoneGap Forge.",
+    "version": "0.0.2",
+    "main": "index.html",
+    "window": {
+        "show": false,
+        "position": "center",
+        "width": 500,
+        "height": 500,
+        "toolbar": true
+    },
+    "dependencies": {
+        "phonegap": "3.2.0-0.17.0"
+    }
+}

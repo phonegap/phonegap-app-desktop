@@ -2,15 +2,31 @@
     "name": "phonegap-forge",
     "description": "PhoneGap Forge.",
     "version": "0.0.2",
-    "main": "www/index.html",
-    "window": {
-      "show": false,
-      "position": "center",
-      "width": 500,
-      "height": 500,
-      "toolbar": true
+    "homepage": "http://github.com/hermwong/phonegap-forge",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/hermwong/phonegap-forge.git"
     },
-    "dependencies": {
-        "phonegap": "3.2.0-0.17.0"
-    }
+    "keywords": [
+        "phonegap"
+    ],
+    "preferGlobal": "false",
+    "scripts": {
+    },
+    "devDependencies": {
+        "grunt": "0.4.1",
+        "grunt-node-webkit-builder": "0.1.13",
+        "opener": "1.3.0"
+    },
+    "contributors": [
+        {
+            "name": "Herm Wong",
+            "email": "herm.wong@gmail.com"
+        },
+        {
+            "name": "Michael Brooks",
+            "email": "michael@michaelbrooks.ca",
+            "url": "http://michaelbrooks.ca/"
+        }
+    ]
 }
