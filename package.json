@@ -10,33 +10,7 @@
       "height": 500,
       "toolbar": true
     },
-    "homepage": "http://github.com/hermwong/phonegap-forge",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/hermwong/phonegap-forge.git"
-    },
-    "keywords": [
-        "phonegap"
-    ],
-    "preferGlobal": "false",
-    "scripts": {
-    },
     "dependencies": {
         "phonegap": "3.2.0-0.17.0"
-    },
-    "devDependencies": {
-        "grunt": "0.4.1",
-        "grunt-node-webkit-builder": "0.1.13"
-    },
-    "contributors": [
-        {
-            "name": "Herm Wong",
-            "email": "herm.wong@gmail.com"
-        },
-        {
-            "name": "Michael Brooks",
-            "email": "michael@michaelbrooks.ca",
-            "url": "http://michaelbrooks.ca/"
-        }
-    ]
+    }
 }

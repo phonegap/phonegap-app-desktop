@@ -2,7 +2,7 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
+    pkg: grunt.file.readJSON('build.json'),
     nodewebkit: {
         options: {
             build_dir: './build', // Destination for built apps.
