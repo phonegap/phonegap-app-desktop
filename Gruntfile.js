@@ -11,7 +11,7 @@ module.exports = function(grunt) {
             linux32: false,       // Linux 32-bit support.
             linux64: false        // Linux 64-bit support.
         },
-        src: ['./package.json', './www/**/*', './node_modules/**/*']
+        src: ['./package.json', './www/**/*', './node_modules/phonegap/**/*']
     }
   });
 
