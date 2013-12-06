@@ -6,7 +6,7 @@
     <script src="js/jquery-2.0.3.min.js"></script>   
     <script>
         var fs = require("fs");
-        var pg = require("phonegap");
+        global.pg = require("phonegap");
     
         global.jQuery = jQuery;
 
@@ -26,6 +26,9 @@
            
            global.jQuery("#createProject").click(function() {
                console.log("click handler");
+               var option = {};
+               option.path = global.projDir;
+               global.pg.create(option);
            });
            
            global.jQuery("#createProject").val("Create Project");
