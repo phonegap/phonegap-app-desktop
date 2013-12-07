@@ -23,7 +23,7 @@ module.exports = function(grunt) {
     var exec = require('child_process').exec,
         callback = this.async();
 
-    exec('npm install', { cwd: './www' }, function(e, stdout, stderr) {
+    exec('npm install --production', { cwd: './www' }, function(e, stdout, stderr) {
       console.log(stdout);
       callback();
     });
