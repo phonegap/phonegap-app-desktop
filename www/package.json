@@ -11,6 +11,6 @@
         "toolbar": true
     },
     "dependencies": {
-        "phonegap": "git+ssh://git@github.com/phonegap/phonegap-cli.git#6aefdc95"
+        "phonegap": "git+https://git@github.com/phonegap/phonegap-cli.git#6aefdc95"
     }
 }
