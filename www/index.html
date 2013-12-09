@@ -1,17 +1,52 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>PhoneGap Forge</title> 
-    <script src="js/index.js"></script>   
+    <title>PhoneGap</title> 
+     
+    <script src="js/jquery-2.0.3.min.js"></script>   
+    <script>
+        var fs = require("fs");
+        global.pg = require("phonegap");
+    
+        global.jQuery = jQuery;
+
+        global.jQuery(document).ready(function() {
+           console.log("ready"); 
+           global.projDir = ""; 
+           
+           global.jQuery("#projectDirectory").change(function() {
+               console.log("change handler");
+               console.log(global.jQuery("#projectDirectory").val());
+               global.projDir = global.jQuery("#projectDirectory").val();
+               
+               if (global.projDir != "") {
+                   global.jQuery("#createProject").prop("disabled", false);
+               }
+           });
+           
+           global.jQuery("#createProject").click(function() {
+               console.log("click handler");
+               var option = {};
+               option.path = global.projDir;
+               global.pg.create(option);
+           });
+           
+           global.jQuery("#createProject").val("Create Project");
+           global.jQuery("#createProject").prop("disabled", true);
+           
+        });
+        
+    </script> 
+    <script src="js/index.js"></script> 
+     
   </head>
   <body>
-      
-      <h1>PhoneGap Forge Prototyping</h1> 
-      
-      We are using node.js <script>document.write(process.version)</script> to prototype a PhoneGap Forge.<br>
 
-      <a href="menu.html">context menu example</a><br>
-      <a href="fileexplorer.html">file explorer example</a><br>
-  
+      <h1>PhoneGap Forge</h1> 
+
+      <input type="file" id="projectDirectory" nwdirectory><br> 
+       
+      <input type="button" id="createProject"><br>
+            
   </body>
 </html>     

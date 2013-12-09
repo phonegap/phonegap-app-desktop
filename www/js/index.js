@@ -1,2 +1,2 @@
-var indexPage = require('nw.gui');
-indexPage.Window.get().show();
+var fileExplorerPage = require('nw.gui');
+fileExplorerPage.Window.get().show();           
