@@ -13,7 +13,11 @@
 
         global.jQuery(document).ready(function() {
            console.log("ready"); 
-           global.projDir = ""; 
+           global.projDir = "";
+           
+           global.pg.on("log", function(status, url) { 
+               console.log(status, url); 
+           });
            
            global.jQuery("#projectDirectory").change(function() {
                console.log("change handler");
@@ -37,9 +41,18 @@
               console.log("serve project click handler");
               
               process.chdir(global.projDir);
-              global.pg.serve({ port: 1337 }, function(e, options) { if (e) { console.log('error:', e.message); } else { console.log('server started at address: ' + options.address + ':' + options.port); }});
+              
+              global.pg.serve({ port: 1337 }, function(e, options) { 
+                  if (e) { 
+                      console.log("error:", e.message); 
+                  } else { 
+                      console.log("server started at address: " + options.address + ":" + options.port); 
+                      
+                      global.pg.emit("log", "testing global.pg.on to see if it'll log to the console.");
+                  }
+              });         
            });
-           
+                      
            global.jQuery("#createProject").val("Create Project");
            global.jQuery("#createProject").prop("disabled", true);
            
