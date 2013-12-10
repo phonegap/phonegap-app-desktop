@@ -1,6 +1,6 @@
 {
-    "name": "phonegap-forge",
-    "description": "PhoneGap Forge.",
+    "name": "phonegap-gui",
+    "description": "PhoneGap GUI",
     "version": "0.0.2",
     "main": "index.html",
     "window": {

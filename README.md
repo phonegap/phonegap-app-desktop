@@ -1,4 +1,4 @@
-# PhoneGap Forge
+# PhoneGap GUI
 
 Initial prototype of creating a GUI for the PhoneGap CLI.
 

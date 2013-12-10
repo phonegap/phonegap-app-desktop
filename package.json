@@ -1,11 +1,11 @@
 {
-    "name": "phonegap-forge",
-    "description": "PhoneGap Forge.",
+    "name": "phonegap-gui",
+    "description": "PhoneGap Gui.",
     "version": "0.0.2",
-    "homepage": "http://github.com/hermwong/phonegap-forge",
+    "homepage": "http://github.com/hermwong/phonegap-gui",
     "repository": {
         "type": "git",
-        "url": "git://github.com/hermwong/phonegap-forge.git"
+        "url": "git://github.com/hermwong/phonegap-gui.git"
     },
     "keywords": [
         "phonegap"
