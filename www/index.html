@@ -47,8 +47,6 @@
                       console.log("error:", e.message); 
                   } else { 
                       console.log("server started at address: " + options.address + ":" + options.port); 
-                      
-                      global.pg.emit("log", "testing global.pg.on to see if it'll log to the console.");
                   }
               });         
            });
