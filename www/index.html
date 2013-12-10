@@ -6,6 +6,7 @@
     <script src="js/jquery-2.0.3.min.js"></script>   
     <script>
         var fs = require("fs");
+        var path = require("path");
         global.pg = require("phonegap");
     
         global.jQuery = jQuery;
@@ -21,6 +22,7 @@
                
                if (global.projDir != "") {
                    global.jQuery("#createProject").prop("disabled", false);
+                   global.jQuery("#serveProject").prop("disabled", false);
                }
            });
            
@@ -33,14 +35,16 @@
            
            global.jQuery("#serveProject").click(function() {
               console.log("serve project click handler");
-              var option = {};
-              global.pg.serve(option); 
+              
+              process.chdir(global.projDir);
+              global.pg.serve({ port: 1337 }, function(e, options) { if (e) { console.log('error:', e.message); } else { console.log('server started at address: ' + options.address + ':' + options.port); }});
            });
            
            global.jQuery("#createProject").val("Create Project");
            global.jQuery("#createProject").prop("disabled", true);
            
            global.jQuery("#serveProject").val("Serve Project");
+           global.jQuery("#serveProject").prop("disabled", true);
            
         });
         
