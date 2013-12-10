@@ -25,14 +25,22 @@
            });
            
            global.jQuery("#createProject").click(function() {
-               console.log("click handler");
+               console.log("create project click handler");
                var option = {};
                option.path = global.projDir;
                global.pg.create(option);
            });
            
+           global.jQuery("#serveProject").click(function() {
+              console.log("serve project click handler");
+              var option = {};
+              global.pg.serve(option); 
+           });
+           
            global.jQuery("#createProject").val("Create Project");
            global.jQuery("#createProject").prop("disabled", true);
+           
+           global.jQuery("#serveProject").val("Serve Project");
            
         });
         
@@ -47,6 +55,8 @@
       <input type="file" id="projectDirectory" nwdirectory><br> 
        
       <input type="button" id="createProject"><br>
+      
+      <input type="button" id="serveProject"><br>
             
   </body>
 </html>     
