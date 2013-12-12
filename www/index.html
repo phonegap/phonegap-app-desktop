@@ -26,6 +26,7 @@
                
                if (global.projDir != "") {
                    global.jQuery("#createProject").prop("disabled", false);
+                   global.jQuery("#openProject").prop("disabled", false);
                    global.jQuery("#serveProject").prop("disabled", false);
                }
            });
@@ -37,6 +38,22 @@
                global.pg.create(option);
            });
            
+           global.jQuery("#openProject").click(function() {
+               console.log("open project click handler");
+              
+               fs.exists(global.projDir + "/www", function(exists) {
+                   if (exists) {
+                       process.chdir(global.projDir);
+                       console.log("project opened at: " + global.projDir);
+                   } else {
+                       var errMsg = "an existing project doesn't exist in this folder";
+                       console.log(errMsg);
+                       alert(errMsg);
+                   }
+               });
+              
+           });
+           
            global.jQuery("#serveProject").click(function() {
               console.log("serve project click handler");
               
@@ -44,17 +61,21 @@
               
               global.pg.serve({ port: 1337 }, function(e, options) { 
                   if (e) { 
-                      console.log("error:", e.message); 
+                      console.log("error:", e.message);
+                      alert(e.message); 
                   } else { 
                       console.log("server started at address: " + options.address + ":" + options.port); 
                   }
               });         
            });
                       
-           global.jQuery("#createProject").val("Create Project");
+           global.jQuery("#createProject").val("create a new project");
            global.jQuery("#createProject").prop("disabled", true);
            
-           global.jQuery("#serveProject").val("Serve Project");
+           global.jQuery("#openProject").val("open a project");
+           global.jQuery("#openProject").prop("disabled", true);
+           
+           global.jQuery("#serveProject").val("serve a project");
            global.jQuery("#serveProject").prop("disabled", true);
            
         });
@@ -67,9 +88,11 @@
 
       <h1>PhoneGap GUI</h1> 
 
-      <input type="file" id="projectDirectory" nwdirectory><br> 
+      Set project directory <input type="file" id="projectDirectory" nwdirectory><br> 
        
       <input type="button" id="createProject"><br>
+
+      <input type="button" id="openProject"><br>
       
       <input type="button" id="serveProject"><br>
             
