@@ -13,7 +13,9 @@
 
         global.jQuery(document).ready(function() {
            console.log("ready"); 
-           global.projDir = "";
+           global.projDir = null;
+           global.username = null;
+           global.password = null;
            
            global.pg.on("log", function(status, url) { 
                console.log(status, url); 
@@ -73,9 +75,12 @@
            global.jQuery("#submit").click(function() {
               console.log("submit click handler");
  
+              var username = global.jQuery("#username").val();
+              var password = global.jQuery("#password").val();
+ 
               var options = {}; 
-              options.username = global.jQuery("#username").val();
-              options.password = global.jQuery("#password").val();
+              options.username = username;
+              options.password = password;
               
               global.pg.remote.login(options, function(e) {
                   if (e) {
@@ -83,6 +88,10 @@
                       alert(e.message);
                   } else {
                       console.log("successful login");
+        
+                      global.username = username;
+                      global.password = password;
+        
                       global.jQuery("#loginFormHolder").hide();
                       global.jQuery("#loggedInUser").text(global.username);
                       global.jQuery("#buildHolder").show();
@@ -97,6 +106,10 @@
                      console.log(e.message);
                      alert(e.message); 
                  } else {
+                     
+                     global.username = null;
+                     global.password = null;
+                     
                      global.jQuery("#buildHolder").hide();
                      global.jQuery("#loggedInUser").text("");
                      global.jQuery("#loginFormHolder").show();
