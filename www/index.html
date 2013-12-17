@@ -78,25 +78,30 @@
               var username = global.jQuery("#username").val();
               var password = global.jQuery("#password").val();
  
-              var options = {}; 
-              options.username = username;
-              options.password = password;
-              
-              global.pg.remote.login(options, function(e) {
-                  if (e) {
-                      console.log(e.message);
-                      alert(e.message);
-                  } else {
-                      console.log("successful login");
-        
-                      global.username = username;
-                      global.password = password;
-        
-                      global.jQuery("#loginFormHolder").hide();
-                      global.jQuery("#loggedInUser").text(global.username);
-                      global.jQuery("#buildHolder").show();
-                  }
-              });       
+              if (username && password) {
+ 
+                  var options = {}; 
+                  options.username = username;
+                  options.password = password;
+
+                  global.pg.remote.login(options, function(e) {
+                      if (e) {
+                          console.log(e.message);
+                          alert(e.message);
+                      } else {
+                          console.log("successful login");
+
+                          global.username = username;
+                          global.password = password;
+
+                          global.jQuery("#loginFormHolder").hide();
+                          global.jQuery("#loggedInUser").text(global.username);
+                          global.jQuery("#buildHolder").show();
+                      }
+                  });
+              } else {
+                  alert("username or password not entered");
+              }      
            });
            
            global.jQuery("#logout").click(function() {
@@ -119,6 +124,18 @@
            
            global.jQuery("#buildProject").click(function() {
               console.log("build project click handler");
+              // valid platforms can be found here: https://github.com/phonegap/phonegap-cli/blob/master/doc/cli/help.txt#L29-L35
+              var options = {};
+              options.platforms = ["ios"];
+              
+              process.chdir(global.projDir);
+              
+              global.pg.build(options, function(e) {
+                 if (e) {
+                     console.log(e.message);
+                     alert(e.message);
+                 }
+              });
                    
            });
                       
