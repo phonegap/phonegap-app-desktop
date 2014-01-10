@@ -7,7 +7,8 @@
     <script>
         var fs = require("fs");
         var path = require("path");
-        global.pg = require("phonegap");
+        global.pg = require("phonegap");  
+        global.soundwave = require("phonegap-soundwave");
     
         global.jQuery = jQuery;
 
@@ -17,9 +18,9 @@
            global.username = null;
            global.password = null;
            
-           global.pg.on("log", function(status, url) { 
+           global.soundwave.on("log", function(status, url) { 
                console.log(status, url); 
-           });
+           });           
            
            global.jQuery("#projectDirectory").change(function() {
                console.log("change handler");
@@ -61,8 +62,8 @@
               console.log("serve project click handler");
               
               process.chdir(global.projDir);
-              
-              global.pg.serve({ port: 1337 }, function(e, options) { 
+ 
+              global.soundwave.serve({ port: 1337 }, function(e, options) {     
                   if (e) { 
                       console.log("error:", e.message);
                       alert(e.message); 
