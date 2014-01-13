@@ -11,6 +11,7 @@
         "toolbar": true
     },
     "dependencies": {
-        "phonegap": "git+https://git@github.com/phonegap/phonegap-cli.git#6aefdc95"
+        "phonegap": "git+https://git@github.com/phonegap/phonegap-cli.git#6aefdc95",
+        "phonegap-soundwave": "git+https://github.com/phonegap/node-phonegap-soundwave.git"
     }
 }

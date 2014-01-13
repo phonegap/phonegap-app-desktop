@@ -7,17 +7,20 @@
     <script>
         var fs = require("fs");
         var path = require("path");
-        global.pg = require("phonegap");
+        global.pg = require("phonegap");  
+        global.soundwave = require("phonegap-soundwave");
     
         global.jQuery = jQuery;
 
         global.jQuery(document).ready(function() {
            console.log("ready"); 
-           global.projDir = "";
+           global.projDir = null;
+           global.username = null;
+           global.password = null;
            
-           global.pg.on("log", function(status, url) { 
+           global.soundwave.on("log", function(status, url) { 
                console.log(status, url); 
-           });
+           });           
            
            global.jQuery("#projectDirectory").change(function() {
                console.log("change handler");
@@ -28,6 +31,7 @@
                    global.jQuery("#createProject").prop("disabled", false);
                    global.jQuery("#openProject").prop("disabled", false);
                    global.jQuery("#serveProject").prop("disabled", false);
+                   global.jQuery("#buildProject").prop("disabled", false);
                }
            });
            
@@ -58,8 +62,8 @@
               console.log("serve project click handler");
               
               process.chdir(global.projDir);
-              
-              global.pg.serve({ port: 1337 }, function(e, options) { 
+ 
+              global.soundwave.serve({ port: 1337 }, function(e, options) {     
                   if (e) { 
                       console.log("error:", e.message);
                       alert(e.message); 
@@ -67,6 +71,73 @@
                       console.log("server started at address: " + options.address + ":" + options.port); 
                   }
               });         
+           });
+                    
+           global.jQuery("#submit").click(function() {
+              console.log("submit click handler");
+ 
+              var username = global.jQuery("#username").val();
+              var password = global.jQuery("#password").val();
+ 
+              if (username && password) {
+ 
+                  var options = {}; 
+                  options.username = username;
+                  options.password = password;
+
+                  global.pg.remote.login(options, function(e) {
+                      if (e) {
+                          console.log(e.message);
+                          alert(e.message);
+                      } else {
+                          console.log("successful login");
+
+                          global.username = username;
+                          global.password = password;
+
+                          global.jQuery("#loginFormHolder").hide();
+                          global.jQuery("#loggedInUser").text(global.username);
+                          global.jQuery("#buildHolder").show();
+                      }
+                  });
+              } else {
+                  alert("username or password not entered");
+              }      
+           });
+           
+           global.jQuery("#logout").click(function() {
+              console.log("logout click handler");
+              global.pg.remote.logout({}, function(e) {
+                 if (e) {
+                     console.log(e.message);
+                     alert(e.message); 
+                 } else {
+                     
+                     global.username = null;
+                     global.password = null;
+                     
+                     global.jQuery("#buildHolder").hide();
+                     global.jQuery("#loggedInUser").text("");
+                     global.jQuery("#loginFormHolder").show();
+                 }
+              }); 
+           });
+           
+           global.jQuery("#buildProject").click(function() {
+              console.log("build project click handler");
+              // valid platforms can be found here: https://github.com/phonegap/phonegap-cli/blob/master/doc/cli/help.txt#L29-L35
+              var options = {};
+              options.platforms = ["ios"];
+              
+              process.chdir(global.projDir);
+              
+              global.pg.build(options, function(e) {
+                 if (e) {
+                     console.log(e.message);
+                     alert(e.message);
+                 }
+              });
+                   
            });
                       
            global.jQuery("#createProject").val("create a new project");
@@ -77,6 +148,14 @@
            
            global.jQuery("#serveProject").val("serve a project");
            global.jQuery("#serveProject").prop("disabled", true);
+           
+           global.jQuery("#buildProject").val("build a project");
+           global.jQuery("#buildProject").prop("disabled", true);
+           
+           global.jQuery("#submit").val("login");
+           global.jQuery("#logout").val("log out");
+           
+           global.jQuery("#buildHolder").hide();
            
         });
         
@@ -95,6 +174,20 @@
       <input type="button" id="openProject"><br>
       
       <input type="button" id="serveProject"><br>
+      
+      <div id="loginFormHolder">
+          <form id="loginForm">
+              PhoneGap Build Login<br>
+              username:<input type="text" id="username"><br>
+              password:<input type="password" id="password"><br>
+              <input type="button" id="submit">
+          </form>
+      </div>
+      
+      <div id="buildHolder">
+          <input type="button" id="logout"><br>
+          <input type="button" id="buildProject"><br>
+      </div>
             
   </body>
 </html>     
