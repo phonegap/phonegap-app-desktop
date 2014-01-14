@@ -4,6 +4,7 @@
     <title>PhoneGap</title> 
      
     <script src="js/jquery-2.0.3.min.js"></script>   
+    <script src="js/presentation.js"></script>
     <script>
         var fs = require("fs");
         var path = require("path");
@@ -11,7 +12,7 @@
         global.soundwave = require("phonegap-soundwave");
     
         global.jQuery = jQuery;
-
+        
         global.jQuery(document).ready(function() {
            console.log("ready"); 
            global.projDir = null;
@@ -26,13 +27,9 @@
                console.log("change handler");
                console.log(global.jQuery("#projectDirectory").val());
                global.projDir = global.jQuery("#projectDirectory").val();
+               localStorage.projDir = global.projDir;
                
-               if (global.projDir != "") {
-                   global.jQuery("#createProject").prop("disabled", false);
-                   global.jQuery("#openProject").prop("disabled", false);
-                   global.jQuery("#serveProject").prop("disabled", false);
-                   global.jQuery("#buildProject").prop("disabled", false);
-               }
+               enableFormButtons();
            });
            
            global.jQuery("#createProject").click(function() {
@@ -139,23 +136,15 @@
               });
                    
            });
-                      
-           global.jQuery("#createProject").val("create a new project");
-           global.jQuery("#createProject").prop("disabled", true);
+                               
+           initGUI();
            
-           global.jQuery("#openProject").val("open a project");
-           global.jQuery("#openProject").prop("disabled", true);
-           
-           global.jQuery("#serveProject").val("serve a project");
-           global.jQuery("#serveProject").prop("disabled", true);
-           
-           global.jQuery("#buildProject").val("build a project");
-           global.jQuery("#buildProject").prop("disabled", true);
-           
-           global.jQuery("#submit").val("login");
-           global.jQuery("#logout").val("log out");
-           
-           global.jQuery("#buildHolder").hide();
+           if (localStorage.projDir != "") {
+               global.projDir = localStorage.projDir;
+               console.log("localStorage.projDir: " + localStorage.projDir);
+
+               enableFormButtons();
+           }
            
         });
         
