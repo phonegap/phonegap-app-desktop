@@ -18,6 +18,7 @@
            global.projDir = null;
            global.username = null;
            global.password = null;
+           global.server = null;
            
            global.soundwave.on("log", function(status, url) { 
                console.log(status, url); 
@@ -66,8 +67,17 @@
                       alert(e.message); 
                   } else { 
                       console.log("server started at address: " + options.address + ":" + options.port); 
+                      global.server = options.server;
+                      
+                      global.jQuery("#stopServer").prop("disabled", false);
                   }
               });         
+           });
+           
+           global.jQuery("#stopServer").click(function() {
+              console.log("stop server click handler");             
+              global.server.close();
+              global.jQuery("#stopServer").prop("disabled", true);           
            });
                     
            global.jQuery("#submit").click(function() {
@@ -163,6 +173,8 @@
       <input type="button" id="openProject"><br>
       
       <input type="button" id="serveProject"><br>
+      
+      <input type="button" id="stopServer"><br>
       
       <div id="loginFormHolder">
           <form id="loginForm">
