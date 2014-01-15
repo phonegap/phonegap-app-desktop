@@ -31,6 +31,7 @@
                localStorage.projDir = global.projDir;
                
                enableFormButtons();
+               global.jQuery("#currentProjectDir").text("Current project directory: " + global.projDir);
            });
            
            global.jQuery("#createProject").click(function() {
@@ -41,19 +42,18 @@
            });
            
            global.jQuery("#openProject").click(function() {
-               console.log("open project click handler");
+              console.log("open project click handler");
               
-               fs.exists(global.projDir + "/www", function(exists) {
-                   if (exists) {
-                       process.chdir(global.projDir);
-                       console.log("project opened at: " + global.projDir);
-                   } else {
-                       var errMsg = "an existing project doesn't exist in this folder";
-                       console.log(errMsg);
-                       alert(errMsg);
-                   }
-               });
-              
+              fs.exists(global.projDir + "/www", function(exists) {
+                  if (exists) {
+                      process.chdir(global.projDir);
+                      console.log("project opened at: " + global.projDir);
+                  } else {
+                      var errMsg = "an existing project doesn't exist in this folder";
+                      console.log(errMsg);
+                      alert(errMsg);
+                  }
+              });
            });
            
            global.jQuery("#serveProject").click(function() {
@@ -103,7 +103,7 @@
                           global.password = password;
 
                           global.jQuery("#loginFormHolder").hide();
-                          global.jQuery("#loggedInUser").text(global.username);
+                          global.jQuery("#loggedInUser").text("Logged in as: " + global.username);
                           global.jQuery("#buildHolder").show();
                       }
                   });
@@ -143,17 +143,16 @@
                      console.log(e.message);
                      alert(e.message);
                  }
-              });
-                   
+              });               
            });
                                
            initGUI();
            
-           if (localStorage.projDir != "") {
-               global.projDir = localStorage.projDir;
+           if (localStorage.projDir != "") {             
+               global.projDir = localStorage.projDir;            
                console.log("localStorage.projDir: " + localStorage.projDir);
-
                enableFormButtons();
+               global.jQuery("#currentProjectDir").text("Current project directory: " + global.projDir);
            }
            
         });
@@ -165,6 +164,8 @@
   <body>
 
       <h1>PhoneGap GUI</h1> 
+
+      <div id="currentProjectDir"></div><br>
 
       Set project directory <input type="file" id="projectDirectory" nwdirectory><br> 
        
@@ -186,9 +187,13 @@
       </div>
       
       <div id="buildHolder">
+          <div id="loggedInUser"></div><br>
           <input type="button" id="logout"><br>
           <input type="button" id="buildProject"><br>
       </div>
+      
+      
+      
             
   </body>
 </html>     
