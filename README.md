@@ -13,6 +13,8 @@ Initial prototype of creating a GUI for the PhoneGap CLI.
     $ npm install
     $ grunt
 
+__note:__ the first build requires a second call to `grunt`.
+
 ### Run App
 
     $ grunt open
