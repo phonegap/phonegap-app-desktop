@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>PhoneGap</title> 
-     
+    <link rel="stylesheet" type="text/css" href="css/topcoat-mobile-light.min.css"> 
     <script src="js/jquery-2.0.3.min.js"></script>   
     <script src="js/presentation.js"></script>
     <script>
@@ -159,7 +159,10 @@
         
     </script> 
     <script src="js/index.js"></script> 
-     
+
+    <style>
+        body { margin: 10px;}
+    </style>     
   </head>
   <body>
 
@@ -168,15 +171,22 @@
       <div id="currentProjectDir"></div><br>
 
       Set project directory <input type="file" id="projectDirectory" nwdirectory><br> 
-       
-      <input type="button" id="createProject"><br>
+      
+      <div class="topcoat-button-bar">
+          <div class="topcoat-button-bar__item">
+              <button id="createProject" class="topcoat-button-bar__button"></button>
+          </div>
+          <div class="topcoat-button-bar__item">
+              <button id="openProject" class="topcoat-button-bar__button"></button>  
+          </div>
+          <div class="topcoat-button-bar__item">
+              <button id="serveProject" class="topcoat-button-bar__button"></button> 
+          </div>
+          <div class="topcoat-button-bar__item">
+              <button id="stopServer" class="topcoat-button-bar__button"></button> 
+          </div>
+      </div> 
 
-      <input type="button" id="openProject"><br>
-      
-      <input type="button" id="serveProject"><br>
-      
-      <input type="button" id="stopServer"><br>
-      
       <div id="loginFormHolder">
           <form id="loginForm">
               PhoneGap Build Login<br>
@@ -191,9 +201,6 @@
           <input type="button" id="logout"><br>
           <input type="button" id="buildProject"><br>
       </div>
-      
-      
-      
-            
+          
   </body>
 </html>     

@@ -16,10 +16,11 @@ function disableFormButtons() {
 }
 
 function setButtonLabels() {
-    global.jQuery("#createProject").val("create a new project");
-    global.jQuery("#openProject").val("open a project");    
-    global.jQuery("#serveProject").val("serve a project"); 
-    global.jQuery("#stopServer").val("stop server");   
+    global.jQuery("#createProject").html("create a new project");
+    global.jQuery("#openProject").html("open a project");    
+    global.jQuery("#serveProject").html("serve a project"); 
+    global.jQuery("#stopServer").html("stop server"); 
+      
     global.jQuery("#buildProject").val("build a project");   
     global.jQuery("#submit").val("login");
     global.jQuery("#logout").val("log out");
@@ -29,4 +30,7 @@ function initGUI() {
     setButtonLabels();
     disableFormButtons();
     global.jQuery("#buildHolder").hide();
+    
+    // hide AdobeID login - since PGB integration doesn't work yet
+    global.jQuery("#loginFormHolder").hide();
 }
