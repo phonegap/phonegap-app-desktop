@@ -7,8 +7,7 @@
     <script src="js/presentation.js"></script>
     <script>
         var fs = require("fs");
-        var path = require("path");
-        global.pg = require("phonegap");  
+        var path = require("path"); 
         global.soundwave = require("phonegap-soundwave");
     
         global.jQuery = jQuery;
@@ -38,7 +37,12 @@
                console.log("create project click handler");
                var option = {};
                option.path = global.projDir;
-               global.pg.create(option);
+               
+               // TODO: add soundwave.create api call when it has been implemented
+               // global.soundwave.create(options);
+               console.log("add soundwave.create api call when it has been implemented");
+               alert("not implemented yet");
+               
            });
            
            global.jQuery("#openProject").click(function() {
