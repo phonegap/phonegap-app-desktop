@@ -43,35 +43,33 @@
            
            global.jQuery("#openProject").click(function() {
               console.log("open project click handler");
-              
+              global.jQuery("#projectDirectory").trigger("click");
+           });
+           
+           global.jQuery("#serveProject").click(function() {
+              console.log("serve project click handler");             
               fs.exists(global.projDir + "/www", function(exists) {
                   if (exists) {
                       process.chdir(global.projDir);
-                      console.log("project opened at: " + global.projDir);
+                      console.log("project opened at: " + global.projDir);                     
+                      global.soundwave.serve({ port: 1337 }, function(e, options) {     
+                          if (e) { 
+                              console.log("error:", e.message);
+                              alert(e.message); 
+                          } else { 
+                              console.log("server started at address: " + options.address + ":" + options.port); 
+                              global.server = options.server;
+
+                              global.jQuery("#stopServer").prop("disabled", false);
+                          }
+                      });
                   } else {
                       var errMsg = "an existing project doesn't exist in this folder";
                       console.log(errMsg);
                       alert(errMsg);
                   }
               });
-           });
-           
-           global.jQuery("#serveProject").click(function() {
-              console.log("serve project click handler");
-              
-              process.chdir(global.projDir);
- 
-              global.soundwave.serve({ port: 1337 }, function(e, options) {     
-                  if (e) { 
-                      console.log("error:", e.message);
-                      alert(e.message); 
-                  } else { 
-                      console.log("server started at address: " + options.address + ":" + options.port); 
-                      global.server = options.server;
-                      
-                      global.jQuery("#stopServer").prop("disabled", false);
-                  }
-              });         
+         
            });
            
            global.jQuery("#stopServer").click(function() {
@@ -170,7 +168,7 @@
 
       <div id="currentProjectDir"></div><br>
 
-      Set project directory <input type="file" id="projectDirectory" nwdirectory><br> 
+      <div id="projectDirectoryHolder"><input type="file" id="projectDirectory" nwdirectory></div>
       
       <div class="topcoat-button-bar">
           <div class="topcoat-button-bar__item">

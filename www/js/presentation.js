@@ -29,6 +29,8 @@ function setButtonLabels() {
 function initGUI() {
     setButtonLabels();
     disableFormButtons();
+    
+    global.jQuery("#projectDirectoryHolder").hide();
     global.jQuery("#buildHolder").hide();
     
     // hide AdobeID login - since PGB integration doesn't work yet
