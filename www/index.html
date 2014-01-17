@@ -51,38 +51,6 @@
               global.jQuery("#projectDirectory").trigger("click");
            });
            
-           global.jQuery("#serveProject").click(function() {
-              console.log("serve project click handler");             
-              fs.exists(global.projDir + "/www", function(exists) {
-                  if (exists) {
-                      process.chdir(global.projDir);
-                      console.log("project opened at: " + global.projDir);                     
-                      global.soundwave.serve({ port: 1337 }, function(e, options) {     
-                          if (e) { 
-                              console.log("error:", e.message);
-                              alertOverlay(e.message); 
-                          } else { 
-                              console.log("server started at address: " + options.address + ":" + options.port); 
-                              global.server = options.server;
-
-                              global.jQuery("#stopServer").prop("disabled", false);
-                          }
-                      });
-                  } else {
-                      var errMsg = "an existing project doesn't exist in this folder";
-                      console.log(errMsg);
-                      alertOverlay(errMsg);
-                  }
-              });
-         
-           });
-           
-           global.jQuery("#stopServer").click(function() {
-              console.log("stop server click handler");             
-              global.server.close();
-              global.jQuery("#stopServer").prop("disabled", true);           
-           });
-           
            global.jQuery("#alertOk").click(function() {
               hideOverlays();
            });
@@ -122,6 +90,38 @@
               console.log("settings click handler");
               settingsOverlay(); 
            });
+           
+           global.jQuery("#isServerStarted").click(function() {
+              if (global.jQuery("#isServerStarted").is(":checked")) {
+                  console.log("server started");
+                  
+                  fs.exists(global.projDir + "/www", function(exists) {
+                      if (exists) {
+                          process.chdir(global.projDir);
+                          console.log("project opened at: " + global.projDir);                     
+                          global.soundwave.serve({ port: 1337 }, function(e, options) {     
+                              if (e) { 
+                                  console.log("error:", e.message);
+                                  alertOverlay(e.message); 
+                              } else { 
+                                  console.log("server started at address: " + options.address + ":" + options.port); 
+                                  global.server = options.server;
+                              }
+                          });
+                      } else {
+                          var errMsg = "an existing project doesn't exist in this folder";
+                          console.log(errMsg);
+                          alertOverlay(errMsg);
+                          
+                          global.jQuery("#isServerStarted").prop("checked", false);
+                      }
+                  });
+                  
+              } else {
+                  console.log("server stopped");
+                  global.server.close();
+              }
+           });
                                                              
            initGUI();
            
@@ -135,18 +135,19 @@
         });
         
     </script> 
-    <script src="js/index.js"></script>  
+    <script src="js/index.js"></script> 
+    <style>
+        #settingsMessage { height: 18px }
+    </style> 
   </head>
   <body>
-
       <div id="overlay-bg" class="topcoat-overlay-bg"></div>
       <aside id="alertOverlay" class="topcoat-overlay">
           <div id="alertContent"></div>
           <div class="topcoat-overlay-buttons">
                   <button id="alertOk" class="topcoat-button"></button>
           </div>
-      </aside>
-      
+      </aside>      
       <aside id="settingsOverlay" class="topcoat-overlay">
           <h3>Settings</h3> 
           <div id="settingsContent">
@@ -155,8 +156,8 @@
               server port: <input type="text" id="portNumber" class="topcoat-text-input">
           </div>
           <div class="topcoat-overlay-buttons">
-                  <button id="settingsCancel" class="topcoat-button"></button>
-                  <button id="settingsSave" class="topcoat-button--cta"></button>
+              <button id="settingsCancel" class="topcoat-button"></button>
+              <button id="settingsSave" class="topcoat-button--cta"></button>
           </div>
       </aside>
       
@@ -174,15 +175,16 @@
               <button id="openProject" class="topcoat-button-bar__button"></button>  
           </div>
           <div class="topcoat-button-bar__item">
-              <button id="serveProject" class="topcoat-button-bar__button"></button> 
-          </div>
-          <div class="topcoat-button-bar__item">
-              <button id="stopServer" class="topcoat-button-bar__button"></button> 
-          </div>
+              server
+              <label class="topcoat-switch">
+                  <input type="checkbox" id="isServerStarted" class="topcoat-switch__input">
+                  <div class="topcoat-switch__toggle"></div>
+              </label>
+          </div>          
           <div class="topcoat-button-bar__item">
               <button id="settings" class="topcoat-button-bar__button"></button> 
           </div>
-      </div> 
-          
+      </div>
+                
   </body>
 </html>     
