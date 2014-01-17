@@ -3,6 +3,7 @@
   <head>
     <title>PhoneGap</title> 
     <link rel="stylesheet" type="text/css" href="css/topcoat-mobile-light.min.css"> 
+    <link rel="stylesheet" type="text/css" href="css/topcoat-overlay.min.css"> 
     <script src="js/jquery-2.0.3.min.js"></script>   
     <script src="js/presentation.js"></script>
     <script>
@@ -40,8 +41,8 @@
                
                // TODO: add soundwave.create api call when it has been implemented
                // global.soundwave.create(options);
-               console.log("add soundwave.create api call when it has been implemented");
-               alert("not implemented yet");
+               console.log("add soundwave.create api call when it has been implemented");              
+               alertOverlay("create functionality not implemented");
                
            });
            
@@ -59,7 +60,7 @@
                       global.soundwave.serve({ port: 1337 }, function(e, options) {     
                           if (e) { 
                               console.log("error:", e.message);
-                              alert(e.message); 
+                              alertOverlay(e.message); 
                           } else { 
                               console.log("server started at address: " + options.address + ":" + options.port); 
                               global.server = options.server;
@@ -70,7 +71,7 @@
                   } else {
                       var errMsg = "an existing project doesn't exist in this folder";
                       console.log(errMsg);
-                      alert(errMsg);
+                      alertOverlay(errMsg);
                   }
               });
          
@@ -81,7 +82,28 @@
               global.server.close();
               global.jQuery("#stopServer").prop("disabled", true);           
            });
-                                                   
+           
+           global.jQuery("#alertOk").click(function() {
+              hideOverlays();
+           });
+           
+           global.jQuery("#settingsCancel").click(function() {
+              console.log("settings cancel click handler");
+              hideOverlays();
+              // TODO: reset the settings to last saved settings in the localStorage
+           });
+           
+           global.jQuery("#settingsSave").click(function() {
+              console.log("settings save click handler");
+              hideOverlays();
+              // TODO: save the new settings to localStorage
+           });
+           
+           global.jQuery("#settings").click(function() {
+              console.log("settings click handler");
+              settingsOverlay(); 
+           });
+                                                             
            initGUI();
            
            if (localStorage.projDir != "") {             
@@ -94,16 +116,32 @@
         });
         
     </script> 
-    <script src="js/index.js"></script> 
-
-    <style>
-        body { margin: 10px;}
-    </style>     
+    <script src="js/index.js"></script>  
   </head>
   <body>
 
       <h1>PhoneGap GUI</h1> 
 
+      <div id="overlay-bg" class="topcoat-overlay-bg"></div>
+      <aside id="alertOverlay" class="topcoat-overlay">
+          <div id="alertContent"></div>
+          <div class="topcoat-overlay-buttons">
+                  <button id="alertOk" class="topcoat-button"></button>
+          </div>
+      </aside>
+      
+      <aside id="settingsOverlay" class="topcoat-overlay">
+          <h3>Settings</h3> 
+          <div id="settingsContent">
+              server ip address: <input type="text" id="ipAddress" class="topcoat-text-input"><br>
+              server port: <input type="text" id="portNumber" class="topcoat-text-input">
+          </div>
+          <div class="topcoat-overlay-buttons">
+                  <button id="settingsCancel" class="topcoat-button"></button>
+                  <button id="settingsSave" class="topcoat-button--cta"></button>
+          </div>
+      </aside>
+      
       <div id="currentProjectDir"></div><br>
 
       <div id="projectDirectoryHolder"><input type="file" id="projectDirectory" nwdirectory></div>
@@ -120,6 +158,9 @@
           </div>
           <div class="topcoat-button-bar__item">
               <button id="stopServer" class="topcoat-button-bar__button"></button> 
+          </div>
+          <div class="topcoat-button-bar__item">
+              <button id="settings" class="topcoat-button-bar__button"></button> 
           </div>
       </div> 
           

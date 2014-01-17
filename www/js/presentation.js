@@ -18,10 +18,40 @@ function setButtonLabels() {
     global.jQuery("#openProject").html("open a project");    
     global.jQuery("#serveProject").html("serve a project"); 
     global.jQuery("#stopServer").html("stop server"); 
+    global.jQuery("#settings").html("settings");
 }
 
 function initGUI() {
     setButtonLabels();
     disableFormButtons();    
     global.jQuery("#projectDirectoryHolder").hide();
+    hideOverlays();
+}
+
+function hideOverlays() {
+    global.jQuery("#overlay-bg").hide();
+    initAlertOverlay();
+    initSettingsOverlay();
+}
+
+function initAlertOverlay() {
+    global.jQuery("#alertOk").html("ok");
+    global.jQuery("#alertOverlay").hide();
+}
+
+function alertOverlay(message) {
+    global.jQuery("#alertContent").text(message);
+    global.jQuery("#alertOverlay").show();
+    global.jQuery("#overlay-bg").show();
+}
+
+function initSettingsOverlay() {
+    global.jQuery("#settingsCancel").html("cancel");
+    global.jQuery("#settingsSave").html("save");
+    global.jQuery("#settingsOverlay").hide();
+}
+
+function settingsOverlay() {
+    global.jQuery("#settingsOverlay").show();
+    global.jQuery("#overlay-bg").show();
 }
