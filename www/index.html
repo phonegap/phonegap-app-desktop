@@ -95,8 +95,27 @@
            
            global.jQuery("#settingsSave").click(function() {
               console.log("settings save click handler");
-              hideOverlays();
+              
+              var ip = "";
+              var port = "";
+                                      
+              ip = global.jQuery("#ipAddress").val();
+              port = global.jQuery("#portNumber").val();
+              
+              console.log("ip address entered: " + ip);
+              console.log("port number entered: " + port);
+                          
+              if (validateIPaddress(ip)) {
+                  console.log("valid ip");
+                  hideOverlays();
+                  global.jQuery("#settingsMessage").text("");
+              } else {
+                  console.log("invalid ip");
+                  global.jQuery("#settingsMessage").text("invalid ip address entered");
+              }
+              
               // TODO: save the new settings to localStorage
+              
            });
            
            global.jQuery("#settings").click(function() {
@@ -120,8 +139,6 @@
   </head>
   <body>
 
-      <h1>PhoneGap GUI</h1> 
-
       <div id="overlay-bg" class="topcoat-overlay-bg"></div>
       <aside id="alertOverlay" class="topcoat-overlay">
           <div id="alertContent"></div>
@@ -133,6 +150,7 @@
       <aside id="settingsOverlay" class="topcoat-overlay">
           <h3>Settings</h3> 
           <div id="settingsContent">
+              <div id="settingsMessage"></div>
               server ip address: <input type="text" id="ipAddress" class="topcoat-text-input"><br>
               server port: <input type="text" id="portNumber" class="topcoat-text-input">
           </div>
@@ -141,6 +159,8 @@
                   <button id="settingsSave" class="topcoat-button--cta"></button>
           </div>
       </aside>
+      
+      <h1>PhoneGap GUI</h1>
       
       <div id="currentProjectDir"></div><br>
 

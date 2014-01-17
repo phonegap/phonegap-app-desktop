@@ -55,3 +55,12 @@ function settingsOverlay() {
     global.jQuery("#settingsOverlay").show();
     global.jQuery("#overlay-bg").show();
 }
+
+function validateIPaddress(ipaddress) {  
+    var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;   
+    if(ipaddress.match(ipformat)) {
+        return true;
+    } else {
+        return false;
+    }     
+}  
