@@ -61,7 +61,7 @@ function initSessionData() {
     }
 	
 	if (localStorage.portNumber == undefined) {
-		localStorage.portNumber = "1337";
+		localStorage.portNumber = "3000";
 		global.jQuery("#portNumber").val(localStorage.portNumber);
 	}
 
