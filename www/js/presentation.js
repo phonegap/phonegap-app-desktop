@@ -1,14 +1,12 @@
 function enableFormButtons() {
     if (localStorage.projDir != undefined) {
         global.jQuery("#createProject").prop("disabled", false);
-        //global.jQuery("#openProject").prop("disabled", false);
         global.jQuery("#isServerStarted").prop("disabled", false);
     }    
 }
 
 function disableFormButtons() {
     global.jQuery("#createProject").prop("disabled", true);
-    //global.jQuery("#openProject").prop("disabled", true); 
     global.jQuery("#isServerStarted").prop("disabled", true);  
 }
 
@@ -47,7 +45,6 @@ function initSettingsOverlay() {
     global.jQuery("#settingsSave").html("save");
     global.jQuery("#settingsOverlay").hide();
 
-	global.jQuery("#ipAddress").val(localStorage.ipAddress);
 	global.jQuery("#portNumber").val(localStorage.portNumber);
 }
 
@@ -56,26 +53,12 @@ function settingsOverlay() {
     global.jQuery("#overlay-bg").show();
 }
 
-function validateIPaddress(ipaddress) {  
-    var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;   
-    if(ipaddress.match(ipformat)) {
-        return true;
-    } else {
-        return false;
-    }     
-}  
-
 function initSessionData() {
 	if (localStorage.projDir != undefined) {                      
         console.log("localStorage.projDir: " + localStorage.projDir);
         enableFormButtons();
         global.jQuery("#currentProjectDir").text("Current project directory: " + localStorage.projDir);
     }
-
-	if (localStorage.ipAddress == undefined) {
-		localStorage.ipAddress = "127.0.0.1";
-		global.jQuery("#ipAddress").val(localStorage.ipAddress);
-	}
 	
 	if (localStorage.portNumber == undefined) {
 		localStorage.portNumber = "1337";
