@@ -54,7 +54,7 @@
            global.jQuery("#settingsCancel").click(function() {
               console.log("settings cancel click handler");
               hideOverlays();
-              // TODO: reset the settings to last saved settings in the localStorage
+              global.jQuery("#portNumber").val(localStorage.portNumber);
            });
            
            global.jQuery("#settingsSave").click(function() {
