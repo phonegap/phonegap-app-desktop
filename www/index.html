@@ -15,9 +15,6 @@
         
         global.jQuery(document).ready(function() {
            console.log("ready"); 
-           global.projDir = null;
-           global.username = null;
-           global.password = null;
            global.server = null;
            
            global.soundwave.on("log", function(status, url) { 
@@ -27,17 +24,16 @@
            global.jQuery("#projectDirectory").change(function() {
                console.log("change handler");
                console.log(global.jQuery("#projectDirectory").val());
-               global.projDir = global.jQuery("#projectDirectory").val();
-               localStorage.projDir = global.projDir;
+               localStorage.projDir = global.jQuery("#projectDirectory").val();
                
                enableFormButtons();
-               global.jQuery("#currentProjectDir").text("Current project directory: " + global.projDir);
+               global.jQuery("#currentProjectDir").text("Current project directory: " + localStorage.projDir);
            });
            
            global.jQuery("#createProject").click(function() {
                console.log("create project click handler");
                var option = {};
-               option.path = global.projDir;
+               option.path = localStorage.projDir;
                
                // TODO: add soundwave.create api call when it has been implemented
                // global.soundwave.create(options);
@@ -77,12 +73,14 @@
                   console.log("valid ip");
                   hideOverlays();
                   global.jQuery("#settingsMessage").text("");
+                  localStorage.ipAddress = ip;
               } else {
                   console.log("invalid ip");
                   global.jQuery("#settingsMessage").text("invalid ip address entered");
               }
               
               // TODO: save the new settings to localStorage
+              localStorage.portNumber = port;
               
            });
            
@@ -95,11 +93,11 @@
               if (global.jQuery("#isServerStarted").is(":checked")) {
                   console.log("server started");
                   
-                  fs.exists(global.projDir + "/www", function(exists) {
+                  fs.exists(localStorage.projDir + "/www", function(exists) {
                       if (exists) {
-                          process.chdir(global.projDir);
-                          console.log("project opened at: " + global.projDir);                     
-                          global.soundwave.serve({ port: 1337 }, function(e, options) {     
+                          process.chdir(localStorage.projDir);
+                          console.log("project opened at: " + localStorage.projDir);                     
+                          global.soundwave.serve({ port: localStorage.portNumber }, function(e, options) {     
                               if (e) { 
                                   console.log("error:", e.message);
                                   alertOverlay(e.message); 
@@ -125,12 +123,7 @@
                                                              
            initGUI();
            
-           if (localStorage.projDir != "") {             
-               global.projDir = localStorage.projDir;            
-               console.log("localStorage.projDir: " + localStorage.projDir);
-               enableFormButtons();
-               global.jQuery("#currentProjectDir").text("Current project directory: " + global.projDir);
-           }
+           initSessionData();
            
         });
         

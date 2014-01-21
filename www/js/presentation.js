@@ -1,14 +1,14 @@
 function enableFormButtons() {
-    if (global.projDir != "") {
+    if (localStorage.projDir != undefined) {
         global.jQuery("#createProject").prop("disabled", false);
-        global.jQuery("#openProject").prop("disabled", false);
+        //global.jQuery("#openProject").prop("disabled", false);
         global.jQuery("#isServerStarted").prop("disabled", false);
     }    
 }
 
 function disableFormButtons() {
     global.jQuery("#createProject").prop("disabled", true);
-    global.jQuery("#openProject").prop("disabled", true); 
+    //global.jQuery("#openProject").prop("disabled", true); 
     global.jQuery("#isServerStarted").prop("disabled", true);  
 }
 
@@ -46,6 +46,9 @@ function initSettingsOverlay() {
     global.jQuery("#settingsCancel").html("cancel");
     global.jQuery("#settingsSave").html("save");
     global.jQuery("#settingsOverlay").hide();
+
+	global.jQuery("#ipAddress").val(localStorage.ipAddress);
+	global.jQuery("#portNumber").val(localStorage.portNumber);
 }
 
 function settingsOverlay() {
@@ -61,3 +64,22 @@ function validateIPaddress(ipaddress) {
         return false;
     }     
 }  
+
+function initSessionData() {
+	if (localStorage.projDir != undefined) {                      
+        console.log("localStorage.projDir: " + localStorage.projDir);
+        enableFormButtons();
+        global.jQuery("#currentProjectDir").text("Current project directory: " + localStorage.projDir);
+    }
+
+	if (localStorage.ipAddress == undefined) {
+		localStorage.ipAddress = "127.0.0.1";
+		global.jQuery("#ipAddress").val(localStorage.ipAddress);
+	}
+	
+	if (localStorage.portNumber == undefined) {
+		localStorage.portNumber = "1337";
+		global.jQuery("#portNumber").val(localStorage.portNumber);
+	}
+
+}
