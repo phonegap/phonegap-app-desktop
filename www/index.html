@@ -92,6 +92,7 @@
                               } else { 
                                   console.log("server started at address: " + options.address + ":" + options.port); 
                                   global.server = options.server;
+                                  global.jQuery("#serverStatus").text("server info: http://" + options.address + ":" + options.port);
                               }
                           });
                       } else {
@@ -144,6 +145,7 @@
       <h1>PhoneGap GUI</h1>
       
       <div id="currentProjectDir"></div><br>
+      <div id="serverStatus"></div><br>
 
       <div id="projectDirectoryHolder"><input type="file" id="projectDirectory" nwdirectory></div>
       

@@ -20,6 +20,7 @@ function initGUI() {
     setButtonLabels();
     disableFormButtons();    
     global.jQuery("#projectDirectoryHolder").hide();
+	global.jQuery("#serverStatus").text("server info: ");
     hideOverlays();
 }
 
