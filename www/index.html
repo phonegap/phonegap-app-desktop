@@ -19,7 +19,8 @@
            global.server = null;
            
            global.soundwave.on("log", function(status, url) { 
-               console.log(status, url); 
+              console.log(status, url);
+              global.jQuery("#serverLog").append(status + " " + url + "\n"); 
            });           
            
            global.jQuery("#projectDirectory").change(function() {
@@ -178,7 +179,10 @@
           <div class="topcoat-button-bar__item">
               <button id="settings" class="topcoat-button-bar__button"></button> 
           </div>
-      </div>
+      </div><br>
+        
+      Server Log:<br>    
+      <textarea id="serverLog" class="topcoat-textarea" readonly cols="35" rows="5"></textarea>
                 
   </body>
 </html>     
