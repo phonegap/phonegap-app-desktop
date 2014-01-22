@@ -11,6 +11,6 @@
         "toolbar": true
     },
     "dependencies": {
-        "phonegap-soundwave": "git+https://github.com/phonegap/node-phonegap-soundwave.git"
+        "phonegap-soundwave": "0.4.1"
     }
 }
