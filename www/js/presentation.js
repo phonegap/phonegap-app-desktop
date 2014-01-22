@@ -35,10 +35,11 @@ function initAlertOverlay() {
     global.jQuery("#alertOverlay").hide();
 }
 
-function alertOverlay(message) {
+function alertOverlay(message) {	
     global.jQuery("#alertContent").text(message);
+	global.jQuery("#overlay-bg").show();
     global.jQuery("#alertOverlay").show();
-    global.jQuery("#overlay-bg").show();
+    
 }
 
 function initSettingsOverlay() {

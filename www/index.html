@@ -46,9 +46,11 @@
                   .on("error", function(e) {
                       // handle error
                       console.log(e.message);
+                      alertOverlay(e.message);
                   })                 
                   .on("complete", function(data) {
                       console.log("created project at:" + data.path);
+                      alertOverlay("created project at:" + data.path);
                   });              
            });
            
