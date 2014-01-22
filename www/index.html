@@ -60,9 +60,16 @@
            global.jQuery("#settingsSave").click(function() {
               console.log("settings save click handler");
               var port = global.jQuery("#portNumber").val();
-              console.log("port number entered: " + port);
-              localStorage.portNumber = port;
               
+              if (global.jQuery.isNumeric(port)) {
+                  console.log("port is valid");
+                  console.log("port number entered: " + port);
+                  localStorage.portNumber = port;
+                  hideOverlays();
+              } else {
+                  console.log("port is invalid");
+                  global.jQuery("#settingsMessage").text("port needs to be numeric");
+              }
            });
            
            global.jQuery("#settings").click(function() {
