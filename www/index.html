@@ -7,6 +7,7 @@
     <script src="js/jquery-2.0.3.min.js"></script>   
     <script src="js/presentation.js"></script>
     <script>
+        var pgVersion = "3.3.0";
         var fs = require("fs");
         var path = require("path"); 
         global.soundwave = require("phonegap-soundwave");
@@ -32,14 +33,23 @@
            
            global.jQuery("#createProject").click(function() {
                console.log("create project click handler");
-               var option = {};
-               option.path = localStorage.projDir;
-               
-               // TODO: add soundwave.create api call when it has been implemented
-               // global.soundwave.create(options);
-               console.log("add soundwave.create api call when it has been implemented");              
-               alertOverlay("create functionality not implemented");
-               
+               var options = {};
+               options.path = localStorage.projDir;
+               options.version = pgVersion;
+                           
+               global.soundwave.create(options)
+                  .on("progress", function(state) {
+                      if (state.percentage) {
+                          console.log("downloaded: " + state.percentage + "%");
+                      }
+                  })               
+                  .on("error", function(e) {
+                      // handle error
+                      console.log(e.message);
+                  })                 
+                  .on("complete", function(data) {
+                      console.log("created project at:" + data.path);
+                  });              
            });
            
            global.jQuery("#openProject").click(function() {
