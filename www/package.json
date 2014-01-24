@@ -1,5 +1,5 @@
 {
-    "name": "phonegap-gui",
+    "name": "PhoneGapGUI",
     "description": "PhoneGap GUI",
     "version": "0.0.3",
     "main": "index.html",
