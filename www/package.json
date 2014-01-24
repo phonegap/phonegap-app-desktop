@@ -11,6 +11,6 @@
         "toolbar": true
     },
     "dependencies": {
-        "phonegap-soundwave": "0.4.1"
+        "phonegap-soundwave": "0.5.3"
     }
 }
