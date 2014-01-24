@@ -44,9 +44,10 @@ module.exports = function(grunt) {
 
   // Register the task to open an app.
   grunt.task.registerTask('open', 'Open the app', function() {
-    var os = require('os'),
+	var fs = require('fs'),
+        os = require('os'),
         opener = require('opener'),
-        appName = grunt.config('pkg.name'),
+        appName = JSON.parse(fs.readFileSync('./www/package.json')).name,
         macPath = 'build/releases/appName/mac/appName.app',
         winPath = 'build/releases/appName/win/appName/appName.exe';
 
