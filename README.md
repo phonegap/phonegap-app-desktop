@@ -4,13 +4,21 @@ Initial prototype of creating a GUI for the PhoneGap CLI.
 
 ## Getting Started
 
-### Install Grunt
+### Setup
 
+    # install grunt cli
     $ [sudo] npm install -g grunt-cli
+
+    # install dev dependencies
+    $ npm install
+
+### Development
+
+    # watch src/ and compile to www/
+    $ grunt watch
 
 ### Build Binaries
 
-    $ npm install
     $ grunt
 
 __note:__ the first build requires a second call to `grunt`.

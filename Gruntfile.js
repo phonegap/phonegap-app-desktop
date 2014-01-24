@@ -3,6 +3,13 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    less: {
+      development: {
+        files: {
+          'www/css/index.css': 'src/less/index.less'
+        }
+      }
+    },
     nodewebkit: {
       options: {
         build_dir: './build', // Destination for built apps.
@@ -12,10 +19,16 @@ module.exports = function(grunt) {
         linux64: false        // Linux 64-bit support.
       },
       src: ['./www/**/*', './node_modules/phonegap/**/*']
+    },
+    watch: {
+      files: ['./src/less/**/*'],
+      tasks: ['less']
     }
   });
 
   // Load the grunt plugins.
+  grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-node-webkit-builder');
 
   // Register the task to install nodewebkit dependencies.
@@ -44,6 +57,6 @@ module.exports = function(grunt) {
   });
 
   // Default tasks.
-  grunt.registerTask('default', ['install-dependencies', 'nodewebkit']);
+  grunt.registerTask('default', ['install-dependencies', 'less', 'nodewebkit']);
 
 };
