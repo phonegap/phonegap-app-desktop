@@ -154,35 +154,45 @@
               <button id="settingsSave" class="topcoat-button--cta"></button>
           </div>
       </aside>
+          
+      <aside id="createOpenProjectInterface" class="topcoat-overlay">
+          <button id="createProject" class="topcoat-button"></button>
+          <br>or<br>
+          <button id="openProject" class="topcoat-button"></button>
+      </aside>
       
-      <h1>PhoneGap GUI</h1>
-      
-      <div id="currentProjectDir"></div><br>
-      <div id="serverStatus"></div><br>
-
-      <div id="projectDirectoryHolder"><input type="file" id="projectDirectory" nwdirectory></div>
-      
-      <div class="topcoat-button-bar">
-          <div class="topcoat-button-bar__item">
-              <button id="createProject" class="topcoat-button-bar__button"></button>
+      <aside id="existingProjectInterface" class="topcoat-overlay">
+          <div id="currentProjectDir"></div><br>
+          <div id="appIcon">icon</div>
+          <div id="appInfo">
+              <div id="appName">app name</div><br>
+              <div id="appVersion">version</div><br>
+              <div id="appPath">path</div>
           </div>
-          <div class="topcoat-button-bar__item">
-              <button id="openProject" class="topcoat-button-bar__button"></button>  
+          <div id="appServerLog">
+              Server Log:<br>    
+              <textarea id="serverLog" class="topcoat-textarea" readonly cols="35" rows="5"></textarea>
           </div>
-          <div class="topcoat-button-bar__item">
-              server
-              <label class="topcoat-switch">
-                  <input type="checkbox" id="isServerStarted" class="topcoat-switch__input">
-                  <div class="topcoat-switch__toggle"></div>
-              </label>
-          </div>          
-          <div class="topcoat-button-bar__item">
-              <button id="settings" class="topcoat-button-bar__button"></button> 
+          <div id="appServerInfo">
+              <div class="topcoat-button-bar">
+                  <div class="topcoat-button-bar__item">
+                      <div id="serverStatus"></div>
+                  </div>          
+                  <div class="topcoat-button-bar__item">
+                      <button id="settings" class="topcoat-button-bar__button"></button> 
+                  </div>
+                  <div class="topcoat-button-bar__item">
+                      server
+                      <label class="topcoat-switch">
+                          <input type="checkbox" id="isServerStarted" class="topcoat-switch__input">
+                          <div class="topcoat-switch__toggle"></div>
+                      </label> 
+                  </div>
+              </div>
           </div>
-      </div><br>
-        
-      Server Log:<br>    
-      <textarea id="serverLog" class="topcoat-textarea" readonly cols="35" rows="5"></textarea>
+      </aside>
+             
+      <div id="projectDirectoryHolder"><input type="file" id="projectDirectory" nwdirectory></div>      
                 
   </body>
 </html>     
