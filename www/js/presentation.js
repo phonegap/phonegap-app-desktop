@@ -17,6 +17,9 @@ function setButtonLabels() {
 }
 
 function initGUI() {
+	
+	global.jQuery("#existingProjectInterface").hide();
+	
     setButtonLabels();
     disableFormButtons();    
     global.jQuery("#projectDirectoryHolder").hide();
@@ -67,4 +70,26 @@ function initSessionData() {
 		global.jQuery("#portNumber").val(localStorage.portNumber);
 	}
 
+}
+
+function createProject() {
+	var options = {};
+       options.path = localStorage.projDir;
+       options.version = global.pgVersion;
+                   
+       global.soundwave.create(options)
+          .on("progress", function(state) {
+              if (state.percentage) {
+                  console.log("downloaded: " + state.percentage + "%");
+              }
+          })               
+          .on("error", function(e) {
+              // handle error
+              console.log(e.message);
+              alert(e.message);
+          })                 
+          .on("complete", function(data) {
+              console.log("created project at:" + data.path);
+              alert("created project at:" + data.path);
+          });
 }

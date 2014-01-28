@@ -19,7 +19,7 @@ menubar.items[0].submenu.append(new gui.MenuItem({
    	label: "Open Project",
    	click: function () {
       	console.log("open project from menubar");
-		global.jQuery("#projectDirectory").trigger("click");
+		global.jQuery("#openProject").trigger("click");
    	}
 }));
 menubar.items[0].submenu.append(new gui.MenuItem({

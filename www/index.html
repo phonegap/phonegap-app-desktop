@@ -7,11 +7,11 @@
     <script src="js/jquery-2.0.3.min.js"></script>   
     <script src="js/presentation.js"></script>
     <script>
-        var pgVersion = "3.3.0";
         var fs = require("fs");
         var path = require("path"); 
         global.soundwave = require("phonegap-soundwave");
     
+        global.pgVersion = "3.3.0";
         global.jQuery = jQuery;
         
         global.jQuery(document).ready(function() {
@@ -30,29 +30,20 @@
                
                enableFormButtons();
                global.jQuery("#currentProjectDir").text("Current project directory: " + localStorage.projDir);
+               
+               if(global.createClicked) {
+                   global.createClicked = false;
+                   createProject();
+               }
+               
+               global.jQuery("#createOpenProjectInterface").hide();
+               global.jQuery("#existingProjectInterface").show();
            });
            
-           global.jQuery("#createProject").click(function() {
-               console.log("create project click handler");
-               var options = {};
-               options.path = localStorage.projDir;
-               options.version = pgVersion;
-                           
-               global.soundwave.create(options)
-                  .on("progress", function(state) {
-                      if (state.percentage) {
-                          console.log("downloaded: " + state.percentage + "%");
-                      }
-                  })               
-                  .on("error", function(e) {
-                      // handle error
-                      console.log(e.message);
-                      alertOverlay(e.message);
-                  })                 
-                  .on("complete", function(data) {
-                      console.log("created project at:" + data.path);
-                      alertOverlay("created project at:" + data.path);
-                  });              
+           global.jQuery("#createProject").click(function() {              
+               global.createClicked = true;
+               // get the user to select a directory
+               global.jQuery("#projectDirectory").trigger("click");             
            });
            
            global.jQuery("#openProject").click(function() {
