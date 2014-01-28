@@ -11,13 +11,15 @@ win.menu.insert(new gui.MenuItem({ label: 'File', submenu: file }), 1);
 menubar.items[0].submenu.append(new gui.MenuItem({
    	label: "New Project",
    	click: function () {
-      	alert("new");
+		console.log("new project from menubar");
+      	global.jQuery("#projectDirectory").trigger("click");
    	}
 }));
 menubar.items[0].submenu.append(new gui.MenuItem({
    	label: "Open Project",
    	click: function () {
-      	alert("open");
+      	console.log("open project from menubar");
+		global.jQuery("#projectDirectory").trigger("click");
    	}
 }));
 menubar.items[0].submenu.append(new gui.MenuItem({
