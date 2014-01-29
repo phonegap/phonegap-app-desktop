@@ -30,7 +30,8 @@
                
                enableFormButtons();
                global.jQuery("#currentProjectDir").text("Current project directory: " + localStorage.projDir);
-               
+               global.jQuery("#appPath").text(localStorage.projDir);
+
                if(global.createClicked) {
                    global.createClicked = false;
                    createProject();
@@ -134,17 +135,6 @@
                   <button id="alertOk" class="topcoat-button"></button>
           </div>
       </aside>      
-      <aside id="settingsOverlay" class="topcoat-overlay">
-          <h3>Settings</h3> 
-          <div id="settingsContent">
-              <div id="settingsMessage"></div>
-              server port: <input type="text" id="portNumber" class="topcoat-text-input">
-          </div>
-          <div class="topcoat-overlay-buttons">
-              <button id="settingsCancel" class="topcoat-button"></button>
-              <button id="settingsSave" class="topcoat-button--cta"></button>
-          </div>
-      </aside>
           
       <aside id="createOpenProjectInterface" class="topcoat-overlay">
           <button id="createProject" class="topcoat-button"></button>
@@ -152,13 +142,13 @@
           <button id="openProject" class="topcoat-button"></button>
       </aside>
       
-      <aside id="existingProjectInterface" class="topcoat-overlay">
+      <aside id="existingProjectInterface">
           <div id="currentProjectDir"></div><br>
           <div id="appIcon">icon</div>
           <div id="appInfo">
               <div id="appName">app name</div><br>
               <div id="appVersion">version</div><br>
-              <div id="appPath">path</div>
+              <div id="appPath"></div>
           </div>
           <div id="appServerLog">
               Server Log:<br>    
@@ -181,8 +171,23 @@
                   </div>
               </div>
           </div>
+          
+          <aside id="settingsOverlay" class="topcoat-overlay">
+              <h3>Settings</h3> 
+              <div id="settingsContent">
+                  <div id="settingsMessage"></div>
+                  server port: <input type="text" id="portNumber" class="topcoat-text-input">
+              </div>
+              <div class="topcoat-overlay-buttons">
+                  <button id="settingsCancel" class="topcoat-button"></button>
+                  <button id="settingsSave" class="topcoat-button--cta"></button>
+              </div>
+          </aside>
+          
       </aside>
-             
+
+
+                   
       <div id="projectDirectoryHolder"><input type="file" id="projectDirectory" nwdirectory></div>      
                 
   </body>
