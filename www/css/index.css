@@ -10,3 +10,16 @@ footer {
   position: fixed;
   right: 0px;
 }
+footer .topcoat-icon--large {
+  top: 0px;
+}
+nav.left {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+nav.right {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
