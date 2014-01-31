@@ -10,4 +10,33 @@ footer {
   left: 0px;
   position: fixed;
   right: 0px;
+
+  nav.left {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }
+
+  nav.right {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+  }
+
+  .topcoat-button-bar {
+    .topcoat-button-bar__item:first-child {
+      border-top-left-radius: 0px;
+      border-bottom-left-radius: 0px;
+    }
+
+    .topcoat-button-bar__item:last-child {
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+    }
+
+    .topcoat-icon--large {
+      top: 0px;
+    }
+  }
 }
+
