@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<link rel='stylesheet' type='text/css' href='icomatic.css' />
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+<script src='icomatic.js'></script>
+<script>
+window.onload = function() { IcomaticUtils.run(); }
+</script>
+<style>
+    html { height: 100%; }
+    body {
+        font-family: "Source Sans Pro", Arial, sans-serif;
+        position: relative;
+        font-weight: 300;
+        color: #454545;
+        padding: 60px;
+        min-height: 100%;
+        box-sizing: border-box; -moz-box-sizing: border-box;
+        margin: 0;
+         -webkit-font-smoothing: antialiased;             
+    }
+
+    .footer {
+        height: 2em;
+        line-height: 2em;
+        text-align: center;
+        position: absolute;
+        left: 0; bottom: 0; right: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #000; 
+        font-weight: 300;
+    }
+
+    h2 {
+        margin: 1.2em 0 0.5em;
+    }
+
+    .instruction {
+        color: #666;
+        margin: 3px 0;
+    }
+
+    .demo {
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.15);
+        border: 1px solid #aaa;
+        border-radius: 3px;
+        font-size: 1.3em;
+        height: 1.6em;
+        line-height: 1.6em;
+        font-family: Icomatic;
+        padding: 0 5px;
+    }
+
+    .demo:focus {
+        outline: none;
+        border: 1px solid #0940fd;
+        box-shadow: 0 0 0 3px rgba(0,136,255,0.5);    
+    }
+
+    .icons {
+        list-style: none;
+        margin: 0 0 0 -10px; 
+        overflow: hidden;
+        padding: 0;
+    }
+
+    .icons li {
+        background: #eee;
+        border-radius: 3px;
+        float: left;
+        margin: 0 0 10px 10px;
+        width: 6em;
+        padding: 30px;
+        text-align: center;
+    }
+
+    .icons .icomatic {
+        color: #454545;
+        margin: 0 0 10px;
+        padding-right: 0;
+        text-align: center;
+    }
+
+    .icons .icon-label {
+        font-size: 1em;
+        word-wrap: normal;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    pre {
+        background: #f7f7f7;
+        border-radius: 3px;
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+        padding: 20px 0 15px;
+    }
+
+    .title img {
+        width: 75px;
+        height: 75px;
+        vertical-align: middle;
+        border: 0;
+    }
+    .title a {
+        text-decoration: none;
+    }
+</style>
+</head>
+<body>
+<h1 class='title'>
+    <a href='http://icomatic.io'>
+        <img src='http://www.icomatic.io/page_files/images/logo_icomatic.png' alt='Icomatic' />
+    </a>
+    Icon Font Samples
+</h1>
+Try typing one of your icon ligatures in the area below.
+eg alert
+<div contenteditable class='icomatic demo'></div>
+<h2>Available Icons</h2>
+<ul class='icons'>
+  
+    <li>
+        <div class='icomatic icon'>alert</div>
+        <div class='icon-label'>alert</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>arrowdown</div>
+        <div class='icon-label'>arrowdown</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>arrowleft</div>
+        <div class='icon-label'>arrowleft</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>arrowright</div>
+        <div class='icon-label'>arrowright</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>arrowup</div>
+        <div class='icon-label'>arrowup</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>attachment</div>
+        <div class='icon-label'>attachment</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>audiooff</div>
+        <div class='icon-label'>audiooff</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>audio</div>
+        <div class='icon-label'>audio</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>backlight</div>
+        <div class='icon-label'>backlight</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>back</div>
+        <div class='icon-label'>back</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>behance</div>
+        <div class='icon-label'>behance</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>bookmark</div>
+        <div class='icon-label'>bookmark</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>brush</div>
+        <div class='icon-label'>brush</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>build</div>
+        <div class='icon-label'>build</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>calendar</div>
+        <div class='icon-label'>calendar</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>call</div>
+        <div class='icon-label'>call</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>camera</div>
+        <div class='icon-label'>camera</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>cancel</div>
+        <div class='icon-label'>cancel</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>cart</div>
+        <div class='icon-label'>cart</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>chat</div>
+        <div class='icon-label'>chat</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>checkmark</div>
+        <div class='icon-label'>checkmark</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>circleoutline</div>
+        <div class='icon-label'>circleoutline</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>circle</div>
+        <div class='icon-label'>circle</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>cloud</div>
+        <div class='icon-label'>cloud</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>collapse</div>
+        <div class='icon-label'>collapse</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>comment</div>
+        <div class='icon-label'>comment</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>computer</div>
+        <div class='icon-label'>computer</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>delete</div>
+        <div class='icon-label'>delete</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>download</div>
+        <div class='icon-label'>download</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>dribble</div>
+        <div class='icon-label'>dribble</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>email</div>
+        <div class='icon-label'>email</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>error</div>
+        <div class='icon-label'>error</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>expand</div>
+        <div class='icon-label'>expand</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>facebook</div>
+        <div class='icon-label'>facebook</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>favorite</div>
+        <div class='icon-label'>favorite</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>feedback</div>
+        <div class='icon-label'>feedback</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>flickr</div>
+        <div class='icon-label'>flickr</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>folder</div>
+        <div class='icon-label'>folder</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>githubtext</div>
+        <div class='icon-label'>githubtext</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>github</div>
+        <div class='icon-label'>github</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>googleplus</div>
+        <div class='icon-label'>googleplus</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>group</div>
+        <div class='icon-label'>group</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>home</div>
+        <div class='icon-label'>home</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>imageoutline</div>
+        <div class='icon-label'>imageoutline</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>image</div>
+        <div class='icon-label'>image</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>instagram</div>
+        <div class='icon-label'>instagram</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>like</div>
+        <div class='icon-label'>like</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>linkedin</div>
+        <div class='icon-label'>linkedin</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>listview</div>
+        <div class='icon-label'>listview</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>location</div>
+        <div class='icon-label'>location</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>lock</div>
+        <div class='icon-label'>lock</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>minus</div>
+        <div class='icon-label'>minus</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>nextlight</div>
+        <div class='icon-label'>nextlight</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>next</div>
+        <div class='icon-label'>next</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>page</div>
+        <div class='icon-label'>page</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>path</div>
+        <div class='icon-label'>path</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>pencil</div>
+        <div class='icon-label'>pencil</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>phone</div>
+        <div class='icon-label'>phone</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>picasa</div>
+        <div class='icon-label'>picasa</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>pinterest</div>
+        <div class='icon-label'>pinterest</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>plugin</div>
+        <div class='icon-label'>plugin</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>plus</div>
+        <div class='icon-label'>plus</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>preview</div>
+        <div class='icon-label'>preview</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>print</div>
+        <div class='icon-label'>print</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>question</div>
+        <div class='icon-label'>question</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>rectangleoutline</div>
+        <div class='icon-label'>rectangleoutline</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>rectangle</div>
+        <div class='icon-label'>rectangle</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>refresh</div>
+        <div class='icon-label'>refresh</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>retweet</div>
+        <div class='icon-label'>retweet</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>roundedrectangleoutline</div>
+        <div class='icon-label'>roundedrectangleoutline</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>roundedrectangle</div>
+        <div class='icon-label'>roundedrectangle</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>rss</div>
+        <div class='icon-label'>rss</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>save</div>
+        <div class='icon-label'>save</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>search</div>
+        <div class='icon-label'>search</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>settings</div>
+        <div class='icon-label'>settings</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>share</div>
+        <div class='icon-label'>share</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>tablet</div>
+        <div class='icon-label'>tablet</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>text</div>
+        <div class='icon-label'>text</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>tileview</div>
+        <div class='icon-label'>tileview</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>tumblr</div>
+        <div class='icon-label'>tumblr</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>twitter</div>
+        <div class='icon-label'>twitter</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>unlock</div>
+        <div class='icon-label'>unlock</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>user</div>
+        <div class='icon-label'>user</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>videocamera</div>
+        <div class='icon-label'>videocamera</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>view</div>
+        <div class='icon-label'>view</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>vimeo</div>
+        <div class='icon-label'>vimeo</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>w3c</div>
+        <div class='icon-label'>w3c</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>wifi</div>
+        <div class='icon-label'>wifi</div>
+    </li>
+  
+    <li>
+        <div class='icomatic icon'>wordpress</div>
+        <div class='icon-label'>wordpress</div>
+    </li>
+  
+</ul>
+<h2>Icon Font Usage</h2>
+Using an icon font is simple. Just include the stylesheet, and the icon class to any text you would like to be replaced with an icon.
+<code><pre>
+&lt;link rel='stylesheet' type='text/css' href='icomatic.css'&gt;
+&lt;!-- Include the script for fallback support --&gt;
+&lt;script type='text/javascript' src='icomatic.js'&gt;&lt;/script&gt;
+...
+&lt;span class='icomatic' style='color:blue'&gt;alert&lt;/span&gt;
+</pre></code>
+
+<div class='footer'>
+    <a href="http://icomatic.io">icomatic.io</a> |
+    <a href="http://icomatic.io/faq.html">FAQ</a> |
+    <a href="http://icomatic.io/privacy.html">Privacy Policy</a> |
+    <a href="https://twitter.com/icomatic">@icomatic</a> |
+    &copy; Copyright 2013
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!-- DatGUI -->
+<script src="js/dat.gui.js"></script>
+<script src="js/dat.color.js"></script>
+<script>
+$(document).ready( function() {
+
+    function rgb2hex(rgb){
+        rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+        return (rgb && rgb.length === 4) ? "#" +
+          ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
+          ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
+          ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
+    }
+
+    //intialize
+    var obj = { Color: rgb2hex($(".icomatic").css('color')),
+                Size: parseInt($(".icomatic").css("font-size")) };
+    var gui = new dat.GUI();
+    gui.add(obj, 'Size', 10, 100).onChange(function() {
+            $(".icomatic").css('font-size', obj.Size );
+    });                
+    gui.addColor(obj, 'Color').onChange(function() {
+            $('.icomatic').css('color', obj.Color);
+    });
+});            
+</script>
+</body>
+</html>
