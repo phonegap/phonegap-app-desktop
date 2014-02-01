@@ -1,6 +1,17 @@
 #app {
   background-color: #ffffff;
 }
+article {
+  background-image: url(../img/guide-add.png);
+  background-position: 2px 100%;
+  background-repeat: no-repeat;
+  background-size: 297px 180px;
+  bottom: 30px;
+  left: 0px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
 footer {
   background-color: rgba(0, 0, 0, 0.02);
   box-shadow: inset 0 1px #9daca9;
@@ -19,6 +30,12 @@ footer nav.right {
   position: absolute;
   top: 0px;
   right: 0px;
+}
+footer #app-action-bar {
+  float: left;
+}
+footer #server-status-bar {
+  float: left;
 }
 footer .topcoat-button-bar .topcoat-button-bar__item:first-child {
   border-top-left-radius: 0px;

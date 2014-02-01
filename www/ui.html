@@ -11,21 +11,28 @@
     <header></header>
     <article></article>
     <footer>
-      <nav class="topcoat-button-bar left">
-        <div class="topcoat-button-bar__item">
-          <button class="topcoat-button-bar__button--large">
-            <span class='icomatic'>plus</span>
-          </button>
+      <nav class="left">
+        <div id="app-action-bar" class="topcoat-button-bar">
+          <div class="topcoat-button-bar__item">
+            <button class="topcoat-button-bar__button--large">
+              <span class='icomatic'>plus</span>
+            </button>
+          </div>
+          <div class="topcoat-button-bar__item">
+            <button class="topcoat-button-bar__button--large">
+              <span class='icomatic'>minus</span>
+            </button>
+          </div>
+          <div class="topcoat-button-bar__item">
+            <button class="topcoat-button-bar__button--large">
+              <span class='icomatic'>settings</span>
+            </button>
+          </div>
         </div>
-        <div class="topcoat-button-bar__item">
-          <button class="topcoat-button-bar__button--large">
-            <span class='icomatic'>minus</span>
-          </button>
-        </div>
-        <div class="topcoat-button-bar__item">
-          <button class="topcoat-button-bar__button--large">
-            <span class='icomatic'>settings</span>
-          </button>
+        <div id="server-status-bar">
+          <span class="icomatic">error</span>
+          <span class="server-status-info">Server is offline</span>
+          <span class="server-status-address">127.0.0.1:3000</span>
         </div>
       </nav>
       <nav class="topcoat-button-bar right">
