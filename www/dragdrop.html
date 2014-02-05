@@ -12,6 +12,7 @@
         <output id="list"></output>
 
         <script>
+        /*
           function handleFileSelect(evt) {
             evt.stopPropagation();
             evt.preventDefault();
@@ -28,6 +29,7 @@
             }
             document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
           }
+          */
 
           function handleDragOver(evt) {
             evt.stopPropagation();
@@ -56,8 +58,8 @@
                 console.log("file");
                 alert("file");
               } else if (entry.isDirectory) {
-                console.log("folder");
-                alert("folder");
+                console.log("folder: " + entry.fullPath);
+                alert("folder: " + entry.fullPath);
               }
             }
           };
