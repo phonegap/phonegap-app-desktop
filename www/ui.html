@@ -6,10 +6,55 @@
     <link rel='stylesheet' type='text/css' href='icon/icomatic.css'>
     <link rel="stylesheet" type="text/css" href="css/topcoat-desktop-light.min.css">
     <script type='text/javascript' src='icon/icomatic.js'></script>
+    <script type='text/javascript' src='js/index.js'></script>
+    <script type='text/javascript'>
+    
+        function handleDragOver(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+        } 
+        
+        function handleDrop(e) {  
+
+            e.stopPropagation();
+            e.preventDefault();
+
+            var length = e.dataTransfer.items.length;
+            for (var i = 0; i < length; i++) {
+                var entry = e.dataTransfer.items[i].webkitGetAsEntry();
+                if (entry.isFile) {
+                    console.log("file");
+                    alert("file");
+                } else if (entry.isDirectory) {
+                    console.log("folder: " + entry.fullPath);
+                    //alert("folder: " + entry.fullPath);
+                    document.getElementById('projectFolder').innerHTML = "Project Directory: " + entry.fullPath;
+                }
+            }
+        }
+        
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            var dropZone = document.getElementById('drop_zone');
+            dropZone.addEventListener('dragover', handleDragOver, false);
+            dropZone.addEventListener('drop', handleDrop, false);        
+        });
+          
+    </script>
+    <style>
+        .border {
+            border: 2px solid black;
+            width: 90%;
+            height: 90%;
+        }
+    </style>
   </head>
   <body>
     <header></header>
     <article>
+        <div id="drop_zone" class="border">Drop files here</div>
+        <div id="projectFolder"></div>
     </article>
     <footer>
       <nav class="left">
