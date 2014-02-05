@@ -48,3 +48,23 @@ footer .topcoat-button-bar .topcoat-button-bar__item:last-child {
 footer .topcoat-button-bar .topcoat-icon--large {
   top: 0px;
 }
+.status-field {
+  float: left;
+  height: 30px;
+  padding: 5px 0px 0px 5px;
+}
+.status-field input[type="checkbox"] {
+  display: none;
+}
+.status-field input[type="checkbox"] + label {
+  background-image: url(img/status-offline.png);
+  background-repeat: no-repeat;
+  background-position: 0% 50%;
+  display: table-cell;
+  height: 20px;
+  padding-left: 20px;
+  vertical-align: middle;
+}
+.status-field input[type="checkbox"]:checked + label {
+  background-image: url(img/status-online.png);
+}

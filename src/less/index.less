@@ -59,3 +59,26 @@ footer {
   }
 }
 
+.status-field {
+  float: left;
+  height: 30px;
+  padding: 5px 0px 0px 5px;
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  input[type="checkbox"] + label {
+    background-image: url(img/status-offline.png);
+    background-repeat: no-repeat;
+    background-position: 0% 50%;
+    display: table-cell;
+    height: 20px;
+    padding-left: 20px;
+    vertical-align: middle;
+  }
+
+  input[type="checkbox"]:checked + label {
+    background-image: url(img/status-online.png);
+  }
+}

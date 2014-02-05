@@ -9,7 +9,8 @@
   </head>
   <body>
     <header></header>
-    <article></article>
+    <article>
+    </article>
     <footer>
       <nav class="left">
         <div id="app-action-bar" class="topcoat-button-bar">
@@ -29,10 +30,9 @@
             </button>
           </div>
         </div>
-        <div id="server-status-bar">
-          <span class="icomatic">error</span>
-          <span class="server-status-info">Server is offline</span>
-          <span class="server-status-address">127.0.0.1:3000</span>
+        <div class="status-field">
+          <input type="checkbox" disabled id="server-status" />
+          <label for="server-status">Server is offline</label>
         </div>
       </nav>
       <nav class="topcoat-button-bar right">
