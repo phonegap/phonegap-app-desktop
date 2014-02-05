@@ -14,10 +14,10 @@
     "scripts": {
     },
     "devDependencies": {
-        "grunt": "0.4.1",
+        "grunt": "0.4.2",
         "grunt-contrib-less": "0.9.0",
         "grunt-contrib-watch": "0.5.3",
-        "grunt-node-webkit-builder": "0.1.13",
+        "grunt-node-webkit-builder": "0.1.17",
         "opener": "1.3.0"
     },
     "contributors": [
