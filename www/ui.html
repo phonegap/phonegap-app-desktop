@@ -9,14 +9,23 @@
     <script type='text/javascript' src='icon/icomatic.js'></script>
     <script type='text/javascript' src='js/index.js'></script>
     <script type="text/javascript" src="js/drag-n-drop-handlers.js"></script>
+    <script type="text/javascript" src="js/project-create-open-handlers.js"></script>
     <script type='text/javascript'>
-    
-        
+           
+        global.pgServer = require("connect-phonegap"); 
+        global.pgVersion = "3.3.0";  
         global.jQuery = jQuery;
+        global.createClicked = false;
         
         global.jQuery(document).ready(function() {
+            
+            global.jQuery("#projectDirectory").hide();
+            
             global.jQuery("#drop_zone").on("drop", handleDrop);
             global.jQuery("#drop_zone").on("dragover", handleDragOver);
+            
+            global.jQuery("#createProject").click(createProject);
+            global.jQuery("#projectDirectory").change(selectDirectory);
         });
           
     </script>
@@ -33,12 +42,13 @@
     <article>
         <div id="drop_zone" class="border">Drop files here</div>
         <div id="projectFolder"></div>
+        <input type="file" id="projectDirectory" nwdirectory>
     </article>
     <footer>
       <nav class="left">
         <div id="app-action-bar" class="topcoat-button-bar">
           <div class="topcoat-button-bar__item">
-            <button id="plus" class="topcoat-button-bar__button--large">
+            <button id="createProject" class="topcoat-button-bar__button--large">
               <span class='icomatic'>plus</span>
             </button>
           </div>
