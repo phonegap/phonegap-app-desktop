@@ -5,40 +5,18 @@
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel='stylesheet' type='text/css' href='icon/icomatic.css'>
     <link rel="stylesheet" type="text/css" href="css/topcoat-desktop-light.min.css">
+    <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script> 
     <script type='text/javascript' src='icon/icomatic.js'></script>
     <script type='text/javascript' src='js/index.js'></script>
+    <script type="text/javascript" src="js/drag-n-drop-handlers.js"></script>
     <script type='text/javascript'>
     
-        function handleDragOver(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            e.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
-        } 
         
-        function handleDrop(e) {  
-
-            e.stopPropagation();
-            e.preventDefault();
-
-            var length = e.dataTransfer.items.length;
-            for (var i = 0; i < length; i++) {
-                var entry = e.dataTransfer.items[i].webkitGetAsEntry();
-                if (entry.isFile) {
-                    console.log("file");
-                    alert("file");
-                } else if (entry.isDirectory) {
-                    console.log("folder: " + entry.fullPath);
-                    //alert("folder: " + entry.fullPath);
-                    document.getElementById('projectFolder').innerHTML = "Project Directory: " + entry.fullPath;
-                }
-            }
-        }
+        global.jQuery = jQuery;
         
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            var dropZone = document.getElementById('drop_zone');
-            dropZone.addEventListener('dragover', handleDragOver, false);
-            dropZone.addEventListener('drop', handleDrop, false);        
+        global.jQuery(document).ready(function() {
+            global.jQuery("#drop_zone").on("drop", handleDrop);
+            global.jQuery("#drop_zone").on("dragover", handleDragOver);
         });
           
     </script>
@@ -60,17 +38,17 @@
       <nav class="left">
         <div id="app-action-bar" class="topcoat-button-bar">
           <div class="topcoat-button-bar__item">
-            <button class="topcoat-button-bar__button--large">
+            <button id="plus" class="topcoat-button-bar__button--large">
               <span class='icomatic'>plus</span>
             </button>
           </div>
           <div class="topcoat-button-bar__item">
-            <button class="topcoat-button-bar__button--large">
+            <button id="minus" class="topcoat-button-bar__button--large">
               <span class='icomatic'>minus</span>
             </button>
           </div>
           <div class="topcoat-button-bar__item">
-            <button class="topcoat-button-bar__button--large">
+            <button id="settings" class="topcoat-button-bar__button--large">
               <span class='icomatic'>settings</span>
             </button>
           </div>
