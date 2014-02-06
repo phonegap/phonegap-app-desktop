@@ -9,7 +9,7 @@
     <script>
         var fs = require("fs");
         var path = require("path"); 
-        global.soundwave = require("phonegap-soundwave");
+        global.pgServer = require("connect-phonegap");
     
         global.pgVersion = "3.3.0";
         global.jQuery = jQuery;
@@ -17,11 +17,6 @@
         global.jQuery(document).ready(function() {
            console.log("ready"); 
            global.server = null;
-           
-           global.soundwave.on("log", function(status, url) { 
-              console.log(status, url);
-              global.jQuery("#serverLog").append(status + " " + url + "\n"); 
-           });           
            
            global.jQuery("#projectDirectory").change(function() {
                console.log("change handler");
@@ -90,7 +85,7 @@
                       if (exists) {
                           process.chdir(localStorage.projDir);
                           console.log("project opened at: " + localStorage.projDir);                     
-                          global.soundwave.serve({ port: localStorage.portNumber }, function(e, options) {     
+                          global.pgServer.listen({ port: localStorage.portNumber }, function(e, options) {
                               if (e) { 
                                   console.log("error:", e.message);
                                   alertOverlay(e.message); 
@@ -99,7 +94,11 @@
                                   global.server = options.server;
                                   global.jQuery("#serverStatus").text("server info: http://" + options.address + ":" + options.port);
                               }
-                          });
+                          }).on("log", function(status, url) {
+                              console.log(status, url);
+                              global.jQuery("#serverLog").append(status + " " + url + "\n");
+                           });
+
                       } else {
                           var errMsg = "an existing project doesn't exist in this folder";
                           console.log(errMsg);
