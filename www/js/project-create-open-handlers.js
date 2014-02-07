@@ -5,21 +5,17 @@ function createProject(e) {
     global.jQuery("#projectDirectory").trigger("click");
 }
 
-/*
-global.jQuery("#openProject").click(function() {
-   console.log("open project click handler");
-   global.jQuery("#projectDirectory").trigger("click");
-});
-*/
+function openProject(e) {
+    console.log("open project click handler");
+    global.jQuery("#projectDirectory").trigger("click");
+}
 
 function selectDirectory(e) {
     console.log("change handler");
     console.log(global.jQuery("#projectDirectory").val());
     localStorage.projDir = global.jQuery("#projectDirectory").val();
-    
-    //enableFormButtons();
+
     global.jQuery("#projectFolder").text("Project folder: " + localStorage.projDir);
-    //global.jQuery("#appPath").text(localStorage.projDir);
 
     console.log(global.createClicked);
     if(global.createClicked) {
@@ -27,8 +23,7 @@ function selectDirectory(e) {
         create();
     }
     
-    //global.jQuery("#createOpenProjectInterface").hide();
-    //global.jQuery("#existingProjectInterface").show();    
+    global.jQuery("#createOpenProjectOverlay").hide();  
 }
 
 function create() {

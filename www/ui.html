@@ -5,9 +5,11 @@
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel='stylesheet' type='text/css' href='icon/icomatic.css'>
     <link rel="stylesheet" type="text/css" href="css/topcoat-desktop-light.min.css">
+    <link rel="stylesheet" type="text/css" href="css/topcoat-overlay.min.css">
     <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script> 
     <script type='text/javascript' src='icon/icomatic.js'></script>
     <script type='text/javascript' src='js/index.js'></script>
+    <script type="text/javascript" src="js/footer-handlers.js"></script>
     <script type="text/javascript" src="js/drag-n-drop-handlers.js"></script>
     <script type="text/javascript" src="js/project-create-open-handlers.js"></script>
     <script type='text/javascript'>
@@ -20,12 +22,20 @@
         global.jQuery(document).ready(function() {
             
             global.jQuery("#projectDirectory").hide();
+            global.jQuery("#createOpenProjectOverlay").hide();
             
             global.jQuery("#drop_zone").on("drop", handleDrop);
             global.jQuery("#drop_zone").on("dragover", handleDragOver);
             
             global.jQuery("#createProject").click(createProject);
+            global.jQuery("#openProject").click(openProject);
             global.jQuery("#projectDirectory").change(selectDirectory);
+            
+            global.jQuery("#cancelCreateOpen").click(function() {
+                global.jQuery("#createOpenProjectOverlay").hide();
+            });
+            
+            global.jQuery("#plus").click(projectOverlay);
         });
           
     </script>
@@ -39,6 +49,13 @@
   </head>
   <body>
     <header></header>
+    <aside id="createOpenProjectOverlay" class="topcoat-overlay">
+        <button id="createProject" class="topcoat-button">Create New Project</button>
+        <br>
+        <button id="openProject" class="topcoat-button">Open Existing Project</button>
+        <br>
+        <button id="cancelCreateOpen" class="topcoat-button">Cancel</button>
+    </aside>
     <article>
         <div id="drop_zone" class="border">Drop files here</div>
         <div id="projectFolder"></div>
@@ -48,7 +65,7 @@
       <nav class="left">
         <div id="app-action-bar" class="topcoat-button-bar">
           <div class="topcoat-button-bar__item">
-            <button id="createProject" class="topcoat-button-bar__button--large">
+            <button id="plus" class="topcoat-button-bar__button--large">
               <span class='icomatic'>plus</span>
             </button>
           </div>
