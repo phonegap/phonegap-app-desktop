@@ -19,8 +19,12 @@ function selectDirectory(e) {
 
     console.log(global.createClicked);
     if(global.createClicked) {
+        // create new project
         global.createClicked = false;
         create();
+    } else {
+        // parse config.xml of an existing project
+        parseProjectConfig();
     }
     
     global.jQuery("#createOpenProjectOverlay").hide();  
@@ -45,6 +49,30 @@ function create() {
           })                 
           .on("complete", function(data) {
               console.log("created project at:" + data.path);
-              alert("created project at:" + data.path);
+              //alert("created project at:" + data.path);
+              
+              // parse config.xml of newly created project
+              parseProjectConfig();
           });
+}
+
+function parseProjectConfig() {
+    
+    var filename = localStorage.projDir + "/www/config.xml";
+    
+    fs.readFile(filename, 'utf8', function(err, data) {
+        if (err) throw err;
+
+        global.jQuery.xmlDoc = global.jQuery.parseXML(data);
+        global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc);
+        
+        // get the project name
+        global.jQuery.projectName = global.jQuery.xml.find("name");
+        console.log("project name: " + global.jQuery.projectName.text());
+        
+        // get the project version
+        global.jQuery.projectVersion = global.jQuery.xml.find("widget").attr("version");
+        console.log("project version: " + global.jQuery.projectVersion);
+    });
+    
 }

@@ -1,6 +1,10 @@
 var gui = require('nw.gui');
 var win = gui.Window.get();   
 
+// load file system module
+var fs = require("fs");
+
+
 var menubar = new gui.Menu({ type: 'menubar' });
 var file = new gui.Menu();
 
