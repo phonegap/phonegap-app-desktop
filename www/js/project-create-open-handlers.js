@@ -67,12 +67,14 @@ function parseProjectConfig() {
         global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc);
         
         // get the project name
-        global.jQuery.projectName = global.jQuery.xml.find("name");
-        console.log("project name: " + global.jQuery.projectName.text());
+        global.jQuery.projectName = global.jQuery.xml.find("name").text();
+        console.log("project name: " + global.jQuery.projectName);
         
         // get the project version
         global.jQuery.projectVersion = global.jQuery.xml.find("widget").attr("version");
         console.log("project version: " + global.jQuery.projectVersion);
+        
+        addProjectWidget(global.jQuery.projectName, global.jQuery.projectVersion);
     });
     
 }
