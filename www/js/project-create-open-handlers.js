@@ -63,6 +63,8 @@ function parseProjectConfig() {
     fs.readFile(filename, 'utf8', function(err, data) {
         if (err) throw err;
 
+        var iconPath = localStorage.projDir + "/www/"
+
         global.jQuery.xmlDoc = global.jQuery.parseXML(data);
         global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc);
         
@@ -74,7 +76,12 @@ function parseProjectConfig() {
         global.jQuery.projectVersion = global.jQuery.xml.find("widget").attr("version");
         console.log("project version: " + global.jQuery.projectVersion);
         
-        addProjectWidget(global.jQuery.projectName, global.jQuery.projectVersion);
+        // get the app icon
+        global.jQuery.projectIcon = global.jQuery.xml.find("icon").attr("src");
+        iconPath += global.jQuery.projectIcon;
+        console.log("project icon path: " + iconPath);
+        
+        addProjectWidget(global.jQuery.projectName, global.jQuery.projectVersion, iconPath);
     });
     
 }
