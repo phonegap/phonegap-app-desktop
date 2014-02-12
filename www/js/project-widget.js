@@ -3,13 +3,11 @@ function addProjectWidget(projectName, projectVersion, projectIcon) {
     
     widgetDOM += "<div style='display: table; border: 1px solid black;'>";
     widgetDOM += "<div style='display: table-row;'>";
-    
-    // TODO: display the icon from config.xml
-    // widgetDOM += "<div style='float:left; width: 20%; display: table-column;'><span class='icomatic'>folder</span></div>";
     widgetDOM += "<div style='float:left; display: table-column;'><img src='" + projectIcon + "'></div>";
     widgetDOM += "<div style='float:left; display: table-column;'>";
     widgetDOM += "Project Name: " + projectName + "<br>";
-    widgetDOM += "Project Version: " + projectVersion + "</div>";  
+    widgetDOM += "Project Version: " + projectVersion + "</div>"; 
+    widgetDOM += "<div style='float:right' display: table-column><button>start/stop</button></div>"; // TODO: add the start/stop project icon
     widgetDOM += "</div>";  // row
     widgetDOM += "</div>";  // table
     
