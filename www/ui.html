@@ -13,6 +13,7 @@
     <script type="text/javascript" src="js/drag-n-drop-handlers.js"></script>
     <script type="text/javascript" src="js/project-create-open-handlers.js"></script>
     <script type="text/javascript" src="js/project-widget.js"></script>
+    <script type="text/javascript" src="js/database.js"></script>
     <script type='text/javascript'>   
            
         global.pgServer = require("connect-phonegap"); 
@@ -21,6 +22,8 @@
         global.createClicked = false;
         
         global.jQuery(document).ready(function() {
+            
+            openDBConnection();
             
             global.jQuery("#projectDirectory").hide();
             global.jQuery("#createOpenProjectOverlay").hide();
