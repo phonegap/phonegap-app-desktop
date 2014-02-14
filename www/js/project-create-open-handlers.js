@@ -69,19 +69,22 @@ function parseProjectConfig() {
         global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc);
         
         // get the project name
-        global.jQuery.projectName = global.jQuery.xml.find("name").text();
-        console.log("project name: " + global.jQuery.projectName);
+        var projectName = global.jQuery.xml.find("name").text();
+        console.log("project name: " + projectName);
         
         // get the project version
-        global.jQuery.projectVersion = global.jQuery.xml.find("widget").attr("version");
-        console.log("project version: " + global.jQuery.projectVersion);
+        var projectVersion = global.jQuery.xml.find("widget").attr("version");
+        console.log("project version: " + projectVersion);
         
         // get the app icon
-        global.jQuery.projectIcon = global.jQuery.xml.find("icon").attr("src");
-        iconPath += global.jQuery.projectIcon;
+        var projectIcon = global.jQuery.xml.find("icon").attr("src");
+        iconPath += projectIcon;
         console.log("project icon path: " + iconPath);
         
-        addProjectWidget(global.jQuery.projectName, global.jQuery.projectVersion, iconPath);
+        var project = {"name":projectName, "version":projectVersion, "iconPath":iconPath};
+        
+        addProjectWidget(projectName, projectVersion, iconPath);
+        global.db.addProject(project);
     });
     
 }
