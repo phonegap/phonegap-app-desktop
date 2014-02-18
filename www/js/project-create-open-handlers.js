@@ -81,7 +81,6 @@ function parseProjectConfig() {
         iconPath += projectIcon;
         console.log("project icon path: " + iconPath);
         
-        addProjectWidget(projectName, projectVersion, iconPath);
         addProject(projectName, projectVersion, iconPath);
     });
     

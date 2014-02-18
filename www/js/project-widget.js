@@ -1,6 +1,11 @@
-function addProjectWidget(projectName, projectVersion, projectIcon) {
-    var widgetDOM = "";
+function addProjectWidget(id, projectName, projectVersion, projectIcon) {
+    console.log("addProjectWidget");
+    console.log("id: " + id);
+    console.log("name: " + projectName);
+    console.log("version: " + projectVersion);
+    console.log("projectIcon: " + projectIcon);
     
+    var widgetDOM = "";
     widgetDOM += "<div style='display: table; border: 1px solid black;'>";
     widgetDOM += "<div style='display: table-row;'>";
     widgetDOM += "<div style='float:left; display: table-column;'><img src='" + projectIcon + "'></div>";

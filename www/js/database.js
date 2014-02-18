@@ -47,6 +47,8 @@ function addProject(projectName, projectVersion, iconPath) {
 
     request.onsuccess = function(evt) {
         console.log("addProject success");
+        // TODO: need to get ID of the added project
+        addProjectWidget("id",projectName, projectVersion, iconPath);
     };
 
     request.onerror = function(evt) {
@@ -67,7 +69,8 @@ function getProjects() {
         }
         
         i += 1;
-        // addProjectWidget(result.value);  // TODO: need to modify addProjectWidget in project-widget.js to receive & render a row
+        var row = result.value;
+        addProjectWidget(row.id, row.name, row.version, row.iconPath);  // TODO: need to modify addProjectWidget in project-widget.js to receive & render a row
         result.continue();
     };
     
