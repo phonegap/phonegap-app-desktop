@@ -25,7 +25,8 @@ function openDBConnection() {
         request.onsuccess = function(evt) {
             console.log("projects database opened successfully");
             global.db = evt.target.result; 
-                
+             
+            getProjects();    
         };
     }
 }
@@ -46,10 +47,32 @@ function addProject(projectName, projectVersion, iconPath) {
 
     request.onsuccess = function(evt) {
         console.log("addProject success");
-    }
+    };
 
     request.onerror = function(evt) {
         console.log("addProject error");
-    }
+    };   
+}
+
+function getProjects() {
+    var keyRange = IDBKeyRange.lowerBound(0);
+    var cursorRequest = global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").openCursor(keyRange);
+    var i = 0;
     
-};
+    cursorRequest.onsuccess = function(evt) {
+        var result = evt.target.result;
+        if (!!result == false) {
+            console.log(i + " projects successfully retrieved");
+            return;
+        }
+        
+        i += 1;
+        // addProjectWidget(result.value);  // TODO: need to modify addProjectWidget in project-widget.js to receive & render a row
+        result.continue();
+    };
+    
+    cursorRequest.onerror = function(evt) {
+        console.log(evt.message);
+        console.log("error getting projects");
+    };
+}
