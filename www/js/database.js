@@ -1,4 +1,5 @@
 function openDBConnection() {
+    console.log("openDBConnection");
     window.indexedDB = window.webkitIndexedDB;
     
     if (!window.indexedDB) {
@@ -30,6 +31,11 @@ function openDBConnection() {
     }
 }
 
+function closeDBConnection() {
+    console.log("closeDBConnection");
+    global.db.close();
+}
+
 function removeProjectById(id) {
     console.log("removeProjectById - id: " + id);
     var request = global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").delete(+id);
@@ -48,16 +54,13 @@ function removeProjectById(id) {
 
 function addProject(projectName, projectVersion, iconPath) {
     console.log("addProject called");
-    //var trans = global.db.transaction(["projectsStore"], "readwrite");
-    //var store = trans.objectStore("projectsStore");
 
     var projectObj = {"name":projectName, "version":projectVersion, "iconPath":iconPath};
 
     console.log("projectObj:" + JSON.stringify(projectObj));
    
     // insert into database
-    // TODO: should we add error checking to make sure the same project isn't added to the db twice?
-    //var request = store.put(projectObj);     
+    // TODO: should we add error checking to make sure the same project isn't added to the db twice?    
     var request = global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").put(projectObj);
 
     request.onsuccess = function(evt) {

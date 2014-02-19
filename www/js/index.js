@@ -4,7 +4,6 @@ var win = gui.Window.get();
 // load file system module
 var fs = require("fs");
 
-
 var menubar = new gui.Menu({ type: 'menubar' });
 var file = new gui.Menu();
 
@@ -54,5 +53,6 @@ win.show();
 
 win.on("close", function () {
 	console.log("window close handler");
+	closeDBConnection();
 	this.close(true);	
 });
