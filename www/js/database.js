@@ -35,24 +35,9 @@ function removeProjectById(id) {
     var request = global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").delete(+id);
     
     request.onsuccess = function(evt) {
-        var keyRange = IDBKeyRange.lowerBound(0);
-        var cursorRequest = global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").openCursor(keyRange);
-        var count = 0;
-
-        cursorRequest.onsuccess = function(evt) {
-            var result = evt.target.result;
-            if (!!result == false) {
-                console.log(count + " projects successfully retrieved after removal");
-                return;
-            }
-
-            count += 1;
-            var row = result.value;
-            result.continue();
-        };
-
-        cursorRequest.onerror = function(evt) {
-            console.log(evt.message);
+        global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").count().onsuccess = function(evt) {
+            var count = evt.target.result;
+            console.log("number of projects after removal: " + count);        
         };        
     };
     
