@@ -32,7 +32,7 @@ function openDBConnection() {
 
 function removeProjectById(id) {
     console.log("removeProjectById - id: " + id);
-    var request = global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").delete(id);
+    var request = global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").delete(+id);
     
     request.onsuccess = function(evt) {
         var keyRange = IDBKeyRange.lowerBound(0);
