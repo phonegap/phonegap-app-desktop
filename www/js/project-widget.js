@@ -5,8 +5,8 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon) {
     console.log("version: " + projectVersion);
     console.log("projectIcon: " + projectIcon);
     
-    var widgetId = "projectWidget" + id.toString();
-    var buttonId = "button" + id.toString();
+    var widgetId = "projectWidget_" + id.toString();
+    var buttonId = "button_" + id.toString();
     
     var widgetDOM = "";
     widgetDOM += "<div style='display: table; border: 1px solid black;' id='" + widgetId + "'>";
@@ -22,8 +22,23 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon) {
     global.jQuery("#drop_zone").append(widgetDOM);
     
     global.jQuery("#" + widgetId).on("click", function() {
-        // get widgetId
-        alert(global.jQuery("#" + widgetId).attr("id"));
-        // TODO: when a project is clicked, we need to set widget to selected state -> this will provide us with the Id for removing the project
+        var temp = global.jQuery("#" + widgetId).attr("id").split("_");
+        var id = temp[1];
+        setActiveWidget(id);       
     });
+}
+
+function setActiveWidget(id) {
+    // TODO: when a project is clicked, we need to set widget to selected state
+    console.log("setActiveWidget - id: " + id);
+    var activeWidget = {};
+    activeWidget.widgetId = "projectWidget_" + id.toString();
+    activeWidget.projectId = id;
+    global.activeWidget = activeWidget;
+}
+
+function removeProjectWidget() {
+    console.log("removeProjectWidget - id: " + global.activeWidget.projectId);
+    global.jQuery("#" + global.activeWidget.widgetId).remove();
+    removeProjectById(global.activeWidget.projectId);
 }

@@ -30,9 +30,35 @@ function openDBConnection() {
     }
 }
 
-function removeProject() {
-    console.log("remove project");
-    // TODO: requires implementation
+function removeProjectById(id) {
+    console.log("removeProjectById - id: " + id);
+    var request = global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").delete(id);
+    
+    request.onsuccess = function(evt) {
+        var keyRange = IDBKeyRange.lowerBound(0);
+        var cursorRequest = global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").openCursor(keyRange);
+        var count = 0;
+
+        cursorRequest.onsuccess = function(evt) {
+            var result = evt.target.result;
+            if (!!result == false) {
+                console.log(count + " projects successfully retrieved after removal");
+                return;
+            }
+
+            count += 1;
+            var row = result.value;
+            result.continue();
+        };
+
+        cursorRequest.onerror = function(evt) {
+            console.log(evt.message);
+        };        
+    };
+    
+    request.onerror = function(evt) {
+        console.log(evt.message);
+    };
 }
 
 function addProject(projectName, projectVersion, iconPath) {
@@ -51,13 +77,11 @@ function addProject(projectName, projectVersion, iconPath) {
 
     request.onsuccess = function(evt) {
         console.log("addProject success");
-        // TODO: need to get ID of the added project
-        //addProjectWidget("id",projectName, projectVersion, iconPath);
         getProjectCount();
     };
 
     request.onerror = function(evt) {
-        console.log("addProject error");
+        console.log(evt.message);
     };   
 }
 
@@ -65,29 +89,44 @@ function getProjectCount() {
     global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").count().onsuccess = function(evt) {
         var count = evt.target.result;
         console.log("count: " + count);
+        getProjectByIndex(count);        
     };      
+}
+
+function getProjectByIndex(index) {
+    console.log("getProjectByIndex - index: " + index);
+    var request = global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").get(index);
+    
+    request.onsuccess = function(evt) {
+        var result = request.result;
+        console.log("id: " + result.id + " name: " + result.name);
+        addProjectWidget(result.id, result.name, result.version, result.iconPath);
+    };
+    
+    request.onerror = function(evt) {
+        console.log(evt.message);
+    };
 }
 
 function getProjects() {
     var keyRange = IDBKeyRange.lowerBound(0);
     var cursorRequest = global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").openCursor(keyRange);
-    var i = 0;
+    var count = 0;
     
     cursorRequest.onsuccess = function(evt) {
         var result = evt.target.result;
         if (!!result == false) {
-            console.log(i + " projects successfully retrieved");
+            console.log(count + " projects successfully retrieved");
             return;
         }
         
-        i += 1;
+        count += 1;
         var row = result.value;
-        addProjectWidget(row.id, row.name, row.version, row.iconPath);  // TODO: need to modify addProjectWidget in project-widget.js to receive & render a row
+        addProjectWidget(row.id, row.name, row.version, row.iconPath);
         result.continue();
     };
     
     cursorRequest.onerror = function(evt) {
         console.log(evt.message);
-        console.log("error getting projects");
     };
 }
