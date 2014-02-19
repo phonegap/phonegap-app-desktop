@@ -24,11 +24,15 @@ function openDBConnection() {
         
         request.onsuccess = function(evt) {
             console.log("projects database opened successfully");
-            global.db = evt.target.result; 
-             
+            global.db = evt.target.result;            
             getProjects();    
         };
     }
+}
+
+function removeProject() {
+    console.log("remove project");
+    // TODO: requires implementation
 }
 
 function addProject(projectName, projectVersion, iconPath) {
@@ -48,12 +52,20 @@ function addProject(projectName, projectVersion, iconPath) {
     request.onsuccess = function(evt) {
         console.log("addProject success");
         // TODO: need to get ID of the added project
-        addProjectWidget("id",projectName, projectVersion, iconPath);
+        //addProjectWidget("id",projectName, projectVersion, iconPath);
+        getProjectCount();
     };
 
     request.onerror = function(evt) {
         console.log("addProject error");
     };   
+}
+
+function getProjectCount() {
+    global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").count().onsuccess = function(evt) {
+        var count = evt.target.result;
+        console.log("count: " + count);
+    };      
 }
 
 function getProjects() {
