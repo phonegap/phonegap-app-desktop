@@ -29,7 +29,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon) {
 }
 
 function setActiveWidget(id) {
-    // TODO: when a project is clicked, we need to set widget to selected state
+    // TODO: when a project is clicked, we need to visually set widget to selected state
     console.log("setActiveWidget - id: " + id);
     var activeWidget = {};
     activeWidget.widgetId = "projectWidget_" + id.toString();

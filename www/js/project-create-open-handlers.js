@@ -43,14 +43,12 @@ function create() {
               }
           })               
           .on("error", function(e) {
-              // handle error
               console.log(e.message);
               alert(e.message);
           })                 
           .on("complete", function(data) {
               console.log("created project at:" + data.path);
-              //alert("created project at:" + data.path);
-              
+
               // parse config.xml of newly created project
               parseProjectConfig();
           });
