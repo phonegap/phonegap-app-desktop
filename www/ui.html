@@ -42,6 +42,7 @@
             
             global.jQuery("#plus").click(addProjectOverlay);
             global.jQuery("#minus").click(removeProjectOverlay);
+            global.jQuery("#server-status").click(toggleServerStatus);
         });
           
     </script>
@@ -87,8 +88,8 @@
           </div>
         </div>
         <div class="status-field">
-          <input type="checkbox" disabled id="server-status" />
-          <label for="server-status">Server is offline</label>
+          <input type="checkbox" id="server-status" />
+          <label for="server-status" id="server-status-label">Server is offline</label>
         </div>
       </nav>
       <nav class="topcoat-button-bar right">
