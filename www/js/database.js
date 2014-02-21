@@ -78,13 +78,13 @@ function getProjectCount() {
     global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").count().onsuccess = function(evt) {
         var count = evt.target.result;
         console.log("getProjectCount: " + count);
-        getProjectByIndex(count);        
+        getLastProjectAdded(count);        
     };      
 }
 
-function getProjectByIndex(projectCount) {
+function getLastProjectAdded(projectCount) {
     // uses projectCount to get the last record added to the db, then retrieve the Id of the last record added before attaching a project widget to the GUI
-    console.log("getProjectByIndex - projectCount: " + projectCount);
+    console.log("getLastProjectAdded - projectCount: " + projectCount);
 
     var keyRange = IDBKeyRange.lowerBound(0);
     var cursorRequest = global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").openCursor(keyRange);
