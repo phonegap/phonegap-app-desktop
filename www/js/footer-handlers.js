@@ -4,9 +4,8 @@ function addProjectOverlay(evt) {
 }
 
 function removeProjectOverlay(evt) {
-    console.log("removeProjectOverlay");
-    // TODO: we should probably prompt the user to confirm that they want to delete the project
-    removeProjectWidget();
+    console.log("removeProjectOverlay - minus click handler");
+    global.jQuery("#removeProjectOverlay").show();
 }
 
 function toggleServerStatus(evt) {

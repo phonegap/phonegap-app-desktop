@@ -28,16 +28,22 @@
             
             global.jQuery("#projectDirectory").hide();
             global.jQuery("#createOpenProjectOverlay").hide();
+            global.jQuery("#removeProjectOverlay").hide();
             
             global.jQuery("#drop_zone").on("drop", handleDrop);
             global.jQuery("#drop_zone").on("dragover", handleDragOver);
             
-            global.jQuery("#createProject").click(createProject);
-            global.jQuery("#openProject").click(openProject);
             global.jQuery("#projectDirectory").change(selectDirectory);
             
+            global.jQuery("#createProject").click(createProject);
+            global.jQuery("#openProject").click(openProject);
             global.jQuery("#cancelCreateOpen").click(function() {
                 global.jQuery("#createOpenProjectOverlay").hide();
+            });
+            
+            global.jQuery("#removeProject").click(removeProjectWidget);
+            global.jQuery("#cancelRemoveProject").click(function() {
+                global.jQuery("#removeProjectOverlay").hide();
             });
             
             global.jQuery("#plus").click(addProjectOverlay);
@@ -62,6 +68,13 @@
         <button id="openProject" class="topcoat-button">Open Existing Project</button>
         <br>
         <button id="cancelCreateOpen" class="topcoat-button">Cancel</button>
+    </aside>
+    <aside id="removeProjectOverlay" class="topcoat-overlay">
+        Are you sure you want to remove this project?
+        <br>
+        <button id="removeProject" class="topcoat-button">Remove Project</button>
+        <br>
+        <button id="cancelRemoveProject" class="topcoat-button">Cancel</button>
     </aside>
     <article>
         <div id="drop_zone" class="border">Drop files here</div>
