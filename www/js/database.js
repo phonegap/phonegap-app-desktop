@@ -43,7 +43,8 @@ function removeProjectById(id) {
     request.onsuccess = function(evt) {
         global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").count().onsuccess = function(evt) {
             var count = evt.target.result;
-            console.log("number of projects after removal: " + count);        
+            console.log("number of projects after removal: " + count);  
+            global.jQuery("#removeProjectOverlay").hide();      
         };        
     };
     
@@ -76,22 +77,34 @@ function addProject(projectName, projectVersion, iconPath) {
 function getProjectCount() {
     global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").count().onsuccess = function(evt) {
         var count = evt.target.result;
-        console.log("count: " + count);
+        console.log("getProjectCount: " + count);
         getProjectByIndex(count);        
     };      
 }
 
-function getProjectByIndex(index) {
-    console.log("getProjectByIndex - index: " + index);
-    var request = global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").get(index);
+function getProjectByIndex(projectCount) {
+    // uses projectCount to get the last record added to the db, then retrieve the Id of the last record added before attaching a project widget to the GUI
+    console.log("getProjectByIndex - projectCount: " + projectCount);
+
+    var keyRange = IDBKeyRange.lowerBound(0);
+    var cursorRequest = global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").openCursor(keyRange);
+    var count = 0;
     
-    request.onsuccess = function(evt) {
-        var result = request.result;
-        console.log("id: " + result.id + " name: " + result.name);
-        addProjectWidget(result.id, result.name, result.version, result.iconPath);
+    cursorRequest.onsuccess = function(evt) {
+        var result = evt.target.result;
+        
+        count += 1;
+        var row = result.value;
+   
+        if (count == projectCount) {
+            addProjectWidget(row.id, row.name, row.version, row.iconPath);
+            return;
+        }
+
+        result.continue();
     };
     
-    request.onerror = function(evt) {
+    cursorRequest.onerror = function(evt) {
         console.log(evt.message);
     };
 }
