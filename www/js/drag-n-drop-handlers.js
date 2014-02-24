@@ -18,9 +18,9 @@ function handleDrop(evt) {
             addProjectOverlay(evt);
         } else if (entry.isDirectory) {
             console.log("folder: " + entry.fullPath);
-            global.jQuery('#projectFolder').text("Project Directory: " + entry.fullPath);
-            // TODO: set this as the current project folder. should we check if folder contains a valid project & then prompt the user to create
-            //       a new project if the folder does not contain a valid project?
+            // prompt user into normal add / open project workflow - we may want to consider automatically adding the folder as a project but we would
+            // need to add logic to determine if the folder contains a valid project. (validProject) ? openExisting : createNew
+            addProjectOverlay(evt);
         }
     }
 }
