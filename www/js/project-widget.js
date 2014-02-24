@@ -9,7 +9,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon) {
     var buttonId = "button_" + id.toString();
     
     var widgetDOM = "";
-    widgetDOM += "<div style='display: table; border: 1px solid black;' id='" + widgetId + "'>";
+    widgetDOM += "<div style='display: table; border-bottom: 1px solid black; width: 100%;' id='" + widgetId + "'>";
     widgetDOM += "<div style='display: table-row;'>";
     widgetDOM += "<div style='float:left; display: table-column;'><img src='" + projectIcon + "'></div>";
     widgetDOM += "<div style='float:left; display: table-column;'>";
