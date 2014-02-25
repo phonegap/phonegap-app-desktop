@@ -2,7 +2,7 @@
     "name": "PhoneGapGUI",
     "description": "PhoneGap GUI",
     "version": "0.0.3",
-    "main": "index.html",
+    "main": "ui.html",
     "window": {
         "show": false,
         "position": "center",
@@ -12,5 +12,9 @@
     },
     "dependencies": {
         "connect-phonegap": "0.8.1"
-    }
+    },
+    "licenses": [{
+        "type":"ALv2",
+        "url":"http://www.apache.org/licenses/LICENSE-2.0.html"
+    }]
 }
