@@ -1,9 +1,5 @@
-function addProjectWidget(id, projectName, projectVersion, projectIcon) {
+function addProjectWidget(id, projectName, projectVersion, projectIcon, projectDir) {
     console.log("addProjectWidget");
-    console.log("id: " + id);
-    console.log("name: " + projectName);
-    console.log("version: " + projectVersion);
-    console.log("projectIcon: " + projectIcon);
     
     var widgetId = "projectWidget_" + id.toString();
     var buttonId = "button_" + id.toString();
@@ -24,17 +20,20 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon) {
     global.jQuery("#" + widgetId).on("click", function() {
         var temp = global.jQuery("#" + widgetId).attr("id").split("_");
         var id = temp[1];
-        setActiveWidget(id);       
+        setActiveWidget(id, projectDir);       
     });
 }
 
-function setActiveWidget(id) {
+function setActiveWidget(id, projDir) {
     // TODO: when a project is clicked, we need to visually set widget to selected state
-    console.log("setActiveWidget - id: " + id);
+    console.log("setActiveWidget - id: " + id + " projectDir: " + projDir);
     var activeWidget = {};
     activeWidget.widgetId = "projectWidget_" + id.toString();
     activeWidget.projectId = id;
     global.activeWidget = activeWidget;
+    localStorage.projDir = projDir;
+    
+    global.jQuery("#projectFolder").text("Project folder: " + localStorage.projDir);
 }
 
 function removeProjectWidget() {

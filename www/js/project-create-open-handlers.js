@@ -15,8 +15,6 @@ function selectDirectory(e) {
     console.log(global.jQuery("#projectDirectory").val());
     localStorage.projDir = global.jQuery("#projectDirectory").val();
 
-    global.jQuery("#projectFolder").text("Project folder: " + localStorage.projDir);
-
     console.log(global.createClicked);
     if(global.createClicked) {
         // create new project
@@ -79,7 +77,7 @@ function parseProjectConfig() {
         iconPath += projectIcon;
         console.log("project icon path: " + iconPath);
         
-        addProject(projectName, projectVersion, iconPath);
+        addProject(projectName, projectVersion, iconPath, localStorage.projDir);
     });
     
 }

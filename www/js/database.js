@@ -55,11 +55,8 @@ function removeProjectById(id) {
                 if (result) {
                     var row = result.value;
                     // set the first project retrieved as the default active project
-                    console.log("set default active project after removal - id: " + row.id);
-                    var activeWidget = {};
-                    activeWidget.widgetId = "projectWidget_" + row.id.toString();
-                    activeWidget.projectId = row.id;
-                    global.activeWidget = activeWidget;
+                    console.log("set default active project after removal - id: " + row.id);   
+                    setActiveWidget(row.id, row.projectDir);
                 }
                 
                 return;
@@ -77,10 +74,10 @@ function removeProjectById(id) {
     };
 }
 
-function addProject(projectName, projectVersion, iconPath) {
+function addProject(projectName, projectVersion, iconPath, projectDir) {
     console.log("addProject called");
 
-    var projectObj = {"name":projectName, "version":projectVersion, "iconPath":iconPath};
+    var projectObj = {"name":projectName, "version":projectVersion, "iconPath":iconPath, "projectDir":projectDir};
 
     console.log("projectObj:" + JSON.stringify(projectObj));
    
@@ -120,8 +117,10 @@ function getLastProjectAdded(projectCount) {
         count += 1;
         var row = result.value;
    
+        console.log("count: " + count + " projectCount: " + projectCount);
         if (count == projectCount) {
-            addProjectWidget(row.id, row.name, row.version, row.iconPath);
+            addProjectWidget(row.id, row.name, row.version, row.iconPath, row.projectDir);
+            setActiveWidget(row.id, row.projectDir);
             return;
         }
 
@@ -151,13 +150,10 @@ function getProjects() {
         // set the first project retrieved as the default active project
         if (count == 1) {
             console.log("set default active project - id: " + row.id);
-            var activeWidget = {};
-            activeWidget.widgetId = "projectWidget_" + row.id.toString();
-            activeWidget.projectId = row.id;
-            global.activeWidget = activeWidget;
+            setActiveWidget(row.id, row.projectDir);
         }
         
-        addProjectWidget(row.id, row.name, row.version, row.iconPath);
+        addProjectWidget(row.id, row.name, row.version, row.iconPath, row.projectDir);
         result.continue();
     };
     
