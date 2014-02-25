@@ -25,16 +25,22 @@ menubar.items[0].submenu.append(new gui.MenuItem({
 		global.jQuery("#openProject").trigger("click");
    	}
 }));
+
+/*
 menubar.items[0].submenu.append(new gui.MenuItem({
    	type: "separator"
 }));
 menubar.items[0].submenu.append(new gui.MenuItem({
-   	label: "Close Project",
+   	label: "Quit PhoneGap GUI",
    	click: function () {
-      	alert("close");
+      	//alert("close");
+      	win.close();
    	}
 }));
+*/
 
+/*
+// comment out tray code - since tray click is not supported on OSX
 // Create a tray icon
 //var tray = new gui.Tray({ title: 'Tray', icon: 'img/icon.png' });
 var tray = new gui.Tray({title: 'Tray'});
@@ -44,10 +50,11 @@ var menu = new gui.Menu();
 menu.append(new gui.MenuItem({ type: 'normal', label: 'tray test', click: function() { alert("tray menu item test"); } }));
 tray.menu = menu;
 
-// Show window and remove tray when clicked
+// remove tray when clicked
 tray.on('click', function() {
 	console.log("tray clicked");
 });
+*/
 
 win.show();    
 
