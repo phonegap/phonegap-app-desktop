@@ -8,6 +8,11 @@ function removeProjectOverlay(evt) {
     global.jQuery("#removeProjectOverlay").show();
 }
 
+function settingsOverlay(evt) {
+    console.log("settingsOverlay - settings click handler");
+    alert("not implemented yet");
+}
+
 function toggleServerStatus(evt) {
     console.log("toggleServerStatus");
     
@@ -23,12 +28,14 @@ function toggleServerStatus(evt) {
                         console.log("server started at: " + data.address + ":" + data.port);
                         global.server = data.server;
                         global.jQuery("#server-status-label").text("Server is online");
+                        global.jQuery("#log").prop("disabled", false);
                     })
                     .on("error", function(e) {
                         console.log(e.message);
                     })
                     .on("log", function(status, url) {
                         console.log(status, url);
+                        global.jQuery("#serverLog").append(status + " " + url + "\n");
                     });
              } else {
                  var errMsg = "an existing project doesn't exist in this folder";
@@ -40,5 +47,11 @@ function toggleServerStatus(evt) {
      } else {
          console.log("server stopped");
          global.jQuery("#server-status-label").text("Server is offline");
+         global.jQuery("#log").prop("disabled", true);
      }
+}
+
+function toggleLog(evt) {
+    console.log("toggleLog - log click handler");
+    global.jQuery("#serverLogOverlay").show();
 }

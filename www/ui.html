@@ -29,6 +29,7 @@
             global.jQuery("#projectDirectory").hide();
             global.jQuery("#createOpenProjectOverlay").hide();
             global.jQuery("#removeProjectOverlay").hide();
+            global.jQuery("#serverLogOverlay").hide();
             
             global.jQuery("#drop_zone").on("drop", handleDrop);
             global.jQuery("#drop_zone").on("dragover", handleDragOver);
@@ -46,9 +47,15 @@
                 global.jQuery("#removeProjectOverlay").hide();
             });
             
+            global.jQuery("#closeServerLog").click(function() {
+                global.jQuery("#serverLogOverlay").hide();
+            });
+            
             global.jQuery("#plus").click(addProjectOverlay);
             global.jQuery("#minus").click(removeProjectOverlay);
+            global.jQuery("#settings").click(settingsOverlay);
             global.jQuery("#server-status").click(toggleServerStatus);
+            global.jQuery("#log").click(toggleLog);
         });
           
     </script>
@@ -78,8 +85,15 @@
         <br>
         <button id="cancelRemoveProject" class="topcoat-button">Cancel</button>
     </aside>
+    <aside id="serverLogOverlay" class="topcoat-overlay">
+        Server Log
+        <br>
+        <textarea id="serverLog" class="topcoat-textarea" readonly cols="35" rows="5"></textarea>
+        <br>
+        <button id="closeServerLog" class="topcoat-button">Close</button>
+    </aside>
     <article>
-        <div id="drop_zone" class="border">Drop files here</div>
+        <div id="drop_zone" class="border"></div>
         <div id="projectFolder"></div>
         <input type="file" id="projectDirectory" nwdirectory>
     </article>
@@ -107,8 +121,8 @@
           <label for="server-status" id="server-status-label">Server is offline</label>
         </div>
       </nav>
-      <nav class="topcoat-button-bar right">
-        <button class="topcoat-icon-button--large--quiet">
+      <nav class="topcoat-button-bar right"> 
+        <button id="log" class="topcoat-icon-button--large--quiet" disabled>
           <span class="topcoat-icon--large icomatic">listview</span>
         </button>
       </nav>
