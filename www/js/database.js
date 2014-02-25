@@ -42,9 +42,33 @@ function removeProjectById(id) {
     
     request.onsuccess = function(evt) {
         global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").count().onsuccess = function(evt) {
-            var count = evt.target.result;
-            console.log("number of projects after removal: " + count);  
-            global.jQuery("#removeProjectOverlay").hide();      
+            var numberOfProjects = evt.target.result;
+            console.log("number of projects after removal: " + numberOfProjects);  
+            global.jQuery("#removeProjectOverlay").hide();     
+                      
+            var keyRange = IDBKeyRange.lowerBound(0);
+            var cursorRequest = global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").openCursor(keyRange);
+ 
+            cursorRequest.onsuccess = function(evt) {
+                var result = evt.target.result;
+
+                if (result) {
+                    var row = result.value;
+                    // set the first project retrieved as the default active project
+                    console.log("set default active project after removal - id: " + row.id);
+                    var activeWidget = {};
+                    activeWidget.widgetId = "projectWidget_" + row.id.toString();
+                    activeWidget.projectId = row.id;
+                    global.activeWidget = activeWidget;
+                }
+                
+                return;
+            };
+
+            cursorRequest.onerror = function(evt) {
+                console.log(evt.message);
+            };            
+             
         };        
     };
     
@@ -123,6 +147,16 @@ function getProjects() {
         
         count += 1;
         var row = result.value;
+        
+        // set the first project retrieved as the default active project
+        if (count == 1) {
+            console.log("set default active project - id: " + row.id);
+            var activeWidget = {};
+            activeWidget.widgetId = "projectWidget_" + row.id.toString();
+            activeWidget.projectId = row.id;
+            global.activeWidget = activeWidget;
+        }
+        
         addProjectWidget(row.id, row.name, row.version, row.iconPath);
         result.continue();
     };
