@@ -33,7 +33,7 @@ function setActiveWidget(id, projDir) {
     global.activeWidget = activeWidget;
     localStorage.projDir = projDir;
     
-    global.jQuery("#projectFolder").text("Project folder: " + localStorage.projDir);
+    global.jQuery("#projectFolder").text("Current project folder: " + localStorage.projDir);
 }
 
 function removeProjectWidget() {

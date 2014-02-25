@@ -62,9 +62,14 @@
     <style>
         .dropzone {
             width: 100%;
-            height: 100%;
+            height: 85%;
             overflow-x: hidden;
             overflow-y: auto;
+        }
+        
+        .projHeader {
+            border-bottom: 1px solid black;
+            min-height: 15%;
         }
     </style>
   </head>
@@ -92,9 +97,7 @@
         <button id="closeServerLog" class="topcoat-button">Close</button>
     </aside>
     <article>
-        <div id="projectFolder"></div>
-    </article>
-    <article>
+        <div id="projectFolder" class="projHeader">Current project folder:</div>
         <div id="drop_zone" class="dropzone"></div>
         <input type="file" id="projectDirectory" nwdirectory>
     </article>
