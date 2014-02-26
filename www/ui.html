@@ -30,6 +30,7 @@
             global.jQuery("#createOpenProjectOverlay").hide();
             global.jQuery("#removeProjectOverlay").hide();
             global.jQuery("#serverLogOverlay").hide();
+            global.jQuery("#overlay-bg").hide();
             
             global.jQuery("#drop_zone").on("drop", handleDrop);
             global.jQuery("#drop_zone").on("dragover", handleDragOver);
@@ -40,15 +41,18 @@
             global.jQuery("#openProject").click(openProject);
             global.jQuery("#cancelCreateOpen").click(function() {
                 global.jQuery("#createOpenProjectOverlay").hide();
+                global.jQuery("#overlay-bg").hide();
             });
             
             global.jQuery("#removeProject").click(removeProjectWidget);
             global.jQuery("#cancelRemoveProject").click(function() {
                 global.jQuery("#removeProjectOverlay").hide();
+                global.jQuery("#overlay-bg").hide();
             });
             
             global.jQuery("#closeServerLog").click(function() {
                 global.jQuery("#serverLogOverlay").hide();
+                global.jQuery("#overlay-bg").hide();
             });
             
             global.jQuery("#plus").click(addProjectOverlay);
@@ -75,6 +79,7 @@
   </head>
   <body>
     <header></header>
+    <div id="overlay-bg" class="topcoat-overlay-bg"></div>
     <aside id="createOpenProjectOverlay" class="topcoat-overlay">
         <button id="createProject" class="topcoat-button">Create New Project</button>
         <br>
