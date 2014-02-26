@@ -15,6 +15,7 @@
     <script type="text/javascript" src="js/project-create-open-handlers.js"></script>
     <script type="text/javascript" src="js/project-widget.js"></script>
     <script type="text/javascript" src="js/database.js"></script>
+    <script type="text/javascript" src="js/settings-handlers.js"></script>
     <script type='text/javascript'>   
            
         global.pgServer = require("connect-phonegap"); 
@@ -23,6 +24,11 @@
         global.createClicked = false;
         global.db = null;
         
+        // set default port number it has not been set
+        if (!localStorage.portNumber) {
+            localStorage.portNumber = 3000;
+        }
+        
         global.jQuery(document).ready(function() {
             
             openDBConnection();
@@ -30,6 +36,7 @@
             global.jQuery("#projectDirectory").hide();
             global.jQuery("#createOpenProjectOverlay").hide();
             global.jQuery("#removeProjectOverlay").hide();
+            global.jQuery("#settingsOverlay").hide();
             global.jQuery("#serverLogOverlay").hide();
             global.jQuery("#overlay-bg").hide();
             
@@ -50,6 +57,9 @@
                 global.jQuery("#removeProjectOverlay").hide();
                 global.jQuery("#overlay-bg").hide();
             });
+            
+            global.jQuery("#saveSettings").click(saveSettings);
+            global.jQuery("#cancelSettings").click(cancelSettings);
             
             global.jQuery("#closeServerLog").click(function() {
                 global.jQuery("#serverLogOverlay").hide();
@@ -81,6 +91,14 @@
         <button id="removeProject" class="topcoat-button">Remove Project</button>
         <br>
         <button id="cancelRemoveProject" class="topcoat-button">Cancel</button>
+    </aside>
+    <aside id="settingsOverlay" class="topcoat-overlay">
+        Server Settings
+        <br>
+        Port: <input type="text" id="portNumber" class="topcoat-text-input">
+        <br>
+        <button id="saveSettings" class="topcoat-button">Save</button>
+        <button id="cancelSettings" class="topcoat-button">Cancel</button>
     </aside>
     <aside id="serverLogOverlay" class="topcoat-overlay-large">
         Server Log

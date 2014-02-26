@@ -12,7 +12,10 @@ function removeProjectOverlay(evt) {
 
 function settingsOverlay(evt) {
     console.log("settingsOverlay - settings click handler");
-    alert("not implemented yet");
+    // prepopulate port number from localStorage
+    global.jQuery("#portNumber").val(localStorage.portNumber);
+    global.jQuery("#settingsOverlay").show();
+    global.jQuery("#overlay-bg").show();
 }
 
 function toggleServerStatus(evt) {
