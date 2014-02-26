@@ -68,3 +68,13 @@ footer .topcoat-button-bar .topcoat-icon--large {
 .status-field input[type="checkbox"]:checked + label {
   background-image: url(img/status-online.png);
 }
+.dropzone {
+  width: 100%;
+  height: 85%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.projHeader {
+  border-bottom: 1px solid black;
+  min-height: 15%;
+}
