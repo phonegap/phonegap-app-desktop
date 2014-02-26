@@ -27,7 +27,7 @@ function toggleServerStatus(evt) {
                     .on("complete", function(data) {
                         console.log("server started at: " + data.address + ":" + data.port);
                         global.server = data.server;
-                        global.jQuery("#server-status-label").text("Server is online");
+                        global.jQuery("#server-status-label").text("http://" + data.address + ":" + data.port);
                         global.jQuery("#log").prop("disabled", false);
                     })
                     .on("error", function(e) {
@@ -46,7 +46,7 @@ function toggleServerStatus(evt) {
                   
      } else {
          console.log("server stopped");
-         global.jQuery("#server-status-label").text("Server is offline");
+         global.jQuery("#server-status-label").text("server is offline");
          global.jQuery("#log").prop("disabled", true);
      }
 }
