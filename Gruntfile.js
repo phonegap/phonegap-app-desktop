@@ -12,11 +12,13 @@ module.exports = function(grunt) {
     },
     nodewebkit: {
       options: {
+        version: '0.9.1',
         build_dir: './build', // Destination for built apps.
         mac: true,            // OS X support.
         win: true,            // Windows support.
         linux32: false,       // Linux 32-bit support.
-        linux64: false        // Linux 64-bit support.
+        linux64: false,        // Linux 64-bit support.
+        credits: 'www/credits.html'
       },
       src: ['./www/**/*', './node_modules/phonegap/**/*']
     },
