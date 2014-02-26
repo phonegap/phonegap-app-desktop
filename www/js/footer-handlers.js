@@ -52,6 +52,10 @@ function toggleServerStatus(evt) {
 }
 
 function toggleLog(evt) {
-    console.log("toggleLog - log click handler");
-    global.jQuery("#serverLogOverlay").show();
+    console.log("toggleLog - log click handler");    
+    if (global.jQuery("#serverLogOverlay").is(":visible")) {
+        global.jQuery("#serverLogOverlay").hide();
+    } else {
+        global.jQuery("#serverLogOverlay").show();
+    }
 }
