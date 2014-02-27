@@ -16,6 +16,4 @@ function cancelSettings(evt) {
     console.log("cancelSettings");
     global.jQuery("#settingsOverlay").hide();
     global.jQuery("#overlay-bg").hide();
-    // TODO: reset the settings to previous state
-    global.jQuery("#portNumber").val(localStorage.portNumber);
 }
