@@ -18,7 +18,8 @@ module.exports = function(grunt) {
         win: true,            // Windows support.
         linux32: false,       // Linux 32-bit support.
         linux64: false,        // Linux 64-bit support.
-        credits: 'www/credits.html'
+        credits: 'www/credits.html',
+        mac_icns: 'www/img/app-icons/icon.icns'
       },
       src: ['./www/**/*', './node_modules/phonegap/**/*']
     },
