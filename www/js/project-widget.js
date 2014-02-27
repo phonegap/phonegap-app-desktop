@@ -65,18 +65,15 @@ function removeProjectWidget() {
 
 function toggleServerStatus() {
     console.log("toggleServerStatus");
-    
-    // make sure server is closed before opening a new server connection
-    if (global.server) {
-        global.server.close();
-    }    
-    
+        
     if (global.jQuery("#server-status").is(":checked")) {
         fs.exists(localStorage.projDir + "/www", function(exists) {
             if (exists) {
                 process.chdir(localStorage.projDir);
+                
                 console.log("server started");
-                console.log("project opened at: " + localStorage.projDir);                     
+                console.log("project opened at: " + localStorage.projDir);
+                                   
                 global.pgServer.listen({ port: localStorage.portNumber })
                 .on("complete", function(data) {
                     console.log("server started at: " + data.address + ":" + data.port);

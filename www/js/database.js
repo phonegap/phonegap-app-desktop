@@ -47,6 +47,14 @@ function removeProjectById(id) {
              
             global.jQuery("#removeProjectOverlay").hide();     
             global.jQuery("#overlay-bg").hide();  
+            
+            // update the UI if no projects are left
+            if (numberOfProjects == 0) {
+                global.jQuery("#projectFolder").text("Current project folder: ");
+                // stop the server
+                global.jQuery("#server-status").attr("checked", false);
+                toggleServerStatus();
+            }
                       
             var keyRange = IDBKeyRange.lowerBound(0);
             var cursorRequest = global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").openCursor(keyRange);
