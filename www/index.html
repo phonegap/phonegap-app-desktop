@@ -1,193 +1,146 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>PhoneGap</title> 
-    <link rel="stylesheet" type="text/css" href="css/topcoat-mobile-light.min.css"> 
-    <link rel="stylesheet" type="text/css" href="css/topcoat-overlay.min.css"> 
-    <script src="js/jquery-2.0.3.min.js"></script>   
-    <script src="js/presentation.js"></script>
-    <script>
-        var fs = require("fs");
-        var path = require("path"); 
-        global.pgServer = require("connect-phonegap");
-    
-        global.pgVersion = "3.3.0";
+    <title>PhoneGap</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel='stylesheet' type='text/css' href='icon/icomatic.css'>
+    <link rel="stylesheet" type="text/css" href="css/topcoat-desktop-light.min.css">
+    <link rel="stylesheet" type="text/css" href="css/topcoat-overlay.min.css">
+    <link rel="stylesheet" type="text/css" href="css/topcoat-overlay-custom.css">
+    <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script> 
+    <script type='text/javascript' src='icon/icomatic.js'></script>
+    <script type='text/javascript' src='js/index.js'></script>
+    <script type="text/javascript" src="js/footer-handlers.js"></script>
+    <script type="text/javascript" src="js/drag-n-drop-handlers.js"></script>
+    <script type="text/javascript" src="js/project-create-open-handlers.js"></script>
+    <script type="text/javascript" src="js/project-widget.js"></script>
+    <script type="text/javascript" src="js/database.js"></script>
+    <script type="text/javascript" src="js/settings-handlers.js"></script>
+    <script type='text/javascript'>   
+           
+        global.pgServer = require("connect-phonegap"); 
+        global.pgVersion = "3.3.0";  
         global.jQuery = jQuery;
+        global.createClicked = false;
+        global.db = null;
+        
+        // set default port number it has not been set
+        if (!localStorage.portNumber) {
+            localStorage.portNumber = 3000;
+        }
         
         global.jQuery(document).ready(function() {
-           console.log("ready"); 
-           global.server = null;
-           
-           global.jQuery("#projectDirectory").change(function() {
-               console.log("change handler");
-               console.log(global.jQuery("#projectDirectory").val());
-               localStorage.projDir = global.jQuery("#projectDirectory").val();
-               
-               enableFormButtons();
-               global.jQuery("#currentProjectDir").text("Current project directory: " + localStorage.projDir);
-               global.jQuery("#appPath").text(localStorage.projDir);
-
-               if(global.createClicked) {
-                   global.createClicked = false;
-                   createProject();
-               }
-               
-               global.jQuery("#createOpenProjectInterface").hide();
-               global.jQuery("#existingProjectInterface").show();
-           });
-           
-           global.jQuery("#createProject").click(function() {              
-               global.createClicked = true;
-               // get the user to select a directory
-               global.jQuery("#projectDirectory").trigger("click");             
-           });
-           
-           global.jQuery("#openProject").click(function() {
-              console.log("open project click handler");
-              global.jQuery("#projectDirectory").trigger("click");
-           });
-           
-           global.jQuery("#alertOk").click(function() {
-              hideOverlays();
-           });
-           
-           global.jQuery("#settingsCancel").click(function() {
-              console.log("settings cancel click handler");
-              hideOverlays();
-              global.jQuery("#portNumber").val(localStorage.portNumber);
-           });
-           
-           global.jQuery("#settingsSave").click(function() {
-              console.log("settings save click handler");
-              var port = global.jQuery("#portNumber").val();
-              
-              if (global.jQuery.isNumeric(port)) {
-                  console.log("port is valid");
-                  console.log("port number entered: " + port);
-                  localStorage.portNumber = port;
-                  hideOverlays();
-              } else {
-                  console.log("port is invalid");
-                  global.jQuery("#settingsMessage").text("port needs to be numeric");
-              }
-           });
-           
-           global.jQuery("#settings").click(function() {
-              console.log("settings click handler");
-              settingsOverlay(); 
-           });
-           
-           global.jQuery("#isServerStarted").click(function() {
-              if (global.jQuery("#isServerStarted").is(":checked")) {
-                  console.log("server started");
-                  
-                  fs.exists(localStorage.projDir + "/www", function(exists) {
-                      if (exists) {
-                          process.chdir(localStorage.projDir);
-                          console.log("project opened at: " + localStorage.projDir);                     
-                          global.pgServer.listen({ port: localStorage.portNumber }, function(e, options) {
-                              if (e) { 
-                                  console.log("error:", e.message);
-                                  alertOverlay(e.message); 
-                              } else { 
-                                  console.log("server started at address: " + options.address + ":" + options.port); 
-                                  global.server = options.server;
-                                  global.jQuery("#serverStatus").text("server info: http://" + options.address + ":" + options.port);
-                              }
-                          }).on("log", function(status, url) {
-                              console.log(status, url);
-                              global.jQuery("#serverLog").append(status + " " + url + "\n");
-                           });
-
-                      } else {
-                          var errMsg = "an existing project doesn't exist in this folder";
-                          console.log(errMsg);
-                          alertOverlay(errMsg);
-                          
-                          global.jQuery("#isServerStarted").prop("checked", false);
-                      }
-                  });
-                  
-              } else {
-                  console.log("server stopped");
-                  global.server.close();
-              }
-           });
-                                                             
-           initGUI();
-           
-           initSessionData();
-           
+            
+            openDBConnection();
+            
+            global.jQuery("#projectDirectory").hide();
+            global.jQuery("#createOpenProjectOverlay").hide();
+            global.jQuery("#removeProjectOverlay").hide();
+            global.jQuery("#settingsOverlay").hide();
+            global.jQuery("#serverLogOverlay").hide();
+            global.jQuery("#overlay-bg").hide();
+            
+            global.jQuery("#drop_zone").on("drop", handleDrop);
+            global.jQuery("#drop_zone").on("dragover", handleDragOver);
+            
+            global.jQuery("#projectDirectory").change(selectDirectory);
+            
+            global.jQuery("#createProject").click(createProject);
+            global.jQuery("#openProject").click(openProject);
+            global.jQuery("#cancelCreateOpen").click(function() {
+                global.jQuery("#createOpenProjectOverlay").hide();
+                global.jQuery("#overlay-bg").hide();
+            });
+            
+            global.jQuery("#removeProject").click(removeProjectWidget);
+            global.jQuery("#cancelRemoveProject").click(function() {
+                global.jQuery("#removeProjectOverlay").hide();
+                global.jQuery("#overlay-bg").hide();
+            });
+            
+            global.jQuery("#saveSettings").click(saveSettings);
+            global.jQuery("#cancelSettings").click(cancelSettings);
+            
+            global.jQuery("#closeServerLog").click(function() {
+                global.jQuery("#serverLogOverlay").hide();
+                global.jQuery("#overlay-bg").hide();
+            });
+            
+            global.jQuery("#plus").click(addProjectOverlay);
+            global.jQuery("#minus").click(removeProjectOverlay);
+            global.jQuery("#settings").click(settingsOverlay);
+            global.jQuery("#server-status").click(toggleServerStatus);
+            global.jQuery("#log").click(toggleLog);
         });
-        
-    </script> 
-    <script src="js/index.js"></script> 
-    <style>
-        #settingsMessage { height: 18px }
-    </style> 
+          
+    </script>
   </head>
   <body>
-      <div id="overlay-bg" class="topcoat-overlay-bg"></div>
-      <aside id="alertOverlay" class="topcoat-overlay">
-          <div id="alertContent"></div>
-          <div class="topcoat-overlay-buttons">
-                  <button id="alertOk" class="topcoat-button"></button>
+    <header></header>
+    <div id="overlay-bg" class="topcoat-overlay-bg"></div>
+    <aside id="createOpenProjectOverlay" class="topcoat-overlay">
+        <button id="createProject" class="topcoat-button">Create New Project</button>
+        <br>
+        <button id="openProject" class="topcoat-button">Open Existing Project</button>
+        <br>
+        <button id="cancelCreateOpen" class="topcoat-button">Cancel</button>
+    </aside>
+    <aside id="removeProjectOverlay" class="topcoat-overlay">
+        Are you sure you want to remove this project?
+        <br>
+        <button id="removeProject" class="topcoat-button">Remove Project</button>
+        <br>
+        <button id="cancelRemoveProject" class="topcoat-button">Cancel</button>
+    </aside>
+    <aside id="settingsOverlay" class="topcoat-overlay">
+        Server Settings
+        <br>
+        Port: <input type="text" id="portNumber" class="topcoat-text-input">
+        <br>
+        <button id="saveSettings" class="topcoat-button">Save</button>
+        <button id="cancelSettings" class="topcoat-button">Cancel</button>
+    </aside>
+    <aside id="serverLogOverlay" class="topcoat-overlay-large">
+        Server Log
+        <br>
+        <textarea id="serverLog" class="topcoat-textarea" readonly style="width: 90%; height: 90%;"></textarea>
+        <br>
+        <button id="closeServerLog" class="topcoat-button">Close</button>
+    </aside>
+    <article>
+        <div id="projectFolder" class="projHeader">Current project folder:</div>
+        <div id="drop_zone" class="dropzone"></div>
+        <input type="file" id="projectDirectory" nwdirectory>
+    </article>
+    <footer>
+      <nav class="left">
+        <div id="app-action-bar" class="topcoat-button-bar">
+          <div class="topcoat-button-bar__item">
+            <button id="plus" class="topcoat-button-bar__button--large">
+              <span class='icomatic'>plus</span>
+            </button>
           </div>
-      </aside>      
-          
-      <aside id="createOpenProjectInterface" class="topcoat-overlay">
-          <button id="createProject" class="topcoat-button"></button>
-          <br>or<br>
-          <button id="openProject" class="topcoat-button"></button>
-      </aside>
-      
-      <aside id="existingProjectInterface">
-          <div id="currentProjectDir"></div><br>
-          <div id="appIcon">icon</div>
-          <div id="appInfo">
-              <div id="appName">app name</div><br>
-              <div id="appVersion">version</div><br>
-              <div id="appPath"></div>
+          <div class="topcoat-button-bar__item">
+            <button id="minus" class="topcoat-button-bar__button--large">
+              <span class='icomatic'>minus</span>
+            </button>
           </div>
-          <div id="appServerLog">
-              Server Log:<br>    
-              <textarea id="serverLog" class="topcoat-textarea" readonly cols="35" rows="5"></textarea>
+          <div class="topcoat-button-bar__item">
+            <button id="settings" class="topcoat-button-bar__button--large">
+              <span class='icomatic'>settings</span>
+            </button>
           </div>
-          <div id="appServerInfo">
-              <div class="topcoat-button-bar">
-                  <div class="topcoat-button-bar__item">
-                      <div id="serverStatus"></div>
-                  </div>          
-                  <div class="topcoat-button-bar__item">
-                      <button id="settings" class="topcoat-button-bar__button"></button> 
-                  </div>
-                  <div class="topcoat-button-bar__item">
-                      server
-                      <label class="topcoat-switch">
-                          <input type="checkbox" id="isServerStarted" class="topcoat-switch__input">
-                          <div class="topcoat-switch__toggle"></div>
-                      </label> 
-                  </div>
-              </div>
-          </div>
-          
-          <aside id="settingsOverlay" class="topcoat-overlay">
-              <h3>Settings</h3> 
-              <div id="settingsContent">
-                  <div id="settingsMessage"></div>
-                  server port: <input type="text" id="portNumber" class="topcoat-text-input">
-              </div>
-              <div class="topcoat-overlay-buttons">
-                  <button id="settingsCancel" class="topcoat-button"></button>
-                  <button id="settingsSave" class="topcoat-button--cta"></button>
-              </div>
-          </aside>
-          
-      </aside>
-
-
-                   
-      <div id="projectDirectoryHolder"><input type="file" id="projectDirectory" nwdirectory></div>      
-                
+        </div>
+        <div class="status-field">
+          <input type="checkbox" id="server-status" />
+          <label for="server-status" id="server-status-label">server is offline</label>
+        </div>
+      </nav>
+      <nav class="topcoat-button-bar right"> 
+        <button id="log" class="topcoat-icon-button--large--quiet" disabled>
+          <span class="topcoat-icon--large icomatic">listview</span>
+        </button>
+      </nav>
+    </footer>
   </body>
-</html>     
+</html>

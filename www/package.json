@@ -2,7 +2,7 @@
     "name": "PhoneGapGUI",
     "description": "PhoneGap GUI",
     "version": "0.0.3",
-    "main": "ui.html",
+    "main": "index.html",
     "window": {
         "show": false,
         "position": "center",
