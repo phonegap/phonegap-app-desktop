@@ -37,13 +37,15 @@ function setActiveWidget(id, projDir) {
     
     // TODO: we should consider updating the widget's background colour to indicate the active widget
     // update GUI to display details of the active widget         
-    var iconId = "icon_" + id.toString();                                                                                   
+    var iconId = "icon_" + id.toString(); 
+    global.jQuery("#" + activeWidget.widgetId).css("background-color", "#C4C4C4");                                                                                  
     global.jQuery("#" + iconId).text("rectangleoutline");     
     global.jQuery("#projectFolder").text("Current project folder: " + localStorage.projDir); 
     
     // reset the previous active widget
     if (previousActiveWidget) {
-        var prevIconId = "icon_" + previousActiveWidget.projectId.toString();
+        var prevIconId = "icon_" + previousActiveWidget.projectId.toString(); 
+        global.jQuery("#" + previousActiveWidget.widgetId).css("background-color", "");
         global.jQuery("#" + prevIconId).text("arrowright");        
     }
 }
