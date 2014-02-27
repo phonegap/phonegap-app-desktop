@@ -46,7 +46,7 @@ function setActiveWidget(id, projDir) {
     global.jQuery("#projectFolder").text("Current project folder: " + localStorage.projDir); 
     
     // turn on the server
-    global.jQuery("#server-status").attr("checked", true);
+    global.jQuery("#server-status").prop("checked", true);
     toggleServerStatus();
        
     // reset the previous active widget
@@ -65,7 +65,12 @@ function removeProjectWidget() {
 
 function toggleServerStatus() {
     console.log("toggleServerStatus");
-        
+
+    if (global.isServerRunning) {
+        global.server.close();
+        global.isServerRunning = false;
+    }
+            
     if (global.jQuery("#server-status").is(":checked")) {
         fs.exists(localStorage.projDir + "/www", function(exists) {
             if (exists) {
@@ -78,6 +83,7 @@ function toggleServerStatus() {
                 .on("complete", function(data) {
                     console.log("server started at: " + data.address + ":" + data.port);
                     global.server = data.server;
+                    global.isServerRunning = true;
                     global.jQuery("#server-status-label").text("http://" + data.address + ":" + data.port);
                     global.jQuery("#log").prop("disabled", false);
                 })
@@ -92,12 +98,17 @@ function toggleServerStatus() {
                 var errMsg = "an existing project doesn't exist in this folder";
                 console.log(errMsg);      
                 global.jQuery("#server-status").prop("checked", false);
+                global.jQuery("#log").prop("disabled", true);
             }
         });
                   
      } else {
-         console.log("server stopped");
-         global.server.close();
+         //console.log("server stopped");
+         if (global.isServerRunning) {
+             global.server.close();
+             global.isServerRunning = false;
+         }
+         
          global.jQuery("#server-status-label").text("server is offline");
          global.jQuery("#log").prop("disabled", true);
      }

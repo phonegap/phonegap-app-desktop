@@ -15,7 +15,6 @@ function selectDirectory(e) {
     console.log(global.jQuery("#projectDirectory").val());
     localStorage.projDir = global.jQuery("#projectDirectory").val();
 
-    console.log(global.createClicked);
     if(global.createClicked) {
         // create new project
         global.createClicked = false;

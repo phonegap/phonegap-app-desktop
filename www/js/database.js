@@ -52,7 +52,7 @@ function removeProjectById(id) {
             if (numberOfProjects == 0) {
                 global.jQuery("#projectFolder").text("Current project folder: ");
                 // stop the server
-                global.jQuery("#server-status").attr("checked", false);
+                global.jQuery("#server-status").prop("checked", false);
                 toggleServerStatus();
             }
                       
