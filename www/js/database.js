@@ -148,6 +148,8 @@ function getProjects() {
         
         count += 1;
         var row = result.value;
+         
+        addProjectWidget(row.id, row.name, row.version, row.iconPath, row.projectDir);    
         
         // set the first project retrieved as the default active project
         if (count == 1) {
@@ -155,7 +157,6 @@ function getProjects() {
             setActiveWidget(row.id, row.projectDir);
         }
         
-        addProjectWidget(row.id, row.name, row.version, row.iconPath, row.projectDir);
         result.continue();
     };
     
