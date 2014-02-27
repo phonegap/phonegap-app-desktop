@@ -1,1 +1,44 @@
-about PhoneGap GUI credits
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PhoneGap</title>
+    <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var year = new Date().getFullYear();
+            $("#year").text(year.toString());
+        }     
+    </script>
+    <style>
+        @font-face {
+          font-family: "Source Sans";
+          src: url("../font/SourceSansPro-Regular.otf");
+        }
+
+        @font-face {
+          font-family: "Source Sans";
+          src: url("../font/SourceSansPro-Light.otf");
+          font-weight: 200;
+        }
+
+        @font-face {
+          font-family: "Source Sans";
+          src: url("../font/SourceSansPro-Semibold.otf");
+          font-weight: 600;
+        }
+
+        body {
+          margin: 0;
+          padding: 0;
+          background: #dfe2e2;
+          color: #000;
+          font: 10px "Source Sans", helvetica, arial, sans-serif;
+          font-weight: 400;
+        } 
+    </style>
+  </head>
+  <body>
+        Copyright &copy <span id="year"></span> Adobe Systems Incorporated.<br>
+        All rights reserved.  
+  </body>
+</html>  
