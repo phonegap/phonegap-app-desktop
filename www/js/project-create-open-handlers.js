@@ -25,7 +25,8 @@ function selectDirectory(e) {
         parseProjectConfig();
     }
     
-    global.jQuery("#createOpenProjectOverlay").hide();  
+    global.jQuery("#createOpenProjectOverlay").hide(); 
+    global.jQuery("#overlay-bg").hide();  
 }
 
 function create() {

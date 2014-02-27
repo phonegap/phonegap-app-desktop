@@ -43,8 +43,10 @@ function removeProjectById(id) {
     request.onsuccess = function(evt) {
         global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").count().onsuccess = function(evt) {
             var numberOfProjects = evt.target.result;
-            console.log("number of projects after removal: " + numberOfProjects);  
+            console.log("number of projects after removal: " + numberOfProjects); 
+             
             global.jQuery("#removeProjectOverlay").hide();     
+            global.jQuery("#overlay-bg").hide();  
                       
             var keyRange = IDBKeyRange.lowerBound(0);
             var cursorRequest = global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").openCursor(keyRange);
