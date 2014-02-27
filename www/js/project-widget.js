@@ -20,7 +20,11 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     global.jQuery("#" + widgetId).on("click", function() {
         var temp = global.jQuery("#" + widgetId).attr("id").split("_");
         var id = temp[1];
-        setActiveWidget(id, projectDir);       
+        
+        // only allow setting of active widget if another project widget is selected
+        if (id != global.activeWidget.projectId) {   
+            setActiveWidget(id, projectDir);  
+        }             
     });
 }
 
