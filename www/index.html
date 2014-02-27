@@ -23,6 +23,7 @@
         global.jQuery = jQuery;
         global.createClicked = false;
         global.db = null;
+        global.server = null;
         
         // set default port number it has not been set
         if (!localStorage.portNumber) {
@@ -69,7 +70,7 @@
             global.jQuery("#plus").click(addProjectOverlay);
             global.jQuery("#minus").click(removeProjectOverlay);
             global.jQuery("#settings").click(settingsOverlay);
-            global.jQuery("#server-status").click(toggleServerStatus);
+            //global.jQuery("#server-status").click(toggleServerStatus);
             global.jQuery("#log").click(toggleLog);
         });
           

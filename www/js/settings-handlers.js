@@ -9,6 +9,7 @@ function saveSettings(evt) {
         localStorage.portNumber = portNumber;
         global.jQuery("#settingsOverlay").hide();
         global.jQuery("#overlay-bg").hide();
+        toggleServerStatus();
     }  
 }
 
