@@ -32,7 +32,7 @@ win.menu.append(new gui.MenuItem({ label: 'Help', submenu: help }));
 menubar.items[menubar.items.length-1].submenu.append(new gui.MenuItem({
    	label: "How to use",
    	click: function () {
-   	    alert("not implemented yet");
+   	    gui.Shell.openExternal("https://github.com/hermwong/phonegap-gui/wiki/PhoneGap-GUI");    // opens user's default browser & loads page
    	}
 }));
 
