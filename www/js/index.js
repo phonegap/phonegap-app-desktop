@@ -26,18 +26,15 @@ menubar.items[0].submenu.append(new gui.MenuItem({
    	}
 }));
 
-/*
-menubar.items[0].submenu.append(new gui.MenuItem({
-   	type: "separator"
-}));
-menubar.items[0].submenu.append(new gui.MenuItem({
-   	label: "Quit PhoneGap GUI",
+var help = new gui.Menu();
+win.menu.append(new gui.MenuItem({ label: 'Help', submenu: help }));
+
+menubar.items[menubar.items.length-1].submenu.append(new gui.MenuItem({
+   	label: "How to use",
    	click: function () {
-      	//alert("close");
-      	win.close();
+   	    alert("not implemented yet");
    	}
 }));
-*/
 
 /*
 // comment out tray code - since tray click is not supported on OSX
