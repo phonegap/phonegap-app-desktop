@@ -28,3 +28,12 @@ function toggleLog(evt) {
         global.jQuery("#overlay-bg").show();
     }
 }
+
+function overlayBackgroundHandler(evt) {
+    console.log("overlayBackgroundHandler - click handler");
+    
+    if (global.jQuery("#createOpenProjectOverlay").is(":visible")) {
+        global.jQuery("#createOpenProjectOverlay").hide();
+        global.jQuery("#overlay-bg").hide();        
+    }
+}

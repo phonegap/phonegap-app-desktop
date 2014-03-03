@@ -45,12 +45,10 @@
             
             global.jQuery("#projectDirectory").change(selectDirectory);
             
+            global.jQuery("#overlay-bg").click(overlayBackgroundHandler)
+            
             global.jQuery("#createProject").click(createProject);
             global.jQuery("#openProject").click(openProject);
-            global.jQuery("#cancelCreateOpen").click(function() {
-                global.jQuery("#createOpenProjectOverlay").hide();
-                global.jQuery("#overlay-bg").hide();
-            });
             
             global.jQuery("#removeProject").click(removeProjectWidget);
             global.jQuery("#cancelRemoveProject").click(function() {
@@ -78,14 +76,7 @@
   </head>
   <body>
     <header></header>
-    <div id="overlay-bg" class="topcoat-overlay-bg"></div>
-    <aside id="createOpenProjectOverlay" class="topcoat-overlay">
-        <button id="createProject" class="topcoat-button">Create New Project</button>
-        <br>
-        <button id="openProject" class="topcoat-button">Open Existing Project</button>
-        <br>
-        <button id="cancelCreateOpen" class="topcoat-button">Cancel</button>
-    </aside>
+    <div id="overlay-bg" class="topcoat-overlay-bg-grey"></div>
     <aside id="removeProjectOverlay" class="topcoat-overlay">
         Are you sure you want to remove this project?
         <br>
@@ -113,32 +104,29 @@
         <div id="drop_zone" class="dropzone"></div>
         <input type="file" id="projectDirectory" nwdirectory>
     </article>
-    <div id="add-project-bar" class="topcoat-button-bar" style="box-shadow: 5px 5px 5px #888888; position: fixed; bottom: 34px; left: 5px; z-index: 10;">
-        <button id="page" class="topcoat-button-bar__button--large" title="Add Project">
+    <div id="createOpenProjectOverlay" class="topcoat-button-bar" style="box-shadow: 5px 5px 5px #888888; position: fixed; bottom: 34px; left: 5px; z-index: 10;">
+        <button id="createProject" class="topcoat-button-bar__button--large" title="Add New Project">
           <span class='icomatic'>page</span>
         </button>
-        <button id="folder" class="topcoat-button-bar__button--large" title="Open Existing Project">
+        <button id="openProject" class="topcoat-button-bar__button--large" title="Open Existing Project">
           <span class='icomatic'>folder</span>
-        </button>
-        <button id="cancel-add-project" class="topcoat-button-bar__button--large" title="Cancel">
-          <span class='icomatic'>cancel</span>
         </button>      
     </div>
     <footer>
       <nav class="left">
         <div id="app-action-bar" class="topcoat-button-bar">
           <div class="topcoat-button-bar__item">
-            <button id="plus" class="topcoat-button-bar__button--large">
+            <button id="plus" class="topcoat-button-bar__button--large" title="Add / Open Project">
               <span class='icomatic'>plus</span>
             </button>
           </div>
           <div class="topcoat-button-bar__item">
-            <button id="minus" class="topcoat-button-bar__button--large">
+            <button id="minus" class="topcoat-button-bar__button--large" title="Remove Project">
               <span class='icomatic'>minus</span>
             </button>
           </div>
           <div class="topcoat-button-bar__item">
-            <button id="settings" class="topcoat-button-bar__button--large">
+            <button id="settings" class="topcoat-button-bar__button--large" title="Settings">
               <span class='icomatic'>settings</span>
             </button>
           </div>
