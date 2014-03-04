@@ -50,7 +50,6 @@ function removeProjectById(id) {
             
             // update the UI if no projects are left
             if (numberOfProjects == 0) {
-                global.jQuery("#projectFolder").text("Current project folder: ");
                 // stop the server
                 global.jQuery("#server-status").prop("checked", false);
                 toggleServerStatus();

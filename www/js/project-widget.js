@@ -5,14 +5,20 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     var iconId = "icon_" + id.toString();
     
     var widgetDOM = "";
-    widgetDOM += "<div style='display: table; border-bottom: 1px solid black; width: 100%;' id='" + widgetId + "'>";
+    widgetDOM += "<div style='display: table; border-bottom: 1px solid black; width: 100%; height: 130px;' id='" + widgetId + "'>";
+    
     widgetDOM += "<div style='display: table-row;'>";
-    widgetDOM += "<div style='float:left; display: table-cell;'><img src='" + projectIcon + "'></div>";
-    widgetDOM += "<div style='float:left; display: table-cell;'>";
-    widgetDOM += "Name: " + projectName + "<br>";
-    widgetDOM += "Version: " + projectVersion + "</div>"; 
+    widgetDOM += "<div style='float:left; display: table-cell;'><img width='128' height='128' src='" + projectIcon + "'></div>";
+    widgetDOM += "<div style='float:left; display: table-cell; height: 100%;'>";
+    widgetDOM += projectName + "<br>";
+    widgetDOM += projectVersion + "<br></div>";
     widgetDOM += "<div style='float:right; display: table-cell;'><span id='" + iconId + "' class='icomatic'>arrowright</span></div>";
-    widgetDOM += "</div>";  // row
+    widgetDOM += "</div>";  // row 1
+    
+    widgetDOM += "<div style='display: table-row;'>";
+    widgetDOM += "<div style='width:350px; overflow:hidden; white-space: nowrap;'>" + projectDir + "</div>"; 
+    widgetDOM += "</div>";  // row 2
+    
     widgetDOM += "</div>";  // table
     
     global.jQuery("#drop_zone").append(widgetDOM);
@@ -43,7 +49,6 @@ function setActiveWidget(id, projDir) {
     var iconId = "icon_" + id.toString(); 
     global.jQuery("#" + activeWidget.widgetId).css("background-color", "#C4C4C4");                                                                                  
     global.jQuery("#" + iconId).text("rectangleoutline");     
-    global.jQuery("#projectFolder").text("Current project folder: " + localStorage.projDir); 
     
     // turn on the server
     global.jQuery("#server-status").prop("checked", true);
