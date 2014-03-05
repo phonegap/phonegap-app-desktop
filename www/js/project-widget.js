@@ -3,6 +3,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     
     var widgetId = "projectWidget_" + id.toString();
     var iconId = "icon_" + id.toString();
+    var projectStatusId = "project-status_" + id.toString();
     
     var widgetDOM = "";
     widgetDOM += "<div style='display: table; border-bottom: 1px solid black; width: 100%; height: 130px;' id='" + widgetId + "'>";
@@ -12,7 +13,13 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     widgetDOM += "<div style='float:left; display: table-cell; height: 100%;'>";
     widgetDOM += projectName + "<br>";
     widgetDOM += projectVersion + "<br></div>";
-    widgetDOM += "<div style='float:right; display: table-cell;'><span id='" + iconId + "' class='icomatic'>arrowright</span></div>";
+    
+    widgetDOM += "<div class='status-field' style='float: right;'>";
+    widgetDOM += "<input type='checkbox' disabled='true' id='" + projectStatusId + "' />";
+    widgetDOM += "<label for='project-status' id='project-status-label'>&nbsp;</label>";
+    widgetDOM += "</div>";
+    
+    //widgetDOM += "<div style='float:right; display: table-cell; width: 60px; height: 60px; border: 1px solid red;'><span id='" + iconId + "' class='icomatic'>arrowright</span></div>";
     widgetDOM += "</div>";  // row 1
     
     widgetDOM += "<div style='display: table-row;'>";
@@ -47,9 +54,11 @@ function setActiveWidget(id, projDir) {
     
     // update GUI to display details of the active widget         
     var iconId = "icon_" + id.toString(); 
+    var projectStatusId = "project-status_" + id.toString();
     global.jQuery("#" + activeWidget.widgetId).css("background-color", "#C4C4C4");                                                                                  
-    global.jQuery("#" + iconId).text("rectangleoutline");     
-    
+    global.jQuery("#" + iconId).text("rectangleoutline");
+    global.jQuery("#" + projectStatusId).prop("checked", true);
+
     // turn on the server
     global.jQuery("#server-status").prop("checked", true);
     toggleServerStatus();
@@ -57,6 +66,8 @@ function setActiveWidget(id, projDir) {
     // reset the previous active widget
     if (previousActiveWidget) {
         var prevIconId = "icon_" + previousActiveWidget.projectId.toString(); 
+        var prevProjectStatusId = "project-status_" + previousActiveWidget.projectId.toString();
+        global.jQuery("#" + prevProjectStatusId).prop("checked", false);
         global.jQuery("#" + previousActiveWidget.widgetId).css("background-color", "");
         global.jQuery("#" + prevIconId).text("arrowright");        
     }
