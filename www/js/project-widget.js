@@ -9,19 +9,24 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     widgetDOM += "<div style='display: table; border-bottom: 1px solid black; width: 100%; height: 130px;' id='" + widgetId + "'>";
     
     widgetDOM += "<div style='display: table-row;'>";
+    
+    // display the project icon
     widgetDOM += "<div style='float:left; display: table-cell;'><img width='128' height='128' src='" + projectIcon + "'></div>";
+    
+    // display project info
     widgetDOM += "<div style='float:left; display: table-cell; height: 100%;'>";
     widgetDOM += projectName + "<br>";
     widgetDOM += projectVersion + "<br></div>";
     
+    // checkbox indicator used for indicating active project
     widgetDOM += "<div class='status-field' style='float: right;'>";
     widgetDOM += "<input type='checkbox' disabled='true' id='" + projectStatusId + "' />";
     widgetDOM += "<label for='project-status' id='project-status-label'>&nbsp;</label>";
     widgetDOM += "</div>";
-    
-    //widgetDOM += "<div style='float:right; display: table-cell; width: 60px; height: 60px; border: 1px solid red;'><span id='" + iconId + "' class='icomatic'>arrowright</span></div>";
+
     widgetDOM += "</div>";  // row 1
     
+    // display project directory
     widgetDOM += "<div style='display: table-row;'>";
     widgetDOM += "<div style='width:350px; overflow:hidden; white-space: nowrap;'>" + projectDir + "</div>"; 
     widgetDOM += "</div>";  // row 2
