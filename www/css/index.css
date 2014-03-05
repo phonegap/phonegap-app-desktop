@@ -70,10 +70,11 @@ footer .topcoat-button-bar .topcoat-icon--large {
 }
 .dropzone {
   width: 100%;
-  height: 85%;
+  height: 546px;
   overflow-x: hidden;
   overflow-y: auto;
 }
 .projHeader {
+  height: 25px;
   border-bottom: 1px solid black;
 }
