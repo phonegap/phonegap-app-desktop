@@ -78,3 +78,10 @@ footer .topcoat-button-bar .topcoat-icon--large {
   height: 25px;
   border-bottom: 1px solid black;
 }
+.projDir {
+  width: 340px;
+  overflow: ellipsis;
+  white-space: nowrap;
+  direction: rtl;
+  text-align: left;
+}

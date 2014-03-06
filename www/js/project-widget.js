@@ -28,7 +28,9 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     
     // display project directory
     widgetDOM += "<div style='display: table-row;'>";
-    widgetDOM += "<div style='width:350px; overflow:hidden; white-space: nowrap;'>" + projectDir + "</div>"; 
+    widgetDOM += "<div style='display: table-cell;'>";
+    widgetDOM += "<div class='projDir'>" + projectDir + "</div>"; 
+    widgetDOM += "</div>";
     widgetDOM += "</div>";  // row 2
     
     widgetDOM += "</div>";  // table
