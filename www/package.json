@@ -1,6 +1,6 @@
 {
-    "name": "PhoneGap GUI",
-    "description": "PhoneGap GUI",
+    "name": "PhoneGap-GUI",
+    "description": "PhoneGap-GUI",
     "version": "0.0.4",
     "main": "index.html",
     "window": {
