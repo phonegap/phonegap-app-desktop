@@ -6,6 +6,8 @@ var fs = require("fs");
 
 var menubar = new gui.Menu({ type: 'menubar' });
 var file = new gui.Menu();
+             
+win.setResizable(false);
 
 win.menu = menubar;
 win.menu.insert(new gui.MenuItem({ label: 'File', submenu: file }), 1);
