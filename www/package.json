@@ -1,7 +1,7 @@
 {
     "name": "PhoneGap-GUI",
     "description": "PhoneGap-GUI",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "main": "index.html",
     "window": {
         "show": false,
