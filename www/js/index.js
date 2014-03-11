@@ -17,14 +17,16 @@ menubar.items[0].submenu.append(new gui.MenuItem({
    	label: "New Project",
    	click: function () {
 		console.log("new project from menubar");
-      	global.jQuery("#projectDirectory").trigger("click");
+		// create a new project
+		createProject();
    	}
 }));
 menubar.items[0].submenu.append(new gui.MenuItem({
    	label: "Open Project",
    	click: function () {
       	console.log("open project from menubar");
-		global.jQuery("#openProject").trigger("click");
+		// open an existing project
+		openProject();
    	}
 }));
 
