@@ -52,6 +52,7 @@ function removeProjectById(id) {
             if (numberOfProjects == 0) {
                 // stop the server
                 global.jQuery("#server-status").prop("checked", false);
+				global.jQuery("#minus").prop("disabled", true);
                 toggleServerStatus();
             }
                       
@@ -128,6 +129,7 @@ function getLastProjectAdded(projectCount) {
    
         console.log("count: " + count + " projectCount: " + projectCount);
         if (count == projectCount) {
+			global.jQuery("#minus").prop("disabled", false);
             addProjectWidget(row.id, row.name, row.version, row.iconPath, row.projectDir);
             setActiveWidget(row.id, row.projectDir);
             return;
@@ -156,6 +158,7 @@ function getProjects() {
         count += 1;
         var row = result.value;
          
+		global.jQuery("#minus").prop("disabled", false);
         addProjectWidget(row.id, row.name, row.version, row.iconPath, row.projectDir);    
         
         // set the first project retrieved as the default active project
