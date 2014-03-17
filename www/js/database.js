@@ -157,7 +157,19 @@ function getProjects() {
         
         count += 1;
         var row = result.value;
-         
+	
+		// check if any of the project details have been updated in config.xml
+        checkForProjectConfigUpdates(row);
+
+/*
+		if (updatedProjectObj) {
+			// TODO: update the record in the indexedDB if the values in config.xml have been updated
+			console.log("update the record by Id");
+			
+			updateRecordById(row.id);
+		}
+*/
+ 
 		global.jQuery("#minus").prop("disabled", false);
         addProjectWidget(row.id, row.name, row.version, row.iconPath, row.projectDir);    
         
@@ -173,4 +185,76 @@ function getProjects() {
     cursorRequest.onerror = function(evt) {
         console.log(evt.message);
     };
+}
+
+function updateRecordById(projectObj) {
+    var keyRange = IDBKeyRange.only(projectObj.id);
+    var cursorRequest = global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").openCursor(keyRange);
+	
+	cursorRequest.onsuccess = function(evt) {
+		var cursor = evt.target.result;
+		
+		if (cursor) {			
+			var updateRequest = cursor.update(projectObj);
+			
+			updateRequest.onsuccess = function(e) {
+				console.log("record updated");
+			};
+			
+			updateRequest.onerror = function(e) {
+				console.log(e.message);
+			};
+		}
+	};
+	
+	cursorRequest.onerror = function(evt) {
+		console.log(evt.message);
+	};
+}
+
+function checkForProjectConfigUpdates(projectObj) {
+    
+	var isProjectUpdated = false;
+	var projDir = projectObj.projectDir;
+    var filename = projDir + "/www/config.xml";
+    
+    fs.readFile(filename, 'utf8', function(err, data) {
+        if (err) throw err;
+
+        var iconPath = projDir + "/www/"
+
+        global.jQuery.xmlDoc = global.jQuery.parseXML(data);
+        global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc);
+        
+        // get the project name
+        var projectName = global.jQuery.xml.find("name").text();
+
+		if (projectName != projectObj.name) {
+			projectObj.name = projectName;
+			isProjectUpdated = true;
+		}
+        
+        // get the project version
+        var projectVersion = global.jQuery.xml.find("widget").attr("version");
+
+		if (projectVersion != projectObj.version) {
+			projectObj.version = projectVersion;
+			isProjectUpdated = true;
+		}
+        
+        // get the app icon
+        var projectIcon = global.jQuery.xml.find("icon").attr("src");
+        iconPath += projectIcon;
+
+		if (iconPath != projectObj.iconPath) {
+			projectObj.iconPath = iconPath;
+			isProjectUpdated = true;
+		} 
+
+		console.log(isProjectUpdated);
+		
+		if (isProjectUpdated) {
+			updateRecordById(projectObj);
+		}      
+    });
 }

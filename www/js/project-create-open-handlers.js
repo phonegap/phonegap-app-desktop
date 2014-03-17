@@ -66,16 +66,13 @@ function parseProjectConfig() {
         
         // get the project name
         var projectName = global.jQuery.xml.find("name").text();
-        console.log("project name: " + projectName);
         
         // get the project version
         var projectVersion = global.jQuery.xml.find("widget").attr("version");
-        console.log("project version: " + projectVersion);
         
         // get the app icon
         var projectIcon = global.jQuery.xml.find("icon").attr("src");
         iconPath += projectIcon;
-        console.log("project icon path: " + iconPath);
         
         addProject(projectName, projectVersion, iconPath, localStorage.projDir);
     });
