@@ -159,7 +159,7 @@ function getProjects() {
         var row = result.value;
 	
 		// check if any of the project details have been updated in config.xml
-        checkForProjectConfigUpdates(row);
+        checkForProjectConfigUpdates(row, count);
 
 /*
 		if (updatedProjectObj) {
@@ -171,14 +171,15 @@ function getProjects() {
 */
  
 		global.jQuery("#minus").prop("disabled", false);
-        addProjectWidget(row.id, row.name, row.version, row.iconPath, row.projectDir);    
-        
+        //addProjectWidget(row.id, row.name, row.version, row.iconPath, row.projectDir);    
+
+/*        
         // set the first project retrieved as the default active project
         if (count == 1) {
             console.log("set default active project - id: " + row.id);
             setActiveWidget(row.id, row.projectDir);
         }
-        
+*/        
         result.continue();
     };
     
@@ -187,7 +188,7 @@ function getProjects() {
     };
 }
 
-function updateRecordById(projectObj) {
+function updateRecordById(projectObj, count) {
     var keyRange = IDBKeyRange.only(projectObj.id);
     var cursorRequest = global.db.transaction(["projectsStore"], "readwrite").objectStore("projectsStore").openCursor(keyRange);
 	
@@ -199,6 +200,12 @@ function updateRecordById(projectObj) {
 			
 			updateRequest.onsuccess = function(e) {
 				console.log("record updated");
+				addProjectWidget(projectObj.id, projectObj.name, projectObj.version, projectObj.iconPath, projectObj.projectDir);  
+				
+				if (count == 1) {
+		            console.log("set default active project - id: " + projectObj.id);
+		            setActiveWidget(projectObj.id, projectObj.projectDir);
+		        }
 			};
 			
 			updateRequest.onerror = function(e) {
@@ -212,7 +219,7 @@ function updateRecordById(projectObj) {
 	};
 }
 
-function checkForProjectConfigUpdates(projectObj) {
+function checkForProjectConfigUpdates(projectObj, count) {
     
 	var isProjectUpdated = false;
 	var projDir = projectObj.projectDir;
@@ -254,7 +261,14 @@ function checkForProjectConfigUpdates(projectObj) {
 		console.log(isProjectUpdated);
 		
 		if (isProjectUpdated) {
-			updateRecordById(projectObj);
+			updateRecordById(projectObj, count);
+		} else {
+			addProjectWidget(projectObj.id, projectObj.name, projectObj.version, projectObj.iconPath, projectObj.projectDir);
+			
+			if (count == 1) {
+	            console.log("set default active project - id: " + projectObj.id);
+	            setActiveWidget(projectObj.id, projectObj.projectDir);
+	        }
 		}      
     });
 }
