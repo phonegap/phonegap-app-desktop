@@ -160,26 +160,9 @@ function getProjects() {
 	
 		// check if any of the project details have been updated in config.xml
         checkForProjectConfigUpdates(row, count);
-
-/*
-		if (updatedProjectObj) {
-			// TODO: update the record in the indexedDB if the values in config.xml have been updated
-			console.log("update the record by Id");
-			
-			updateRecordById(row.id);
-		}
-*/
  
 		global.jQuery("#minus").prop("disabled", false);
-        //addProjectWidget(row.id, row.name, row.version, row.iconPath, row.projectDir);    
-
-/*        
-        // set the first project retrieved as the default active project
-        if (count == 1) {
-            console.log("set default active project - id: " + row.id);
-            setActiveWidget(row.id, row.projectDir);
-        }
-*/        
+       
         result.continue();
     };
     
