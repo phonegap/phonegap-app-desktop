@@ -22,7 +22,6 @@
         global.pgVersion = "3.3.0";  
         global.jQuery = jQuery;
         global.createClicked = false;
-        global.db = null;
         global.server = null;
         global.isServerRunning = false;
         
@@ -69,7 +68,6 @@
             global.jQuery("#settings").click(settingsOverlay);
             global.jQuery("#log").click(toggleLog);
             
-            //openDBConnection();
             getProjects();
         });
           
