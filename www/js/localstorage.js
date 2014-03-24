@@ -12,7 +12,7 @@ function addProject(projName, projVersion, iconPath, projDir) {
     if (localStorage["projects"]) {
         // retrieve exsiting projects to appending a new project
         var projects = JSON.parse(localStorage["projects"]);        
-        projects.unshift(projectObj);      
+        projects.push(projectObj);      
         localStorage["projects"] = JSON.stringify(projects);   
         console.log(JSON.stringify(projects));    
     } else {
