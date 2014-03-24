@@ -61,6 +61,6 @@ win.show();
 
 win.on("close", function () {
 	console.log("window close handler");
-	closeDBConnection();
+	//closeDBConnection();
 	this.close(true);	
 });
