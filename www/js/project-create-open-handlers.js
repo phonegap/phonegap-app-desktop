@@ -75,6 +75,5 @@ function parseProjectConfig() {
         iconPath += projectIcon;
         
         addProject(projectName, projectVersion, iconPath, localStorage.projDir);
-    });
-    
+    });    
 }
