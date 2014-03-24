@@ -66,8 +66,44 @@ function getProjectConfig(id, projDir, i) {
         iconPath += projectIcon;
 
         addProjectWidget(id, projectName, projectVersion, iconPath, projDir);
+        
         if (i == 0) {
             setActiveWidget(id, projDir);            
         }
     });
+}
+
+function removeProjectById(currentId) {
+
+    // retrieve exsiting projects to find the project to remove
+    var projects = JSON.parse(localStorage["projects"]);        
+    var index = projects.length;
+    
+    for (var i=0;i<index;i++) {
+        
+        var id = projects[i].id;
+        
+        if (id == currentId) {
+            projects.splice(i, 1);
+            break;
+        }
+    }
+    
+    localStorage["projects"] = JSON.stringify(projects); 
+  
+    console.log(JSON.stringify(projects));  
+    
+    // hide the remove project overlay
+    global.jQuery("#removeProjectOverlay").hide();     
+    global.jQuery("#overlay-bg").hide();
+
+    index = projects.length;
+    
+     // set new active widget if there are still projects, otherwise disable the remove button
+    if (index > 0) {
+        setActiveWidget(projects[0].id, projects[0].projDir);       
+    } else {
+        global.jQuery("#minus").prop("disabled", true);
+    }
+   
 }

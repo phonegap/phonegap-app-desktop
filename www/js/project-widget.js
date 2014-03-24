@@ -36,6 +36,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     widgetDOM += "</div>";  // table
     
     global.jQuery("#drop_zone").append(widgetDOM);
+    global.jQuery("#minus").prop("disabled", false);
     
     global.jQuery("#" + widgetId).on("click", function() {
         var temp = global.jQuery("#" + widgetId).attr("id").split("_");
