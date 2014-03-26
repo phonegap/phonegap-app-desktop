@@ -3,6 +3,7 @@ var win = gui.Window.get();
 
 // load file system module
 var fs = require("fs");
+var gaze = require("gaze");
 
 var menubar = new gui.Menu({ type: 'menubar' });
 var file = new gui.Menu();
@@ -40,27 +41,9 @@ menubar.items[menubar.items.length-1].submenu.append(new gui.MenuItem({
    	}
 }));
 
-/*
-// comment out tray code - since tray click is not supported on OSX
-// Create a tray icon
-//var tray = new gui.Tray({ title: 'Tray', icon: 'img/icon.png' });
-var tray = new gui.Tray({title: 'Tray'});
-
-// Give the tray a menu
-var menu = new gui.Menu();
-menu.append(new gui.MenuItem({ type: 'normal', label: 'tray test', click: function() { alert("tray menu item test"); } }));
-tray.menu = menu;
-
-// remove tray when clicked
-tray.on('click', function() {
-	console.log("tray clicked");
-});
-*/
-
 win.show();    
 
 win.on("close", function () {
 	console.log("window close handler");
-	//closeDBConnection();
 	this.close(true);	
 });

@@ -4,6 +4,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     var widgetId = "projectWidget_" + id.toString();
     var iconId = "icon_" + id.toString();
     var projectStatusId = "project-status_" + id.toString();
+    var projectDetailsId = "project-details_" + id.toString();
     
     var widgetDOM = "";
     widgetDOM += "<div style='display: table; border-bottom: 1px solid black; width: 100%; height: 130px;' id='" + widgetId + "'>";
@@ -11,12 +12,15 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     widgetDOM += "<div style='display: table-row;'>";
     
     // display the project icon
-    widgetDOM += "<div style='float:left; display: table-cell;'><img width='128' height='128' src='" + projectIcon + "'></div>";
+    widgetDOM += "<div style='float:left; display: table-cell;' id='" + iconId + "'>"
+    widgetDOM += "<img width='128' height='128' src='" + projectIcon + "'>";
+    widgetDOM += "</div>";
     
     // display project info
-    widgetDOM += "<div style='float:left; display: table-cell; height: 100%;'>";
+    widgetDOM += "<div style='float:left; display: table-cell; height: 100%;' id='" + projectDetailsId + "'>";
     widgetDOM += projectName + "<br>";
-    widgetDOM += projectVersion + "<br></div>";
+    widgetDOM += projectVersion + "<br>";
+    widgetDOM += "</div>";
     
     // checkbox indicator used for indicating active project
     widgetDOM += "<div class='status-field' style='float: right;'>";
@@ -37,6 +41,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     
     global.jQuery("#drop_zone").append(widgetDOM);
     global.jQuery("#minus").prop("disabled", false);
+    //global.jQuery("#projectList").css("background-image", "none");
     
     global.jQuery("#" + widgetId).on("click", function() {
         var temp = global.jQuery("#" + widgetId).attr("id").split("_");
@@ -72,25 +77,70 @@ function setActiveWidget(id, projDir) {
     global.activeWidget = activeWidget;
     localStorage.projDir = projDir;
     
-    // update GUI to display details of the active widget         
-    var iconId = "icon_" + id.toString(); 
+    // update GUI to display details of the active widget          
     var projectStatusId = "project-status_" + id.toString();
     global.jQuery("#" + activeWidget.widgetId).css("background-color", "#C4C4C4");                                                                                  
-    global.jQuery("#" + iconId).text("rectangleoutline");
     global.jQuery("#" + projectStatusId).prop("checked", true);
 
+    // set a watch on the config.xml of the active project
+    setConfigWatcher(id, projDir);
+    
     // turn on the server
     global.jQuery("#server-status").prop("checked", true);
     toggleServerStatus();
-       
+           
     // reset the previous active widget
     if (previousActiveWidget) {
-        var prevIconId = "icon_" + previousActiveWidget.projectId.toString(); 
         var prevProjectStatusId = "project-status_" + previousActiveWidget.projectId.toString();
         global.jQuery("#" + prevProjectStatusId).prop("checked", false);
-        global.jQuery("#" + previousActiveWidget.widgetId).css("background-color", "");
-        global.jQuery("#" + prevIconId).text("arrowright");        
+        global.jQuery("#" + previousActiveWidget.widgetId).css("background-color", "");       
     }
+}
+
+function setConfigWatcher(id, projDir) {
+    
+    var configFile = projDir + "/www/config.xml";
+    
+    process.chdir(projDir + "/www");
+   
+    gaze("config.xml", function (err, watcher) {
+        
+        console.log(this.watched());
+        
+        this.on("error", function(e) {
+            console.log(e.message);
+        });
+        
+        this.on("changed", function(filepath) {          
+            // reload the updated values from config.xml & update the GUI
+            fs.readFile(configFile, 'utf8', function(err, data) {
+                if (err) throw err;
+
+                var iconPath = projDir + "/www/";
+                var projectDetailsId = "project-details_" + id.toString();
+                var iconId = "icon_" + id.toString();
+
+                global.jQuery.xmlDoc = global.jQuery.parseXML(data);
+                global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc);
+
+                // get the project name
+                var projectName = global.jQuery.xml.find("name").text();
+
+                // get the project version
+                var projectVersion = global.jQuery.xml.find("widget").attr("version");
+
+                // get the app icon
+                var projectIcon = global.jQuery.xml.find("icon").attr("src");
+                iconPath += projectIcon;
+                
+                var updatedText = projectName + "<br>" + projectVersion + "<br>";
+                var updatedIconPath = "<img width='128' height='128' src='" + iconPath + "'>";
+                
+                global.jQuery("#" + projectDetailsId).html(updatedText);
+                global.jQuery("#" + iconId).html(updatedIconPath);
+            });
+        });
+    });
 }
 
 function removeProjectWidget() {
@@ -111,7 +161,6 @@ function toggleServerStatus() {
         fs.exists(localStorage.projDir + "/www", function(exists) {
             if (exists) {
                 process.chdir(localStorage.projDir);
-                
                 console.log("server started");
                 console.log("project opened at: " + localStorage.projDir);
                                    

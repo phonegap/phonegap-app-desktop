@@ -11,7 +11,8 @@
         "toolbar": true
     },
     "dependencies": {
-        "connect-phonegap": "0.8.1"
+        "connect-phonegap": "0.8.1",
+        "gaze": "0.5.1"
     },
     "licenses": [{
         "type":"ALv2",

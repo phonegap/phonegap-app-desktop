@@ -33,14 +33,14 @@ function getProjects() {
         var index = projects.length;
         
         console.log(JSON.stringify(projects));
-        
-        for (var i=0;i<index;i++) {
             
+        for (var i=0;i<index;i++) {
+        
             var id = projects[i].id;
             var projDir = projects[i].projDir
-            
+        
             getProjectConfig(id, projDir, i);
-        }
+        }   
     }  
 }
 
@@ -104,6 +104,7 @@ function removeProjectById(currentId) {
         setActiveWidget(projects[0].id, projects[0].projDir);       
     } else {
         global.jQuery("#minus").prop("disabled", true);
+        //global.jQuery("#projectList").css("background-image", "../img/guide-add.png");
     }
    
 }
