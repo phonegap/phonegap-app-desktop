@@ -104,7 +104,7 @@ function removeProjectById(currentId) {
         setActiveWidget(projects[0].id, projects[0].projDir);       
     } else {
         global.jQuery("#minus").prop("disabled", true);
-        //global.jQuery("#projectList").css("background-image", "../img/guide-add.png");
+        global.jQuery("#guide-add").css("opacity", "1.0");
     }
    
 }

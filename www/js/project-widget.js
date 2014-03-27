@@ -41,7 +41,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     
     global.jQuery("#drop_zone").append(widgetDOM);
     global.jQuery("#minus").prop("disabled", false);
-    //global.jQuery("#projectList").css("background-image", "none");
+    global.jQuery("#guide-add").css("opacity", "0.0");
     
     global.jQuery("#" + widgetId).on("click", function() {
         var temp = global.jQuery("#" + widgetId).attr("id").split("_");

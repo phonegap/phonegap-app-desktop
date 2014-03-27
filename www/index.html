@@ -75,13 +75,13 @@
   </head>
   <body>
     <header></header>
-    <div id="overlay-bg" class="topcoat-overlay-bg-grey"></div>
+    <div id="overlay-bg" class="topcoat-overlay-bg-grey"></div>   
     <aside id="removeProjectOverlay" class="topcoat-overlay-bottom">
         Are you sure you want to remove this project?
         <br>
         <button id="removeProject" class="topcoat-button">Remove Project</button>
         <button id="cancelRemoveProject" class="topcoat-button">Cancel</button>
-    </aside>
+    </aside>    
     <aside id="settingsOverlay" class="topcoat-overlay-bottom">
         Server Settings
         <br>
@@ -89,19 +89,20 @@
         <br>
         <button id="saveSettings" class="topcoat-button">Save</button>
         <button id="cancelSettings" class="topcoat-button">Cancel</button>
-    </aside>
+    </aside>    
     <aside id="serverLogOverlay" class="topcoat-overlay-large">
         Server Log
         <br>
         <textarea id="serverLog" class="topcoat-textarea" readonly style="width: 90%; height: 90%;"></textarea>
         <br>
         <button id="closeServerLog" class="topcoat-button">Close</button>
-    </aside>
-    <article id="projectList">
+    </aside>   
+    <div id="projectListArea">
         <div id="projectListHeader" class="projHeader">Apps:</div>
         <div id="drop_zone" class="dropzone"></div>
         <input type="file" id="projectDirectory" nwdirectory>
-    </article>
+    </div>    
+    <article id="guide-add"></article>   
     <div id="createOpenProjectOverlay" class="topcoat-button-bar create-overlay">
         <button id="createProject" class="topcoat-button-bar__button--large" title="Add New Project">
           <span class='icomatic'>page</span>
