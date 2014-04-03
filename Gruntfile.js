@@ -16,8 +16,8 @@ module.exports = function(grunt) {
         build_dir: './build', // Destination for built apps.
         mac: true,            // OS X support.
         win: true,            // Windows support.
-        linux32: false,       // Linux 32-bit support.
-        linux64: false,        // Linux 64-bit support.
+        linux32: true,       // Linux 32-bit support.
+        linux64: true,        // Linux 64-bit support.
         credits: 'www/credits.html',
         mac_icns: 'www/img/app-icons/icon.icns'
       },
