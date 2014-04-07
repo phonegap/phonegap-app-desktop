@@ -30,6 +30,7 @@ module.exports = function(grunt) {
   });
 
   // Load the grunt plugins.
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-node-webkit-builder');
@@ -44,7 +45,15 @@ module.exports = function(grunt) {
       callback();
     });
   });
+  
+  grunt.task.registerTask('copy-dev-config', function() {
+      grunt.file.copy('./src/dev/package.json', './www/package.json');
+  });
 
+  grunt.task.registerTask('copy-release-config', function() {
+      grunt.file.copy('./src/release/package.json', './www/package.json');
+  });
+  
   // Register the task to open an app.
   grunt.task.registerTask('open', 'Open the app', function() {
 	var fs = require('fs'),
@@ -61,6 +70,7 @@ module.exports = function(grunt) {
   });
 
   // Default tasks.
-  grunt.registerTask('default', ['install-dependencies', 'less', 'nodewebkit']);
+  grunt.registerTask('default', ['install-dependencies', 'less', 'copy-dev-config', 'nodewebkit']);
+  grunt.registerTask('release', ['install-dependencies', 'less', 'copy-release-config', 'nodewebkit']);
 
 };
