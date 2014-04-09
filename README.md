@@ -17,11 +17,15 @@ Initial prototype of creating a GUI for the PhoneGap CLI.
     # watch src/ and compile to www/
     $ grunt watch
 
-### Build Binaries
+### Build Development Binaries
 
     $ grunt
 
 __note:__ the first build requires a second call to `grunt`.
+
+### Build Release Binaries
+
+    $ grunt release
 
 ### Run App
 
