@@ -13,7 +13,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     
     // display the project icon
     widgetDOM += "<div style='float:left; display: table-cell;' id='" + iconId + "'>"
-    widgetDOM += "<img width='128' height='128' src='" + projectIcon + "'>";
+    widgetDOM += "<img width='64' height='64' src='" + projectIcon + "'>";
     widgetDOM += "</div>";
     
     // display project info
