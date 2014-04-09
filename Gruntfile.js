@@ -47,11 +47,15 @@ module.exports = function(grunt) {
   });
   
   grunt.task.registerTask('copy-dev-config', function() {
-      grunt.file.copy('./src/dev/package.json', './www/package.json');
+      var config = grunt.file.read('./src/config/package.json');
+      var devConfig = config.replace("\"toolbar\": false", "\"toolbar\": true");
+      grunt.file.write('./www/package.json', devConfig);      
   });
 
   grunt.task.registerTask('copy-release-config', function() {
-      grunt.file.copy('./src/release/package.json', './www/package.json');
+      var config = grunt.file.read('./src/config/package.json');
+      var releaseConfig = config.replace("\"toolbar\": true", "\"toolbar\": false");
+      grunt.file.write('./www/package.json', releaseConfig);
   });
   
   // Register the task to open an app.
