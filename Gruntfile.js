@@ -48,8 +48,7 @@ module.exports = function(grunt) {
   
   grunt.task.registerTask('copy-dev-config', function() {
       var config = grunt.file.read('./src/config/package.json');
-      var devConfig = config.replace("\"toolbar\": false", "\"toolbar\": true");
-      grunt.file.write('./www/package.json', devConfig);      
+      grunt.file.copy('./src/config/package.json', './www/package.json');   
   });
 
   grunt.task.registerTask('copy-release-config', function() {
