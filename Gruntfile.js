@@ -73,7 +73,7 @@ module.exports = function(grunt) {
   });
 
   // Default tasks.
-  grunt.registerTask('default', ['install-dependencies', 'less', 'copy-dev-config', 'nodewebkit']);
+  grunt.registerTask('default', ['install-dependencies', 'less', 'copy-dev-config', 'nodewebkit', 'open']);
   grunt.registerTask('release', ['install-dependencies', 'less', 'copy-release-config', 'nodewebkit']);
 
 };
