@@ -7,23 +7,23 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     var projectDetailsId = "project-details_" + id.toString();
     
     var widgetDOM = "";
-    widgetDOM += "<div style='display: table; border-bottom: 1px solid black; width: 100%; height: 130px;' id='" + widgetId + "'>";
+    widgetDOM += "<div class='widget' id='" + widgetId + "'>";
     
-    widgetDOM += "<div style='display: table-row;'>";
+    widgetDOM += "<div class='widget-row'>";
     
     // display the project icon
-    widgetDOM += "<div style='float:left; display: table-cell;' id='" + iconId + "'>"
-    widgetDOM += "<img width='64' height='64' src='" + projectIcon + "'>";
+    widgetDOM += "<div class='widget-column widget-column-left' id='" + iconId + "'>"
+    widgetDOM += "<img class='widget-icon' src='" + projectIcon + "'>";
     widgetDOM += "</div>";
     
     // display project info
-    widgetDOM += "<div style='float:left; display: table-cell; height: 100%;' id='" + projectDetailsId + "'>";
+    widgetDOM += "<div class='widget-column widget-project-details' id='" + projectDetailsId + "'>";
     widgetDOM += projectName + "<br>";
     widgetDOM += projectVersion + "<br>";
     widgetDOM += "</div>";
     
     // checkbox indicator used for indicating active project
-    widgetDOM += "<div class='status-field' style='float: right;'>";
+    widgetDOM += "<div class='status-field widget-project-status-right'>";
     widgetDOM += "<input type='checkbox' disabled='true' id='" + projectStatusId + "' />";
     widgetDOM += "<label for='project-status' id='project-status-label'>&nbsp;</label>";
     widgetDOM += "</div>";
@@ -31,8 +31,8 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     widgetDOM += "</div>";  // row 1
     
     // display project directory
-    widgetDOM += "<div style='display: table-row;'>";
-    widgetDOM += "<div style='display: table-cell;'>";
+    widgetDOM += "<div class='widget-row'>";
+    widgetDOM += "<div class='widget-column'>";
     widgetDOM += "<div class='projDir'>" + projectDir + "</div>"; 
     widgetDOM += "</div>";
     widgetDOM += "</div>";  // row 2
