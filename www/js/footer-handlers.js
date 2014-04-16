@@ -1,3 +1,9 @@
+function addNewProjectOverlay(evt) {
+    global.jQuery("#createOpenProjectOverlay").hide();
+    global.jQuery("#newProjectOverlay").show();
+    global.jQuery("#overlay-bg").show();    
+}
+
 function addProjectOverlay(evt) {
     console.log("addProjectOverlay - plus click handler");
     global.jQuery("#createOpenProjectOverlay").show();

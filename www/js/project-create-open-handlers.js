@@ -1,7 +1,21 @@
 function createProject(e) {
     console.log("createProject handler");
+
+    var projectName = global.jQuery("#projectName").val();
+    var projectPath = global.jQuery("#projectPath").val();
+ 
+    if(projectName.length > 0 && projectPath.length > 0) {
+        localStorage.projDir = projectPath + "/" + projectName;
+        create();
+        global.jQuery("#newProjectOverlay").hide(); 
+        global.jQuery("#overlay-bg").hide();
+    } else {
+        alert("new project requires a project name and a project path");
+    }    
+}
+
+function selectProjectPath(e) {
     global.createClicked = true;
-    // get the user to select a directory
     global.jQuery("#projectDirectory").trigger("click");
 }
 
@@ -14,18 +28,17 @@ function selectDirectory(e) {
     console.log("change handler");
     console.log(global.jQuery("#projectDirectory").val());
     localStorage.projDir = global.jQuery("#projectDirectory").val();
-
-    if(global.createClicked) {
-        // create new project
-        global.createClicked = false;
-        create();
-    } else {
-        // parse config.xml of an existing project
-        parseProjectConfig();
-    }
     
-    global.jQuery("#createOpenProjectOverlay").hide(); 
-    global.jQuery("#overlay-bg").hide();  
+    if(global.createClicked) {
+        // new project creation workflow
+        global.createClicked = false;
+        global.jQuery("#projectPath").val(localStorage.projDir);
+    } else {
+        // open existing project workflow
+        parseProjectConfig();
+        global.jQuery("#createOpenProjectOverlay").hide(); 
+        global.jQuery("#overlay-bg").hide();
+    } 
 }
 
 function create() {
