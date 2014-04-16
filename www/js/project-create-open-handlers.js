@@ -74,6 +74,30 @@ function parseProjectConfig() {
         var projectIcon = global.jQuery.xml.find("icon").attr("src");
         iconPath += projectIcon;
         
-        addProject(projectName, projectVersion, iconPath, localStorage.projDir);
+        // check if the project exists in PG-GUI's localstorage before adding
+        if(!projectExists(localStorage.projDir)) {
+            addProject(projectName, projectVersion, iconPath, localStorage.projDir);       
+        } else {
+            alert("project already exists");
+        }
     });    
+}
+
+function projectExists(projDir) {
+    
+    var projectFound = false;
+    
+    if (localStorage["projects"]) {
+        var projects = JSON.parse(localStorage["projects"]);
+        var index = projects.length;
+                 
+        for (var i=0;i<index;i++) {
+            if(projDir == projects[i].projDir) {
+                projectFound = true;
+                break;
+            }
+        }           
+    }  
+    
+    return projectFound;
 }

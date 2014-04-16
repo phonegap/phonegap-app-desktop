@@ -113,7 +113,7 @@ footer .topcoat-button-bar .topcoat-icon--large {
   display: table;
   border-bottom: 1px solid black;
   width: 100%;
-  height: 90px;
+  height: 95px;
 }
 .widget-row {
   display: table-row;
@@ -123,10 +123,6 @@ footer .topcoat-button-bar .topcoat-icon--large {
 }
 .widget-column-left {
   float: left;
-}
-.widget-icon {
-  width: 64px;
-  height: 64px;
 }
 .widget-project-status-right {
   float: right;
