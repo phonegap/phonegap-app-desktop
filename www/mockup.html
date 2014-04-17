@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PhoneGap</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel='stylesheet' type='text/css' href='icon/icomatic.css'>
+    <link rel="stylesheet" type="text/css" href="css/topcoat-desktop-light.min.css">
+    <link rel="stylesheet" type="text/css" href="css/topcoat-overlay.min.css">
+    <link rel="stylesheet" type="text/css" href="css/topcoat-overlay-custom.css">
+    <link rel="stylesheet" type="text/css" href="css/flexboxgrid.min.css">
+    
+    <style>
+        .container {
+            height: 100%;
+            width: 100%;
+        }
+        
+        .sidebar {
+            background-color: rgb(45,48,51);
+            height: 100%;
+        }
+        
+        .sidebarbutton {
+            color: rgb(45,48,51);
+            background-color: rgb(45,48,51);
+            border: none;
+        }
+    </style>
+  </head>
+  <body>
+      <div style="border: 1px solid; width: 350px; height: 600px;">
+      <div class="row container">
+          <div class="column-2-hand sidebar">
+              <div class="box-row">
+                  <button id="plus" class="sidebarbutton" title="Add / Open Project">
+                    <img src="img/plus.png" width="32" height="32">
+                  </button>
+              </div>
+              <div class="box-row">
+                  <button id="minus" class="sidebarbutton" title="Remove Project" disabled>
+                    <img src="img/minus.png" width="32" height="32">
+                  </button>
+              </div>
+              <div class="box-row">
+                  <button id="settings" class="sidebarbutton" title="Settings">
+                    <img src="img/gear.png" width="32" height="32">
+                  </button>   
+              </div>
+              <div class="box-row">
+                  <button id="log" class="sidebarbutton" title="View Server Log" disabled>
+                    <img src="img/terminal.png" width="32" height="32">
+                  </button>   
+              </div>
+              <div class="box-row">
+                  <button id="help" class="sidebarbutton" title="Help" disabled>
+                    <img src="img/question-mark.png" width="32" height="32">
+                  </button>   
+              </div>
+          </div>
+          <div class="column-10-hand">
+            <img src="img/guide.png" width="100%">
+          </div>
+      </div>
+      </div>
+
+  </body>
+</html>
