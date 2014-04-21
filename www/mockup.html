@@ -8,7 +8,79 @@
     <link rel="stylesheet" type="text/css" href="css/topcoat-overlay.min.css">
     <link rel="stylesheet" type="text/css" href="css/topcoat-overlay-custom.css">
     <link rel="stylesheet" type="text/css" href="css/flexboxgrid.min.css">
-    
+    <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script> 
+    <script type='text/javascript' src='icon/icomatic.js'></script>
+    <script type='text/javascript' src='js/index.js'></script>
+    <script type="text/javascript" src="js/footer-handlers.js"></script>
+    <script type="text/javascript" src="js/drag-n-drop-handlers.js"></script>
+    <script type="text/javascript" src="js/project-create-open-handlers.js"></script>
+    <script type="text/javascript" src="js/project-widget.js"></script>
+    <script type="text/javascript" src="js/localStorage.js"></script>
+    <script type="text/javascript" src="js/settings-handlers.js"></script>
+    <script type='text/javascript'>   
+           
+        global.pgServer = require("connect-phonegap"); 
+        global.pgVersion = "3.3.0";  
+        global.jQuery = jQuery;
+        global.createClicked = false;
+        global.server = null;
+        global.isServerRunning = false;
+        
+        // set default port number it has not been set
+        if (!localStorage.portNumber) {
+            localStorage.portNumber = 3000;
+        }
+        
+        global.jQuery(document).ready(function() {
+            
+            global.jQuery("#projectDirectory").hide();
+            global.jQuery("#newProjectOverlay").hide();
+            global.jQuery("#createOpenProjectOverlay").hide();
+            global.jQuery("#removeProjectOverlay").hide();
+            global.jQuery("#settingsOverlay").hide();
+            global.jQuery("#serverLogOverlay").hide();
+            global.jQuery("#overlay-bg").hide();
+            
+            global.jQuery("#drop_zone").on("drop", handleDrop);
+            global.jQuery("#drop_zone").on("dragover", handleDragOver);
+            
+            global.jQuery("#projectDirectory").change(selectDirectory);
+            
+            global.jQuery("#overlay-bg").click(overlayBackgroundHandler)
+            
+            global.jQuery("#addNewProject").click(createProject);
+            global.jQuery("#chooseNewProjectPath").click(selectProjectPath);
+            global.jQuery("#cancelNewProject").click(function() {
+                global.jQuery("#newProjectOverlay").hide();
+                global.jQuery("#overlay-bg").hide();
+            });
+            
+            global.jQuery("#createProject").click(addNewProjectOverlay);
+            global.jQuery("#openProject").click(openProject);
+            
+            global.jQuery("#removeProject").click(removeProjectWidget);
+            global.jQuery("#cancelRemoveProject").click(function() {
+                global.jQuery("#removeProjectOverlay").hide();
+                global.jQuery("#overlay-bg").hide();
+            });
+            
+            global.jQuery("#saveSettings").click(saveSettings);
+            global.jQuery("#cancelSettings").click(cancelSettings);
+            
+            global.jQuery("#closeServerLog").click(function() {
+                global.jQuery("#serverLogOverlay").hide();
+                global.jQuery("#overlay-bg").hide();
+            });
+            
+            global.jQuery("#plus").click(addProjectOverlay);
+            global.jQuery("#minus").click(removeProjectOverlay);
+            global.jQuery("#settings").click(settingsOverlay);
+            global.jQuery("#log").click(toggleLog);
+            
+            getProjects();
+        });
+          
+    </script>    
     <style>
         .container {
             height: 100%;
@@ -28,6 +100,51 @@
     </style>
   </head>
   <body>
+      
+      <div id="overlay-bg" class="topcoat-overlay-bg-grey"></div>   
+      <aside id="removeProjectOverlay" class="topcoat-overlay-bottom">
+          Are you sure you want to remove this project?
+          <br>
+          <button id="removeProject" class="topcoat-button">Remove Project</button>
+          <button id="cancelRemoveProject" class="topcoat-button">Cancel</button>
+      </aside>    
+      <aside id="settingsOverlay" class="topcoat-overlay-bottom">
+          Server Settings
+          <br>
+          Port: <input type="text" id="portNumber" class="topcoat-text-input">
+          <br>
+          <button id="saveSettings" class="topcoat-button">Save</button>
+          <button id="cancelSettings" class="topcoat-button">Cancel</button>
+      </aside>    
+      <aside id="serverLogOverlay" class="topcoat-overlay-large">
+          Server Log
+          <br>
+          <textarea id="serverLog" class="topcoat-textarea" readonly style="width: 90%; height: 90%;"></textarea>
+          <br>
+          <button id="closeServerLog" class="topcoat-button">Close</button>
+      </aside> 
+      <aside id="newProjectOverlay" class="topcoat-overlay">
+          Project Name: <input type="text" id="projectName" class="topcoat-text-input">
+          <br>
+          Project Path: <input type="text" id="projectPath" class="topcoat-text-input" disabled>
+          <button id="chooseNewProjectPath" class="topocat-button">Choose</button>
+          <br>
+          <button id="addNewProject" class="topcoat-button">Add</button>
+          <button id="cancelNewProject" class="topcoat-button">Cancel</button>
+      </aside>
+      
+      <div id="createOpenProjectOverlay" class="topcoat-button-bar create-overlay">
+          <button id="createProject" class="topcoat-button-bar__button--large" title="Add New Project">
+            <span class='icomatic'>page</span>
+          </button>
+          <button id="openProject" class="topcoat-button-bar__button--large" title="Open Existing Project">
+            <span class='icomatic'>folder</span>
+          </button> 
+          <div class="arrow-down">
+            <div class="triangle"></div>
+          </div>     
+      </div>
+      
       <div style="border: 1px solid; width: 350px; height: 600px;">
       <div class="row container">
           <div class="column-2-hand sidebar">
@@ -58,10 +175,12 @@
               </div>
           </div>
           <div class="column-10-hand">
-            <img src="img/guide.png" width="100%">
-          </div>
+            <div id="guide-add">
+                <img src="img/guide.png" width="100%">
+            </div>
+            <div id="drop_zone" class="box-row dropzone"></div>
       </div>
       </div>
-
+      <input type="file" id="projectDirectory" nwdirectory>
   </body>
 </html>

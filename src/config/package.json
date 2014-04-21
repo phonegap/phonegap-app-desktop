@@ -2,7 +2,7 @@
     "name": "PhoneGap",
     "description": "PhoneGap",
     "version": "0.0.5",
-    "main": "index.html",
+    "main": "mockup.html",
     "window": {
         "show": false,
         "position": "center",
