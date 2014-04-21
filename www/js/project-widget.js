@@ -169,7 +169,7 @@ function toggleServerStatus() {
                     console.log("server started at: " + data.address + ":" + data.port);
                     global.server = data.server;
                     global.isServerRunning = true;
-                    global.jQuery("#server-status-label").text("http://" + data.address + ":" + data.port);
+                    global.jQuery("#server-status-label").text("Server is running on http://" + data.address + ":" + data.port);
                     global.jQuery("#log").prop("disabled", false);
                 })
                 .on("error", function(e) {
