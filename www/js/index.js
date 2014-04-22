@@ -52,5 +52,8 @@ win.show();
 
 win.on("close", function () {
 	console.log("window close handler");
+	
+	toggleServerStatus();
+	
 	this.close(true);	
 });
