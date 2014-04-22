@@ -32,7 +32,8 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     
     // display project directory
     widgetDOM += "<div class='widget-row'>";
-    widgetDOM += "<div class='widget-column'>";
+    widgetDOM += "<div class='widget-column' style='padding-left: 10px; padding-bottom: 10px;'>";
+    widgetDOM += "<div class='localPath'>Local path:</div>"
     widgetDOM += "<div class='projDir'>" + projectDir + "</div>"; 
     widgetDOM += "</div>";
     widgetDOM += "</div>";  // row 2
@@ -59,7 +60,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     
     global.jQuery("#" + widgetId).on("mouseout", function() {
         if (widgetId == global.activeWidget.widgetId) {
-            global.jQuery("#" + widgetId).css("background-color", "#C4C4C4");
+            global.jQuery("#" + widgetId).css("background-color", "rgb(240,240,240)");
         } else {
             global.jQuery("#" + widgetId).css("background-color", "");
         }
@@ -79,7 +80,7 @@ function setActiveWidget(id, projDir) {
     
     // update GUI to display details of the active widget          
     var projectStatusId = "project-status_" + id.toString();
-    global.jQuery("#" + activeWidget.widgetId).css("background-color", "#C4C4C4");                                                                                  
+    global.jQuery("#" + activeWidget.widgetId).css("background-color", "rgb(240,240,240)");                                                                                  
     global.jQuery("#" + projectStatusId).prop("checked", true);
 
     // set a watch on the config.xml of the active project

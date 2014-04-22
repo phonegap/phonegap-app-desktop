@@ -80,28 +80,9 @@
         getProjects();
     });
 
-    </script>    
-    <style>
-    .container {
-        border: 1px solid; 
-        width: 350px; 
-        height: 550px; 
-    }
-
-    .sidebar {
-        background-color: rgb(45,48,51);
-        height: 100%;
-    }
-
-    .sidebarbutton {
-        color: rgb(45,48,51);
-        background-color: rgb(45,48,51);
-        border: none;
-    }
-    </style>
+    </script>
 </head>
 <body style="overflow-x: hidden; overflow-y: hidden;">
-
     <div id="overlay-bg" class="topcoat-overlay-bg-grey"></div>   
     <aside id="removeProjectOverlay" class="topcoat-overlay-bottom">
         Are you sure you want to remove this project?
@@ -133,8 +114,7 @@
         <button id="addNewProject" class="topcoat-button">Add</button>
         <button id="cancelNewProject" class="topcoat-button">Cancel</button>
     </aside>
-
-    <div id="createOpenProjectOverlay" class="topcoat-button-bar create-overlay">
+    <aside id="createOpenProjectOverlay" class="topcoat-button-bar create-overlay">
         <button id="createProject" class="topcoat-button-bar__button--large" title="Add New Project">
             <span class='icomatic'>page</span>
         </button>
@@ -144,53 +124,50 @@
         <div class="arrow-down">
             <div class="triangle"></div>
         </div>     
+    </aside>
+
+
+    <div class="row container">
+        <div class="column-2-hand sidebar">
+            <div class="box-row">
+                <button id="plus" class="sidebarbutton" title="Add / Open Project">
+                    <img src="img/plus.png" width="32" height="32">
+                </button>
+            </div>
+            <div class="box-row">
+                <button id="minus" class="sidebarbutton" title="Remove Project" disabled>
+                    <img src="img/minus.png" width="32" height="32">
+                </button>
+            </div>
+            <div class="box-row">
+                <button id="settings" class="sidebarbutton" title="Settings">
+                    <img src="img/gear.png" width="32" height="32">
+                </button>   
+            </div>
+            <div class="box-row">
+                <button id="log" class="sidebarbutton" title="View Server Log" disabled>
+                    <img src="img/terminal.png" width="32" height="32">
+                </button>   
+            </div>
+            <div class="box-row">
+                <button id="help" class="sidebarbutton" title="Help" disabled>
+                    <img src="img/question-mark.png" width="32" height="32">
+                </button>   
+            </div>
+        </div>
+        <div class="column-10-hand">
+            <div id="guide-add">
+                <img src="img/guide.png" width="100%">
+            </div>
+            <div id="drop_zone" class="box-row dropzone"></div>
+        </div>
+        <input type="file" id="projectDirectory" nwdirectory>
     </div>
 
+    <div class="status-field">
+        <input type="checkbox" disabled="true" id="server-status" />
+        <label for="server-status" id="server-status-label">server is offline</label>
+    </div>
 
-        <div class="row container">
-            <div class="column-2-hand sidebar">
-                <div class="box-row">
-                    <button id="plus" class="sidebarbutton" title="Add / Open Project">
-                        <img src="img/plus.png" width="32" height="32">
-                    </button>
-                </div>
-                <div class="box-row">
-                    <button id="minus" class="sidebarbutton" title="Remove Project" disabled>
-                        <img src="img/minus.png" width="32" height="32">
-                    </button>
-                </div>
-                <div class="box-row">
-                    <button id="settings" class="sidebarbutton" title="Settings">
-                        <img src="img/gear.png" width="32" height="32">
-                    </button>   
-                </div>
-                <div class="box-row">
-                    <button id="log" class="sidebarbutton" title="View Server Log" disabled>
-                        <img src="img/terminal.png" width="32" height="32">
-                    </button>   
-                </div>
-                <div class="box-row">
-                    <button id="help" class="sidebarbutton" title="Help" disabled>
-                        <img src="img/question-mark.png" width="32" height="32">
-                    </button>   
-                </div>
-            </div>
-            <div class="column-10-hand">
-                <div id="guide-add">
-                    <img src="img/guide.png" width="100%">
-                </div>
-                <div id="drop_zone" class="box-row dropzone"></div>
-            </div>
-            
-
-            
-            <input type="file" id="projectDirectory" nwdirectory>
-        </div>
-
-        <div class="status-field">
-            <input type="checkbox" disabled="true" id="server-status" />
-            <label for="server-status" id="server-status-label">server is offline</label>
-        </div>
-    
 </body>
 </html>
