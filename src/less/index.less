@@ -2,58 +2,13 @@
   background-color: rgba(255, 255, 255, 1.0);
 }
 
-footer {
-  background-color: rgba(0, 0, 0, 0.02);
-  box-shadow: inset 0 1px #9daca9;
-  bottom: 0px;
-  height: 29px;
-  left: 0px;
-  position: fixed;
-  right: 0px;
-
-  nav.left {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-  }
-
-  nav.right {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-  }
-
-  #app-action-bar {
-    float: left;
-  }
-  #server-status-bar {
-    float: left;
-  }
-
-  .topcoat-button-bar {
-    .topcoat-button-bar__item:first-child {
-      border-top-left-radius: 0px;
-      border-bottom-left-radius: 0px;
-    }
-
-    .topcoat-button-bar__item:last-child {
-      border-top-right-radius: 0px;
-      border-bottom-right-radius: 0px;
-    }
-
-    .topcoat-icon--large {
-      top: 0px;
-    }
-  }
-}
-
 .status-field {
   position: absolute;
   width: 350px;
   height: 50px;
   left: 0px;
   bottom: 0px;
-  padding: 27px 0px 0px 20px;
+  padding: 0px 0px 0px 20px;
   color: white;
   background-color: rgb(43,169,77);
 
@@ -66,7 +21,7 @@ footer {
     background-repeat: no-repeat;
     background-position: 0% 50%;
     display: table-cell;
-    height: 20px;
+    height: 50px;
     padding-left: 20px;
     vertical-align: middle;
   }
@@ -78,19 +33,14 @@ footer {
 
 .dropzone {
     width: 100%;
-    height: 600px;
+    height: 550px;
     overflow-x: hidden;
     overflow-y: auto;
 }
 
-.projHeader {
-    height: 25px;
-    border-bottom: 1px solid black;
-}
-
 .projDir {
-    width:340px; 
-    overflow:ellipsis; 
+    width: 280px; 
+    overflow: ellipsis; 
     white-space: nowrap; 
     direction: rtl; 
     text-align: left;
@@ -142,9 +92,30 @@ footer {
     float:left;
 }
 
-.widget-project-status-right {
-    float: right;
+.widget-status-field {
+  float: right;
+  height: 30px;
+  padding: 5px 0px 0px 5px;
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  input[type="checkbox"] + label {
+    background-image: url(img/status-offline.png);
+    background-repeat: no-repeat;
+    background-position: 0% 50%;
+    display: table-cell;
+    height: 20px;
+    padding-left: 20px;
+    vertical-align: middle;
+  }
+
+  input[type="checkbox"]:checked + label {
+    background-image: url(img/status-online.png);
+  }
 }
+
 .widget-project-details {
     float:left; 
     height: 100%;

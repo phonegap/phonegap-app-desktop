@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>PhoneGap</title>
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel='stylesheet' type='text/css' href='icon/icomatic.css'>
@@ -18,173 +18,179 @@
     <script type="text/javascript" src="js/localStorage.js"></script>
     <script type="text/javascript" src="js/settings-handlers.js"></script>
     <script type='text/javascript'>   
-           
-        global.pgServer = require("connect-phonegap"); 
-        global.pgVersion = "3.3.0";  
-        global.jQuery = jQuery;
-        global.createClicked = false;
-        global.server = null;
-        global.isServerRunning = false;
-        
-        // set default port number it has not been set
-        if (!localStorage.portNumber) {
-            localStorage.portNumber = 3000;
-        }
-        
-        global.jQuery(document).ready(function() {
-            
-            global.jQuery("#projectDirectory").hide();
+
+    global.pgServer = require("connect-phonegap"); 
+    global.pgVersion = "3.3.0";  
+    global.jQuery = jQuery;
+    global.createClicked = false;
+    global.server = null;
+    global.isServerRunning = false;
+
+    // set default port number it has not been set
+    if (!localStorage.portNumber) {
+        localStorage.portNumber = 3000;
+    }
+
+    global.jQuery(document).ready(function() {
+
+        global.jQuery("#projectDirectory").hide();
+        global.jQuery("#newProjectOverlay").hide();
+        global.jQuery("#createOpenProjectOverlay").hide();
+        global.jQuery("#removeProjectOverlay").hide();
+        global.jQuery("#settingsOverlay").hide();
+        global.jQuery("#serverLogOverlay").hide();
+        global.jQuery("#overlay-bg").hide();
+
+        global.jQuery("#drop_zone").on("drop", handleDrop);
+        global.jQuery("#drop_zone").on("dragover", handleDragOver);
+
+        global.jQuery("#projectDirectory").change(selectDirectory);
+
+        global.jQuery("#overlay-bg").click(overlayBackgroundHandler)
+
+        global.jQuery("#addNewProject").click(createProject);
+        global.jQuery("#chooseNewProjectPath").click(selectProjectPath);
+        global.jQuery("#cancelNewProject").click(function() {
             global.jQuery("#newProjectOverlay").hide();
-            global.jQuery("#createOpenProjectOverlay").hide();
+            global.jQuery("#overlay-bg").hide();
+        });
+
+        global.jQuery("#createProject").click(addNewProjectOverlay);
+        global.jQuery("#openProject").click(openProject);
+
+        global.jQuery("#removeProject").click(removeProjectWidget);
+        global.jQuery("#cancelRemoveProject").click(function() {
             global.jQuery("#removeProjectOverlay").hide();
-            global.jQuery("#settingsOverlay").hide();
+            global.jQuery("#overlay-bg").hide();
+        });
+
+        global.jQuery("#saveSettings").click(saveSettings);
+        global.jQuery("#cancelSettings").click(cancelSettings);
+
+        global.jQuery("#closeServerLog").click(function() {
             global.jQuery("#serverLogOverlay").hide();
             global.jQuery("#overlay-bg").hide();
-            
-            global.jQuery("#drop_zone").on("drop", handleDrop);
-            global.jQuery("#drop_zone").on("dragover", handleDragOver);
-            
-            global.jQuery("#projectDirectory").change(selectDirectory);
-            
-            global.jQuery("#overlay-bg").click(overlayBackgroundHandler)
-            
-            global.jQuery("#addNewProject").click(createProject);
-            global.jQuery("#chooseNewProjectPath").click(selectProjectPath);
-            global.jQuery("#cancelNewProject").click(function() {
-                global.jQuery("#newProjectOverlay").hide();
-                global.jQuery("#overlay-bg").hide();
-            });
-            
-            global.jQuery("#createProject").click(addNewProjectOverlay);
-            global.jQuery("#openProject").click(openProject);
-            
-            global.jQuery("#removeProject").click(removeProjectWidget);
-            global.jQuery("#cancelRemoveProject").click(function() {
-                global.jQuery("#removeProjectOverlay").hide();
-                global.jQuery("#overlay-bg").hide();
-            });
-            
-            global.jQuery("#saveSettings").click(saveSettings);
-            global.jQuery("#cancelSettings").click(cancelSettings);
-            
-            global.jQuery("#closeServerLog").click(function() {
-                global.jQuery("#serverLogOverlay").hide();
-                global.jQuery("#overlay-bg").hide();
-            });
-            
-            global.jQuery("#plus").click(addProjectOverlay);
-            global.jQuery("#minus").click(removeProjectOverlay);
-            global.jQuery("#settings").click(settingsOverlay);
-            global.jQuery("#log").click(toggleLog);
-            
-            getProjects();
         });
-          
+
+        global.jQuery("#plus").click(addProjectOverlay);
+        global.jQuery("#minus").click(removeProjectOverlay);
+        global.jQuery("#settings").click(settingsOverlay);
+        global.jQuery("#log").click(toggleLog);
+
+        getProjects();
+    });
+
     </script>    
     <style>
-        .container {
-            height: 100%;
-            width: 100%;
-        }
-        
-        .sidebar {
-            background-color: rgb(45,48,51);
-            height: 100%;
-        }
-        
-        .sidebarbutton {
-            color: rgb(45,48,51);
-            background-color: rgb(45,48,51);
-            border: none;
-        }
+    .container {
+        border: 1px solid; 
+        width: 350px; 
+        height: 550px; 
+    }
+
+    .sidebar {
+        background-color: rgb(45,48,51);
+        height: 100%;
+    }
+
+    .sidebarbutton {
+        color: rgb(45,48,51);
+        background-color: rgb(45,48,51);
+        border: none;
+    }
     </style>
-  </head>
-  <body>
-      
-      <div id="overlay-bg" class="topcoat-overlay-bg-grey"></div>   
-      <aside id="removeProjectOverlay" class="topcoat-overlay-bottom">
-          Are you sure you want to remove this project?
-          <br>
-          <button id="removeProject" class="topcoat-button">Remove Project</button>
-          <button id="cancelRemoveProject" class="topcoat-button">Cancel</button>
-      </aside>    
-      <aside id="settingsOverlay" class="topcoat-overlay-bottom">
-          Server Settings
-          <br>
-          Port: <input type="text" id="portNumber" class="topcoat-text-input">
-          <br>
-          <button id="saveSettings" class="topcoat-button">Save</button>
-          <button id="cancelSettings" class="topcoat-button">Cancel</button>
-      </aside>    
-      <aside id="serverLogOverlay" class="topcoat-overlay-large">
-          Server Log
-          <br>
-          <textarea id="serverLog" class="topcoat-textarea" readonly style="width: 90%; height: 90%;"></textarea>
-          <br>
-          <button id="closeServerLog" class="topcoat-button">Close</button>
-      </aside> 
-      <aside id="newProjectOverlay" class="topcoat-overlay">
-          Project Name: <input type="text" id="projectName" class="topcoat-text-input">
-          <br>
-          Project Path: <input type="text" id="projectPath" class="topcoat-text-input" disabled>
-          <button id="chooseNewProjectPath" class="topocat-button">Choose</button>
-          <br>
-          <button id="addNewProject" class="topcoat-button">Add</button>
-          <button id="cancelNewProject" class="topcoat-button">Cancel</button>
-      </aside>
-      
-      <div id="createOpenProjectOverlay" class="topcoat-button-bar create-overlay">
-          <button id="createProject" class="topcoat-button-bar__button--large" title="Add New Project">
+</head>
+<body style="overflow-x: hidden; overflow-y: hidden;">
+
+    <div id="overlay-bg" class="topcoat-overlay-bg-grey"></div>   
+    <aside id="removeProjectOverlay" class="topcoat-overlay-bottom">
+        Are you sure you want to remove this project?
+        <br>
+        <button id="removeProject" class="topcoat-button">Remove Project</button>
+        <button id="cancelRemoveProject" class="topcoat-button">Cancel</button>
+    </aside>    
+    <aside id="settingsOverlay" class="topcoat-overlay-bottom">
+        Server Settings
+        <br>
+        Port: <input type="text" id="portNumber" class="topcoat-text-input">
+        <br>
+        <button id="saveSettings" class="topcoat-button">Save</button>
+        <button id="cancelSettings" class="topcoat-button">Cancel</button>
+    </aside>    
+    <aside id="serverLogOverlay" class="topcoat-overlay-large">
+        Server Log
+        <br>
+        <textarea id="serverLog" class="topcoat-textarea" readonly style="width: 90%; height: 90%;"></textarea>
+        <br>
+        <button id="closeServerLog" class="topcoat-button">Close</button>
+    </aside> 
+    <aside id="newProjectOverlay" class="topcoat-overlay">
+        Project Name: <input type="text" id="projectName" class="topcoat-text-input">
+        <br>
+        Project Path: <input type="text" id="projectPath" class="topcoat-text-input" disabled>
+        <button id="chooseNewProjectPath" class="topocat-button">Choose</button>
+        <br>
+        <button id="addNewProject" class="topcoat-button">Add</button>
+        <button id="cancelNewProject" class="topcoat-button">Cancel</button>
+    </aside>
+
+    <div id="createOpenProjectOverlay" class="topcoat-button-bar create-overlay">
+        <button id="createProject" class="topcoat-button-bar__button--large" title="Add New Project">
             <span class='icomatic'>page</span>
-          </button>
-          <button id="openProject" class="topcoat-button-bar__button--large" title="Open Existing Project">
+        </button>
+        <button id="openProject" class="topcoat-button-bar__button--large" title="Open Existing Project">
             <span class='icomatic'>folder</span>
-          </button> 
-          <div class="arrow-down">
+        </button> 
+        <div class="arrow-down">
             <div class="triangle"></div>
-          </div>     
-      </div>
-      
-      <div style="border: 1px solid; width: 350px; height: 600px;">
-      <div class="row container">
-          <div class="column-2-hand sidebar">
-              <div class="box-row">
-                  <button id="plus" class="sidebarbutton" title="Add / Open Project">
-                    <img src="img/plus.png" width="32" height="32">
-                  </button>
-              </div>
-              <div class="box-row">
-                  <button id="minus" class="sidebarbutton" title="Remove Project" disabled>
-                    <img src="img/minus.png" width="32" height="32">
-                  </button>
-              </div>
-              <div class="box-row">
-                  <button id="settings" class="sidebarbutton" title="Settings">
-                    <img src="img/gear.png" width="32" height="32">
-                  </button>   
-              </div>
-              <div class="box-row">
-                  <button id="log" class="sidebarbutton" title="View Server Log" disabled>
-                    <img src="img/terminal.png" width="32" height="32">
-                  </button>   
-              </div>
-              <div class="box-row">
-                  <button id="help" class="sidebarbutton" title="Help" disabled>
-                    <img src="img/question-mark.png" width="32" height="32">
-                  </button>   
-              </div>
-          </div>
-          <div class="column-10-hand">
-            <div id="guide-add">
-                <img src="img/guide.png" width="100%">
+        </div>     
+    </div>
+
+
+        <div class="row container">
+            <div class="column-2-hand sidebar">
+                <div class="box-row">
+                    <button id="plus" class="sidebarbutton" title="Add / Open Project">
+                        <img src="img/plus.png" width="32" height="32">
+                    </button>
+                </div>
+                <div class="box-row">
+                    <button id="minus" class="sidebarbutton" title="Remove Project" disabled>
+                        <img src="img/minus.png" width="32" height="32">
+                    </button>
+                </div>
+                <div class="box-row">
+                    <button id="settings" class="sidebarbutton" title="Settings">
+                        <img src="img/gear.png" width="32" height="32">
+                    </button>   
+                </div>
+                <div class="box-row">
+                    <button id="log" class="sidebarbutton" title="View Server Log" disabled>
+                        <img src="img/terminal.png" width="32" height="32">
+                    </button>   
+                </div>
+                <div class="box-row">
+                    <button id="help" class="sidebarbutton" title="Help" disabled>
+                        <img src="img/question-mark.png" width="32" height="32">
+                    </button>   
+                </div>
             </div>
-            <div id="drop_zone" class="box-row dropzone"></div>
-      </div>
-      </div>
-      <div class="status-field">
-        <input type="checkbox" disabled="true" id="server-status" />
-        <label for="server-status" id="server-status-label">server is offline</label>
-      </div>
-      <input type="file" id="projectDirectory" nwdirectory>
-  </body>
+            <div class="column-10-hand">
+                <div id="guide-add">
+                    <img src="img/guide.png" width="100%">
+                </div>
+                <div id="drop_zone" class="box-row dropzone"></div>
+            </div>
+            
+
+            
+            <input type="file" id="projectDirectory" nwdirectory>
+        </div>
+
+        <div class="status-field">
+            <input type="checkbox" disabled="true" id="server-status" />
+            <label for="server-status" id="server-status-label">server is offline</label>
+        </div>
+    
+</body>
 </html>

@@ -105,6 +105,7 @@ function removeProjectById(currentId) {
     } else {
         global.jQuery("#minus").prop("disabled", true);
         global.jQuery("#guide-add").show();
+        global.jQuery("#status-field").hide();
     }
    
 }

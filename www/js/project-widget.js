@@ -23,7 +23,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     widgetDOM += "</div>";
     
     // checkbox indicator used for indicating active project
-    widgetDOM += "<div class='status-field widget-project-status-right'>";
+    widgetDOM += "<div class='widget-status-field'>";
     widgetDOM += "<input type='checkbox' disabled='true' id='" + projectStatusId + "' />";
     widgetDOM += "<label for='project-status' id='project-status-label'>&nbsp;</label>";
     widgetDOM += "</div>";
@@ -170,6 +170,7 @@ function toggleServerStatus() {
                     global.server = data.server;
                     global.isServerRunning = true;
                     global.jQuery("#server-status-label").text("Server is running on http://" + data.address + ":" + data.port);
+                    global.jQuery("#status-field").show();
                     global.jQuery("#log").prop("disabled", false);
                 })
                 .on("error", function(e) {
