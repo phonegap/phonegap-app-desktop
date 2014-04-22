@@ -176,6 +176,7 @@ function toggleServerStatus() {
                 })
                 .on("error", function(e) {
                     console.log(e.message);
+                    global.jQuery("#server-status-label").text(e.message);
                 })
                 .on("log", function(status, url) {
                     console.log(status, url);

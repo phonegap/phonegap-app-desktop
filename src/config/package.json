@@ -6,7 +6,7 @@
     "window": {
         "show": false,
         "position": "center",
-        "width": 350,
+        "width": 450,
         "height": 600,
         "toolbar": true
     },
