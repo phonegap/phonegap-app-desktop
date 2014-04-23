@@ -6,39 +6,41 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     var projectStatusId = "project-status_" + id.toString();
     var projectDetailsId = "project-details_" + id.toString();
     
-    var widgetDOM = "";
-    widgetDOM += "<div class='widget' id='" + widgetId + "'>";
+    var widgetDOM = "";  
     
-    widgetDOM += "<div class='widget-row'>";
-    
-    // display the project icon
-    widgetDOM += "<div class='widget-column widget-column-left' id='" + iconId + "'>"
+    // open the widget
+    widgetDOM += "<div class='row widget-border' id='" + widgetId + "'>";
+
+    // project icon
+    widgetDOM += "<div class='column-2-hand' id='" + iconId + "'>"
     widgetDOM += "<img height='64' width='64' src='" + projectIcon + "'>";
     widgetDOM += "</div>";
     
-    // display project info
-    widgetDOM += "<div class='widget-column widget-project-details' id='" + projectDetailsId + "'>";
+    // project info
+    widgetDOM += "<div class='column-9-hand' id='" + projectDetailsId + "'>";
     widgetDOM += projectName + "<br>";
     widgetDOM += projectVersion + "<br>";
     widgetDOM += "</div>";
     
-    // checkbox indicator used for indicating active project
+    // indicator active project
+    widgetDOM += "<div class='column-1-hand'>";
     widgetDOM += "<div class='widget-status-field'>";
     widgetDOM += "<input type='checkbox' disabled='true' id='" + projectStatusId + "' />";
     widgetDOM += "<label for='project-status' id='project-status-label'>&nbsp;</label>";
     widgetDOM += "</div>";
-
-    widgetDOM += "</div>";  // row 1
+    widgetDOM += "</div>";
     
-    // display project directory
-    widgetDOM += "<div class='widget-row'>";
-    widgetDOM += "<div class='widget-column' style='padding-left: 10px; padding-bottom: 10px;'>";
+    // project folder
+    widgetDOM += "<div class='row'>";
+    widgetDOM += "<div class='column' style='padding-left: 10px; padding-bottom: 10px;'>";
+    widgetDOM += "<div class='box'>";
     widgetDOM += "<div class='localPath'>Local path:</div>"
     widgetDOM += "<div class='projDir'>" + projectDir + "</div>"; 
     widgetDOM += "</div>";
-    widgetDOM += "</div>";  // row 2
+    widgetDOM += "</div>";
+    widgetDOM += "</div>";
     
-    widgetDOM += "</div>";  // table
+    widgetDOM += "</div>";  // close the widget
     
     global.jQuery("#drop_zone").append(widgetDOM);
     global.jQuery("#minus").prop("disabled", false);
