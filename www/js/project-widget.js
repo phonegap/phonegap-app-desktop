@@ -172,6 +172,7 @@ function toggleServerStatus() {
                     console.log("server started at: " + data.address + ":" + data.port);
                     global.server = data.server;
                     global.isServerRunning = true;
+                    global.jQuery("#status-field").css("background-color", "rgb(43,169,77)");
                     global.jQuery("#server-status-label").text("Server is running on http://" + data.address + ":" + data.port);
                     global.jQuery("#status-field").show();
                     global.jQuery("#log").prop("disabled", false);
@@ -199,6 +200,7 @@ function toggleServerStatus() {
              global.isServerRunning = false;
          }
          
+         global.jQuery("#status-field").css("background-color", "rgb(153,153,153)");
          global.jQuery("#server-status-label").text("server is offline");
          global.jQuery("#log").prop("disabled", true);
      }

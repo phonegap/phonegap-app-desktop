@@ -105,7 +105,10 @@ function removeProjectById(currentId) {
     } else {
         global.jQuery("#minus").prop("disabled", true);
         global.jQuery("#guide-add").show();
-        global.jQuery("#status-field").hide();
+        //global.jQuery("#status-field").hide();
+        global.jQuery("#status-field").css("background-color", "rgb(153,153,153)");
+        global.jQuery("#server-status-label").text("server is offline");
+        global.jQuery("#server-status").prop("checked", false);
     }
    
 }

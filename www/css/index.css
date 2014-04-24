@@ -1,57 +1,31 @@
 #app {
-  background-color: #ffffff;
+  background-color: #e9e9e9;
 }
-article {
-  background-image: url(../img/guide-add.png);
-  background-position: 2px 100%;
-  background-repeat: no-repeat;
-  background-size: 297px 180px;
-  bottom: 30px;
-  left: 0px;
-  position: absolute;
-  right: 0px;
-  top: 0px;
+.container {
+  width: 450px;
+  height: 550px;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
-footer {
-  background-color: rgba(0, 0, 0, 0.02);
-  box-shadow: inset 0 1px #9daca9;
-  bottom: 0px;
-  height: 29px;
-  left: 0px;
-  position: fixed;
-  right: 0px;
+.sidebar {
+  background-color: #2d3033;
+  height: 100%;
 }
-footer nav.left {
-  position: absolute;
-  top: 0px;
-  left: 0px;
+.sidebar-bottom {
+  background-color: #2d3033;
+  height: 50px;
 }
-footer nav.right {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-}
-footer #app-action-bar {
-  float: left;
-}
-footer #server-status-bar {
-  float: left;
-}
-footer .topcoat-button-bar .topcoat-button-bar__item:first-child {
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
-}
-footer .topcoat-button-bar .topcoat-button-bar__item:last-child {
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-}
-footer .topcoat-button-bar .topcoat-icon--large {
-  top: 0px;
+.sidebarbutton {
+  color: #2d3033;
+  background-color: #2d3033;
+  border: none;
 }
 .status-field {
-  float: left;
-  height: 30px;
-  padding: 5px 0px 0px 5px;
+  width: 100%;
+  height: 50px;
+  padding: 0px 0px 0px 20px;
+  color: white;
+  background-color: #999999;
 }
 .status-field input[type="checkbox"] {
   display: none;
@@ -61,8 +35,8 @@ footer .topcoat-button-bar .topcoat-icon--large {
   background-repeat: no-repeat;
   background-position: 0% 50%;
   display: table-cell;
-  height: 20px;
-  padding-left: 20px;
+  height: 50px;
+  padding-left: 25px;
   vertical-align: middle;
 }
 .status-field input[type="checkbox"]:checked + label {
@@ -70,20 +44,22 @@ footer .topcoat-button-bar .topcoat-icon--large {
 }
 .dropzone {
   width: 100%;
-  height: 546px;
+  height: 550px;
   overflow-x: hidden;
   overflow-y: auto;
 }
-.projHeader {
-  height: 25px;
-  border-bottom: 1px solid black;
+.localPath {
+  width: 370px;
+  font-size: small;
+  color: #999999;
 }
 .projDir {
-  width: 340px;
-  overflow: ellipsis;
+  width: 370px;
+  overflow-x: hidden;
   white-space: nowrap;
   direction: rtl;
   text-align: left;
+  font-size: small;
 }
 .arrow-down {
   -webkit-transform: rotate(45deg);
@@ -109,25 +85,26 @@ footer .topcoat-button-bar .topcoat-icon--large {
   left: 5px;
   z-index: 12;
 }
-.widget {
-  display: table;
-  border-bottom: 1px solid black;
-  width: 100%;
-  height: 95px;
+.widget-border {
+  border-bottom: 1px solid #999999;
 }
-.widget-row {
-  display: table-row;
-}
-.widget-column {
-  display: table-cell;
-}
-.widget-column-left {
-  float: left;
-}
-.widget-project-status-right {
+.widget-status-field {
   float: right;
+  height: 30px;
+  padding: 0px 0px 0px 5px;
 }
-.widget-project-details {
-  float: left;
-  height: 100%;
+.widget-status-field input[type="checkbox"] {
+  display: none;
+}
+.widget-status-field input[type="checkbox"] + label {
+  background-image: url(img/status-offline.png);
+  background-repeat: no-repeat;
+  background-position: 0% 50%;
+  display: table-cell;
+  height: 20px;
+  padding-left: 20px;
+  vertical-align: middle;
+}
+.widget-status-field input[type="checkbox"]:checked + label {
+  background-image: url(img/status-online.png);
 }
