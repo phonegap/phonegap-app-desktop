@@ -8,3 +8,4 @@ npm-debug.log
 # Project
 build/
 www/node_modules/
+www/package.json
