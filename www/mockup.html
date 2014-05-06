@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="css/topcoat-overlay.min.css">
     <link rel="stylesheet" type="text/css" href="css/topcoat-overlay-custom.css">
     <link rel="stylesheet" type="text/css" href="css/flexboxgrid.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
     <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script> 
     <script type='text/javascript' src='icon/icomatic.js'></script>
     <script type='text/javascript' src='js/index.js'></script>
@@ -42,46 +44,68 @@
         global.jQuery("#serverLogOverlay").hide();
         global.jQuery("#overlay-bg").hide();
 
-        global.jQuery("#drop_zone").on("drop", handleDrop);
-        global.jQuery("#drop_zone").on("dragover", handleDragOver);
+        // init file explorer
 
-        global.jQuery("#projectDirectory").change(selectDirectory);
+        //global.jQuery("#file-explorer").hide();
 
-        global.jQuery("#overlay-bg").click(overlayBackgroundHandler)
+        //var folder = new folder_view.Folder(global.jQuery("#files"));
+        //var addressbar = new abar.AddressBar(global.jQuery("#addressbar"));
 
-        global.jQuery("#addNewProject").click(createProject);
-        global.jQuery("#chooseNewProjectPath").click(selectProjectPath);
-        global.jQuery("#cancelNewProject").click(function() {
-            global.jQuery("#newProjectOverlay").hide();
-            global.jQuery("#overlay-bg").hide();
-        });
+/*
+folder.on("navigate", function(dir, mime) {
+if (mime.type == "folder") {
+addressbar.enter(mime);
+} else {
+gui.Shell.openItem(mime.path);
+}
+});
 
-        global.jQuery("#createProject").click(addNewProjectOverlay);
-        global.jQuery("#openProject").click(openProject);
+addressbar.on("navigate", function(dir) {
+folder.open(dir); 
+});
+*/
+// -- end file explorer init
 
-        global.jQuery("#removeProject").click(removeProjectWidget);
-        global.jQuery("#cancelRemoveProject").click(function() {
-            global.jQuery("#removeProjectOverlay").hide();
-            global.jQuery("#overlay-bg").hide();
-        });
+global.jQuery("#drop_zone").on("drop", handleDrop);
+global.jQuery("#drop_zone").on("dragover", handleDragOver);
 
-        global.jQuery("#saveSettings").click(saveSettings);
-        global.jQuery("#cancelSettings").click(cancelSettings);
+global.jQuery("#projectDirectory").change(selectDirectory);
 
-        global.jQuery("#closeServerLog").click(function() {
-            global.jQuery("#serverLogOverlay").hide();
-            global.jQuery("#overlay-bg").hide();
-        });
+global.jQuery("#overlay-bg").click(overlayBackgroundHandler)
 
-        global.jQuery("#plus").click(addProjectOverlay);
-        global.jQuery("#minus").click(removeProjectOverlay);
-        global.jQuery("#settings").click(settingsOverlay);
-        global.jQuery("#log").click(toggleLog);
+global.jQuery("#addNewProject").click(createProject);
+global.jQuery("#chooseNewProjectPath").click(selectProjectPath);
+global.jQuery("#cancelNewProject").click(function() {
+    global.jQuery("#newProjectOverlay").hide();
+    global.jQuery("#overlay-bg").hide();
+});
 
-        getProjects();
-    });
+global.jQuery("#createProject").click(addNewProjectOverlay);
+global.jQuery("#openProject").click(openProject);
 
-    </script>
+global.jQuery("#removeProject").click(removeProjectWidget);
+global.jQuery("#cancelRemoveProject").click(function() {
+    global.jQuery("#removeProjectOverlay").hide();
+    global.jQuery("#overlay-bg").hide();
+});
+
+global.jQuery("#saveSettings").click(saveSettings);
+global.jQuery("#cancelSettings").click(cancelSettings);
+
+global.jQuery("#closeServerLog").click(function() {
+    global.jQuery("#serverLogOverlay").hide();
+    global.jQuery("#overlay-bg").hide();
+});
+
+global.jQuery("#plus").click(addProjectOverlay);
+global.jQuery("#minus").click(removeProjectOverlay);
+global.jQuery("#settings").click(settingsOverlay);
+global.jQuery("#log").click(toggleLog);
+
+getProjects();
+});
+
+</script>
 </head>
 <body style="overflow-x: hidden; overflow-y: hidden;">
 
@@ -128,6 +152,37 @@
             <div class="triangle"></div>
         </div>     
     </aside>
+
+
+    <div id="file-explorer">
+        <div style="position: absolute; left: 10px; right: 10px; top: 10px; bottom: 10px;">
+
+            <div class="well" style="float: left; width: 160px; padding: 8px;">
+                <ul class="nav nav-list">
+                    <li class="nav-header">Favorites</li>
+                    <li class="active"><a href="#"><i class="icon-white icon-home"></i> Home</a></li>
+                    <li><a href="#"><i class="icon-book"></i> Documents</a></li>
+                    <li><a href="#"><i class="icon-picture"></i> Pictures</a></li>
+                    <li class="nav-header">Network</li>
+                    <li class="divider"></li>
+                    <li><a href="#"><i class="icon-flag"></i> About</a></li>
+                </ul>
+            </div>
+
+            <div style="float: left; position: absolute; left: 210px; right: 0; top: 0; bottom: 50px">
+                <div class="row-file-explorer">
+                    <ul id="addressbar" class="breadcrumb"></ul>
+                </div>
+                <div class="row-file-explorer" style="background: #FFF; -webkit-border-radius: 2px; margin: -5px 1px 0 -19px; height: 100%; overflow: auto">
+                    <ul style="margin: 5px;" id="files"></ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
 
     <div class="row container" style="overflow-x: hidden; overflow-y: hidden;">
         <div class="column-2-hand sidebar">
@@ -176,6 +231,7 @@
                 <label for="server-status" id="server-status-label">server is offline</label>
             </div>    
         </div>
+    </div>
 
-    </body>
-    </html>
+</body>
+</html>

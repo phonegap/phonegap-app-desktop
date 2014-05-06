@@ -5,6 +5,12 @@ var win = gui.Window.get();
 var fs = require("fs");
 var gaze = require("gaze");
 
+// required for file explorer
+var abar = require("address_bar");
+var folder_view = require("folder_view");
+var path = require("path");
+
+
 var menubar = new gui.Menu({ type: 'menubar' });
 var file = new gui.Menu();
              
