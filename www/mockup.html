@@ -8,8 +8,6 @@
     <link rel="stylesheet" type="text/css" href="css/topcoat-overlay.min.css">
     <link rel="stylesheet" type="text/css" href="css/topcoat-overlay-custom.css">
     <link rel="stylesheet" type="text/css" href="css/flexboxgrid.min.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
     <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script> 
     <script type='text/javascript' src='icon/icomatic.js'></script>
     <script type='text/javascript' src='js/index.js'></script>
@@ -154,31 +152,25 @@ getProjects();
     </aside>
 
 
-    <div id="file-explorer">
-        <div style="position: absolute; left: 10px; right: 10px; top: 10px; bottom: 10px;">
+    <div id="file-explorer" style="display: block; background-color: #FFF; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; width: 100%; height: 100%;">
 
-            <div class="well" style="float: left; width: 160px; padding: 8px;">
-                <ul class="nav nav-list">
-                    <li class="nav-header">Favorites</li>
-                    <li class="active"><a href="#"><i class="icon-white icon-home"></i> Home</a></li>
-                    <li><a href="#"><i class="icon-book"></i> Documents</a></li>
-                    <li><a href="#"><i class="icon-picture"></i> Pictures</a></li>
-                    <li class="nav-header">Network</li>
-                    <li class="divider"></li>
-                    <li><a href="#"><i class="icon-flag"></i> About</a></li>
-                </ul>
+        <div style="float: left; width: 160px; padding: 8px;">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Documents</a></li>
+                <li><a href="#">Pictures</a></li>
+            </ul>
+        </div>        
+
+        <div style="float: left; position: absolute; left: 210px; right: 0; top: 0; bottom: 50px">
+            <div>
+                <ul id="addressbar"></ul>
             </div>
-
-            <div style="float: left; position: absolute; left: 210px; right: 0; top: 0; bottom: 50px">
-                <div class="row-file-explorer">
-                    <ul id="addressbar" class="breadcrumb"></ul>
-                </div>
-                <div class="row-file-explorer" style="background: #FFF; -webkit-border-radius: 2px; margin: -5px 1px 0 -19px; height: 100%; overflow: auto">
-                    <ul style="margin: 5px;" id="files"></ul>
-                </div>
+            <div style="background: #CCFFFF; -webkit-border-radius: 2px; margin: -5px 1px 0 -19px; height: 100%; overflow: auto">
+                <ul style="margin: 5px;" id="files"></ul>
             </div>
-
         </div>
+        
     </div>
 
 
