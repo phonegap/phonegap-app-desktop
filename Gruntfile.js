@@ -47,7 +47,7 @@ module.exports = function(grunt) {
   });
   
   grunt.task.registerTask('copy-dev-config', function() {
-      var config = grunt.file.read('./src/config/package.json');
+      //var config = grunt.file.read('./src/config/package.json');
       grunt.file.copy('./src/config/package.json', './www/package.json');   
   });
 
@@ -55,6 +55,13 @@ module.exports = function(grunt) {
       var config = grunt.file.read('./src/config/package.json');
       var releaseConfig = config.replace("\"toolbar\": true", "\"toolbar\": false");
       grunt.file.write('./www/package.json', releaseConfig);
+  });
+  
+  grunt.task.registerTask('copy-local-node-modules', function() {
+      grunt.file.copy('./src/custom-node-modules/address_bar.js', './www/node_modules/address_bar.js');
+      grunt.file.copy('./src/custom-node-modules/folder_view.js', './www/node_modules/folder_view.js');
+      grunt.file.copy('./src/custom-node-modules/mime.js', './www/node_modules/mime.js');
+      grunt.file.copy('./src/custom-node-modules/underscore.js', './www/node_modules/underscore.js');
   });
   
   // Register the task to open an app.
@@ -73,7 +80,7 @@ module.exports = function(grunt) {
   });
 
   // Default tasks.
-  grunt.registerTask('default', ['install-dependencies', 'less', 'copy-dev-config', 'nodewebkit', 'open']);
-  grunt.registerTask('release', ['install-dependencies', 'less', 'copy-release-config', 'nodewebkit']);
+  grunt.registerTask('default', ['install-dependencies', 'less', 'copy-dev-config', 'copy-local-node-modules', 'nodewebkit', 'open']);
+  grunt.registerTask('release', ['install-dependencies', 'less', 'copy-release-config', 'copy-local-node-modules', 'nodewebkit']);
 
 };

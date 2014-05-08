@@ -12,7 +12,8 @@
     },
     "dependencies": {
         "connect-phonegap": "0.8.1",
-        "gaze": "0.5.1"
+        "gaze": "0.5.1",
+        "jade": "0.27.2"
     },
     "licenses": [{
         "type":"ALv2",
