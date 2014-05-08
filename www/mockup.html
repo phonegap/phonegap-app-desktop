@@ -46,23 +46,27 @@
 
         //global.jQuery("#file-explorer").hide();
 
-        //var folder = new folder_view.Folder(global.jQuery("#files"));
-        //var addressbar = new abar.AddressBar(global.jQuery("#addressbar"));
+        var folder = new folder_view.Folder(global.jQuery("#files"));
+        var addressbar = new abar.AddressBar(global.jQuery("#addressbar"));
 
-/*
-folder.on("navigate", function(dir, mime) {
-if (mime.type == "folder") {
-addressbar.enter(mime);
-} else {
-gui.Shell.openItem(mime.path);
-}
-});
+        folder.open(process.cwd());
+        addressbar.set(process.cwd());
 
-addressbar.on("navigate", function(dir) {
-folder.open(dir); 
-});
-*/
-// -- end file explorer init
+        folder.on("navigate", function(dir, mime) {
+            console.log("folder navigate");
+            if (mime.type == "folder") {
+                addressbar.enter(mime);
+            } else {
+                gui.Shell.openItem(mime.path);
+            }
+        });
+
+        addressbar.on("navigate", function(dir) {
+            console.log("addressbar navigate");
+            folder.open(dir); 
+        });
+
+        // -- end file explorer init
 
 global.jQuery("#drop_zone").on("drop", handleDrop);
 global.jQuery("#drop_zone").on("dragover", handleDragOver);
