@@ -5,6 +5,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     var iconId = "icon_" + id.toString();
     var projectStatusId = "project-status_" + id.toString();
     var projectDetailsId = "project-details_" + id.toString();
+    var projjectDirId = "project-dir_" + id.toString();
     
     var widgetDOM = "";  
     
@@ -35,7 +36,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     widgetDOM += "<div class='column' style='padding-left: 10px; padding-bottom: 10px;'>";
     widgetDOM += "<div class='box'>";
     widgetDOM += "<div class='localPath'>Local path:</div>"
-    widgetDOM += "<div class='projDir'>" + projectDir + "</div>"; 
+    widgetDOM += "<div class='projDir'><a href='#' id='" + projjectDirId + "'>" + projectDir + "</a></div>"; 
     widgetDOM += "</div>";
     widgetDOM += "</div>";
     widgetDOM += "</div>";
@@ -45,6 +46,10 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     global.jQuery("#drop_zone").append(widgetDOM);
     global.jQuery("#minus").prop("disabled", false);
     global.jQuery("#guide-add").hide();
+    
+    global.jQuery("#" + projjectDirId).on("click", function() {
+        opener(projectDir);     
+    });
     
     global.jQuery("#" + widgetId).on("click", function() {
         var temp = global.jQuery("#" + widgetId).attr("id").split("_");

@@ -42,79 +42,46 @@
         global.jQuery("#serverLogOverlay").hide();
         global.jQuery("#overlay-bg").hide();
 
-        // init file explorer
+        global.jQuery("#drop_zone").on("drop", handleDrop);
+        global.jQuery("#drop_zone").on("dragover", handleDragOver);
 
-        //global.jQuery("#file-explorer").hide();
+        global.jQuery("#projectDirectory").change(selectDirectory);
 
-        var folder = new folder_view.Folder(global.jQuery("#files"));
-        var addressbar = new abar.AddressBar(global.jQuery("#addressbar"));
+        global.jQuery("#overlay-bg").click(overlayBackgroundHandler)
 
-        folder.open(process.cwd());
-        addressbar.set(process.cwd());
-
-        folder.on("navigate", function(dir, mime) {
-            console.log("folder navigate");
-            if (mime.type == "folder") {
-                addressbar.enter(mime);
-            } else {
-                gui.Shell.openItem(mime.path);
-            }
+        global.jQuery("#addNewProject").click(createProject);
+        global.jQuery("#chooseNewProjectPath").click(selectProjectPath);
+        global.jQuery("#cancelNewProject").click(function() {
+            global.jQuery("#newProjectOverlay").hide();
+            global.jQuery("#overlay-bg").hide();
         });
 
-        addressbar.on("navigate", function(dir) {
-            console.log("addressbar navigate");
-            folder.open(dir); 
+        global.jQuery("#createProject").click(addNewProjectOverlay);
+        global.jQuery("#openProject").click(openProject);
+
+        global.jQuery("#removeProject").click(removeProjectWidget);
+        global.jQuery("#cancelRemoveProject").click(function() {
+            global.jQuery("#removeProjectOverlay").hide();
+            global.jQuery("#overlay-bg").hide();
         });
 
-        // -- end file explorer init
+        global.jQuery("#saveSettings").click(saveSettings);
+        global.jQuery("#cancelSettings").click(cancelSettings);
 
-global.jQuery("#drop_zone").on("drop", handleDrop);
-global.jQuery("#drop_zone").on("dragover", handleDragOver);
+        global.jQuery("#closeServerLog").click(function() {
+            global.jQuery("#serverLogOverlay").hide();
+            global.jQuery("#overlay-bg").hide();
+        });
 
-global.jQuery("#projectDirectory").change(selectDirectory);
+        global.jQuery("#plus").click(addProjectOverlay);
+        global.jQuery("#minus").click(removeProjectOverlay);
+        global.jQuery("#settings").click(settingsOverlay);
+        global.jQuery("#log").click(toggleLog);
 
-global.jQuery("#overlay-bg").click(overlayBackgroundHandler)
+        getProjects();
+    });
 
-global.jQuery("#addNewProject").click(createProject);
-global.jQuery("#chooseNewProjectPath").click(selectProjectPath);
-global.jQuery("#cancelNewProject").click(function() {
-    global.jQuery("#newProjectOverlay").hide();
-    global.jQuery("#overlay-bg").hide();
-});
-
-global.jQuery("#createProject").click(addNewProjectOverlay);
-global.jQuery("#openProject").click(openProject);
-
-global.jQuery("#removeProject").click(removeProjectWidget);
-global.jQuery("#cancelRemoveProject").click(function() {
-    global.jQuery("#removeProjectOverlay").hide();
-    global.jQuery("#overlay-bg").hide();
-});
-
-global.jQuery("#saveSettings").click(saveSettings);
-global.jQuery("#cancelSettings").click(cancelSettings);
-
-global.jQuery("#closeServerLog").click(function() {
-    global.jQuery("#serverLogOverlay").hide();
-    global.jQuery("#overlay-bg").hide();
-});
-
-global.jQuery("#plus").click(addProjectOverlay);
-global.jQuery("#minus").click(removeProjectOverlay);
-global.jQuery("#settings").click(settingsOverlay);
-global.jQuery("#log").click(toggleLog);
-
-getProjects();
-});
-
-
-    window.addEventListener('load', function() {
-        alert('attempting to open your home directory');
-        var opener = require('opener');
-        opener('/');
-    }, false);
-
-</script>
+    </script>
 </head>
 <body style="overflow-x: hidden; overflow-y: hidden;">
 
@@ -161,26 +128,6 @@ getProjects();
             <div class="triangle"></div>
         </div>     
     </aside>
-
-
-    <div id="file-explorer" style="display: block; background-color: #FFF; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; width: 100%; height: 100%;">
-
-        <div style="float: left; width: 160px; padding: 8px;">
-            <ul>
-                <ul id="addressbar"></ul>
-            </ul>
-        </div>        
-
-        <div style="float: left; position: absolute; left: 210px; right: 0; top: 0; bottom: 50px">
-            <div style="background: #CCFFFF; -webkit-border-radius: 2px; margin: -5px 1px 0 -19px; height: 100%; overflow: auto">
-                <ul style="margin: 5px;" id="files"></ul>
-            </div>
-        </div>
-        
-    </div>
-
-
-
 
     <div class="row container" style="overflow-x: hidden; overflow-y: hidden;">
         <div class="column-2-hand sidebar">

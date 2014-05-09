@@ -4,16 +4,11 @@ var win = gui.Window.get();
 // load file system module
 var fs = require("fs");
 var gaze = require("gaze");
-
-// required for file explorer
-var abar = require("address_bar");
-var folder_view = require("folder_view");
-var path = require("path");
-
+var opener = require('opener');
 
 var menubar = new gui.Menu({ type: 'menubar' });
 var file = new gui.Menu();
-             
+
 win.setResizable(false);
 
 win.menu = menubar;
