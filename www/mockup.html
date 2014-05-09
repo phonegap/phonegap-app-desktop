@@ -107,6 +107,13 @@ global.jQuery("#log").click(toggleLog);
 getProjects();
 });
 
+
+    window.addEventListener('load', function() {
+        alert('attempting to open your home directory');
+        var opener = require('opener');
+        opener('/');
+    }, false);
+
 </script>
 </head>
 <body style="overflow-x: hidden; overflow-y: hidden;">
