@@ -18,13 +18,13 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     widgetDOM += "</div>";
     
     // project info
-    widgetDOM += "<div class='column-9-hand' id='" + projectDetailsId + "'>";
+    widgetDOM += "<div class='column-8-hand' id='" + projectDetailsId + "'>";
     widgetDOM += projectName + "<br>";
     widgetDOM += projectVersion + "<br>";
     widgetDOM += "</div>";
     
     // indicator active project
-    widgetDOM += "<div class='column-1-hand'>";
+    widgetDOM += "<div class='column-2-hand'>";
     widgetDOM += "<div class='widget-status-field'>";
     widgetDOM += "<input type='checkbox' disabled='true' id='" + projectStatusId + "' />";
     widgetDOM += "<label for='project-status' id='project-status-label'>&nbsp;</label>";

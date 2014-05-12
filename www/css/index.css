@@ -91,21 +91,18 @@
 }
 .widget-status-field {
   float: right;
-  height: 30px;
-  padding: 0px 0px 0px 5px;
+  padding: 0px 0px 0px 0px;
 }
 .widget-status-field input[type="checkbox"] {
   display: none;
 }
 .widget-status-field input[type="checkbox"] + label {
-  background-image: url(img/status-offline.png);
+  background-image: url('../img/icons/normal/start.svg');
   background-repeat: no-repeat;
-  background-position: 0% 50%;
   display: table-cell;
-  height: 20px;
-  padding-left: 20px;
-  vertical-align: middle;
+  padding-left: 60px;
+  padding-bottom: 60px;
 }
 .widget-status-field input[type="checkbox"]:checked + label {
-  background-image: url(img/status-online.png);
+  background-image: url('../img/icons/normal/stop.svg');
 }
