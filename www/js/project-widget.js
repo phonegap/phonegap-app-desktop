@@ -94,7 +94,6 @@ function setActiveWidget(id, projDir) {
     setConfigWatcher(id, projDir);
     
     // turn on the server
-    global.jQuery("#server-status").prop("checked", true);
     toggleServerStatus();
            
     // reset the previous active widget
