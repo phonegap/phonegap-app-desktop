@@ -91,18 +91,18 @@
 }
 .widget-status-field {
   float: right;
-  padding: 0px 0px 0px 0px;
 }
 .widget-status-field input[type="checkbox"] {
   display: none;
 }
 .widget-status-field input[type="checkbox"] + label {
   background-image: url('../img/icons/normal/start.svg');
+  background-size: 25px 25px;
   background-repeat: no-repeat;
   display: table-cell;
-  padding-left: 60px;
-  padding-bottom: 60px;
+  padding-left: 25px;
+  padding-bottom: 25px;
 }
 .widget-status-field input[type="checkbox"]:checked + label {
-  background-image: url('../img/icons/normal/stop.svg');
+  background-image: url('../img/icons/active/start-active.svg');
 }
