@@ -75,20 +75,14 @@
 .widget-border {
   border-bottom: 1px solid #999999;
 }
-.widget-status-field {
-  float: right;
+.hr-icon {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  opacity: 0.0;
 }
-.widget-status-field input[type="checkbox"] {
-  display: none;
+.stop-icon {
+  opacity: 0.0;
 }
-.widget-status-field input[type="checkbox"] + label {
-  background-image: url('../img/icons/normal/start.svg');
-  background-size: 25px 25px;
-  background-repeat: no-repeat;
-  display: table-cell;
-  padding-left: 25px;
-  padding-bottom: 25px;
-}
-.widget-status-field input[type="checkbox"]:checked + label {
-  background-image: url('../img/icons/active/start-active.svg');
+.start-icon {
+  padding-top: 10px;
 }

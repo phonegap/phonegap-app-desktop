@@ -2,24 +2,12 @@
 <!-- Generator: Adobe Illustrator 17.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="stop" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="60px" height="60px" viewBox="0 0 60 60" enable-background="new 0 0 60 60" xml:space="preserve">
+	 width="30px" height="30px" viewBox="0 0 30 30" enable-background="new 0 0 30 30" xml:space="preserve">
 <g>
 	<g>
-		<path fill="#999999" d="M39.001,18.997h-18c-1.105,0-2,0.895-2,2v18c0,1.105,0.895,2,2,2h18c1.105,0,2-0.895,2-2v-18
-			C41.001,19.892,40.105,18.997,39.001,18.997z M41.599,1.998H18.401L1.998,18.401v23.198l16.403,16.403h23.198l16.403-16.403
-			V18.401L41.599,1.998z M55.202,40.439L40.439,55.202H19.561L4.798,40.439V19.561L19.561,4.798h20.878l14.763,14.763V40.439z"/>
+		<path fill="#999999" d="M19.5,9.5h-9c-0.6,0-1,0.4-1,1v9c0,0.6,0.4,1,1,1h9c0.6,0,1-0.4,1-1v-9C20.5,9.9,20.1,9.5,19.5,9.5z
+			 M20.8,1H9.2L1,9.2v11.6L9.2,29h11.6l8.2-8.2V9.2L20.8,1z M27.6,20.2l-7.4,7.4H9.8l-7.4-7.4V9.8l7.4-7.4h10.4l7.4,7.4
+			C27.6,9.8,27.6,20.2,27.6,20.2z"/>
 	</g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
 </g>
 </svg>

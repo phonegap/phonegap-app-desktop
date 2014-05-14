@@ -5,7 +5,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     var iconId = "icon_" + id.toString();
     var projectStatusId = "project-status_" + id.toString();
     var projectDetailsId = "project-details_" + id.toString();
-    var projjectDirId = "project-dir_" + id.toString();
+    var projectDirId = "project-dir_" + id.toString();
     
     var widgetDOM = "";  
     
@@ -25,10 +25,11 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     
     // indicator active project
     widgetDOM += "<div class='column-1-hand'>";
-    widgetDOM += "<div class='widget-status-field'>";
-    widgetDOM += "<input type='checkbox' disabled='true' id='" + projectStatusId + "' />";
-    widgetDOM += "<label for='project-status' id='project-status-label'>&nbsp;</label>";
-    widgetDOM += "</div>";
+
+    widgetDOM += "<img id='start-icon_" + id.toString() + "' class='start-icon' src='img/icons/normal/start.svg' />";
+    widgetDOM += "<img id='hr-icon_" + id.toString() + "' class='hr-icon' src='img/icons/normal/hr.svg' />";
+    widgetDOM += "<img id='stop-icon_" + id.toString() + "' class='stop-icon' src='img/icons/normal/stop.svg' />";
+    
     widgetDOM += "</div>";
     
     // project folder
@@ -36,7 +37,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     widgetDOM += "<div class='column' style='padding-left: 10px; padding-bottom: 10px;'>";
     widgetDOM += "<div class='box'>";
     widgetDOM += "<div class='localPath'>Local path:</div>"
-    widgetDOM += "<div class='projDir'><a href='#' id='" + projjectDirId + "'>" + projectDir + "</a></div>"; 
+    widgetDOM += "<div class='projDir'><a href='#' id='" + projectDirId + "'>" + projectDir + "</a></div>"; 
     widgetDOM += "</div>";
     widgetDOM += "</div>";
     widgetDOM += "</div>";
@@ -47,7 +48,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     global.jQuery("#minus").prop("disabled", false);
     global.jQuery("#guide-add").hide();
     
-    global.jQuery("#" + projjectDirId).on("click", function() {
+    global.jQuery("#" + projectDirId).on("click", function() {
         opener(projectDir);     
     });
     
@@ -75,7 +76,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
 }
 
 function setActiveWidget(id, projDir) {
-    console.log("setActiveWidget - id: " + id); 
+    console.log("setActiveWidget"); 
    
     var previousActiveWidget = global.activeWidget;
         
@@ -85,10 +86,13 @@ function setActiveWidget(id, projDir) {
     global.activeWidget = activeWidget;
     localStorage.projDir = projDir;
     
+    console.log("activeId: " + id);
+       
     // update GUI to display details of the active widget          
-    var projectStatusId = "project-status_" + id.toString();
     global.jQuery("#" + activeWidget.widgetId).css("background-color", "rgb(240,240,240)");                                                                                  
-    global.jQuery("#" + projectStatusId).prop("checked", true);
+    global.jQuery("#start-icon_" + activeWidget.projectId.toString()).attr("src", "img/icons/active/start-active.svg");
+    global.jQuery("#hr-icon_" + activeWidget.projectId.toString()).css("opacity", 1.0);
+    global.jQuery("#stop-icon_" + activeWidget.projectId.toString()).css("opacity", 1.0);
 
     // set a watch on the config.xml of the active project
     setConfigWatcher(id, projDir);
@@ -98,9 +102,11 @@ function setActiveWidget(id, projDir) {
            
     // reset the previous active widget
     if (previousActiveWidget) {
-        var prevProjectStatusId = "project-status_" + previousActiveWidget.projectId.toString();
-        global.jQuery("#" + prevProjectStatusId).prop("checked", false);
-        global.jQuery("#" + previousActiveWidget.widgetId).css("background-color", "");       
+        console.log("prevId: " + previousActiveWidget.projectId);
+        global.jQuery("#" + previousActiveWidget.widgetId).css("background-color", ""); 
+        global.jQuery("#start-icon_" + previousActiveWidget.projectId.toString()).attr("src", "img/icons/normal/start.svg");      
+        global.jQuery("#hr-icon_" + previousActiveWidget.projectId.toString()).css("opacity", 0.0);
+        global.jQuery("#stop-icon_" + previousActiveWidget.projectId.toString()).css("opacity", 0.0);
     }
 }
 
