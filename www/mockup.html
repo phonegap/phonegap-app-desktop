@@ -60,10 +60,7 @@
         global.jQuery("#openProject").click(openProject);
 
         global.jQuery("#removeProject").click(removeProjectWidget);
-        global.jQuery("#cancelRemoveProject").click(function() {
-            global.jQuery("#removeProjectOverlay").hide();
-            global.jQuery("#overlay-bg").hide();
-        });
+        global.jQuery("#cancelRemoveProject").click(hideRemoveProjectOverlay);
 
         global.jQuery("#saveSettings").click(saveSettings);
         global.jQuery("#cancelSettings").click(cancelSettings);
@@ -74,10 +71,28 @@
         });
 
         global.jQuery("#plus").click(addProjectOverlay);
-        global.jQuery("#minus").click(removeProjectOverlay);
-        global.jQuery("#settings").click(settingsOverlay);
+        global.jQuery("#minus").click(displayRemoveProjectOverlay);
+        global.jQuery("#settings").click(displaySettingsOverlay);
         global.jQuery("#log").click(toggleLog);
+        
+        global.jQuery("#plus-icon").on("mouseout", function() {
+            if (!global.jQuery("#overlay-bg").is(":visible")) {
+                MouseOut(this, 'img/icons/normal/plus.svg');
+            }
+        });
 
+        global.jQuery("#minus-icon").on("mouseout", function() {
+            if (!global.jQuery("#overlay-bg").is(":visible")) {
+                MouseOut(this, 'img/icons/normal/minus.svg');
+            }
+        });
+        
+        global.jQuery("#settings-icon").on("mouseout", function() {
+            if (!global.jQuery("#overlay-bg").is(":visible")) {
+                MouseOut(this, 'img/icons/normal/settings.svg');
+            }
+        });
+        
         getProjects();
     });
 
@@ -141,27 +156,27 @@
         <div class="column-2-hand sidebar">
             <div class="box-row center-hand">
                 <button id="plus" class="sidebarbutton" title="Add / Open Project">
-                    <img src="img/icons/normal/plus.svg" onMouseOver="MouseRollover(this, 'img/icons/hover/plus-hover.svg');" onMouseOut="MouseOut(this, 'img/icons/normal/plus.svg');" />
+                    <img id="plus-icon" src="img/icons/normal/plus.svg" onMouseOver="MouseRollover(this, 'img/icons/hover/plus-hover.svg');" />
                 </button>
             </div>
             <div class="box-row center-hand">
                 <button id="minus" class="sidebarbutton" title="Remove Project" disabled>
-                    <img src="img/icons/normal/minus.svg" onMouseOver="MouseRollover(this, 'img/icons/hover/minus-hover.svg');" onMouseOut="MouseOut(this, 'img/icons/normal/minus.svg');" />
+                    <img id="minus-icon" src="img/icons/normal/minus.svg" onMouseOver="MouseRollover(this, 'img/icons/hover/minus-hover.svg');" />
                 </button>
             </div>
             <div class="box-row center-hand">
                 <button id="settings" class="sidebarbutton" title="Settings">
-                    <img src="img/icons/normal/settings.svg" onMouseOver="MouseRollover(this, 'img/icons/hover/settings-hover.svg');" onMouseOut="MouseOut(this, 'img/icons/normal/settings.svg');" />
+                    <img id="settings-icon" src="img/icons/normal/settings.svg" onMouseOver="MouseRollover(this, 'img/icons/hover/settings-hover.svg');" />
                 </button>   
             </div>
             <div class="box-row center-hand">
                 <button id="log" class="sidebarbutton" title="View Server Log" disabled>
-                    <img src="img/icons/normal/log.svg" onMouseOver="MouseRollover(this, 'img/icons/hover/log-hover.svg');" onMouseOut="MouseOut(this, 'img/icons/normal/log.svg');" />
+                    <img id="log-icon" src="img/icons/normal/log.svg" onMouseOver="MouseRollover(this, 'img/icons/hover/log-hover.svg');" onMouseOut="MouseOut(this, 'img/icons/normal/log.svg');" />
                 </button>   
             </div>
             <div class="box-row center-hand">
                 <button id="help" class="sidebarbutton" title="Help" disabled>
-                    <img src="img/icons/normal/help.svg" onMouseOver="MouseRollover(this, 'img/icons/hover/help-hover.svg');" onMouseOut="MouseOut(this, 'img/icons/normal/help.svg');" />
+                    <img id="help-icon" src="img/icons/normal/help.svg" onMouseOver="MouseRollover(this, 'img/icons/hover/help-hover.svg');" onMouseOut="MouseOut(this, 'img/icons/normal/help.svg');" />
                 </button>   
             </div>
         </div>

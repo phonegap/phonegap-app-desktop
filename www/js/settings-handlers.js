@@ -7,14 +7,12 @@ function saveSettings(evt) {
         alert("Port must be a numeric value.");
     } else {
         localStorage.portNumber = portNumber;
-        global.jQuery("#settingsOverlay").hide();
-        global.jQuery("#overlay-bg").hide();
+        hideSettingsOverlay();
         toggleServerStatus();
     }  
 }
 
 function cancelSettings(evt) {
     console.log("cancelSettings");
-    global.jQuery("#settingsOverlay").hide();
-    global.jQuery("#overlay-bg").hide();
+    hideSettingsOverlay();
 }

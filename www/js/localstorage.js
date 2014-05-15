@@ -94,8 +94,7 @@ function removeProjectById(currentId) {
     console.log(JSON.stringify(projects));  
     
     // hide the remove project overlay
-    global.jQuery("#removeProjectOverlay").hide();     
-    global.jQuery("#overlay-bg").hide();
+    hideRemoveProjectOverlay();
 
     index = projects.length;
     
