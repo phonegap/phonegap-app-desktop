@@ -81,18 +81,6 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
             setActiveWidget(id, projectDir);  
         }             
     });
-    
-    global.jQuery("#" + widgetId).on("mouseover", function() {
-        global.jQuery("#" + widgetId).css("background-color", "#99CCFF");
-    });
-    
-    global.jQuery("#" + widgetId).on("mouseout", function() {
-        if (widgetId == global.activeWidget.widgetId) {
-            global.jQuery("#" + widgetId).css("background-color", "rgb(240,240,240)");
-        } else {
-            global.jQuery("#" + widgetId).css("background-color", "");
-        }
-    });
 }
 
 function setActiveWidget(id, projDir) {
