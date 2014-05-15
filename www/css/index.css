@@ -75,6 +75,9 @@
 .widget-border {
   border-bottom: 1px solid #999999;
 }
+a.projectDirLink:hover {
+  color: #134590;
+}
 .hr-icon {
   padding-top: 5px;
   padding-bottom: 5px;

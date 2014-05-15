@@ -25,11 +25,9 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     
     // indicator active project
     widgetDOM += "<div class='column-1-hand'>";
-
     widgetDOM += "<img id='start-icon_" + id.toString() + "' class='start-icon' src='img/icons/normal/start.svg' />";
     widgetDOM += "<img id='hr-icon_" + id.toString() + "' class='hr-icon' src='img/icons/normal/hr.svg' />";
-    widgetDOM += "<img id='stop-icon_" + id.toString() + "' class='stop-icon' src='img/icons/normal/stop.svg' />";
-    
+    widgetDOM += "<img id='stop-icon_" + id.toString() + "' class='stop-icon' src='img/icons/normal/stop.svg' />";   
     widgetDOM += "</div>";
     
     // project folder
@@ -37,7 +35,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     widgetDOM += "<div class='column' style='padding-left: 10px; padding-bottom: 10px;'>";
     widgetDOM += "<div class='box'>";
     widgetDOM += "<div class='localPath'>Local path:</div>"
-    widgetDOM += "<div class='projDir'><a href='#' id='" + projectDirId + "'>" + projectDir + "</a></div>"; 
+    widgetDOM += "<div class='projDir'><a href='#' id='" + projectDirId + "' class='projectDirLink'>" + projectDir + "</a></div>"; 
     widgetDOM += "</div>";
     widgetDOM += "</div>";
     widgetDOM += "</div>";
