@@ -52,6 +52,26 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
         opener(projectDir);     
     });
     
+    global.jQuery("#start-icon_" + id.toString()).on("mouseover", function() {
+        MouseRollover(this, "img/icons/hover/start-hover.svg");
+    });
+    
+    global.jQuery("#start-icon_" + id.toString()).on("mouseout", function() {
+        if (id == global.activeWidget.projectId) {
+            MouseOut(this, "img/icons/active/start-active.svg");
+        } else {
+            MouseOut(this, "img/icons/normal/start.svg");
+        }        
+    });    
+
+    global.jQuery("#stop-icon_" + id.toString()).on("mouseover", function() {
+        MouseRollover(this, "img/icons/hover/stop-hover.svg");
+    });
+    
+    global.jQuery("#stop-icon_" + id.toString()).on("mouseout", function() {
+        MouseOut(this, "img/icons/normal/stop.svg");
+    });
+        
     global.jQuery("#" + widgetId).on("click", function() {
         var temp = global.jQuery("#" + widgetId).attr("id").split("_");
         var id = temp[1];
