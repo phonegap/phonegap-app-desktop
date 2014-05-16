@@ -20,6 +20,7 @@
   background-color: #2d3033;
   border: none;
   padding-top: 15px;
+  cursor: pointer;
 }
 .status-field {
   width: 100%;
@@ -48,35 +49,27 @@
   text-align: left;
   font-size: small;
 }
-.arrow-down {
-  -webkit-transform: rotate(45deg);
-  box-shadow: 5px 0px 0px 0px #6D6D6D;
-  background-color: transparent;
-  line-height: 16px;
-  width: 16px;
-  left: 17px;
-  bottom: 37px;
-  position: fixed;
-  z-index: 12;
-}
-.triangle {
-  width: 0;
-  height: 0;
-  border-right: 16px solid #e5e9e8;
-  border-top: 16px solid transparent;
-}
 .create-overlay {
-  box-shadow: 5px 5px 0px 0px #6D6D6D;
+  background-color: #1f2326;
+  color: white;
   position: fixed;
-  bottom: 44px;
-  left: 5px;
+  top: 0px;
+  left: 75px;
   z-index: 12;
+  width: 550px;
+}
+.add-open-button {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 15px;
+  cursor: pointer;
 }
 .widget-border {
   border-bottom: 1px solid #999999;
 }
 a.projectDirLink:hover {
   color: #134590;
+  cursor: pointer;
 }
 .hr-icon {
   padding-top: 5px;
