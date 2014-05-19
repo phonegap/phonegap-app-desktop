@@ -1,7 +1,12 @@
-function addNewProjectOverlay(evt) {
+function displayAddNewProjectOverlay(evt) {
     global.jQuery("#createOpenProjectOverlay").hide();
     global.jQuery("#newProjectOverlay").show();
     global.jQuery("#overlay-bg").show();    
+}
+
+function hideAddNewProjectOverlay(evt) {
+    hideAddCreateProjectOverlay();
+    global.jQuery("#newProjectOverlay").hide();
 }
 
 function displayAddCreateProjectOverlay(evt) {
@@ -11,6 +16,13 @@ function displayAddCreateProjectOverlay(evt) {
     global.jQuery("#plus-icon").attr("src", "img/icons/active/plus-active.svg");
     global.jQuery("#createOpenProjectOverlay").show();
     global.jQuery("#overlay-bg").show();
+}
+
+function hideAddCreateProjectOverlay(evt) {
+    global.jQuery("#createOpenProjectOverlay").hide();
+    global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");   
+    global.jQuery("#plus-holder").css("background-color", "rgb(45,48,51)");
+    global.jQuery("#plus").css("background-color", "rgb(45,48,51)");    
 }
 
 function displayRemoveProjectOverlay(evt) {
@@ -55,11 +67,21 @@ function toggleLog(evt) {
 function overlayBackgroundHandler(evt) {
     console.log("overlayBackgroundHandler - click handler");
     
+    global.jQuery("#overlay-bg").hide(); 
+    
     if (global.jQuery("#createOpenProjectOverlay").is(":visible")) {
-        global.jQuery("#createOpenProjectOverlay").hide();
-        global.jQuery("#overlay-bg").hide(); 
-        global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");   
-        global.jQuery("#plus-holder").css("background-color", "rgb(45,48,51)");
-        global.jQuery("#plus").css("background-color", "rgb(45,48,51)");    
+        hideAddCreateProjectOverlay();
+    }
+    
+    if (global.jQuery("#removeProjectOverlay").is(":visible")) {
+        hideRemoveProjectOverlay();
+    }
+    
+    if (global.jQuery("#settingsOverlay").is(":visible")) {
+        hideSettingsOverlay();
+    }
+    
+    if (global.jQuery("#newProjectOverlay").is(":visible")) {
+        hideAddNewProjectOverlay();
     }
 }
