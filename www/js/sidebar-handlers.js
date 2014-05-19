@@ -4,8 +4,10 @@ function addNewProjectOverlay(evt) {
     global.jQuery("#overlay-bg").show();    
 }
 
-function addProjectOverlay(evt) {
+function displayAddCreateProjectOverlay(evt) {
     console.log("addProjectOverlay - plus click handler");
+    global.jQuery("#plus-holder").css("background-color", "rgb(31,35,38)");
+    global.jQuery("#plus").css("background-color", "rgb(31,35,38)");
     global.jQuery("#plus-icon").attr("src", "img/icons/active/plus-active.svg");
     global.jQuery("#createOpenProjectOverlay").show();
     global.jQuery("#overlay-bg").show();
@@ -56,6 +58,8 @@ function overlayBackgroundHandler(evt) {
     if (global.jQuery("#createOpenProjectOverlay").is(":visible")) {
         global.jQuery("#createOpenProjectOverlay").hide();
         global.jQuery("#overlay-bg").hide(); 
-        global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");       
+        global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");   
+        global.jQuery("#plus-holder").css("background-color", "rgb(45,48,51)");
+        global.jQuery("#plus").css("background-color", "rgb(45,48,51)");    
     }
 }

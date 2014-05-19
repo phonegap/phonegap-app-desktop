@@ -70,7 +70,7 @@
             global.jQuery("#overlay-bg").hide();
         });
 
-        global.jQuery("#plus").click(addProjectOverlay);
+        global.jQuery("#plus").click(displayAddCreateProjectOverlay);
         global.jQuery("#minus").click(displayRemoveProjectOverlay);
         global.jQuery("#settings").click(displaySettingsOverlay);
         global.jQuery("#log").click(toggleLog);
@@ -147,7 +147,7 @@
 
     <div class="row container" style="overflow-x: hidden; overflow-y: hidden;">
         <div class="column-2-hand sidebar">
-            <div class="box-row center-hand">
+            <div id="plus-holder" class="box-row center-hand">
                 <button id="plus" class="sidebarbutton" title="Add / Open Project">
                     <img id="plus-icon" src="img/icons/normal/plus.svg" onMouseOver="MouseRollover(this, 'img/icons/hover/plus-hover.svg');" />
                 </button>

@@ -23,10 +23,12 @@
 
 .topcoat-overlay-bg-grey {
 	position:absolute;
-	width:100%;
+	left: 75px;
+	width: 550px;
 	height:100%;
-	background-color:rgba(204,204,204,.1);
+	background-color:rgb(204,204,204);
 	z-index:5;
+	opacity: 0.75;
 }
 
 .topcoat-overlay-bottom {
