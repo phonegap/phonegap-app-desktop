@@ -131,14 +131,39 @@
         <br>
         <button id="closeServerLog" class="topcoat-button">Close</button>
     </aside> 
-    <aside id="newProjectOverlay" class="topcoat-overlay">
-        Project Name: <input type="text" id="projectName" class="topcoat-text-input">
-        <br>
-        Project Path: <input type="text" id="projectPath" class="topcoat-text-input" disabled>
-        <button id="chooseNewProjectPath" class="topocat-button">Choose</button>
-        <br>
-        <button id="addNewProject" class="topcoat-button">Add</button>
-        <button id="cancelNewProject" class="topcoat-button">Cancel</button>
+    <aside id="newProjectOverlay" class="new-project-overlay">
+        <div class="new-project-form-item-heading">
+            Name:
+        </div>
+        <div class="new-project-form-item">
+            <input type="text" id="projectName" class="topcoat-text-input">
+        </div>
+        <div class="new-project-form-item new-project-form-item-description">
+            The display name for your app.
+        </div>
+        <div class="new-project-form-item-heading">
+            ID:
+        </div>
+        <div class="new-project-form-item">
+            <input type="text" id="project-id" class="topcoat-text-input">
+        </div>
+        <div class="new-project-form-item new-project-form-item-description">
+            The unique identifier across app stores. We recommend you use a reverse domain namespace format, for example: com.mydomain.funkyyapp
+        </div>
+        <div class="new-project-form-item-heading">
+            Local path:
+        </div>
+        <div class="new-project-form-item">
+            <input type="text" id="projectPath" class="topcoat-text-input" disabled>
+            <button id="chooseNewProjectPath" class="topocat-button">Choose</button>
+        </div>
+        <div class="new-project-form-item new-project-form-item-description">
+            This is where the project will be stored on your computer.
+        </div>
+        <div class="new-project-form-item">
+            <button id="addNewProject" class="topcoat-button">Add</button>
+            <button id="cancelNewProject" class="topcoat-button">Cancel</button>
+        </div>         
     </aside>
     <aside id="createOpenProjectOverlay" class="create-overlay">
         <div id="createProject" class="add-open-button">Create new PhoneGap project</div>

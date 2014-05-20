@@ -56,7 +56,30 @@
   top: 0px;
   left: 75px;
   z-index: 12;
-  width: 550px;
+  width: 375px;
+}
+.new-project-overlay {
+  background-color: #1f2326;
+  color: white;
+  position: fixed;
+  top: 0px;
+  left: 75px;
+  z-index: 12;
+  width: 375px;
+  height: 75%;
+}
+.new-project-form-item-heading {
+  padding-top: 20px;
+  padding-left: 20px;
+}
+.new-project-form-item {
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.new-project-form-item-description {
+  color: #999999;
+  font-size: small;
 }
 .add-open-button {
   padding-top: 12px;
