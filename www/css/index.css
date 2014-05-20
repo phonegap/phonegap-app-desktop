@@ -81,6 +81,46 @@
   color: #999999;
   font-size: small;
 }
+.new-project-choose-button {
+  background-color: #1ba1c7;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.new-project-choose-button:hover {
+  background-color: #134590;
+}
+.new-project-add-button {
+  background-color: #21aa48;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  float: right;
+}
+.new-project-add-button:hover {
+  background-color: #007e20;
+}
+.new-project-cancel-button {
+  background-color: #393d41;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.new-project-cancel-button:hover {
+  background-color: #565a5e;
+}
 .add-open-button {
   padding-top: 12px;
   padding-bottom: 12px;
