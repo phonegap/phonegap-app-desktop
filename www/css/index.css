@@ -66,7 +66,7 @@
   left: 75px;
   z-index: 12;
   width: 375px;
-  height: 75%;
+  height: 415px;
 }
 .new-project-form-item-heading {
   padding-top: 20px;
@@ -120,6 +120,10 @@
 }
 .new-project-cancel-button:hover {
   background-color: #565a5e;
+}
+.dotted-hr {
+  border: 1px dashed;
+  color: #616569;
 }
 .add-open-button {
   padding-top: 12px;
