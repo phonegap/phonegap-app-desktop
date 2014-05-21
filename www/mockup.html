@@ -74,7 +74,10 @@
             displayAddCreateProjectOverlay(); 
         });
         global.jQuery("#minus").click(displayRemoveProjectOverlay);
-        global.jQuery("#settings").click(displaySettingsOverlay);
+        global.jQuery("#settings").click(function() {
+            global.jQuery("#settingsOverlay").addClass("slideRight");
+            displaySettingsOverlay();
+        });
         global.jQuery("#log").click(toggleLog);
         
         global.jQuery("#plus-icon").on("mouseout", function() {
@@ -117,59 +120,64 @@
         <br>
         <button id="removeProject" class="topcoat-button">Remove Project</button>
         <button id="cancelRemoveProject" class="topcoat-button">Cancel</button>
-    </aside>    
-    <aside id="settingsOverlay" class="topcoat-overlay-bottom">
-        Server Settings
-        <br>
-        Port: <input type="text" id="portNumber" class="topcoat-text-input">
-        <br>
-        <button id="saveSettings" class="topcoat-button">Save</button>
-        <button id="cancelSettings" class="topcoat-button">Cancel</button>
-    </aside>    
+    </aside>
+    
+    <aside id="settingsOverlay" class="settings-overlay">
+        <div class="overlay-form-item-heading">Server port:</div>
+        <div class="overlay-form-item">192.168.1.1: <input type="text" id="portNumber" class="topcoat-text-input"></div>
+        <div class="overlay-form-item overlay-form-item-description">This is the port where the local server will serve all projects. If you aren't sure which port to use, you might want to choose the auto select option below.</div>
+        <div class="overlay-form-item" style="padding-top: 20px;">
+            <button id="saveSettings" class="topcoat-button">Save</button>
+            <button id="cancelSettings" class="topcoat-button">Cancel</button>
+        </div>
+    </aside>
+    
     <aside id="serverLogOverlay" class="topcoat-overlay-large">
         Server Log
         <br>
         <textarea id="serverLog" class="topcoat-textarea" readonly style="width: 90%; height: 90%;"></textarea>
         <br>
         <button id="closeServerLog" class="topcoat-button">Close</button>
-    </aside> 
+    </aside>
+    
     <aside id="newProjectOverlay" class="new-project-overlay">
-        <div class="new-project-form-item-heading">
+        <div class="overlay-form-item-heading">
             Name:
         </div>
-        <div class="new-project-form-item">
+        <div class="overlay-form-item">
             <input type="text" id="projectName" class="topcoat-text-input" style="width: 100%;">
         </div>
-        <div class="new-project-form-item new-project-form-item-description">
+        <div class="overlay-form-item overlay-form-item-description">
             The display name for your app.
         </div>
-        <div class="new-project-form-item-heading">
+        <div class="overlay-form-item-heading">
             ID:
         </div>
-        <div class="new-project-form-item">
+        <div class="overlay-form-item">
             <input type="text" id="project-id" class="topcoat-text-input" style="width: 100%;">
         </div>
-        <div class="new-project-form-item new-project-form-item-description">
+        <div class="overlay-form-item overlay-form-item-description">
             The unique identifier across app stores. We recommend you use a reverse domain namespace format, for example: com.mydomain.funkyyapp
         </div>
-        <div class="new-project-form-item-heading">
+        <div class="overlay-form-item-heading">
             Local path:
         </div>
-        <div class="new-project-form-item">
+        <div class="overlay-form-item">
             <input type="text" id="projectPath" class="topcoat-text-input" style="width: 245px;" readonly>
             <button id="chooseNewProjectPath" class="new-project-choose-button">Choose...</button>
         </div>
-        <div class="new-project-form-item new-project-form-item-description">
+        <div class="overlay-form-item overlay-form-item-description">
             This is where the project will be stored on your computer.
         </div>
-        <div class="new-project-form-item"> 
+        <div class="overlay-form-item"> 
             <hr class="dotted-hr" />
         </div>
-        <div class="new-project-form-item">            
+        <div class="overlay-form-item">            
             <button id="cancelNewProject" class="new-project-cancel-button">Cancel</button>
             <button id="addNewProject" class="new-project-add-button">Create project</button>
         </div>         
     </aside>
+    
     <aside id="createOpenProjectOverlay" class="create-overlay">
         <div id="createProject" class="add-open-button">Create new PhoneGap project</div>
         <div id="openProject" class="add-open-button">Add existing PhoneGap project</div>

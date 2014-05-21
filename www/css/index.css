@@ -68,16 +68,16 @@
   width: 375px;
   height: 415px;
 }
-.new-project-form-item-heading {
+.overlay-form-item-heading {
   padding-top: 20px;
   padding-left: 20px;
 }
-.new-project-form-item {
+.overlay-form-item {
   padding-top: 10px;
   padding-left: 20px;
   padding-right: 20px;
 }
-.new-project-form-item-description {
+.overlay-form-item-description {
   color: #999999;
   font-size: small;
 }
@@ -130,6 +130,16 @@
   padding-bottom: 12px;
   padding-left: 15px;
   cursor: pointer;
+}
+.settings-overlay {
+  background-color: #1f2326;
+  color: white;
+  position: fixed;
+  top: 0px;
+  left: 75px;
+  z-index: 12;
+  width: 375px;
+  height: 200px;
 }
 .widget-border {
   border-bottom: 1px solid #999999;
