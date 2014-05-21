@@ -81,19 +81,19 @@
         global.jQuery("#log").click(toggleLog);
         
         global.jQuery("#plus-icon").on("mouseout", function() {
-            if (!global.jQuery("#overlay-bg").is(":visible")) {
+            if (!global.jQuery("#createOpenProjectOverlay").is(":visible") || !global.jQuery("#newProjectOverlay").is(":visible")) {
                 MouseOut(this, 'img/icons/normal/plus.svg');
             }
         });
 
         global.jQuery("#minus-icon").on("mouseout", function() {
-            if (!global.jQuery("#overlay-bg").is(":visible")) {
+            if (!global.jQuery("#removeProjectOverlay").is(":visible")) {
                 MouseOut(this, 'img/icons/normal/minus.svg');
             }
         });
         
         global.jQuery("#settings-icon").on("mouseout", function() {
-            if (!global.jQuery("#overlay-bg").is(":visible")) {
+            if (!global.jQuery("#settingsOverlay").is(":visible")) {
                 MouseOut(this, 'img/icons/normal/settings.svg');
             }
         });
@@ -124,7 +124,7 @@
     
     <aside id="settingsOverlay" class="settings-overlay">
         <div class="overlay-form-item-heading">Server port:</div>
-        <div class="overlay-form-item">192.168.1.1: <input type="text" id="portNumber" class="topcoat-text-input"></div>
+        <div class="overlay-form-item"><span style="color: rgb(153,153,153);">192.168.1.1:</span> <input type="text" id="portNumber" class="topcoat-text-input"></div>
         <div class="overlay-form-item overlay-form-item-description">This is the port where the local server will serve all projects. If you aren't sure which port to use, you might want to choose the auto select option below.</div>
         <div class="overlay-form-item" style="padding-top: 20px;">
             <button id="saveSettings" class="topcoat-button">Save</button>
