@@ -94,7 +94,7 @@
 .new-project-choose-button:hover {
   background-color: #134590;
 }
-.new-project-add-button {
+.action-button {
   background-color: #21aa48;
   color: white;
   border: none;
@@ -105,10 +105,10 @@
   padding-right: 10px;
   float: right;
 }
-.new-project-add-button:hover {
+.action-button:hover {
   background-color: #007e20;
 }
-.new-project-cancel-button {
+.cancel-button {
   background-color: #393d41;
   color: white;
   border: none;
@@ -118,7 +118,7 @@
   padding-left: 10px;
   padding-right: 10px;
 }
-.new-project-cancel-button:hover {
+.cancel-button:hover {
   background-color: #565a5e;
 }
 .dotted-hr {

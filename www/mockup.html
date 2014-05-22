@@ -80,21 +80,29 @@
         });
         global.jQuery("#log").click(toggleLog);
         
-        global.jQuery("#plus-icon").on("mouseout", function() {
-            if (!global.jQuery("#createOpenProjectOverlay").is(":visible") || !global.jQuery("#newProjectOverlay").is(":visible")) {
+        global.jQuery("#plus-icon").on("mouseout", function() {          
+            if (!global.jQuery("#createOpenProjectOverlay").is(":visible") && !global.jQuery("#newProjectOverlay").is(":visible")) {
                 MouseOut(this, 'img/icons/normal/plus.svg');
-            }
+            } 
+            
+            if (global.jQuery("#createOpenProjectOverlay").is(":visible") || global.jQuery("#newProjectOverlay").is(":visible")) {
+                MouseOut(this, 'img/icons/active/plus-active.svg');
+            }            
         });
 
         global.jQuery("#minus-icon").on("mouseout", function() {
             if (!global.jQuery("#removeProjectOverlay").is(":visible")) {
                 MouseOut(this, 'img/icons/normal/minus.svg');
-            }
+            } else {
+                MouseOut(this, 'img/icons/active/minus-active.svg');
+            }            
         });
         
         global.jQuery("#settings-icon").on("mouseout", function() {
             if (!global.jQuery("#settingsOverlay").is(":visible")) {
                 MouseOut(this, 'img/icons/normal/settings.svg');
+            } else {
+                MouseOut(this, 'img/icons/active/settings-active.svg');
             }
         });
         
@@ -126,9 +134,9 @@
         <div class="overlay-form-item-heading">Server port:</div>
         <div class="overlay-form-item"><span style="color: rgb(153,153,153);">192.168.1.1:</span> <input type="text" id="portNumber" class="topcoat-text-input"></div>
         <div class="overlay-form-item overlay-form-item-description">This is the port where the local server will serve all projects. If you aren't sure which port to use, you might want to choose the auto select option below.</div>
-        <div class="overlay-form-item" style="padding-top: 20px;">
-            <button id="saveSettings" class="topcoat-button">Save</button>
-            <button id="cancelSettings" class="topcoat-button">Cancel</button>
+        <div class="overlay-form-item" style="padding-top: 20px;">            
+            <button id="cancelSettings" class="cancel-button">Cancel</button>
+            <button id="saveSettings" class="action-button">Save</button>
         </div>
     </aside>
     
@@ -173,8 +181,8 @@
             <hr class="dotted-hr" />
         </div>
         <div class="overlay-form-item">            
-            <button id="cancelNewProject" class="new-project-cancel-button">Cancel</button>
-            <button id="addNewProject" class="new-project-add-button">Create project</button>
+            <button id="cancelNewProject" class="cancel-button">Cancel</button>
+            <button id="addNewProject" class="action-button">Create project</button>
         </div>         
     </aside>
     
