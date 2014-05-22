@@ -16,3 +16,7 @@ function cancelSettings(evt) {
     console.log("cancelSettings");
     hideSettingsOverlay();
 }
+
+function setSettingsOverlayIP(ipAddress) {
+    global.jQuery("#settings-ip").text(ipAddress + ":");
+}
