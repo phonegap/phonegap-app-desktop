@@ -13,12 +13,26 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     widgetDOM += "<div class='row widget-border' id='" + widgetId + "'>";
 
     // project icon
-    widgetDOM += "<div class='column-2-hand' id='" + iconId + "'>"
+    widgetDOM += "<div class='column-2-hand' id='" + iconId + "' style='padding-left: 10px;'>";
+    
+	widgetDOM += "<div class='flip-container' id='flip-toggle'>";
+	widgetDOM += "<div class='flipper'>";
+	
+	widgetDOM += "<div class='front'>";
     widgetDOM += "<img height='64' width='64' src='" + projectIcon + "'>";
+    widgetDOM += "</div>";  // front content
+    
+    widgetDOM += "<div class='back' style='background-color: rgb(255,50,0);'>";
+    widgetDOM += "<img src='img/icons/normal/delete.svg' style='padding-top: 22px; padding-left: 22px;' />";
+    widgetDOM += "</div>";  // back content
+	
+	widgetDOM += "</div>";  // flipper
+	widgetDOM += "</div>";  // flip-container
+       
     widgetDOM += "</div>";
     
     // project info
-    widgetDOM += "<div class='column-9-hand' id='" + projectDetailsId + "'>";
+    widgetDOM += "<div class='column-9-hand' id='" + projectDetailsId + "' style='padding-left: 20px;'>";
     widgetDOM += projectName + "<br>";
     widgetDOM += projectVersion + "<br>";
     widgetDOM += "</div>";
