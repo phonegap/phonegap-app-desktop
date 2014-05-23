@@ -22,7 +22,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     widgetDOM += "<img height='64' width='64' src='" + projectIcon + "'>";
     widgetDOM += "</div>";  // front content
     
-    widgetDOM += "<div class='back' style='background-color: rgb(255,50,0);'>";
+    widgetDOM += "<div class='back delete-holder'>";
     widgetDOM += "<img src='img/icons/normal/delete.svg' style='padding-top: 22px; padding-left: 22px;' />";
     widgetDOM += "</div>";  // back content
 	

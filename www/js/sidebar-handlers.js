@@ -32,8 +32,11 @@ function displayRemoveProjectOverlay(evt) {
     global.jQuery("#minus-holder").css("background-color", "rgb(31,35,38)");
     global.jQuery("#minus").css("background-color", "rgb(31,35,38)");
     global.jQuery("#minus-icon").attr("src", "img/icons/active/minus-active.svg");
-    global.jQuery("#removeProjectOverlay").show();
-    global.jQuery("#overlay-bg").show();
+    
+    //global.jQuery("#removeProjectOverlay").show();
+    //global.jQuery("#overlay-bg").show();
+    
+    global.jQuery('#flip-toggle').toggleClass('flip');
 }
 
 function hideRemoveProjectOverlay(evt) {
