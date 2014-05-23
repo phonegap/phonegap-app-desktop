@@ -33,8 +33,8 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     
     // project info
     widgetDOM += "<div class='column-9-hand' id='" + projectDetailsId + "' style='padding-left: 20px;'>";
-    widgetDOM += projectName + "<br>";
-    widgetDOM += projectVersion + "<br>";
+    widgetDOM += "<span class='project-name'>" + projectName + "</span>";
+    widgetDOM += "<span class='project-version'>v" + projectVersion + "</span>";
     widgetDOM += "</div>";
     
     // indicator active project
