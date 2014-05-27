@@ -3,7 +3,7 @@
     -webkit-perspective: 1000;
     perspective: 1000;
 }
-/* flip the pane when hovered */
+
 .flip-container.flip .flipper {
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);

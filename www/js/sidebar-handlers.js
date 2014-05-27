@@ -36,7 +36,7 @@ function displayRemoveProjectOverlay(evt) {
     //global.jQuery("#removeProjectOverlay").show();
     //global.jQuery("#overlay-bg").show();
     
-    global.jQuery('#flip-toggle').toggleClass('flip');
+    global.jQuery('.flip-container').toggleClass('flip');
 }
 
 function hideRemoveProjectOverlay(evt) {

@@ -6,6 +6,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     var projectStatusId = "project-status_" + id.toString();
     var projectDetailsId = "project-details_" + id.toString();
     var projectDirId = "project-dir_" + id.toString();
+    var deleteId = "delete_" + id.toString();
     
     var widgetDOM = "";  
     
@@ -22,7 +23,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     widgetDOM += "<img height='64' width='64' src='" + projectIcon + "' />";
     widgetDOM += "</div>";  // front content
     
-    widgetDOM += "<div class='back delete-holder'>";
+    widgetDOM += "<div class='back delete-holder' id=" + deleteId + ">";
     widgetDOM += "<img src='img/icons/normal/delete.svg' style='padding-top: 22px; padding-left: 22px;' />";
     widgetDOM += "</div>";  // back content
 	
@@ -59,6 +60,10 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     global.jQuery("#drop_zone").append(widgetDOM);
     global.jQuery("#minus").prop("disabled", false);
     global.jQuery("#guide-add").hide();
+    
+    global.jQuery("#" + deleteId).on("click", function() {
+        console.log(deleteId);
+    })
     
     global.jQuery("#" + projectDirId).on("click", function() {
         opener(projectDir);     
