@@ -4,7 +4,7 @@
     perspective: 1000;
 }
 /* flip the pane when hovered */
-.flip-container:hover .flipper, .flip-container.flip .flipper {
+.flip-container.flip .flipper {
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
 }

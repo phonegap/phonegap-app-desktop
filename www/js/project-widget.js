@@ -19,7 +19,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
 	widgetDOM += "<div class='flipper'>";
 	
 	widgetDOM += "<div class='front'>";
-    widgetDOM += "<img height='64' width='64' src='" + projectIcon + "'>";
+    widgetDOM += "<img height='64' width='64' src='" + projectIcon + "' />";
     widgetDOM += "</div>";  // front content
     
     widgetDOM += "<div class='back delete-holder'>";
