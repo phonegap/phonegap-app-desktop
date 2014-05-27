@@ -41,8 +41,8 @@ function displayRemoveProjectOverlay(evt) {
 
 function hideRemoveProjectOverlay(evt) {
     global.jQuery("#minus-icon").attr("src", "img/icons/normal/minus.svg");
-    global.jQuery("#removeProjectOverlay").hide();
-    global.jQuery("#overlay-bg").hide();
+    //global.jQuery("#removeProjectOverlay").hide();
+    //global.jQuery("#overlay-bg").hide();
     global.jQuery("#minus-holder").css("background-color", "rgb(45,48,51)");
     global.jQuery("#minus").css("background-color", "rgb(45,48,51)");
 }

@@ -16,7 +16,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     // project icon
     widgetDOM += "<div class='column-2-hand' id='" + iconId + "' style='padding-left: 10px;'>";
     
-	widgetDOM += "<div class='flip-container' id='flip-toggle'>";
+	widgetDOM += "<div class='flip-container'>";
 	widgetDOM += "<div class='flipper'>";
 	
 	widgetDOM += "<div class='front'>";
@@ -61,8 +61,13 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     global.jQuery("#minus").prop("disabled", false);
     global.jQuery("#guide-add").hide();
     
-    global.jQuery("#" + deleteId).on("click", function() {
+    global.jQuery("#" + deleteId).on("click", function(event) {
         console.log(deleteId);
+        
+        var temp = global.jQuery("#" + deleteId).attr("id").split("_");
+        var clickedId = temp[1];
+        
+        removeProjectWidget(clickedId);
     })
     
     global.jQuery("#" + projectDirId).on("click", function() {
@@ -181,8 +186,10 @@ function setConfigWatcher(id, projDir) {
     });
 }
 
-function removeProjectWidget() {
-    console.log("removeProjectWidget - id: " + global.activeWidget.projectId);
-    global.jQuery("#" + global.activeWidget.widgetId).remove();
-    removeProjectById(global.activeWidget.projectId);
+function removeProjectWidget(idToDelete) {
+    console.log("removeProjectWidget - id: " + idToDelete);
+    var widgetId = "projectWidget_" + idToDelete.toString();
+    
+    global.jQuery("#" + widgetId).remove();
+    removeProjectById(idToDelete);
 }
