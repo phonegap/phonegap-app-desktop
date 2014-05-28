@@ -1,30 +1,15 @@
 /*
 ==============================================
-CSS3 ANIMATION CHEAT SHEET
-==============================================
-
-Made by Justin Aguilar
-
-www.justinaguilar.com/animations/
-
-Questions, comments, concerns, love letters:
-justin@justinaguilar.com
-==============================================
-*/
-
-/*
-==============================================
 slideDown
 ==============================================
 */
-
 
 .slideDown{
 	animation-name: slideDown;
 	-webkit-animation-name: slideDown;	
 
-	animation-duration: 0.5s;	
-	-webkit-animation-duration: 0.5s;
+	animation-duration: 1s;	
+	-webkit-animation-duration: 1s;
 
 	animation-timing-function: ease;	
 	-webkit-animation-timing-function: ease;	
@@ -56,13 +41,12 @@ slideUp
 ==============================================
 */
 
-
 .slideUp{
 	animation-name: slideUp;
 	-webkit-animation-name: slideUp;	
 
-	animation-duration: 0.5s;	
-	-webkit-animation-duration: 0.5s;
+	animation-duration: 1s;	
+	-webkit-animation-duration: 1s;
 
 	animation-timing-function: ease;	
 	-webkit-animation-timing-function: ease;
@@ -94,13 +78,12 @@ slideLeft
 ==============================================
 */
 
-
 .slideLeft{
 	animation-name: slideLeft;
 	-webkit-animation-name: slideLeft;	
 
-	animation-duration: 0.5s;	
-	-webkit-animation-duration: 0.5s;
+	animation-duration: 1s;	
+	-webkit-animation-duration: 1s;
 
 	animation-timing-function: ease-in-out;	
 	-webkit-animation-timing-function: ease-in-out;		
@@ -132,13 +115,12 @@ slideRight
 ==============================================
 */
 
-
 .slideRight{
 	animation-name: slideRight;
 	-webkit-animation-name: slideRight;	
 
-	animation-duration: 0.5s;	
-	-webkit-animation-duration: 0.5s;
+	animation-duration: 1s;	
+	-webkit-animation-duration: 1s;
 
 	animation-timing-function: ease-in-out;	
 	-webkit-animation-timing-function: ease-in-out;		
@@ -162,4 +144,80 @@ slideRight
 	100% {
 		-webkit-transform: translateX(0%);
 	}
+}
+
+/*
+==============================================
+slideOutLeft
+==============================================
+*/
+@-webkit-keyframes slideOutLeft {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: translateX(-2000px);
+    transform: translateX(-2000px);
+  }
+}
+
+@keyframes slideOutLeft {
+  0% {
+    -webkit-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: translateX(-2000px);
+    -ms-transform: translateX(-2000px);
+    transform: translateX(-2000px);
+  }
+}
+
+.slideOutLeft {
+  -webkit-animation-name: slideOutLeft;
+  animation-name: slideOutLeft;
+  
+  animation-timing-function: ease-in-out;	
+  -webkit-animation-timing-function: ease-in-out;		
+
+  visibility: visible !important;
+}
+
+/*
+==============================================
+fadeOut
+==============================================
+*/
+
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+  -webkit-animation-duration: 5s;
+  animation-duration: 5s;
 }

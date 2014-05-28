@@ -41,6 +41,7 @@
         global.jQuery("#settingsOverlay").hide();
         global.jQuery("#serverLogOverlay").hide();
         global.jQuery("#overlay-bg").hide();
+        global.jQuery("#remove-notification").hide();
 
         global.jQuery("#drop_zone").on("drop", handleDrop);
         global.jQuery("#drop_zone").on("dragover", handleDragOver);
@@ -224,7 +225,7 @@
                 <img src="img/icons/normal/dragdrop.svg" />
             </div>
             <div id="drop_zone" class="box-row dropzone"></div>
-            <div class="remove-notification">Project removed from this list, but not deleted from your computer</div>
+            <div class="remove-notification" id="remove-notification">Project removed from this list, but not deleted from your computer</div>
         </div>
         <input type="file" id="projectDirectory" nwdirectory>
     </div>
