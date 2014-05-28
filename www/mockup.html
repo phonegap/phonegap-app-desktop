@@ -3,7 +3,7 @@
 <head>
     <title>PhoneGap</title>
     <link rel="stylesheet" type="text/css" href="css/index.css">
-    <link rel='stylesheet' type='text/css' href='css/animation.css'>
+    <link rel='stylesheet' type='text/css' href='css/animate.css'>
     <link rel="stylesheet" type="text/css" href="css/topcoat-desktop-light.min.css">
     <link rel="stylesheet" type="text/css" href="css/topcoat-overlay.min.css">
     <link rel="stylesheet" type="text/css" href="css/topcoat-overlay-custom.css">
@@ -55,7 +55,7 @@
         global.jQuery("#cancelNewProject").click(overlayBackgroundHandler);
 
         global.jQuery("#createProject").click(function() {
-            global.jQuery("#newProjectOverlay").addClass("slideDown");
+            global.jQuery("#newProjectOverlay").addClass("animated slideInDown");
             displayAddNewProjectOverlay();
         });
         global.jQuery("#openProject").click(openProject);
@@ -69,12 +69,12 @@
         });
 
         global.jQuery("#plus").click(function() {
-            global.jQuery("#createOpenProjectOverlay").addClass("slideRight");
+            global.jQuery("#createOpenProjectOverlay").addClass("animated slideInLeft");
             displayAddCreateProjectOverlay(); 
         });
         global.jQuery("#minus").click(displayRemoveProjectOverlay);
         global.jQuery("#settings").click(function() {
-            global.jQuery("#settingsOverlay").addClass("slideRight");
+            global.jQuery("#settingsOverlay").addClass("animated slideInLeft");
             displaySettingsOverlay();
         });
         global.jQuery("#log").click(toggleLog);
