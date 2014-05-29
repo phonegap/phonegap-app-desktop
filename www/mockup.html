@@ -37,7 +37,6 @@
         global.jQuery("#projectDirectory").hide();
         global.jQuery("#newProjectOverlay").hide();
         global.jQuery("#createOpenProjectOverlay").hide();
-        global.jQuery("#removeProjectOverlay").hide();
         global.jQuery("#settingsOverlay").hide();
         global.jQuery("#serverLogOverlay").hide();
         global.jQuery("#overlay-bg").hide();
@@ -54,10 +53,8 @@
         global.jQuery("#chooseNewProjectPath").click(selectProjectPath);
         global.jQuery("#cancelNewProject").click(overlayBackgroundHandler);
 
-        global.jQuery("#createProject").click(function() {
-            global.jQuery("#newProjectOverlay").addClass("animated slideInDown");
-            displayAddNewProjectOverlay();
-        });
+        global.jQuery("#createProject").click(displayAddNewProjectOverlay);
+
         global.jQuery("#openProject").click(openProject);
 
         global.jQuery("#saveSettings").click(saveSettings);
@@ -68,15 +65,10 @@
             global.jQuery("#overlay-bg").hide();
         });
 
-        global.jQuery("#plus").click(function() {
-            global.jQuery("#createOpenProjectOverlay").addClass("animated slideInLeft");
-            displayAddCreateProjectOverlay(); 
-        });
-        global.jQuery("#minus").click(displayRemoveProjectOverlay);
-        global.jQuery("#settings").click(function() {
-            global.jQuery("#settingsOverlay").addClass("animated slideInLeft");
-            displaySettingsOverlay();
-        });
+        global.jQuery("#plus").click(displayAddCreateProjectOverlay);
+
+        global.jQuery("#minus").click(displayRemoveProjectView);
+        global.jQuery("#settings").click(displaySettingsOverlay);
         global.jQuery("#log").click(toggleLog);
         
         global.jQuery("#plus-icon").on("mouseout", function() {          
@@ -90,11 +82,13 @@
         });
 
         global.jQuery("#minus-icon").on("mouseout", function() {
+            /*
             if (!global.jQuery("#removeProjectOverlay").is(":visible")) {
                 MouseOut(this, 'img/icons/normal/minus.svg');
             } else {
                 MouseOut(this, 'img/icons/active/minus-active.svg');
-            }            
+            } 
+            */           
         });
         
         global.jQuery("#settings-icon").on("mouseout", function() {

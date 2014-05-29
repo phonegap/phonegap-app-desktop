@@ -191,15 +191,13 @@ function removeProjectWidget(idToDelete) {
     var widgetId = "projectWidget_" + idToDelete.toString();
     displayRemoveNotification();    
     global.jQuery("#" + widgetId).addClass("animated slideOutLeft");
-    //global.jQuery("#" + widgetId).hide();
-    //global.jQuery("#" + widgetId).remove();
-    //removeProjectById(idToDelete);
     global.jQuery("#" + widgetId).one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", deleteProjectWidget(idToDelete));
 }
 
 function deleteProjectWidget(idToDelete) {
     console.log("deleteProjectWidget")
     var widgetId = "projectWidget_" + idToDelete.toString();
+    global.jQuery("#" + widgetId).removeClass("animated slideOutLeft");
     global.jQuery("#" + widgetId).hide();
     global.jQuery("#" + widgetId).remove();
     removeProjectById(idToDelete);    
