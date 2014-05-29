@@ -189,16 +189,20 @@ function setConfigWatcher(id, projDir) {
 function removeProjectWidget(idToDelete) {
     console.log("removeProjectWidget - id: " + idToDelete);
     var widgetId = "projectWidget_" + idToDelete.toString();
-    
-    displayRemoveNotification();
-    
-    //global.jQuery("#remove-notification").addClass("fadeOut");
-    //global.jQuery("#remove-notification").hide();
-    
+    displayRemoveNotification();    
     global.jQuery("#" + widgetId).addClass("animated slideOutLeft");
     //global.jQuery("#" + widgetId).hide();
     //global.jQuery("#" + widgetId).remove();
     //removeProjectById(idToDelete);
+    global.jQuery("#" + widgetId).one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", deleteProjectWidget(idToDelete));
+}
+
+function deleteProjectWidget(idToDelete) {
+    console.log("deleteProjectWidget")
+    var widgetId = "projectWidget_" + idToDelete.toString();
+    global.jQuery("#" + widgetId).hide();
+    global.jQuery("#" + widgetId).remove();
+    removeProjectById(idToDelete);    
 }
 
 function displayRemoveNotification() {
