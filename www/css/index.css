@@ -103,6 +103,16 @@
 .new-project-choose-button:hover {
   background-color: #134590;
 }
+.server-log-overlay {
+  background-color: #1f2326;
+  color: white;
+  position: fixed;
+  top: 0px;
+  left: 75px;
+  z-index: 12;
+  width: 375px;
+  height: 600px;
+}
 .action-button {
   background-color: #21aa48;
   color: white;

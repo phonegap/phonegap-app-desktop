@@ -61,8 +61,9 @@
         global.jQuery("#cancelSettings").click(cancelSettings);
 
         global.jQuery("#closeServerLog").click(function() {
-            global.jQuery("#serverLogOverlay").hide();
-            global.jQuery("#overlay-bg").hide();
+            //global.jQuery("#serverLogOverlay").hide();
+            //global.jQuery("#overlay-bg").hide();
+            toggleLog();
         });
 
         global.jQuery("#plus").click(displayAddCreateProjectOverlay);
@@ -135,12 +136,17 @@
         </div>
     </aside>
     
-    <aside id="serverLogOverlay" class="topcoat-overlay-large">
-        Server Log
-        <br>
-        <textarea id="serverLog" class="topcoat-textarea" readonly style="width: 90%; height: 90%;"></textarea>
-        <br>
-        <button id="closeServerLog" class="topcoat-button">Close</button>
+    <aside id="serverLogOverlay" class="server-log-overlay">
+        <div class="overlay-form-item">Server Log</div>
+        <div class="overlay-form-item">
+            <textarea id="serverLog" readonly style="width: 330px; height: 470px; background-color: black; color: white; border: none; resize: none;"></textarea>
+        </div>
+        <div class="overlay-form-item"> 
+            <hr class="dotted-hr" />
+        </div>
+        <div class="overlay-form-item">
+            <button id="closeServerLog" class="cancel-button">Close</button>
+        </div>
     </aside>
     
     <aside id="newProjectOverlay" class="new-project-overlay">
@@ -203,7 +209,7 @@
                     <img id="settings-icon" src="img/icons/normal/settings.svg" onMouseOver="MouseRollover(this, 'img/icons/hover/settings-hover.svg');" />
                 </button>   
             </div>
-            <div class="box-row center-hand">
+            <div id="log-holder" class="box-row center-hand">
                 <button id="log" class="sidebarbutton" title="View Server Log" disabled>
                     <img id="log-icon" src="img/icons/normal/log.svg" onMouseOver="MouseRollover(this, 'img/icons/hover/log-hover.svg');" onMouseOut="MouseOut(this, 'img/icons/normal/log.svg');" />
                 </button>   

@@ -69,17 +69,23 @@ function hideSettingsOverlay(evt) {
 function toggleLog(evt) {
     console.log("toggleLog - log click handler");    
     if (global.jQuery("#serverLogOverlay").is(":visible")) {
+        global.jQuery("#log-holder").css("background-color", "rgb(45,48,51)");
+        global.jQuery("#log").css("background-color", "rgb(45,48,51)");
+        global.jQuery("#status-field").show();
         global.jQuery("#serverLogOverlay").hide();
-        global.jQuery("#overlay-bg").hide();
+        global.jQuery("#overlay-bg").hide();        
     } else {
+        hideOverlays();
+        global.jQuery("#log-holder").css("background-color", "rgb(31,35,38)");
+        global.jQuery("#log").css("background-color", "rgb(31,35,38)");
+        global.jQuery("#status-field").hide();
         global.jQuery("#serverLogOverlay").show();
         global.jQuery("#overlay-bg").show();
     }
 }
 
 function overlayBackgroundHandler(evt) {
-    console.log("overlayBackgroundHandler - click handler");
-    
+    console.log("overlayBackgroundHandler - click handler");   
     global.jQuery("#overlay-bg").hide(); 
     hideOverlays();
 }
@@ -95,5 +101,9 @@ function hideOverlays() {
     
     if (global.jQuery("#newProjectOverlay").is(":visible")) {
         hideAddNewProjectOverlay();
-    }    
+    } 
+    
+    if (global.jQuery("#serverLogOverlay").is(":visible")) {
+        toggleLog();
+    }   
 }
