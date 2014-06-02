@@ -63,7 +63,13 @@
 
         global.jQuery("#closeServerLog").click(toggleLog);
 
-        global.jQuery("#plus").click(displayAddCreateProjectOverlay);
+        global.jQuery("#plus").click(function() {
+            if (global.jQuery("#createOpenProjectOverlay").is(":visible") || global.jQuery("#newProjectOverlay").is(":visible")) {
+                overlayBackgroundHandler();
+            } else {
+                displayAddCreateProjectOverlay();
+            }             
+        });
 
         global.jQuery("#minus").click(function() {
             if (!global.isDisplayingRemoveProjectView) {
@@ -196,7 +202,6 @@
             <hr class="dotted-hr" />
         </div>
         <div class="overlay-form-item">            
-            <button id="cancelNewProject" class="cancel-button">Cancel</button>
             <button id="addNewProject" class="action-button">Create project</button>
         </div>         
     </aside>
