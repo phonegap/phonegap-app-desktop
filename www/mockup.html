@@ -66,7 +66,7 @@
         global.jQuery("#plus").click(displayAddCreateProjectOverlay);
 
         global.jQuery("#minus").click(function() {
-            if(!global.isDisplayingRemoveProjectView) {
+            if (!global.isDisplayingRemoveProjectView) {
                 global.isDisplayingRemoveProjectView = true;
                 displayRemoveProjectView();
             } 
@@ -77,7 +77,14 @@
             }
         });
         
-        global.jQuery("#settings").click(displaySettingsOverlay);
+        global.jQuery("#settings").click(function() {
+            if (global.jQuery("#settingsOverlay").is(":visible")) {
+                hideSettingsOverlay();
+            } else {
+                displaySettingsOverlay();
+            }
+        });
+            
         global.jQuery("#log").click(toggleLog);
         
         global.jQuery("#plus-icon").on("mouseout", function() {          
@@ -139,7 +146,6 @@
             <hr class="dotted-hr" />
         </div>
         <div class="overlay-form-item">            
-            <button id="cancelSettings" class="cancel-button">Cancel</button>
             <button id="saveSettings" class="action-button">Save</button>
         </div>
     </aside>

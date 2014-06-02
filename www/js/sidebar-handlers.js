@@ -60,10 +60,17 @@ function displaySettingsOverlay(evt) {
 
 function hideSettingsOverlay(evt) {
     global.jQuery("#settings-icon").attr("src", "img/icons/normal/settings.svg");
+    global.jQuery("#settingsOverlay").removeClass("animated slideInLeft");
+    global.jQuery("#settingsOverlay").addClass("animated slideOutLeft");
+    global.jQuery("#settingsOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHideSettingsAnimationEnd);
+}
+
+function handleHideSettingsAnimationEnd() {
     global.jQuery("#settingsOverlay").hide();
     global.jQuery("#overlay-bg").hide();
     global.jQuery("#settings-holder").css("background-color", "rgb(45,48,51)");
     global.jQuery("#settings").css("background-color", "rgb(45,48,51)");
+    global.jQuery("#settingsOverlay").removeClass("animated slideOutLeft");  
 }
 
 function toggleLog(evt) {
