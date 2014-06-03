@@ -32,7 +32,7 @@ function hideAddCreateProjectOverlay(evt) {
 
 function displayRemoveProjectView(evt) {
     console.log("removeProjectOverlay - minus click handler");
-    hideOverlays();
+    overlayBackgroundHandler();
     global.jQuery("#minus-holder").css("background-color", "rgb(31,35,38)");
     global.jQuery("#minus").css("background-color", "rgb(31,35,38)");
     global.jQuery("#minus-icon").attr("src", "img/icons/active/minus-active.svg");   
@@ -62,14 +62,14 @@ function hideSettingsOverlay(evt) {
     global.jQuery("#settings-icon").attr("src", "img/icons/normal/settings.svg");
     global.jQuery("#settingsOverlay").removeClass("animated slideInLeft");
     global.jQuery("#settingsOverlay").addClass("animated slideOutLeft");
+    global.jQuery("#settings-holder").css("background-color", "rgb(45,48,51)");
+    global.jQuery("#settings").css("background-color", "rgb(45,48,51)");
     global.jQuery("#settingsOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHideSettingsAnimationEnd);
 }
 
 function handleHideSettingsAnimationEnd() {
     global.jQuery("#settingsOverlay").hide();
     global.jQuery("#overlay-bg").hide();
-    global.jQuery("#settings-holder").css("background-color", "rgb(45,48,51)");
-    global.jQuery("#settings").css("background-color", "rgb(45,48,51)");
     global.jQuery("#settingsOverlay").removeClass("animated slideOutLeft");  
 }
 
