@@ -32,6 +32,7 @@ function hideAddCreateProjectOverlay(evt) {
 
 function displayRemoveProjectView(evt) {
     console.log("removeProjectOverlay - minus click handler");
+    global.removeClicked = true;
     overlayBackgroundHandler();
     global.jQuery("#minus-holder").css("background-color", "rgb(31,35,38)");
     global.jQuery("#minus").css("background-color", "rgb(31,35,38)");
@@ -40,6 +41,7 @@ function displayRemoveProjectView(evt) {
 }
 
 function hideRemoveProjectView(evt) {
+    global.removeClicked = false;
     global.jQuery("#minus-icon").attr("src", "img/icons/normal/minus.svg");
     global.jQuery("#minus-holder").css("background-color", "rgb(45,48,51)");
     global.jQuery("#minus").css("background-color", "rgb(45,48,51)");

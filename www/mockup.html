@@ -26,7 +26,7 @@
     global.createClicked = false;
     global.server = null;
     global.isServerRunning = false;
-    global.isDisplayingRemoveProjectView = false;
+    global.removeClicked = false;
 
     // set default port number it has not been set
     if (!localStorage.portNumber) {
@@ -72,13 +72,14 @@
         });
 
         global.jQuery("#minus").click(function() {
-            if (!global.isDisplayingRemoveProjectView) {
-                global.isDisplayingRemoveProjectView = true;
+            
+            console.log(global.removeClicked);
+            
+            if (global.removeClicked == false) {
                 displayRemoveProjectView();
             } 
             
-            if (global.isDisplayingRemoveProjectView) {
-                global.isDisplayingRemoveProjectView = false;
+            if (global.removeClicked == true) {
                 hideRemoveProjectView();
             }
         });
@@ -104,13 +105,13 @@
         });
 
         global.jQuery("#minus-icon").on("mouseout", function() {
-            /*
-            if (!global.jQuery("#removeProjectOverlay").is(":visible")) {
+            if (global.removeClicked == false) {
                 MouseOut(this, 'img/icons/normal/minus.svg');
-            } else {
-                MouseOut(this, 'img/icons/active/minus-active.svg');
             } 
-            */           
+            
+            if (global.removeClicked == true) {
+                MouseOut(this, 'img/icons/active/minus-active.svg');
+            }           
         });
         
         global.jQuery("#settings-icon").on("mouseout", function() {
