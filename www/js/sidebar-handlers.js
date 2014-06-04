@@ -101,10 +101,8 @@ function toggleLog() {
         global.jQuery("#log-holder").css("background-color", "rgb(45,48,51)");
         global.jQuery("#log").css("background-color", "rgb(45,48,51)");
         global.jQuery("#serverLogOverlay").removeClass("animated slideInLeft");     
-        global.jQuery("#serverLogOverlay").addClass("animated slideOutLeft"); 
-        //global.jQuery("#status-field").show();
-        //global.jQuery("#serverLogOverlay").hide();
-        //global.jQuery("#overlay-bg").hide();    
+        global.jQuery("#serverLogOverlay").addClass("animated slideOutLeft");
+        global.jQuery("#overlay-bg").hide();
     } else {     
         //global.jQuery("#serverLogOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleShowServerLogAnimationEnd);
         hideOverlays();
@@ -121,7 +119,6 @@ function toggleLog() {
 function handleHideServerLogAnimationEnd() {
     global.jQuery("#status-field").show();
     global.jQuery("#serverLogOverlay").hide();
-    global.jQuery("#overlay-bg").hide();
     global.jQuery("#serverLogOverlay").removeClass("animated slideOutLeft");
 }
 
