@@ -80,6 +80,7 @@
 .overlay-form-item-heading {
   padding-top: 20px;
   padding-left: 20px;
+  font-size: 11pt;
 }
 .overlay-form-item {
   padding-top: 10px;
@@ -95,10 +96,11 @@
   color: white;
   border: none;
   cursor: pointer;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: 11pt;
 }
 .new-project-choose-button:hover {
   background-color: #134590;
@@ -118,27 +120,15 @@
   color: white;
   border: none;
   cursor: pointer;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 12px;
+  padding-right: 12px;
   float: right;
+  font-size: 11pt;
 }
 .action-button:hover {
   background-color: #007e20;
-}
-.cancel-button {
-  background-color: #393d41;
-  color: white;
-  border: none;
-  cursor: pointer;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-.cancel-button:hover {
-  background-color: #565a5e;
 }
 .dotted-hr {
   border: 1px dashed;
@@ -149,6 +139,7 @@
   padding-bottom: 12px;
   padding-left: 15px;
   cursor: pointer;
+  font-size: 11pt;
 }
 .settings-overlay {
   background-color: #1f2326;
