@@ -94,7 +94,7 @@ function removeProjectById(currentId) {
     console.log(JSON.stringify(projects));  
     
     // hide the remove project view
-    displayRemoveProjectView();
+    toggleRemoveProjectView();
 
     index = projects.length;
     
