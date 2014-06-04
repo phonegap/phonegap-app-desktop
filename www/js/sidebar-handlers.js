@@ -30,21 +30,26 @@ function hideAddCreateProjectOverlay(evt) {
     global.jQuery("#plus").css("background-color", "rgb(45,48,51)");    
 }
 
-function displayRemoveProjectView(evt) {
-    console.log("removeProjectOverlay - minus click handler");
-    global.removeClicked = true;
+function toggleRemoveProjectView(evt) {
+    console.log("toggleRemoveProjectView - minus click handler");
+   
     overlayBackgroundHandler();
-    global.jQuery("#minus-holder").css("background-color", "rgb(31,35,38)");
-    global.jQuery("#minus").css("background-color", "rgb(31,35,38)");
-    global.jQuery("#minus-icon").attr("src", "img/icons/active/minus-active.svg");   
-    global.jQuery('.flip-container').toggleClass('flip');
+    
+    if (!global.jQuery(".flip-container").hasClass("flip")) {        
+        global.jQuery(".flip-container").addClass("animated flip");    
+        global.jQuery("#minus-holder").css("background-color", "rgb(31,35,38)");
+        global.jQuery("#minus").css("background-color", "rgb(31,35,38)");
+        global.jQuery("#minus-icon").attr("src", "img/icons/active/minus-active.svg");             
+    } else {        
+        global.jQuery(".flip-container").removeClass("animated flip"); 
+        global.jQuery("#minus-icon").attr("src", "img/icons/normal/minus.svg");
+        global.jQuery("#minus-holder").css("background-color", "rgb(45,48,51)");
+        global.jQuery("#minus").css("background-color", "rgb(45,48,51)");              
+    }
 }
 
-function hideRemoveProjectView(evt) {
-    global.removeClicked = false;
-    global.jQuery("#minus-icon").attr("src", "img/icons/normal/minus.svg");
-    global.jQuery("#minus-holder").css("background-color", "rgb(45,48,51)");
-    global.jQuery("#minus").css("background-color", "rgb(45,48,51)");
+function handleFlipEnded() {
+    global.jQuery("#flip-container").removeClass("animated flip");
 }
 
 function displaySettingsOverlay(evt) {
@@ -75,7 +80,7 @@ function handleHideSettingsAnimationEnd() {
     global.jQuery("#settingsOverlay").removeClass("animated slideOutLeft");  
 }
 
-function toggleLog(evt) {
+function toggleLog() {
     console.log("toggleLog - log click handler");    
     if (global.jQuery("#serverLogOverlay").is(":visible")) {
         global.jQuery("#log-holder").css("background-color", "rgb(45,48,51)");

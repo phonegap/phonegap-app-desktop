@@ -8,7 +8,6 @@
     <link rel="stylesheet" type="text/css" href="css/topcoat-overlay.min.css">
     <link rel="stylesheet" type="text/css" href="css/topcoat-overlay-custom.css">
     <link rel="stylesheet" type="text/css" href="css/flexboxgrid.min.css">
-    <link rel="stylesheet" type="text/css" href="css/flipper.css">
     <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script> 
     <script type='text/javascript' src='js/index.js'></script>
     <script type="text/javascript" src="js/sidebar-handlers.js"></script>
@@ -26,7 +25,6 @@
     global.createClicked = false;
     global.server = null;
     global.isServerRunning = false;
-    global.removeClicked = false;
 
     // set default port number it has not been set
     if (!localStorage.portNumber) {
@@ -71,19 +69,8 @@
             }             
         });
 
-        global.jQuery("#minus").click(function() {
-            
-            console.log(global.removeClicked);
-            
-            if (global.removeClicked == false) {
-                displayRemoveProjectView();
-            } 
-            
-            if (global.removeClicked == true) {
-                hideRemoveProjectView();
-            }
-        });
-        
+        global.jQuery("#minus").click(toggleRemoveProjectView);
+
         global.jQuery("#settings").click(function() {
             if (global.jQuery("#settingsOverlay").is(":visible")) {
                 hideSettingsOverlay();
@@ -91,25 +78,25 @@
                 displaySettingsOverlay();
             }
         });
-            
+
         global.jQuery("#log").click(toggleLog);
-        
+
         global.jQuery("#plus-icon").on("mouseout", function() {          
             if (!global.jQuery("#createOpenProjectOverlay").is(":visible") && !global.jQuery("#newProjectOverlay").is(":visible")) {
                 MouseOut(this, 'img/icons/normal/plus.svg');
             } 
-            
+
             if (global.jQuery("#createOpenProjectOverlay").is(":visible") || global.jQuery("#newProjectOverlay").is(":visible")) {
                 MouseOut(this, 'img/icons/active/plus-active.svg');
             }            
         });
 
         global.jQuery("#minus-icon").on("mouseout", function() {
-            if (global.removeClicked == false) {
+            if (!global.jQuery(".flip-container").hasClass("flip")) {
                 MouseOut(this, 'img/icons/normal/minus.svg');
             } 
             
-            if (global.removeClicked == true) {
+            if (global.jQuery(".flip-container").hasClass("flip")) {
                 MouseOut(this, 'img/icons/active/minus-active.svg');
             }           
         });
