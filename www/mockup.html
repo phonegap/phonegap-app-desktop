@@ -82,43 +82,39 @@
 
         global.jQuery("#log-holder").click(toggleLog);
 
-        global.jQuery("#plus-icon").on("mouseout", function() {          
+        global.jQuery("#plus-holder").on("mouseout", function() {          
             if (!global.jQuery("#createOpenProjectOverlay").is(":visible") && !global.jQuery("#newProjectOverlay").is(":visible")) {
-                MouseOut(this, 'img/icons/normal/plus.svg');
+                imgSwapper('plus-icon', 'img/icons/normal/plus.svg');
             } 
 
             if (global.jQuery("#createOpenProjectOverlay").is(":visible") || global.jQuery("#newProjectOverlay").is(":visible")) {
-                MouseOut(this, 'img/icons/active/plus-active.svg');
+                imgSwapper('plus-icon', 'img/icons/active/plus-active.svg');
             }            
         });
 
-        global.jQuery("#minus-icon").on("mouseout", function() {
+        global.jQuery("#minus-holder").on("mouseout", function() {
             if (!global.jQuery(".flip-container").hasClass("flip")) {
-                MouseOut(this, 'img/icons/normal/minus.svg');
+                imgSwapper('minus-icon', 'img/icons/normal/minus.svg');
             } 
             
             if (global.jQuery(".flip-container").hasClass("flip")) {
-                MouseOut(this, 'img/icons/active/minus-active.svg');
+                imgSwapper('minus-icon', 'img/icons/active/minus-active.svg');
             }           
         });
         
-        global.jQuery("#settings-icon").on("mouseout", function() {
+        global.jQuery("#settings-holder").on("mouseout", function() {
             if (!global.jQuery("#settingsOverlay").is(":visible")) {
-                MouseOut(this, 'img/icons/normal/settings.svg');
+                imgSwapper('settings-icon', 'img/icons/normal/settings.svg');
             } else {
-                MouseOut(this, 'img/icons/active/settings-active.svg');
+                imgSwapper('settings-icon', 'img/icons/active/settings-active.svg');
             }
         });
         
         getProjects();
     });
 
-    function MouseRollover(img, src) {
-        img.src = src;
-    }
-    
-    function MouseOut(img, src) {
-        img.src = src;
+    function imgSwapper(img, src) {
+        global.jQuery("#" + img).attr("src", src);
     }
 
     </script>
@@ -196,29 +192,29 @@
 
     <div class="row container" style="overflow-x: hidden; overflow-y: hidden;">
         <div class="column-2-hand sidebar">
-            <div id="plus-holder" class="box-row center-hand sidebar-button-holder">
+            <div id="plus-holder" class="box-row center-hand sidebar-button-holder" onMouseOver="imgSwapper('plus-icon', 'img/icons/hover/plus-hover.svg');">
                 <button id="plus" class="sidebarbutton" title="Add / Open Project">
-                    <img id="plus-icon" src="img/icons/normal/plus.svg" onMouseOver="MouseRollover(this, 'img/icons/hover/plus-hover.svg');" />
+                    <img id="plus-icon" src="img/icons/normal/plus.svg" />
                 </button>
             </div>
-            <div id="minus-holder" class="box-row center-hand sidebar-button-holder">
+            <div id="minus-holder" class="box-row center-hand sidebar-button-holder" onMouseOver="imgSwapper('minus-icon', 'img/icons/hover/minus-hover.svg');">
                 <button id="minus" class="sidebarbutton" title="Remove Project" disabled>
-                    <img id="minus-icon" src="img/icons/normal/minus.svg" onMouseOver="MouseRollover(this, 'img/icons/hover/minus-hover.svg');" />
+                    <img id="minus-icon" src="img/icons/normal/minus.svg" />
                 </button>
             </div>
-            <div id="settings-holder" class="box-row center-hand sidebar-button-holder">
+            <div id="settings-holder" class="box-row center-hand sidebar-button-holder" onMouseOver="imgSwapper('settings-icon', 'img/icons/hover/settings-hover.svg');">
                 <button id="settings" class="sidebarbutton" title="Settings">
-                    <img id="settings-icon" src="img/icons/normal/settings.svg" onMouseOver="MouseRollover(this, 'img/icons/hover/settings-hover.svg');" />
+                    <img id="settings-icon" src="img/icons/normal/settings.svg" />
                 </button>   
             </div>
-            <div id="log-holder" class="box-row center-hand sidebar-button-holder">
+            <div id="log-holder" class="box-row center-hand sidebar-button-holder" onMouseOver="imgSwapper('log-icon', 'img/icons/hover/log-hover.svg');" onMouseOut="imgSwapper('log-icon', 'img/icons/normal/log.svg');">
                 <button id="log" class="sidebarbutton" title="View Server Log" disabled>
-                    <img id="log-icon" src="img/icons/normal/log.svg" onMouseOver="MouseRollover(this, 'img/icons/hover/log-hover.svg');" onMouseOut="MouseOut(this, 'img/icons/normal/log.svg');" />
+                    <img id="log-icon" src="img/icons/normal/log.svg" />
                 </button>   
             </div>
-            <div id="help-holder" class="box-row center-hand sidebar-button-holder">
+            <div id="help-holder" class="box-row center-hand sidebar-button-holder" onMouseOver="imgSwapper('help-icon', 'img/icons/hover/help-hover.svg');" onMouseOut="imgSwapper('help-icon', 'img/icons/normal/help.svg');">
                 <button id="help" class="sidebarbutton" title="Help" disabled>
-                    <img id="help-icon" src="img/icons/normal/help.svg" onMouseOver="MouseRollover(this, 'img/icons/hover/help-hover.svg');" onMouseOut="MouseOut(this, 'img/icons/normal/help.svg');" />
+                    <img id="help-icon" src="img/icons/normal/help.svg" />
                 </button>   
             </div>
         </div>
