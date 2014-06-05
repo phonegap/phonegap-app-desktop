@@ -17,10 +17,24 @@
 }
 .sidebarbutton {
   color: #2d3033;
-  background-color: #2d3033;
+  background-color: rgba(45, 48, 51, 0);
   border: none;
   padding-top: 15px;
   cursor: pointer;
+}
+.sidebarbutton:hover {
+  background-color: rgba(31, 35, 38, 0);
+}
+.sidebar-button-holder {
+  background-color: #2d3033;
+  padding-bottom: 10px;
+  cursor: pointer;
+}
+.sidebar-button-holder:hover {
+  background-color: #1f2326;
+}
+.sidebar-button-active {
+  background-color: #1f2326;
 }
 .remove-notification {
   width: 375px;

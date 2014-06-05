@@ -21,8 +21,7 @@ function handleHideAddNewProjectOverlayAnimationEnd() {
 function displayAddCreateProjectOverlay(evt) {
     console.log("addProjectOverlay - plus click handler");
     hideOverlays();
-    global.jQuery("#plus-holder").css("background-color", "rgb(31,35,38)");
-    global.jQuery("#plus").css("background-color", "rgb(31,35,38)");
+    global.jQuery("#plus-holder").addClass("sidebar-button-active");
     global.jQuery("#plus-icon").attr("src", "img/icons/active/plus-active.svg");
     global.jQuery("#createOpenProjectOverlay").addClass("animated slideInLeft");
     global.jQuery("#createOpenProjectOverlay").show();
@@ -34,8 +33,7 @@ function hideAddCreateProjectOverlay(evt) {
     global.jQuery("#createOpenProjectOverlay").addClass("animated slideOutLeft");
     global.jQuery("#createOpenProjectOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHideAddCreateProjectOverlayAnimationEnd);    
     global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");   
-    global.jQuery("#plus-holder").css("background-color", "rgb(45,48,51)");
-    global.jQuery("#plus").css("background-color", "rgb(45,48,51)");    
+    global.jQuery("#plus-holder").removeClass("sidebar-button-active");   
 }
 
 function handleHideAddCreateProjectOverlayAnimationEnd() {
@@ -51,14 +49,12 @@ function toggleRemoveProjectView(evt) {
     
     if (!global.jQuery(".flip-container").hasClass("flip")) {        
         global.jQuery(".flip-container").addClass("animated flip");    
-        global.jQuery("#minus-holder").css("background-color", "rgb(31,35,38)");
-        global.jQuery("#minus").css("background-color", "rgb(31,35,38)");
+        global.jQuery("#minus-holder").addClass("sidebar-button-active");
         global.jQuery("#minus-icon").attr("src", "img/icons/active/minus-active.svg");             
     } else {        
         global.jQuery(".flip-container").removeClass("animated flip"); 
         global.jQuery("#minus-icon").attr("src", "img/icons/normal/minus.svg");
-        global.jQuery("#minus-holder").css("background-color", "rgb(45,48,51)");
-        global.jQuery("#minus").css("background-color", "rgb(45,48,51)");              
+        global.jQuery("#minus-holder").removeClass("sidebar-button-active");             
     }
 }
 
@@ -71,8 +67,7 @@ function displaySettingsOverlay(evt) {
     hideOverlays();
     // prepopulate port number from localStorage
     global.jQuery("#portNumber").val(localStorage.portNumber);
-    global.jQuery("#settings-holder").css("background-color", "rgb(31,35,38)");
-    global.jQuery("#settings").css("background-color", "rgb(31,35,38)");
+    global.jQuery("#settings-holder").addClass("sidebar-button-active");
     global.jQuery("#settings-icon").attr("src", "img/icons/active/settings-active.svg");
     global.jQuery("#settingsOverlay").addClass("animated slideInLeft");
     global.jQuery("#settingsOverlay").show();
@@ -83,8 +78,7 @@ function hideSettingsOverlay(evt) {
     global.jQuery("#settings-icon").attr("src", "img/icons/normal/settings.svg");
     global.jQuery("#settingsOverlay").removeClass("animated slideInLeft");
     global.jQuery("#settingsOverlay").addClass("animated slideOutLeft");
-    global.jQuery("#settings-holder").css("background-color", "rgb(45,48,51)");
-    global.jQuery("#settings").css("background-color", "rgb(45,48,51)");
+    global.jQuery("#settings-holder").removeClass("sidebar-button-active");
     global.jQuery("#settingsOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHideSettingsAnimationEnd);
 }
 
@@ -98,16 +92,13 @@ function toggleLog() {
     console.log("toggleLog - log click handler");    
     if (global.jQuery("#serverLogOverlay").is(":visible")) {
         global.jQuery("#serverLogOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHideServerLogAnimationEnd);       
-        global.jQuery("#log-holder").css("background-color", "rgb(45,48,51)");
-        global.jQuery("#log").css("background-color", "rgb(45,48,51)");
+        global.jQuery("#log-holder").removeClass("sidebar-button-active");
         global.jQuery("#serverLogOverlay").removeClass("animated slideInLeft");     
         global.jQuery("#serverLogOverlay").addClass("animated slideOutLeft");
         global.jQuery("#overlay-bg").hide();
     } else {     
-        //global.jQuery("#serverLogOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleShowServerLogAnimationEnd);
         hideOverlays();
-        global.jQuery("#log-holder").css("background-color", "rgb(31,35,38)");
-        global.jQuery("#log").css("background-color", "rgb(31,35,38)");
+        global.jQuery("#log-holder").addClass("sidebar-button-active");
         global.jQuery("#serverLogOverlay").removeClass("animated slideOutLeft"); 
         global.jQuery("#serverLogOverlay").addClass("animated slideInLeft");
         global.jQuery("#status-field").hide();        

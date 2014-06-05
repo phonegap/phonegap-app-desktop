@@ -62,7 +62,7 @@
 
         global.jQuery("#closeServerLog").click(toggleLog);
 
-        global.jQuery("#plus").click(function() {
+        global.jQuery("#plus-holder").click(function() {
             if (global.jQuery("#createOpenProjectOverlay").is(":visible") || global.jQuery("#newProjectOverlay").is(":visible")) {
                 overlayBackgroundHandler();
             } else {
@@ -70,9 +70,9 @@
             }             
         });
 
-        global.jQuery("#minus").click(toggleRemoveProjectView);
+        global.jQuery("#minus-holder").click(toggleRemoveProjectView);
 
-        global.jQuery("#settings").click(function() {
+        global.jQuery("#settings-holder").click(function() {
             if (global.jQuery("#settingsOverlay").is(":visible")) {
                 hideSettingsOverlay();
             } else {
@@ -80,7 +80,7 @@
             }
         });
 
-        global.jQuery("#log").click(toggleLog);
+        global.jQuery("#log-holder").click(toggleLog);
 
         global.jQuery("#plus-icon").on("mouseout", function() {          
             if (!global.jQuery("#createOpenProjectOverlay").is(":visible") && !global.jQuery("#newProjectOverlay").is(":visible")) {
@@ -196,27 +196,27 @@
 
     <div class="row container" style="overflow-x: hidden; overflow-y: hidden;">
         <div class="column-2-hand sidebar">
-            <div id="plus-holder" class="box-row center-hand" style="padding-bottom: 10px;">
+            <div id="plus-holder" class="box-row center-hand sidebar-button-holder">
                 <button id="plus" class="sidebarbutton" title="Add / Open Project">
                     <img id="plus-icon" src="img/icons/normal/plus.svg" onMouseOver="MouseRollover(this, 'img/icons/hover/plus-hover.svg');" />
                 </button>
             </div>
-            <div id="minus-holder" class="box-row center-hand" style="padding-bottom: 10px;">
+            <div id="minus-holder" class="box-row center-hand sidebar-button-holder">
                 <button id="minus" class="sidebarbutton" title="Remove Project" disabled>
                     <img id="minus-icon" src="img/icons/normal/minus.svg" onMouseOver="MouseRollover(this, 'img/icons/hover/minus-hover.svg');" />
                 </button>
             </div>
-            <div id="settings-holder" class="box-row center-hand" style="padding-bottom: 10px;">
+            <div id="settings-holder" class="box-row center-hand sidebar-button-holder">
                 <button id="settings" class="sidebarbutton" title="Settings">
                     <img id="settings-icon" src="img/icons/normal/settings.svg" onMouseOver="MouseRollover(this, 'img/icons/hover/settings-hover.svg');" />
                 </button>   
             </div>
-            <div id="log-holder" class="box-row center-hand" style="padding-bottom: 10px;">
+            <div id="log-holder" class="box-row center-hand sidebar-button-holder">
                 <button id="log" class="sidebarbutton" title="View Server Log" disabled>
                     <img id="log-icon" src="img/icons/normal/log.svg" onMouseOver="MouseRollover(this, 'img/icons/hover/log-hover.svg');" onMouseOut="MouseOut(this, 'img/icons/normal/log.svg');" />
                 </button>   
             </div>
-            <div class="box-row center-hand">
+            <div id="help-holder" class="box-row center-hand sidebar-button-holder">
                 <button id="help" class="sidebarbutton" title="Help" disabled>
                     <img id="help-icon" src="img/icons/normal/help.svg" onMouseOver="MouseRollover(this, 'img/icons/hover/help-hover.svg');" onMouseOut="MouseOut(this, 'img/icons/normal/help.svg');" />
                 </button>   
