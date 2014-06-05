@@ -1,5 +1,4 @@
 function displayAddNewProjectOverlay(evt) {
-    //global.jQuery("#createOpenProjectOverlay").hide();
     hideAddCreateProjectOverlay();
     global.jQuery("#newProjectOverlay").addClass("animated slideInDown");
     global.jQuery("#newProjectOverlay").show();
@@ -7,7 +6,6 @@ function displayAddNewProjectOverlay(evt) {
 }
 
 function hideAddNewProjectOverlay(evt) {
-    //hideAddCreateProjectOverlay();
     global.jQuery("#newProjectOverlay").removeClass("animated slideInDown");
     global.jQuery("#newProjectOverlay").addClass("animated slideOutUp");
     global.jQuery("#newProjectOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHideAddNewProjectOverlayAnimationEnd);
