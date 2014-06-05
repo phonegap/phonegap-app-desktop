@@ -36,8 +36,9 @@ function selectDirectory(e) {
     } else {
         // open existing project workflow
         parseProjectConfig();
-        global.jQuery("#createOpenProjectOverlay").hide(); 
+        //global.jQuery("#createOpenProjectOverlay").hide(); 
         global.jQuery("#overlay-bg").hide();
+        hideAddCreateProjectOverlay();
     } 
 }
 
@@ -62,6 +63,9 @@ function create() {
 
               // parse config.xml of newly created project
               parseProjectConfig();
+              
+              global.jQuery("#overlay-bg").hide();
+              hideAddNewProjectOverlay();
           });
 }
 

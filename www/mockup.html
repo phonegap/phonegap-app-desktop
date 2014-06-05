@@ -51,16 +51,12 @@
 
         global.jQuery("#addNewProject").click(createProject);
         global.jQuery("#chooseNewProjectPath").click(selectProjectPath);
-        global.jQuery("#cancelNewProject").click(overlayBackgroundHandler);
 
         global.jQuery("#createProject").click(displayAddNewProjectOverlay);
 
         global.jQuery("#openProject").click(openProject);
 
         global.jQuery("#saveSettings").click(saveSettings);
-        global.jQuery("#cancelSettings").click(cancelSettings);
-
-        global.jQuery("#closeServerLog").click(toggleLog);
 
         global.jQuery("#plus-holder").click(function() {
             if (global.jQuery("#createOpenProjectOverlay").is(":visible") || global.jQuery("#newProjectOverlay").is(":visible")) {

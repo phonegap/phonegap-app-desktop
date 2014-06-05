@@ -1,12 +1,13 @@
 function displayAddNewProjectOverlay(evt) {
-    global.jQuery("#createOpenProjectOverlay").hide();
+    //global.jQuery("#createOpenProjectOverlay").hide();
+    hideAddCreateProjectOverlay();
     global.jQuery("#newProjectOverlay").addClass("animated slideInDown");
     global.jQuery("#newProjectOverlay").show();
     global.jQuery("#overlay-bg").show();
 }
 
 function hideAddNewProjectOverlay(evt) {
-    hideAddCreateProjectOverlay();
+    //hideAddCreateProjectOverlay();
     global.jQuery("#newProjectOverlay").removeClass("animated slideInDown");
     global.jQuery("#newProjectOverlay").addClass("animated slideOutUp");
     global.jQuery("#newProjectOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHideAddNewProjectOverlayAnimationEnd);

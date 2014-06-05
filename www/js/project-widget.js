@@ -60,7 +60,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     global.jQuery("#drop_zone").append(widgetDOM);
     enableMinusButton();
     global.jQuery("#guide-add").hide();
-    
+        
     global.jQuery("#" + deleteId).on("click", function(event) {
         console.log(deleteId);
         
