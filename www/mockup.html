@@ -70,7 +70,11 @@
             }             
         });
 
-        global.jQuery("#minus-holder").click(toggleRemoveProjectView);
+        global.jQuery("#minus-holder").click(function() {
+            if(!global.jQuery("#minus-holder").hasClass("sidebar-button-holder-inactive")) {
+                toggleRemoveProjectView();
+            }           
+        });
 
         global.jQuery("#settings-holder").click(function() {
             if (global.jQuery("#settingsOverlay").is(":visible")) {
@@ -92,14 +96,22 @@
             }            
         });
 
+        global.jQuery("#minus-holder").on("mouseover", function() {
+            if(!global.jQuery("#minus-holder").hasClass("sidebar-button-holder-inactive")) {
+               imgSwapper('minus-icon', 'img/icons/hover/minus-hover.svg');
+            }
+        });
+
         global.jQuery("#minus-holder").on("mouseout", function() {
-            if (!global.jQuery(".flip-container").hasClass("flip")) {
-                imgSwapper('minus-icon', 'img/icons/normal/minus.svg');
-            } 
-            
-            if (global.jQuery(".flip-container").hasClass("flip")) {
-                imgSwapper('minus-icon', 'img/icons/active/minus-active.svg');
-            }           
+            if(!global.jQuery("#minus-holder").hasClass("sidebar-button-holder-inactive")) {
+                if (!global.jQuery(".flip-container").hasClass("flip")) {
+                    imgSwapper('minus-icon', 'img/icons/normal/minus.svg');
+                } 
+
+                if (global.jQuery(".flip-container").hasClass("flip")) {
+                    imgSwapper('minus-icon', 'img/icons/active/minus-active.svg');
+                }                
+            }          
         });
         
         global.jQuery("#settings-holder").on("mouseout", function() {
@@ -110,6 +122,7 @@
             }
         });
         
+        disableMinusButton();
         getProjects();
     });
 
@@ -197,9 +210,9 @@
                     <img id="plus-icon" src="img/icons/normal/plus.svg" />
                 </button>
             </div>
-            <div id="minus-holder" class="box-row center-hand sidebar-button-holder" onMouseOver="imgSwapper('minus-icon', 'img/icons/hover/minus-hover.svg');">
-                <button id="minus" class="sidebarbutton" title="Remove Project" disabled>
-                    <img id="minus-icon" src="img/icons/normal/minus.svg" />
+            <div id="minus-holder" class="box-row center-hand sidebar-button-holder-inactive">
+                <button id="minus" class="sidebar-button-inactive" title="Remove Project">
+                    <img id="minus-icon" src="img/icons/inactive/minus-inactive.svg" />
                 </button>
             </div>
             <div id="settings-holder" class="box-row center-hand sidebar-button-holder" onMouseOver="imgSwapper('settings-icon', 'img/icons/hover/settings-hover.svg');">

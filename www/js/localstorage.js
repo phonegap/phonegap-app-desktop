@@ -92,17 +92,15 @@ function removeProjectById(currentId) {
     localStorage["projects"] = JSON.stringify(projects); 
   
     console.log(JSON.stringify(projects));  
-    
-    // hide the remove project view
-    toggleRemoveProjectView();
-
+        
     index = projects.length;
     
      // set new active widget if there are still projects, otherwise disable the remove button
     if (index > 0) {
+        resetMinusButtonState();
         setActiveWidget(projects[0].id, projects[0].projDir);       
     } else {
-        global.jQuery("#minus").prop("disabled", true);
+        disableMinusButton();
         global.jQuery("#guide-add").show();
         serverOfflineState();
     }

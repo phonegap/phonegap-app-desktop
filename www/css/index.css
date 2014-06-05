@@ -36,6 +36,18 @@
 .sidebar-button-active {
   background-color: #1f2326;
 }
+.sidebar-button-inactive {
+  background-color: #43474b;
+  color: #43474b;
+  border: none;
+  padding-top: 15px;
+  cursor: inherit;
+}
+.sidebar-button-holder-inactive {
+  background-color: #43474b;
+  padding-bottom: 10px;
+  cursor: auto;
+}
 .remove-notification {
   width: 375px;
   height: 80px;

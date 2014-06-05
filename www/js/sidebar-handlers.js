@@ -52,10 +52,33 @@ function toggleRemoveProjectView(evt) {
         global.jQuery("#minus-holder").addClass("sidebar-button-active");
         global.jQuery("#minus-icon").attr("src", "img/icons/active/minus-active.svg");             
     } else {        
-        global.jQuery(".flip-container").removeClass("animated flip"); 
-        global.jQuery("#minus-icon").attr("src", "img/icons/normal/minus.svg");
-        global.jQuery("#minus-holder").removeClass("sidebar-button-active");             
+        resetMinusButtonState();   
     }
+}
+
+function disableMinusButton() {
+    global.jQuery("#minus-icon").attr("src", "img/icons/inactive/minus-inactive.svg");
+    global.jQuery(".flip-container").removeClass("animated flip");
+    global.jQuery("#minus-holder").removeClass("sidebar-button-holder");
+    global.jQuery("#minus-holder").removeClass("sidebar-button-active");
+    global.jQuery("#minus-holder").addClass("sidebar-button-holder-inactive");
+    global.jQuery("#minus").addClass("sidebar-button-inactive");
+    global.jQuery("#minus").prop("disabled", true);
+}
+
+function enableMinusButton() {
+    global.jQuery("#minus-icon").attr("src", "img/icons/normal/minus.svg");
+    global.jQuery("#minus-holder").removeClass("sidebar-button-holder-inactive");
+    global.jQuery("#minus").removeClass("sidebar-button-inactive");
+    global.jQuery("#minus-holder").addClass("sidebar-button-holder");
+    global.jQuery("#minus").addClass("sidebarbutton");
+    global.jQuery("#minus").prop("disabled", false);
+}
+
+function resetMinusButtonState() {
+    global.jQuery(".flip-container").removeClass("animated flip"); 
+    global.jQuery("#minus-icon").attr("src", "img/icons/normal/minus.svg");
+    global.jQuery("#minus-holder").removeClass("sidebar-button-active");
 }
 
 function handleFlipEnded() {
