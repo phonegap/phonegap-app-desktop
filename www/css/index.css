@@ -75,7 +75,7 @@
   left: 75px;
   z-index: 12;
   width: 375px;
-  height: 415px;
+  height: 435px;
 }
 .overlay-form-item-heading {
   padding-top: 20px;
@@ -96,11 +96,10 @@
   color: white;
   border: none;
   cursor: pointer;
-  padding-top: 7px;
-  padding-bottom: 7px;
-  padding-left: 12px;
-  padding-right: 12px;
   font-size: 11pt;
+  height: 30px;
+  width: 100px;
+  float: right;
 }
 .new-project-choose-button:hover {
   background-color: #134590;
@@ -149,7 +148,7 @@
   left: 75px;
   z-index: 12;
   width: 375px;
-  height: 240px;
+  height: 255px;
 }
 .settings-ip-label {
   color: #999999;
@@ -197,4 +196,8 @@ a.projectDirLink:hover {
 }
 .start-icon {
   padding-top: 10px;
+}
+.text-input {
+  height: 24px;
+  font-size: 16px;
 }
