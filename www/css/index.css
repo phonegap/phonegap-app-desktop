@@ -158,13 +158,28 @@
 .dotted-hr {
   border: 0px;
   border-bottom: 1px dashed #616569;
+  height: 0px;
+  padding: 0px 0px 0px 0px;
 }
-.add-open-button {
-  padding-top: 12px;
+.create-project-button {
+  padding-top: 20px;
   padding-bottom: 12px;
   padding-left: 15px;
   cursor: pointer;
   font-size: 11pt;
+}
+.open-project-button {
+  padding-top: 12px;
+  padding-bottom: 20px;
+  padding-left: 15px;
+  cursor: pointer;
+  font-size: 11pt;
+}
+.create-project-button:hover {
+  color: #40afd4;
+}
+.open-project-button:hover {
+  color: #40afd4;
 }
 .settings-overlay {
   background-color: #1f2326;
