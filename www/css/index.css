@@ -71,19 +71,6 @@
   overflow-x: hidden;
   overflow-y: auto;
 }
-.localPath {
-  width: 370px;
-  font-size: small;
-  color: #999999;
-}
-.projDir {
-  width: 370px;
-  overflow-x: hidden;
-  white-space: nowrap;
-  direction: rtl;
-  text-align: left;
-  font-size: small;
-}
 .create-overlay {
   background-color: #1f2326;
   color: white;
@@ -203,7 +190,8 @@
   padding-left: 10px;
 }
 .widget-border {
-  border-bottom: 1px solid #999999;
+  border-bottom: 1px solid #dfe2e2;
+  background-color: #e9e9e9;
 }
 .project-name {
   color: #2d3033;
@@ -223,8 +211,24 @@
 .topcoat-checkbox:hover {
   cursor: pointer;
 }
+.localPath {
+  width: 370px;
+  font-size: small;
+  color: #999999;
+}
+.projDir {
+  width: 370px;
+  overflow-x: hidden;
+  white-space: nowrap;
+  direction: rtl;
+  text-align: left;
+  font-size: small;
+}
+.projectDirLink {
+  color: #27a1c5;
+}
 a.projectDirLink:hover {
-  color: #134590;
+  color: #17478e;
   cursor: pointer;
 }
 .hr-icon {

@@ -75,23 +75,23 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     });
     
     global.jQuery("#start-icon_" + id.toString()).on("mouseover", function() {
-        MouseRollover(this, "img/icons/hover/start-hover.svg");
+        imgSwapper("start-icon_" + id.toString(), "img/icons/hover/start-hover.svg");
     });
     
     global.jQuery("#start-icon_" + id.toString()).on("mouseout", function() {
         if (id == global.activeWidget.projectId) {
-            MouseOut(this, "img/icons/active/start-active.svg");
+            imgSwapper("start-icon_" + id.toString(), "img/icons/active/start-active.svg");
         } else {
-            MouseOut(this, "img/icons/normal/start.svg");
+            imgSwapper("start-icon_" + id.toString(), "img/icons/normal/start.svg");
         }        
     });    
 
     global.jQuery("#stop-icon_" + id.toString()).on("mouseover", function() {
-        MouseRollover(this, "img/icons/hover/stop-hover.svg");
+        imgSwapper("stop-icon_" + id.toString(), "img/icons/hover/stop-hover.svg");
     });
     
     global.jQuery("#stop-icon_" + id.toString()).on("mouseout", function() {
-        MouseOut(this, "img/icons/normal/stop.svg");
+        imgSwapper("stop-icon_" + id.toString(), "img/icons/normal/stop.svg");
     });
         
     global.jQuery("#" + widgetId).on("click", function() {
@@ -133,7 +133,7 @@ function setActiveWidget(id, projDir) {
     // reset the previous active widget
     if (previousActiveWidget) {
         console.log("prevId: " + previousActiveWidget.projectId);
-        global.jQuery("#" + previousActiveWidget.widgetId).css("background-color", ""); 
+        global.jQuery("#" + previousActiveWidget.widgetId).css("background-color", "rgb(233, 233, 233)"); 
         global.jQuery("#start-icon_" + previousActiveWidget.projectId.toString()).attr("src", "img/icons/normal/start.svg");      
         global.jQuery("#hr-icon_" + previousActiveWidget.projectId.toString()).css("opacity", 0.0);
         global.jQuery("#stop-icon_" + previousActiveWidget.projectId.toString()).css("opacity", 0.0);
