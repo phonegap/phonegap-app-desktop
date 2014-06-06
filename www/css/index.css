@@ -156,8 +156,8 @@
   background-color: #007e20;
 }
 .dotted-hr {
-  border: 1px dashed;
-  color: #616569;
+  border: 0px;
+  border-bottom: 1px dashed #616569;
 }
 .add-open-button {
   padding-top: 12px;
