@@ -119,7 +119,7 @@ function setActiveWidget(id, projDir) {
     console.log("activeId: " + id);
        
     // update GUI to display details of the active widget          
-    global.jQuery("#" + activeWidget.widgetId).css("background-color", "rgb(240,240,240)");                                                                                  
+    global.jQuery("#" + activeWidget.widgetId).css("background-color", "#f0f0f0");                                                                                  
     global.jQuery("#start-icon_" + activeWidget.projectId.toString()).attr("src", "img/icons/active/start-active.svg");
     global.jQuery("#hr-icon_" + activeWidget.projectId.toString()).css("opacity", 1.0);
     global.jQuery("#stop-icon_" + activeWidget.projectId.toString()).css("opacity", 1.0);
@@ -134,7 +134,7 @@ function setActiveWidget(id, projDir) {
     // reset the previous active widget
     if (previousActiveWidget) {
         console.log("prevId: " + previousActiveWidget.projectId);
-        global.jQuery("#" + previousActiveWidget.widgetId).css("background-color", "rgb(233, 233, 233)"); 
+        global.jQuery("#" + previousActiveWidget.widgetId).css("background-color", "#e8e9e9"); 
         global.jQuery("#start-icon_" + previousActiveWidget.projectId.toString()).attr("src", "img/icons/normal/start.svg");      
         global.jQuery("#hr-icon_" + previousActiveWidget.projectId.toString()).css("opacity", 0.0);
         global.jQuery("#stop-icon_" + previousActiveWidget.projectId.toString()).css("opacity", 0.0);
