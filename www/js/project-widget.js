@@ -123,6 +123,7 @@ function setActiveWidget(id, projDir) {
     global.jQuery("#start-icon_" + activeWidget.projectId.toString()).attr("src", "img/icons/active/start-active.svg");
     global.jQuery("#hr-icon_" + activeWidget.projectId.toString()).css("opacity", 1.0);
     global.jQuery("#stop-icon_" + activeWidget.projectId.toString()).css("opacity", 1.0);
+    global.jQuery("#stop-icon_" + activeWidget.projectId.toString()).addClass("stop-icon-active");
 
     // set a watch on the config.xml of the active project
     setConfigWatcher(id, projDir);
@@ -137,6 +138,7 @@ function setActiveWidget(id, projDir) {
         global.jQuery("#start-icon_" + previousActiveWidget.projectId.toString()).attr("src", "img/icons/normal/start.svg");      
         global.jQuery("#hr-icon_" + previousActiveWidget.projectId.toString()).css("opacity", 0.0);
         global.jQuery("#stop-icon_" + previousActiveWidget.projectId.toString()).css("opacity", 0.0);
+        global.jQuery("#stop-icon_" + previousActiveWidget.projectId.toString()).removeClass("stop-icon-active");
     }
 }
 

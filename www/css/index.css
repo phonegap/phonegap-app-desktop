@@ -239,8 +239,12 @@ a.projectDirLink:hover {
 .stop-icon {
   opacity: 0.0;
 }
+.stop-icon-active {
+  cursor: pointer;
+}
 .start-icon {
   padding-top: 10px;
+  cursor: pointer;
 }
 .text-input {
   height: 24px;
