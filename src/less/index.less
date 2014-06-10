@@ -229,12 +229,22 @@
 
 .project-name {
     color: rgb(45,48,51);
-    font-size: large;
+    font-size: 14pt;
     font-weight: 600;
+    max-height: 50px;
+    max-width: 225px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .project-version {
     color: rgb(45,48,51);
+    font-size: 12pt;
+    font-weight: 200;
+    max-height: 25px;
+    max-width: 225px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .delete-holder {
@@ -251,18 +261,18 @@
 }
 
 .localPath {
-    width: 370px; 
-    font-size: small;
+    max-width: 335px; 
+    font-size: 10pt;
     color: rgb(153,153,153);
 }
 
 .projDir {
-    width: 370px; 
-    overflow-x: hidden; 
-    white-space: nowrap; 
-    direction: rtl; 
+    max-width: 335px; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    white-space: nowrap;
     text-align: left;
-    font-size: small;
+    font-size: 10pt;
 }
 
 .projectDirLink {
@@ -275,9 +285,9 @@ a.projectDirLink:hover {
 }
 
 .hr-icon {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    width: inherit;
     opacity: 0.0;
+    padding-bottom: 6px;
 }
 
 .stop-icon {

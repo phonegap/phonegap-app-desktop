@@ -2,25 +2,27 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     console.log("addProjectWidget");
     
     var widgetId = "projectWidget_" + id.toString();
-    var iconId = "icon_" + id.toString();
     var projectStatusId = "project-status_" + id.toString();
     var projectDetailsId = "project-details_" + id.toString();
     var projectDirId = "project-dir_" + id.toString();
     var deleteId = "delete_" + id.toString();
+    var projectIconId = "projectIconId_" + id.toString();
+    var projectNameLabel = "projectNameLabel_" + id.toString();
+    var projectVersionLabel = "projectVersionLabel_" + id.toString();
     
     var widgetDOM = "";  
     
     // open the widget
-    widgetDOM += "<div class='row widget-border' id='" + widgetId + "'>";
+    widgetDOM += "<div class='row widget-border' id='" + widgetId + "' style='padding: 20px 20px 20px 20px;'>";
 
     // project icon
-    widgetDOM += "<div class='column-2-hand' id='" + iconId + "' style='padding-left: 10px;'>";
+    widgetDOM += "<div class='column'>";
     
 	widgetDOM += "<div class='flip-container'>";
 	widgetDOM += "<div class='flipper'>";
 	
 	widgetDOM += "<div class='front'>";
-    widgetDOM += "<img height='64' width='64' src='" + projectIcon + "' />";
+    widgetDOM += "<img id='" + projectIconId + "' height='64' width='64' src='" + projectIcon + "' />";
     widgetDOM += "</div>";  // front content
     
     widgetDOM += "<div class='back delete-holder' id=" + deleteId + ">";
@@ -33,13 +35,13 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     widgetDOM += "</div>";
     
     // project info
-    widgetDOM += "<div class='column-9-hand' id='" + projectDetailsId + "' style='padding-left: 20px;'>";
-    widgetDOM += "<span class='project-name'>" + projectName + "</span>";
-    widgetDOM += "<span class='project-version'>v" + projectVersion + "</span>";
+    widgetDOM += "<div class='column' id='" + projectDetailsId + "' style='width: 225px;'>";
+    widgetDOM += "<div id='" + projectNameLabel + "' class='project-name'>" + projectName + "</div>";
+    widgetDOM += "<div id='" + projectVersionLabel + "' class='project-version'>v" + projectVersion + "</div>";
     widgetDOM += "</div>";
     
     // indicator active project
-    widgetDOM += "<div class='column-1-hand'>";
+    widgetDOM += "<div class='column' style='width: 46px; text-align: center;'>";
     widgetDOM += "<img id='start-icon_" + id.toString() + "' class='start-icon' src='img/icons/normal/start.svg' />";
     widgetDOM += "<img id='hr-icon_" + id.toString() + "' class='hr-icon' src='img/icons/normal/hr.svg' />";
     widgetDOM += "<img id='stop-icon_" + id.toString() + "' class='stop-icon' src='img/icons/normal/stop.svg' />";   
@@ -47,11 +49,9 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     
     // project folder
     widgetDOM += "<div class='row'>";
-    widgetDOM += "<div class='column' style='padding-left: 10px; padding-bottom: 10px;'>";
-    widgetDOM += "<div class='box'>";
+    widgetDOM += "<div class='column'>";
     widgetDOM += "<div class='localPath'>Local path:</div>"
-    widgetDOM += "<div class='projDir'><a href='#' id='" + projectDirId + "' class='projectDirLink'>" + projectDir + "</a></div>"; 
-    widgetDOM += "</div>";
+    widgetDOM += "<div class='projDir'><a href='#' id='" + projectDirId + "' class='projectDirLink'>" + projectDir + "</a></div>";
     widgetDOM += "</div>";
     widgetDOM += "</div>";
     
@@ -143,6 +143,7 @@ function setActiveWidget(id, projDir) {
 }
 
 function setConfigWatcher(id, projDir) {
+    console.log("config watcher");
     
     var configFile = projDir + "/www/config.xml";
     
@@ -163,8 +164,10 @@ function setConfigWatcher(id, projDir) {
 
                 var iconPath = projDir + "/www/";
                 var projectDetailsId = "project-details_" + id.toString();
-                var iconId = "icon_" + id.toString();
-
+                var projectIconId = "projectIconId_" + id.toString();
+                var projectNameLabel = "projectNameLabel_" + id.toString();
+                var projectVersionLabel = "projectVersionLabel_" + id.toString();
+                
                 global.jQuery.xmlDoc = global.jQuery.parseXML(data);
                 global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc);
 
@@ -178,11 +181,9 @@ function setConfigWatcher(id, projDir) {
                 var projectIcon = global.jQuery.xml.find("icon").attr("src");
                 iconPath += projectIcon;
                 
-                var updatedText = projectName + "<br>" + projectVersion + "<br>";
-                var updatedIconPath = "<img width='128' height='128' src='" + iconPath + "'>";
-                
-                global.jQuery("#" + projectDetailsId).html(updatedText);
-                global.jQuery("#" + iconId).html(updatedIconPath);
+                global.jQuery("#" + projectNameLabel).text(projectName);
+                global.jQuery("#" + projectVersionLabel).text("v" + projectVersion);
+                global.jQuery("#" + projectIconId).attr("src", iconPath);
             });
         });
     });

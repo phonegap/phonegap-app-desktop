@@ -195,11 +195,21 @@
 }
 .project-name {
   color: #2d3033;
-  font-size: large;
+  font-size: 14pt;
   font-weight: 600;
+  max-height: 50px;
+  max-width: 225px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .project-version {
   color: #2d3033;
+  font-size: 12pt;
+  font-weight: 200;
+  max-height: 25px;
+  max-width: 225px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .delete-holder {
   background-color: #ff3200;
@@ -212,17 +222,17 @@
   cursor: pointer;
 }
 .localPath {
-  width: 370px;
-  font-size: small;
+  max-width: 335px;
+  font-size: 10pt;
   color: #999999;
 }
 .projDir {
-  width: 370px;
-  overflow-x: hidden;
+  max-width: 335px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
-  direction: rtl;
   text-align: left;
-  font-size: small;
+  font-size: 10pt;
 }
 .projectDirLink {
   color: #27a1c5;
@@ -232,9 +242,9 @@ a.projectDirLink:hover {
   cursor: pointer;
 }
 .hr-icon {
-  padding-top: 5px;
-  padding-bottom: 5px;
+  width: inherit;
   opacity: 0.0;
+  padding-bottom: 6px;
 }
 .stop-icon {
   opacity: 0.0;
