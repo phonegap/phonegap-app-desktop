@@ -13,7 +13,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     var widgetDOM = "";  
     
     // open the widget
-    widgetDOM += "<div class='row widget-border' id='" + widgetId + "' style='padding: 20px 20px 20px 20px;'>";
+    widgetDOM += "<div class='row widget-border' id='" + widgetId + "'>";
 
     // project icon
     widgetDOM += "<div class='column'>";
@@ -26,7 +26,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     widgetDOM += "</div>";  // front content
     
     widgetDOM += "<div class='back delete-holder' id=" + deleteId + ">";
-    widgetDOM += "<img src='img/icons/normal/delete.svg' style='padding-top: 22px; padding-left: 22px;' />";
+    widgetDOM += "<img src='img/icons/normal/delete.svg' class='delete-button' />";
     widgetDOM += "</div>";  // back content
 	
 	widgetDOM += "</div>";  // flipper
@@ -35,13 +35,13 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     widgetDOM += "</div>";
     
     // project info
-    widgetDOM += "<div class='column' id='" + projectDetailsId + "' style='width: 225px;'>";
+    widgetDOM += "<div class='column project-details-column' id='" + projectDetailsId + "'>";
     widgetDOM += "<div id='" + projectNameLabel + "' class='project-name'>" + projectName + "</div>";
     widgetDOM += "<div id='" + projectVersionLabel + "' class='project-version'>v" + projectVersion + "</div>";
     widgetDOM += "</div>";
     
     // indicator active project
-    widgetDOM += "<div class='column' style='width: 46px; text-align: center;'>";
+    widgetDOM += "<div class='column project-indicator'>";
     widgetDOM += "<img id='start-icon_" + id.toString() + "' class='start-icon' src='img/icons/normal/start.svg' />";
     widgetDOM += "<img id='hr-icon_" + id.toString() + "' class='hr-icon' src='img/icons/normal/hr.svg' />";
     widgetDOM += "<img id='stop-icon_" + id.toString() + "' class='stop-icon' src='img/icons/normal/stop.svg' />";   
