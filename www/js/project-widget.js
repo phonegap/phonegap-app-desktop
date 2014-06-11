@@ -9,14 +9,19 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     var projectIconId = "projectIconId_" + id.toString();
     var projectNameLabel = "projectNameLabel_" + id.toString();
     var projectVersionLabel = "projectVersionLabel_" + id.toString();
+    var widgetStatus = "widgetStatus_" + id.toString();
+    var widgetStatusBottom = "widgetStatusBottom_" + id.toString();
     
     var widgetDOM = "";  
     
     // open the widget
     widgetDOM += "<div class='row widget-border' id='" + widgetId + "'>";
 
+    widgetDOM += "<div id='" + widgetStatus + "' class='column widget-offline'>";    
+    widgetDOM += "</div>";
+
     // project icon
-    widgetDOM += "<div class='column'>";
+    widgetDOM += "<div class='column project-icon-column'>";
     
 	widgetDOM += "<div class='flip-container'>";
 	widgetDOM += "<div class='flipper'>";
@@ -49,7 +54,11 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     
     // project folder
     widgetDOM += "<div class='row'>";
-    widgetDOM += "<div class='column'>";
+    
+    widgetDOM += "<div id='" + widgetStatusBottom + "' class='column widget-offline'>";    
+    widgetDOM += "</div>";
+    
+    widgetDOM += "<div class='column project-folder-column'>";
     widgetDOM += "<div class='localPath'>Local path:</div>"
     widgetDOM += "<div class='projDir'><a href='#' id='" + projectDirId + "' class='projectDirLink'>" + projectDir + "</a></div>";
     widgetDOM += "</div>";
@@ -112,6 +121,8 @@ function setActiveWidget(id, projDir) {
         
     var activeWidget = {};
     activeWidget.widgetId = "projectWidget_" + id.toString();
+    activeWidget.widgetStatus = "widgetStatus_" + id.toString();
+    activeWidget.widgetStatusBottom = "widgetStatusBottom_" + id.toString();
     activeWidget.projectId = id;
     global.activeWidget = activeWidget;
     localStorage.projDir = projDir;
@@ -119,7 +130,9 @@ function setActiveWidget(id, projDir) {
     console.log("activeId: " + id);
        
     // update GUI to display details of the active widget          
-    global.jQuery("#" + activeWidget.widgetId).css("background-color", "#f0f0f0");                                                                                  
+    global.jQuery("#" + activeWidget.widgetId).css("background-color", "#f0f0f0");
+    global.jQuery("#" + activeWidget.widgetStatus).addClass("widget-online");
+    global.jQuery("#" + activeWidget.widgetStatusBottom).addClass("widget-online");                                                                           
     global.jQuery("#start-icon_" + activeWidget.projectId.toString()).attr("src", "img/icons/active/start-active.svg");
     global.jQuery("#hr-icon_" + activeWidget.projectId.toString()).css("opacity", 1.0);
     global.jQuery("#stop-icon_" + activeWidget.projectId.toString()).css("opacity", 1.0);
@@ -134,7 +147,9 @@ function setActiveWidget(id, projDir) {
     // reset the previous active widget
     if (previousActiveWidget) {
         console.log("prevId: " + previousActiveWidget.projectId);
-        global.jQuery("#" + previousActiveWidget.widgetId).css("background-color", "#e8e9e9"); 
+        global.jQuery("#" + previousActiveWidget.widgetId).css("background-color", "#e8e9e9");
+        global.jQuery("#" + previousActiveWidget.widgetStatus).removeClass("widget-online");
+        global.jQuery("#" + previousActiveWidget.widgetStatusBottom).removeClass("widget-online");
         global.jQuery("#start-icon_" + previousActiveWidget.projectId.toString()).attr("src", "img/icons/normal/start.svg");      
         global.jQuery("#hr-icon_" + previousActiveWidget.projectId.toString()).css("opacity", 0.0);
         global.jQuery("#stop-icon_" + previousActiveWidget.projectId.toString()).css("opacity", 0.0);

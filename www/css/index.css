@@ -192,25 +192,41 @@
 .widget-border {
   border-bottom: 1px solid #dfe2e2;
   background-color: #e8e9e9;
-  padding: 20px 20px 20px 20px;
+  padding: 0px 20px 0px 0px;
+}
+.widget-offline {
+  width: 5px;
+}
+.widget-online {
+  background-color: #2ba94d;
 }
 .delete-button {
   padding-top: 22px;
   padding-left: 22px;
 }
 .project-details-column {
-  width: 225px;
+  width: 220px;
+  padding-top: 20px;
 }
 .project-indicator {
   width: 46px;
   text-align: center;
+  padding-top: 20px;
+}
+.project-icon-column {
+  padding-left: 15px;
+  padding-top: 20px;
+}
+.project-folder-column {
+  padding-left: 15px;
+  padding-bottom: 20px;
 }
 .project-name {
   color: #2d3033;
   font-size: 14pt;
   font-weight: 600;
   max-height: 50px;
-  max-width: 225px;
+  max-width: 220px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -219,7 +235,7 @@
   font-size: 12pt;
   font-weight: 200;
   max-height: 25px;
-  max-width: 225px;
+  max-width: 220px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
