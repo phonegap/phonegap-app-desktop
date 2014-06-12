@@ -2,10 +2,10 @@ function toggleServerStatus() {
     console.log("toggleServerStatus");
 
     if (global.isServerRunning) {
-        global.server.close();
-        global.isServerRunning = false;
-    }
-
+        // if server is currently running, stop it before opening a new server instance
+        setServerOffline();
+    } 
+    
     fs.exists(localStorage.projDir + "/www", function(exists) {
         if (exists) {
             process.chdir(localStorage.projDir);
@@ -36,6 +36,12 @@ function toggleServerStatus() {
             global.jQuery("#log").prop("disabled", true);
         }
     });
+}
+
+function setServerOffline() {
+    console.log("server stopped");
+    global.server.close();
+    global.isServerRunning = false;    
 }
 
 function serverOfflineState() {

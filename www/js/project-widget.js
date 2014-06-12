@@ -93,7 +93,12 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
         } else {
             imgSwapper("start-icon_" + id.toString(), "img/icons/normal/start.svg");
         }        
-    });    
+    });
+
+    global.jQuery("#start-icon_" + id.toString()).on("click", function() {
+       setActiveWidget(id, projectDir);
+       widgetServerOnlineState(id);
+    });
 
     global.jQuery("#stop-icon_" + id.toString()).on("mouseover", function() {
         imgSwapper("stop-icon_" + id.toString(), "img/icons/hover/stop-hover.svg");
@@ -101,6 +106,15 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     
     global.jQuery("#stop-icon_" + id.toString()).on("mouseout", function() {
         imgSwapper("stop-icon_" + id.toString(), "img/icons/normal/stop.svg");
+    });
+    
+    global.jQuery("#stop-icon_" + id.toString()).on("click", function() {
+        if (global.jQuery("#stop-icon_" + id.toString()).hasClass("stop-icon-active")) {
+            // turn off the server
+            setServerOffline();
+            serverOfflineState();
+            widgetSeverOfflineState(id);
+        }
     });
         
     global.jQuery("#" + widgetId).on("click", function() {
@@ -112,6 +126,26 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
             setActiveWidget(id, projectDir);  
         }             
     });
+}
+
+function widgetServerOnlineState(id) {
+    // update view to reflect that server is running
+    global.jQuery("#widgetStatus_" + id.toString()).addClass("widget-online");
+    global.jQuery("#widgetStatusBottom_" + id.toString()).addClass("widget-online");                                                                           
+    global.jQuery("#start-icon_" + id.toString()).attr("src", "img/icons/active/start-active.svg");
+    global.jQuery("#hr-icon_" + id.toString()).css("opacity", 1.0);
+    global.jQuery("#stop-icon_" + id.toString()).css("opacity", 1.0);
+    global.jQuery("#stop-icon_" + id.toString()).addClass("stop-icon-active");   
+}
+
+function widgetSeverOfflineState(id) {
+    // update view to reflect that server is stopped
+    global.jQuery("#widgetStatus_" + id.toString()).removeClass("widget-online");
+    global.jQuery("#widgetStatusBottom_" + id.toString()).removeClass("widget-online");
+    global.jQuery("#stop-icon_" + id.toString()).css("opacity", 0.0);
+    global.jQuery("#start-icon_" + id.toString()).attr("src", "img/icons/normal/start.svg"); 
+    global.jQuery("#stop-icon_" + id.toString()).removeClass("stop-icon-active");   
+    global.jQuery("#hr-icon_" + id.toString()).css("opacity", 0.0);     
 }
 
 function setActiveWidget(id, projDir) {
@@ -131,12 +165,7 @@ function setActiveWidget(id, projDir) {
        
     // update GUI to display details of the active widget          
     global.jQuery("#" + activeWidget.widgetId).css("background-color", "#f0f0f0");
-    global.jQuery("#" + activeWidget.widgetStatus).addClass("widget-online");
-    global.jQuery("#" + activeWidget.widgetStatusBottom).addClass("widget-online");                                                                           
-    global.jQuery("#start-icon_" + activeWidget.projectId.toString()).attr("src", "img/icons/active/start-active.svg");
-    global.jQuery("#hr-icon_" + activeWidget.projectId.toString()).css("opacity", 1.0);
-    global.jQuery("#stop-icon_" + activeWidget.projectId.toString()).css("opacity", 1.0);
-    global.jQuery("#stop-icon_" + activeWidget.projectId.toString()).addClass("stop-icon-active");
+    widgetServerOnlineState(activeWidget.projectId);
 
     // set a watch on the config.xml of the active project
     setConfigWatcher(id, projDir);
@@ -145,15 +174,10 @@ function setActiveWidget(id, projDir) {
     toggleServerStatus();
            
     // reset the previous active widget
-    if (previousActiveWidget) {
+    if (previousActiveWidget) {       
         console.log("prevId: " + previousActiveWidget.projectId);
         global.jQuery("#" + previousActiveWidget.widgetId).css("background-color", "#e8e9e9");
-        global.jQuery("#" + previousActiveWidget.widgetStatus).removeClass("widget-online");
-        global.jQuery("#" + previousActiveWidget.widgetStatusBottom).removeClass("widget-online");
-        global.jQuery("#start-icon_" + previousActiveWidget.projectId.toString()).attr("src", "img/icons/normal/start.svg");      
-        global.jQuery("#hr-icon_" + previousActiveWidget.projectId.toString()).css("opacity", 0.0);
-        global.jQuery("#stop-icon_" + previousActiveWidget.projectId.toString()).css("opacity", 0.0);
-        global.jQuery("#stop-icon_" + previousActiveWidget.projectId.toString()).removeClass("stop-icon-active");
+        widgetSeverOfflineState(previousActiveWidget.projectId);
     }
 }
 
