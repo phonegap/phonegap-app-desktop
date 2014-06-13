@@ -116,6 +116,12 @@
   color: #999999;
   font-size: small;
 }
+.project-input-field {
+  width: 330px;
+}
+.project-path-input-field {
+  width: 215px;
+}
 .new-project-choose-button {
   background-color: #1ba1c7;
   color: white;
@@ -139,6 +145,14 @@
   width: 375px;
   height: 600px;
 }
+.server-log-textarea {
+  width: 330px;
+  height: 530px;
+  background-color: black;
+  color: white;
+  border: none;
+  resize: none;
+}
 .action-button {
   background-color: #21aa48;
   color: white;
@@ -159,6 +173,12 @@
   border-bottom: 1px dashed #616569;
   height: 0px;
   padding: 0px 0px 0px 0px;
+}
+.create-open-separator-spacer {
+  padding-left: 15px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-right: 15px;
 }
 .create-project-button {
   padding-top: 20px;
@@ -193,6 +213,9 @@
 .settings-ip-label {
   color: #999999;
   padding-right: 10px;
+}
+.settings-port-number-input {
+  width: 50px;
 }
 .checkbox:hover {
   cursor: pointer;

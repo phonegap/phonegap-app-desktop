@@ -135,7 +135,7 @@
     
     <aside id="settingsOverlay" class="settings-overlay">
         <div class="overlay-form-item-heading">Server port:</div>
-        <div class="overlay-form-item"><span id="settings-ip" class="settings-ip-label">192.168.1.1:</span><input type="text" id="portNumber" class="text-input" style="width: 50px;"></div>
+        <div class="overlay-form-item"><span id="settings-ip" class="settings-ip-label">192.168.1.1:</span><input type="text" id="portNumber" class="text-input settings-port-number-input"></div>
         <div class="overlay-form-item overlay-form-item-description">This is the port where the local server will serve all projects. If you aren't sure which port to use, you might want to choose the auto select option below.</div>
         <div class="overlay-form-item"> 
             <label class="topcoat-checkbox">
@@ -154,7 +154,7 @@
     <aside id="serverLogOverlay" class="server-log-overlay">
         <div class="overlay-form-item">Server Log</div>
         <div class="overlay-form-item">
-            <textarea id="serverLog" readonly style="width: 330px; height: 530px; background-color: black; color: white; border: none; resize: none;"></textarea>
+            <textarea id="serverLog" readonly class="server-log-textarea"></textarea>
         </div>
     </aside>
     
@@ -163,7 +163,7 @@
             Name:
         </div>
         <div class="overlay-form-item">
-            <input type="text" id="projectName" class="text-input" style="width: 330px;">
+            <input type="text" id="projectName" class="text-input project-input-field">
         </div>
         <div class="overlay-form-item overlay-form-item-description">
             The display name for your app.
@@ -172,7 +172,7 @@
             ID:
         </div>
         <div class="overlay-form-item">
-            <input type="text" id="project-id" class="text-input" style="width: 330px;">
+            <input type="text" id="project-id" class="text-input project-input-field">
         </div>
         <div class="overlay-form-item overlay-form-item-description">
             The unique identifier across app stores. We recommend you use a reverse domain namespace format, for example: com.mydomain.funkyyapp
@@ -181,7 +181,7 @@
             Local path:
         </div>
         <div class="overlay-form-item">
-            <input type="text" id="projectPath" class="text-input"style="width: 215px;" readonly>
+            <input type="text" id="projectPath" class="text-input project-path-input-field" readonly>
             <button id="chooseNewProjectPath" class="new-project-choose-button">Choose...</button>
         </div>
         <div class="overlay-form-item overlay-form-item-description">
@@ -197,7 +197,7 @@
     
     <aside id="createOpenProjectOverlay" class="create-overlay">
         <div id="createProject" class="create-project-button">Create new PhoneGap project...</div>
-        <div style="padding-left: 15px; padding-top: 0px; padding-bottom: 0px; padding-right: 15px;"><hr class="dotted-hr" /></div>
+        <div class="create-open-separator-spacer"><hr class="dotted-hr" /></div>
         <div id="openProject" class="open-project-button">Add existing PhoneGap project...</div>
     </aside>
 
