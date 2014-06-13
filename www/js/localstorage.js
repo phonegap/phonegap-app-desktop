@@ -33,14 +33,16 @@ function getProjects() {
         var index = projects.length;
         
         console.log(JSON.stringify(projects));
-            
-        for (var i=0;i<index;i++) {
         
-            var id = projects[i].id;
-            var projDir = projects[i].projDir
+        if (index > 0) {            
+            for (var i=0;i<index;i++) {
         
-            getProjectConfig(id, projDir, i);
-        }   
+                var id = projects[i].id;
+                var projDir = projects[i].projDir
+        
+                getProjectConfig(id, projDir, i);
+            } 
+        } 
     }  
 }
 
@@ -101,6 +103,7 @@ function removeProjectById(currentId) {
         setActiveWidget(projects[0].id, projects[0].projDir);       
     } else {
         disableMinusButton();
+        global.jQuery("#status-field").hide();
         global.jQuery("#guide-add").show();
         serverOfflineState();
     }

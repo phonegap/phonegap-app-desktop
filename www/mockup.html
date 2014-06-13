@@ -41,6 +41,7 @@
         global.jQuery("#serverLogOverlay").hide();
         global.jQuery("#overlay-bg").hide();
         global.jQuery("#remove-notification").hide();
+        global.jQuery("#status-field").hide();
 
         global.jQuery("#drop_zone").on("drop", handleDrop);
         global.jQuery("#drop_zone").on("dragover", handleDragOver);
@@ -229,8 +230,12 @@
             </div>
         </div>
         <div class="column-10-hand">
-            <div id="guide-add" class="center-hand">
-                <img src="img/icons/normal/dragdrop.svg" />
+            <div id="guide-add">
+                <div class="dropzone-content">
+                    <img src="img/icons/normal/dragdrop.svg" />
+                    <div>Drop PhoneGap</div>
+                    <div>project folders here</div>
+                </div>
             </div>
             <div id="drop_zone" class="box-row dropzone"></div>
             <div class="remove-notification" id="remove-notification">
