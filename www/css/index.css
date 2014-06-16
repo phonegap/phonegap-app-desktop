@@ -10,10 +10,12 @@
 .sidebar {
   background-color: #2d3033;
   height: 100%;
+  z-index: 13;
 }
 .sidebar-bottom {
   background-color: #2d3033;
   height: 50px;
+  z-index: 13;
 }
 .sidebarbutton {
   color: #2d3033;
