@@ -18,7 +18,6 @@ function toggleServerStatus() {
                 global.server = data.server;
                 global.isServerRunning = true;
                 serverOnlineState(data);
-                setSettingsOverlayIP(data.address);
                 global.jQuery("#log").prop("disabled", false);
             })
             .on("error", function(e) {
@@ -52,5 +51,6 @@ function serverOfflineState() {
 function serverOnlineState(data) {
     global.jQuery("#status-field").show();
     global.jQuery("#status-field").css("background-color", "rgb(43,169,77)");
-    global.jQuery("#server-status-label").text("Server is running on http://" + data.address + ":" + data.port);     
+    global.jQuery("#server-status-label").text("Server is running on http://" + data.address + ":" + data.port);
+    global.jQuery("#settings-ip").text(data.address + ":");    
 }
