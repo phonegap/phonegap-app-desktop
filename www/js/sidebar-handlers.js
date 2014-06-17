@@ -6,6 +6,7 @@ function displayAddNewProjectOverlay(evt) {
 }
 
 function hideAddNewProjectOverlay(evt) {
+    global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg"); 
     global.jQuery("#newProjectOverlay").removeClass("animated slideInDown");
     global.jQuery("#newProjectOverlay").addClass("animated slideOutUp");
     global.jQuery("#newProjectOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHideAddNewProjectOverlayAnimationEnd);
@@ -31,7 +32,7 @@ function hideAddCreateProjectOverlay(evt) {
     global.jQuery("#createOpenProjectOverlay").removeClass("animated slideInLeft");
     global.jQuery("#createOpenProjectOverlay").addClass("animated slideOutLeft");
     global.jQuery("#createOpenProjectOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHideAddCreateProjectOverlayAnimationEnd);    
-    global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");   
+    //global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");   
     global.jQuery("#plus-holder").removeClass("sidebar-button-active");   
 }
 
@@ -144,6 +145,7 @@ function overlayBackgroundHandler(evt) {
 function hideOverlays() {
     if (global.jQuery("#createOpenProjectOverlay").is(":visible")) {
         hideAddCreateProjectOverlay();
+        global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");
     }
     
     if (global.jQuery("#settingsOverlay").is(":visible")) {
