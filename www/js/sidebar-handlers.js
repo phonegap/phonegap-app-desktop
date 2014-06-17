@@ -31,8 +31,7 @@ function displayAddCreateProjectOverlay(evt) {
 function hideAddCreateProjectOverlay(evt) {
     global.jQuery("#createOpenProjectOverlay").removeClass("animated slideInLeft");
     global.jQuery("#createOpenProjectOverlay").addClass("animated slideOutLeft");
-    global.jQuery("#createOpenProjectOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHideAddCreateProjectOverlayAnimationEnd);    
-    //global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");   
+    global.jQuery("#createOpenProjectOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHideAddCreateProjectOverlayAnimationEnd);  
     global.jQuery("#plus-holder").removeClass("sidebar-button-active");   
 }
 
