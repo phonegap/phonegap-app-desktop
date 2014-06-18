@@ -31,7 +31,9 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     widgetDOM += "</div>";  // front content
     
     widgetDOM += "<div class='back delete-holder' id=" + deleteId + ">";
-    widgetDOM += "<img src='img/icons/normal/delete.svg' class='delete-button' />";
+    widgetDOM += "<button class='delete-button'>";
+    widgetDOM += "<img src='img/icons/normal/delete.svg' />";
+    widgetDOM += "</button>";
     widgetDOM += "</div>";  // back content
 	
 	widgetDOM += "</div>";  // flipper
@@ -77,8 +79,8 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
         var clickedId = temp[1];
         
         removeProjectWidget(clickedId);
-    })
-    
+    });
+        
     global.jQuery("#" + projectDirId).on("click", function() {
         opener(projectDir);     
     });

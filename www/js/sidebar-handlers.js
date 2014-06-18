@@ -46,10 +46,10 @@ function toggleRemoveProjectView(evt) {
    
     overlayBackgroundHandler();
     
-    if (!global.jQuery(".flip-container").hasClass("flip")) {        
-        global.jQuery(".flip-container").addClass("animated flip");    
+    if (!global.jQuery(".flip-container").hasClass("flipped")) {        
+        global.jQuery(".flip-container").addClass("animated flipped");    
         global.jQuery("#minus-holder").addClass("sidebar-button-active");
-        global.jQuery("#minus-icon").attr("src", "img/icons/active/minus-active.svg");             
+        global.jQuery("#minus-icon").attr("src", "img/icons/active/minus-active.svg");            
     } else {        
         resetMinusButtonState();   
     }
@@ -75,7 +75,7 @@ function enableMinusButton() {
 }
 
 function resetMinusButtonState() {
-    global.jQuery(".flip-container").removeClass("animated flip"); 
+    global.jQuery(".flip-container").removeClass("animated flipped"); 
     global.jQuery("#minus-icon").attr("src", "img/icons/normal/minus.svg");
     global.jQuery("#minus-holder").removeClass("sidebar-button-active");
 }
