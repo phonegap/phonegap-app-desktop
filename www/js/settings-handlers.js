@@ -4,7 +4,7 @@ function saveSettings(evt) {
     var portNumber = global.jQuery("#portNumber").val();
     
     if (isNaN(portNumber)) {
-        alert("Port must be a numeric value.");
+        displayErrorMessage("Port must be a numeric value.");
     } else {
         localStorage.portNumber = portNumber;
         hideSettingsOverlay();

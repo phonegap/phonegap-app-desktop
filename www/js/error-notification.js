@@ -1,0 +1,3 @@
+displayErrorMessage(msg) {
+    alert(msg);
+}

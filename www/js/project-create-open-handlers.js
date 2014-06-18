@@ -10,7 +10,7 @@ function createProject(e) {
         global.jQuery("#newProjectOverlay").hide(); 
         global.jQuery("#overlay-bg").hide();
     } else {
-        alert("new project requires a project name and a project path");
+        displayErrorMessage("new project requires a project name and a project path");
     }    
 }
 
@@ -56,7 +56,7 @@ function create() {
           })               
           .on("error", function(e) {
               console.log(e.message);
-              alert(e.message);
+              displayErrorMessage(e.message);
           })                 
           .on("complete", function(data) {
               console.log("created project at:" + data.path);
@@ -95,7 +95,7 @@ function parseProjectConfig() {
         if(!projectExists(localStorage.projDir)) {
             addProject(projectName, projectVersion, iconPath, localStorage.projDir);       
         } else {
-            alert("project already exists");
+            displayErrorMessage("project already exists");
         }
     });    
 }
