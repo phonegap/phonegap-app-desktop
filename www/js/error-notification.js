@@ -1,3 +1,3 @@
-displayErrorMessage(msg) {
+function displayErrorMessage(msg) {
     alert(msg);
 }
