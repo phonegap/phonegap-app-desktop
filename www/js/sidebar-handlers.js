@@ -1,8 +1,13 @@
 function displayAddNewProjectOverlay(evt) {
     hideAddCreateProjectOverlay();
+    animateAddNewProjectOverlayEntry();
+}
+
+function animateAddNewProjectOverlayEntry() {
+    global.jQuery("#plus-icon").attr("src", "img/icons/active/plus-active.svg");
     global.jQuery("#newProjectOverlay").addClass("animated slideInDown");
     global.jQuery("#newProjectOverlay").show();
-    global.jQuery("#overlay-bg").show();
+    global.jQuery("#overlay-bg").show();    
 }
 
 function hideAddNewProjectOverlay(evt) {

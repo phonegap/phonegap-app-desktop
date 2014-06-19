@@ -20,7 +20,7 @@ menubar.items[0].submenu.append(new gui.MenuItem({
    	click: function () {
 		console.log("new project from menubar");
 		// create a new project
-		createProject();
+        animateAddNewProjectOverlayEntry();
    	}
 }));
 menubar.items[0].submenu.append(new gui.MenuItem({
