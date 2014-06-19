@@ -39,6 +39,7 @@ function selectDirectory(e) {
         //global.jQuery("#createOpenProjectOverlay").hide(); 
         global.jQuery("#overlay-bg").hide();
         hideAddCreateProjectOverlay();
+        global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");
     } 
 }
 
