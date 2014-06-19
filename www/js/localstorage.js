@@ -99,7 +99,7 @@ function removeProjectById(currentId) {
     
      // set new active widget if there are still projects, otherwise disable the remove button
     if (index > 0) {
-        resetMinusButtonState();
+        //resetMinusButtonState();
         setActiveWidget(projects[0].id, projects[0].projDir);       
     } else {
         disableMinusButton();

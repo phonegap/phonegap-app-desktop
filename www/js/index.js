@@ -19,6 +19,7 @@ menubar.items[0].submenu.append(new gui.MenuItem({
    	label: "New Project",
    	click: function () {
 		console.log("new project from menubar");
+		resetMinusButtonState();
 		// create a new project
         animateAddNewProjectOverlayEntry();
    	}
@@ -27,6 +28,7 @@ menubar.items[0].submenu.append(new gui.MenuItem({
    	label: "Open Project",
    	click: function () {
       	console.log("open project from menubar");
+      	resetMinusButtonState();
 		// open an existing project
 		openProject();
    	}

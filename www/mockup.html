@@ -64,6 +64,7 @@
             if (global.jQuery("#createOpenProjectOverlay").is(":visible") || global.jQuery("#newProjectOverlay").is(":visible")) {
                 overlayBackgroundHandler();
             } else {
+                resetMinusButtonState();
                 displayAddCreateProjectOverlay();
             }             
         });
@@ -78,11 +79,20 @@
             if (global.jQuery("#settingsOverlay").is(":visible")) {
                 hideSettingsOverlay();
             } else {
+                resetMinusButtonState();
                 displaySettingsOverlay();
             }
         });
 
-        global.jQuery("#log-holder").click(toggleLog);
+        global.jQuery("#log-holder").click(function() {
+            resetMinusButtonState();
+            toggleLog();
+        });
+        
+        global.jQuery("#help-holder").click(function() {
+            resetMinusButtonState();
+            displayErrorMessage("not implemented yet...");
+        });
 
         global.jQuery("#plus-holder").on("mouseout", function() {          
             if (!global.jQuery("#createOpenProjectOverlay").is(":visible") && !global.jQuery("#newProjectOverlay").is(":visible")) {
@@ -98,6 +108,10 @@
             if(!global.jQuery("#minus-holder").hasClass("sidebar-button-holder-inactive")) {
                imgSwapper('minus-icon', 'img/icons/hover/minus-hover.svg');
             }
+            
+            if(global.jQuery("#minus-holder").hasClass("sidebar-button-active")) {
+               imgSwapper('minus-icon', 'img/icons/active/minus-active.svg');
+            }
         });
 
         global.jQuery("#minus-holder").on("mouseout", function() {
@@ -109,7 +123,11 @@
                 if (global.jQuery(".flip-container").hasClass("flip")) {
                     imgSwapper('minus-icon', 'img/icons/active/minus-active.svg');
                 }                
-            }          
+            } 
+            
+            if(global.jQuery("#minus-holder").hasClass("sidebar-button-active")) {
+               imgSwapper('minus-icon', 'img/icons/active/minus-active.svg');
+            }                     
         });
         
         global.jQuery("#settings-holder").on("mouseout", function() {
