@@ -21,6 +21,10 @@ function handleHideAddNewProjectOverlayAnimationEnd() {
     console.log("handle hide add new");
     global.jQuery("#newProjectOverlay").hide();
     global.jQuery("#newProjectOverlay").removeClass("animated slideOutUp");
+    
+    global.jQuery("#projectName").val("");
+    global.jQuery("#project-id").val("");
+    global.jQuery("#projectPath").val("");
 }
 
 function displayAddCreateProjectOverlay(evt) {

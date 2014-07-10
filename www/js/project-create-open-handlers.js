@@ -7,8 +7,6 @@ function createProject(e) {
     if(projectName.length > 0 && projectPath.length > 0) {
         localStorage.projDir = projectPath + "/" + projectName;
         create();
-        global.jQuery("#newProjectOverlay").hide(); 
-        global.jQuery("#overlay-bg").hide();
     } else {
         displayErrorMessage("new project requires a project name and a project path");
     }    
