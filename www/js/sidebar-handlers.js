@@ -54,7 +54,8 @@ function toggleRemoveProjectView(evt) {
     if (!global.jQuery(".flip-container").hasClass("flipped")) {        
         global.jQuery(".flip-container").addClass("animated flipped");    
         global.jQuery("#minus-holder").addClass("sidebar-button-active");
-        global.jQuery("#minus-icon").attr("src", "img/icons/active/minus-active.svg");            
+        global.jQuery("#minus-icon").attr("src", "img/icons/active/minus-active.svg");
+        global.allowRemoveNotification = "true";          
     } else {        
         resetMinusButtonState();   
     }
@@ -83,6 +84,8 @@ function resetMinusButtonState() {
     global.jQuery(".flip-container").removeClass("animated flipped"); 
     global.jQuery("#minus-icon").attr("src", "img/icons/normal/minus.svg");
     global.jQuery("#minus-holder").removeClass("sidebar-button-active");
+    
+    global.allowRemoveNotification = "false";
 }
 
 function handleFlipEnded() {

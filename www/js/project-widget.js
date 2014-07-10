@@ -223,7 +223,11 @@ function setConfigWatcher(id, projDir) {
 function removeProjectWidget(idToDelete) {
     console.log("removeProjectWidget - id: " + idToDelete);
     var widgetId = "projectWidget_" + idToDelete.toString();
-    displayRemoveNotification();    
+    console.log("allowRemoveNotification: " + global.allowRemoveNotification)
+    if (global.allowRemoveNotification === "true") {
+        global.allowRemoveNotification = "false";
+        displayRemoveNotification();
+    }   
     global.jQuery("#" + widgetId).addClass("animated slideOutLeft");
     global.jQuery("#" + widgetId).one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", deleteProjectWidget(idToDelete));
 }
