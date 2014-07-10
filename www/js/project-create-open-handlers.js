@@ -34,12 +34,13 @@ function selectDirectory(e) {
         global.createClicked = false;
         global.jQuery("#projectPath").val(localStorage.projDir);
     } else {
-        // open existing project workflow
-        parseProjectConfig();
-        //global.jQuery("#createOpenProjectOverlay").hide(); 
-        global.jQuery("#overlay-bg").hide();
-        hideAddCreateProjectOverlay();
-        global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");
+        if (global.jQuery("#projectDirectory").val().length > 0) {
+            // open existing project workflow
+            parseProjectConfig();
+            global.jQuery("#overlay-bg").hide();
+            hideAddCreateProjectOverlay();
+            global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");
+        }
     } 
 }
 
