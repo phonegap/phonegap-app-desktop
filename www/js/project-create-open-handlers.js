@@ -6,7 +6,11 @@ function createProject(e) {
  
     if(projectName.length > 0 && projectPath.length > 0) {
         localStorage.projDir = projectPath + "/" + projectName;
-        create();
+        if(!projectExists(localStorage.projDir)) {
+            create();
+        } else {
+            displayErrorMessage("project already exists in the selected folder");
+        }
     } else {
         displayErrorMessage("new project requires a project name and a project path");
     }    
