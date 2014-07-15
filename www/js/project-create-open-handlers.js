@@ -5,9 +5,20 @@ function createProject(e) {
     var projectPath = global.jQuery("#projectPath").val();
  
     if(projectName.length > 0 && projectPath.length > 0) {
-        localStorage.projDir = projectPath + "/" + projectName;
+        localStorage.projDir = projectPath + "/" + projectName; 
         if(!projectExists(localStorage.projDir)) {
-            create();
+
+            var filename = projectPath + "/www/config.xml";
+
+            fs.readFile(filename, 'utf8', function(err, data) {
+                if (err) {
+                    // if no www/config.xml found then create a new project
+                    create();
+                } else {
+                    displayErrorMessage("Selected folder already contains an existing project");
+                }
+            });
+            
         } else {
             displayErrorMessage("project already exists in the selected folder");
         }
