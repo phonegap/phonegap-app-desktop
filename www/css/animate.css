@@ -27,6 +27,13 @@ Customized from the original Animate.css library
   animation-fill-mode: both;
 }
 
+.animatedNotification {
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
 .animatedFade {
   -webkit-animation-duration: 5s;
   animation-duration: 5s;
