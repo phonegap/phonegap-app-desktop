@@ -56,7 +56,14 @@ win.show();
 win.on("close", function () {
 	console.log("window close handler");
 	
-	toggleServerStatus();
+    if (global.isServerRunning) {
+        // if server is currently running, stop it before opening a new server instance
+        setServerOffline();
+    } else {
+        win.close(true);
+    }
 	
-	this.close(true);	
+	global.server.on("close", function(e) {
+	    win.close(true);
+	});
 });
