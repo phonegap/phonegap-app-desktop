@@ -3,8 +3,9 @@ function createProject(e) {
 
     var projectName = global.jQuery("#projectName").val();
     var projectPath = global.jQuery("#projectPath").val();
+    var projectId = global.jQuery("#project-id").val();
  
-    if(projectName.length > 0 && projectPath.length > 0) {
+    if(projectName.length > 0 && projectPath.length > 0 && projectId.length > 0) {
         localStorage.projDir = projectPath + "/" + projectName; 
         if(!projectExists(localStorage.projDir)) {
 
@@ -13,7 +14,7 @@ function createProject(e) {
             fs.readFile(filename, 'utf8', function(err, data) {
                 if (err) {
                     // if no www/config.xml found then create a new project
-                    create();
+                    create(projectName, projectId);
                 } else {
                     displayErrorMessage("Selected folder already contains an existing project");
                 }
@@ -23,7 +24,7 @@ function createProject(e) {
             displayErrorMessage("project already exists in the selected folder");
         }
     } else {
-        displayErrorMessage("new project requires a project name and a project path");
+        displayErrorMessage("new project requires a project name, project ID and a project path");
     }    
 }
 
@@ -57,7 +58,7 @@ function selectDirectory(e) {
     } 
 }
 
-function create() {
+function create(projectName, projectId) {
     console.log("create();")
 	var options = {};
        options.path = localStorage.projDir;
@@ -76,12 +77,59 @@ function create() {
           .on("complete", function(data) {
               console.log("created project at:" + data.path);
 
-              // parse config.xml of newly created project
-              parseProjectConfig();
+              // update the config.xml of the newly created project with the project name & project id entered by the user
+              updateConfig(projectName, projectId);
               
               global.jQuery("#overlay-bg").hide();
               hideAddNewProjectOverlay();
           });
+}
+
+function updateConfig(projectName, projectId) {
+    var filename = localStorage.projDir + "/www/config.xml";
+    
+    fs.readFile(filename, 'utf8', function(err, data) {
+        if (err) {
+            //throw err;
+            displayErrorMessage("Selected folder doesn't contain a config.xml file");
+        } else {
+            var iconPath = localStorage.projDir + "/www/"
+
+            global.jQuery.xmlDoc = global.jQuery.parseXML(data);
+            global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc);
+        
+            // update project name
+            var projName = projectName;
+            global.jQuery.xml.find("name").text(projName);
+            
+            // update project id
+            global.jQuery.xml.find("widget").attr("id", projectId);
+        
+            // get the project version
+            var projVersion = global.jQuery.xml.find("widget").attr("version");
+        
+            // get the app icon
+            var projectIcon = global.jQuery.xml.find("icon").attr("src");
+            iconPath += projectIcon;
+            
+            var serializer = new XMLSerializer();
+            var contents = serializer.serializeToString(global.jQuery.xmlDoc);
+            
+            // write the user entered project name & project id to the config.xml file
+            fs.writeFile(filename, contents, function (err, data) {
+                if (err) {
+                    // throw err
+                } else {
+                    // check if the project exists in PG-GUI's localstorage before adding
+                    if(!projectExists(localStorage.projDir)) {
+                        addProject(projName, projVersion, iconPath, localStorage.projDir);       
+                    } else {
+                        displayErrorMessage("project already exists");
+                    }                    
+                }
+            });
+        }
+    });    
 }
 
 function parseProjectConfig() {
