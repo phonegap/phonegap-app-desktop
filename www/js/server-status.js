@@ -45,7 +45,7 @@ function setServerOffline() {
 
 function serverOfflineState() {
     global.jQuery("#status-field").css("background-color", "rgb(153,153,153)");
-    global.jQuery("#server-status-label").text("server is offline");  
+    global.jQuery("#server-status-label").text("Server is offline");  
 }
 
 function serverOnlineState(data) {
