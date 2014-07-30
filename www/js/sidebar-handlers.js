@@ -5,13 +5,15 @@ function displayAddNewProjectOverlay(evt) {
 
 function animateAddNewProjectOverlayEntry() {
     global.jQuery("#plus-icon").attr("src", "img/icons/active/plus-active.svg");
+    global.jQuery("#plus-holder").addClass("sidebar-button-active");
     global.jQuery("#newProjectOverlay").addClass("animated slideInDown");
     global.jQuery("#newProjectOverlay").show();
     global.jQuery("#overlay-bg").show();    
 }
 
 function hideAddNewProjectOverlay(evt) {
-    global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg"); 
+    global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");
+    global.jQuery("#plus-holder").removeClass("sidebar-button-active");
     global.jQuery("#newProjectOverlay").removeClass("animated slideInDown");
     global.jQuery("#newProjectOverlay").addClass("animated slideOutUp");
     global.jQuery("#newProjectOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHideAddNewProjectOverlayAnimationEnd);
