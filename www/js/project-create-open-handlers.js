@@ -1,11 +1,15 @@
 function createProject(e) {
     console.log("createProject handler");
 
-    var projectName = global.jQuery("#projectName").val();
-    var projectPath = global.jQuery("#projectPath").val();
-    var projectId = global.jQuery("#project-id").val();
- 
-    if(projectName.length > 0 && projectPath.length > 0 && projectId.length > 0) {
+    var projectName = global.jQuery("#projectName").val().trim();
+    var projectPath = global.jQuery("#projectPath").val().trim();
+    var projectId = global.jQuery("#project-id").val().trim();
+    
+    var isProjectNameEmpty = isEmptyField(projectName);
+    var isProjectPathEmpty = isEmptyField(projectPath);
+    var isProjectIdEmpty = isEmptyField(projectId);
+
+    if(!isProjectNameEmpty && !isProjectPathEmpty && !isProjectIdEmpty) {
         localStorage.projDir = projectPath + "/" + projectName; 
         if(!projectExists(localStorage.projDir)) {
 
@@ -24,7 +28,18 @@ function createProject(e) {
             displayErrorMessage("project already exists in the selected folder");
         }
     } else {
-        displayErrorMessage("new project requires a project name, project ID and a project path");
+        // error with project name
+        if (isProjectNameEmpty) {
+            displayErrorMessage("new project requires a name");
+        }
+        // error with project path
+        if (!isProjectPathEmpty) {
+            displayErrorMessage("new project requires a directory");
+        }
+        // error with project path
+        if (!isProjectIdEmpty) {
+            displayErrorMessage("new project requires an Id");
+        }
     }    
 }
 
