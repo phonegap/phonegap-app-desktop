@@ -119,6 +119,10 @@
   color: #999999;
   font-size: small;
 }
+.error-message {
+  color: #ff0000;
+  font-size: small;
+}
 .project-input-field {
   width: 330px;
 }

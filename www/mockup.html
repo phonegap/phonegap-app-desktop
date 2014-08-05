@@ -45,6 +45,8 @@
         global.jQuery("#overlay-bg").hide();
         global.jQuery("#remove-notification").hide();
         global.jQuery("#status-field").hide();
+        
+        global.jQuery("#port-number-error").hide();
 
         global.jQuery("#drop_zone").on("drop", handleDrop);
         global.jQuery("#drop_zone").on("dragover", handleDragOver);
@@ -157,7 +159,8 @@
     <aside id="settingsOverlay" class="settings-overlay">
         <div class="overlay-form-item-heading">Server port:</div>
         <div class="overlay-form-item"><span id="settings-ip" class="settings-ip-label"></span><input type="text" id="portNumber" class="text-input settings-port-number-input"></div>
-        <div class="overlay-form-item overlay-form-item-description">This is the port where the local server will serve all projects.</div>       
+        <div class="overlay-form-item overlay-form-item-description">This is the port where the local server will serve all projects.</div>
+        <div class="overlay-form-item error-message" id="port-number-error">Port must be a numeric value.</div>
         <div class="overlay-form-item"> 
             <hr class="dotted-hr" />
         </div>
