@@ -30,15 +30,15 @@ function createProject(e) {
     } else {
         // error with project name
         if (isProjectNameEmpty) {
-            displayErrorMessage("new project requires a name");
+            displayInlineError(global.jQuery("#project-name-error"));
         }
         // error with project path
         if (!isProjectPathEmpty) {
-            displayErrorMessage("new project requires a directory");
+            displayInlineError(global.jQuery("#project-path-error"));
         }
         // error with project path
         if (!isProjectIdEmpty) {
-            displayErrorMessage("new project requires an Id");
+            displayInlineError(global.jQuery("#project-id-error"));
         }
     }    
 }
