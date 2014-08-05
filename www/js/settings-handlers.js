@@ -4,10 +4,7 @@ function saveSettings(evt) {
     var portNumber = global.jQuery("#portNumber").val();
     
     if (isNaN(portNumber)) {
-        //displayErrorMessage("Port must be a numeric value.");
-        global.jQuery("#port-number-error").addClass("animatedNotification slideInRight");
-        global.jQuery("#port-number-error").show();
-        global.jQuery("#port-number-error").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", hidePortError);
+        displayInlineError(global.jQuery("#port-number-error"));
     } else {
         localStorage.portNumber = portNumber;
         hideSettingsOverlay();
@@ -18,15 +15,4 @@ function saveSettings(evt) {
 function cancelSettings(evt) {
     console.log("cancelSettings");
     hideSettingsOverlay();
-}
-
-function hidePortError() {
-    global.jQuery("#port-number-error").removeClass("animatedNotification slideInRight"); 
-    global.jQuery("#port-number-error").addClass("animatedFade fadeOut");    
-    global.jQuery("#port-number-error").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", resetPortError);    
-}
-
-function resetPortError() {
-    global.jQuery("#port-number-error").removeClass("animatedFade fadeOut"); 
-    global.jQuery("#port-number-error").hide();
 }
