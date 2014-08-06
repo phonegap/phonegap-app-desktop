@@ -62,6 +62,7 @@
         global.jQuery("#chooseNewProjectPath").click(selectProjectPath);
 
         global.jQuery("#createProject").click(displayAddNewProjectOverlay);
+        global.jQuery("#cancelNewProject").click(overlayBackgroundHandler);
 
         global.jQuery("#openProject").click(openProject);
 
@@ -209,7 +210,8 @@
         <div class="overlay-form-item"> 
             <hr class="dotted-hr" />
         </div>
-        <div class="overlay-form-item">            
+        <div class="overlay-form-item">
+            <button id="cancelNewProject" class="cancel-button">Close</button>            
             <button id="addNewProject" class="action-button">Create project</button>
         </div>         
     </aside>
