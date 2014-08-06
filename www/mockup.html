@@ -66,6 +66,7 @@
         global.jQuery("#openProject").click(openProject);
 
         global.jQuery("#saveSettings").click(saveSettings);
+        global.jQuery("#cancelSettings").click(cancelSettings);
 
         global.jQuery("#plus-holder").click(function() {
             if (global.jQuery("#createOpenProjectOverlay").is(":visible") || global.jQuery("#newProjectOverlay").is(":visible")) {
@@ -167,7 +168,8 @@
         <div class="overlay-form-item"> 
             <hr class="dotted-hr" />
         </div>
-        <div class="overlay-form-item">            
+        <div class="overlay-form-item">
+            <button id="cancelSettings" class="cancel-button">Cancel</button>            
             <button id="saveSettings" class="action-button">Save</button>
         </div>
     </aside>

@@ -175,6 +175,21 @@
 .action-button:hover {
   background-color: #007e20;
 }
+.cancel-button {
+  background-color: #383c41;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 12px;
+  padding-right: 12px;
+  float: left;
+  font-size: 11pt;
+}
+.cancel-button:hover {
+  background-color: #555a5d;
+}
 .dotted-hr {
   border: 0px;
   border-bottom: 1px dashed #616569;
