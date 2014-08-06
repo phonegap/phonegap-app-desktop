@@ -68,6 +68,8 @@
         global.jQuery("#saveSettings").click(saveSettings);
         global.jQuery("#cancelSettings").click(cancelSettings);
 
+        global.jQuery("#closeServerLog").click(toggleLog);
+                    
         global.jQuery("#plus-holder").click(function() {
             if (global.jQuery("#createOpenProjectOverlay").is(":visible") || global.jQuery("#newProjectOverlay").is(":visible")) {
                 overlayBackgroundHandler();
@@ -169,7 +171,7 @@
             <hr class="dotted-hr" />
         </div>
         <div class="overlay-form-item">
-            <button id="cancelSettings" class="cancel-button">Cancel</button>            
+            <button id="cancelSettings" class="cancel-button">Cancel</button>           
             <button id="saveSettings" class="action-button">Save</button>
         </div>
     </aside>
@@ -178,6 +180,9 @@
         <div class="overlay-form-item">Server Log</div>
         <div class="overlay-form-item">
             <textarea id="serverLog" readonly class="server-log-textarea"></textarea>
+        </div>
+        <div class="overlay-form-item">
+            <button id="closeServerLog" class="cancel-button" style="float: right;">Close</button>
         </div>
     </aside>
     
