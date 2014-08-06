@@ -142,6 +142,13 @@
 .new-project-choose-button:hover {
   background-color: #134590;
 }
+.required {
+  color: #ff5122;
+}
+.required-input {
+  border-color: #ff5122;
+  border-width: 3px;
+}
 .server-log-overlay {
   background-color: #1f2326;
   color: white;
