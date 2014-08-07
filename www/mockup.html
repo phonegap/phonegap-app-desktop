@@ -47,9 +47,6 @@
         global.jQuery("#status-field").hide();
         
         global.jQuery("#port-number-error").hide();
-        global.jQuery("#project-name-error").hide();
-        global.jQuery("#project-id-error").hide();
-        global.jQuery("#project-path-error").hide();  
         
         global.jQuery("#new-project-mandatory-warning").hide();
 
@@ -202,20 +199,17 @@
             <input type="text" id="projectName" class="text-input project-input-field">
         </div>
         <div class="overlay-form-item overlay-form-item-description">The display name for your app.</div>
-        <div class="overlay-form-item error-message" id="project-name-error">Project requires a name.</div>
         <div class="overlay-form-item-heading" id="new-project-id-label">ID:</div>
         <div class="overlay-form-item">
             <input type="text" id="project-id" class="text-input project-input-field">
         </div>
         <div class="overlay-form-item overlay-form-item-description">The unique identifier across app stores. We recommend you use a reverse domain namespace format, for example: com.mydomain.funkyyapp</div>
-        <div class="overlay-form-item error-message" id="project-id-error">Project requires an Id.</div>
         <div class="overlay-form-item-heading" id="new-project-path-label">Local path:</div>
         <div class="overlay-form-item">
             <input type="text" id="projectPath" class="text-input project-path-input-field" readonly>
             <button id="chooseNewProjectPath" class="new-project-choose-button">Choose...</button>
         </div>
         <div class="overlay-form-item overlay-form-item-description">This is where the project will be stored on your computer.</div>
-        <div class="overlay-form-item error-message" id="project-path-error">Project requires a path.</div>
         <div class="overlay-form-item"> 
             <hr class="dotted-hr" />
         </div>
