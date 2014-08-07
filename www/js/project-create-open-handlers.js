@@ -28,18 +28,29 @@ function createProject(e) {
             displayErrorMessage("project already exists in the selected folder");
         }
     } else {
-        // error with project name
+        
+        displayErrorFromTop(global.jQuery("#new-project-mandatory-warning"));
+        
         if (isProjectNameEmpty) {
-            displayInlineError(global.jQuery("#project-name-error"));
+            // error with project name  
+            //displayInlineError(global.jQuery("#project-name-error"));  
+            global.jQuery("#new-project-name-label").addClass("required");
+            global.jQuery("#projectName").addClass("required-input"); 
         }
-        // error with project path
-        if (!isProjectPathEmpty) {
-            displayInlineError(global.jQuery("#project-path-error"));
+        
+        if (isProjectIdEmpty) {   
+            // error with project id
+            //displayInlineError(global.jQuery("#project-id-error"));
+            global.jQuery("#new-project-id-label").addClass("required");
+            global.jQuery("#project-id").addClass("required-input");
         }
-        // error with project path
-        if (!isProjectIdEmpty) {
-            displayInlineError(global.jQuery("#project-id-error"));
-        }
+        
+        if (isProjectPathEmpty) {
+            // error with project path
+            //displayInlineError(global.jQuery("#project-path-error"));
+            global.jQuery("#new-project-path-label").addClass("required");
+            global.jQuery("#projectPath").addClass("required-input");            
+        } 
     }    
 }
 
