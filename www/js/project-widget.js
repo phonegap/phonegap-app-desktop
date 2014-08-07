@@ -224,7 +224,9 @@ function removeProjectWidget(idToDelete) {
     console.log("removeProjectWidget - id: " + idToDelete);
     var widgetId = "projectWidget_" + idToDelete.toString();
     global.jQuery("#" + widgetId).addClass("animated slideOutLeft");
-    global.jQuery("#" + widgetId).one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", deleteProjectWidget(idToDelete));
+    global.jQuery("#" + widgetId).one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", function() {
+        deleteProjectWidget(idToDelete);
+    });
     if (global.allowRemoveNotification === "true") {
         global.allowRemoveNotification = "false";
         displayRemoveNotification();
@@ -242,20 +244,22 @@ function deleteProjectWidget(idToDelete) {
 
 function displayRemoveNotification() {
     console.log("displayRemoveNotification");
-    global.jQuery("#remove-notification").addClass("animatedNotification slideInUp");
+    global.jQuery("#remove-notification").addClass("animated slideInUp");
     global.jQuery("#remove-notification").show();       
-    global.jQuery("#remove-notification").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", hideRemoveNotification);
+    global.jQuery("#remove-notification").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", function() {
+        setTimeout(hideRemoveNotification, 3000);
+    });
 }
 
 function hideRemoveNotification() {
     console.log("hideRemoveNotification");
-    global.jQuery("#remove-notification").removeClass("animatedNotification slideInUp"); 
-    global.jQuery("#remove-notification").addClass("animatedFade fadeOut");    
+    global.jQuery("#remove-notification").removeClass("animated slideInUp"); 
+    global.jQuery("#remove-notification").addClass("animated fadeOut");    
     global.jQuery("#remove-notification").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", resetRemoveNotification);
 }
 
 function resetRemoveNotification() {
     console.log("resetRemoveNotification");
-    global.jQuery("#remove-notification").removeClass("animatedFade fadeOut"); 
+    global.jQuery("#remove-notification").removeClass("animated fadeOut"); 
     global.jQuery("#remove-notification").hide();
 }
