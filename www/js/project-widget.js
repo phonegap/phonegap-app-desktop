@@ -127,7 +127,8 @@ function widgetServerOnlineState(id) {
     global.jQuery("#start-icon_" + id.toString()).attr("src", "img/icons/active/start-active.svg");
     global.jQuery("#hr-icon_" + id.toString()).css("opacity", 1.0);
     global.jQuery("#stop-icon_" + id.toString()).css("opacity", 1.0);
-    global.jQuery("#stop-icon_" + id.toString()).addClass("stop-icon-active");   
+    global.jQuery("#stop-icon_" + id.toString()).addClass("stop-icon-active"); 
+    global.jQuery("#" + global.activeWidget.widgetId).css("background-color", "#f0f0f0");  
 }
 
 function widgetSeverOfflineState(id) {
@@ -137,7 +138,8 @@ function widgetSeverOfflineState(id) {
     global.jQuery("#stop-icon_" + id.toString()).css("opacity", 0.0);
     global.jQuery("#start-icon_" + id.toString()).attr("src", "img/icons/normal/start.svg"); 
     global.jQuery("#stop-icon_" + id.toString()).removeClass("stop-icon-active");   
-    global.jQuery("#hr-icon_" + id.toString()).css("opacity", 0.0);     
+    global.jQuery("#hr-icon_" + id.toString()).css("opacity", 0.0); 
+    global.jQuery("#" + global.activeWidget.widgetId).css("background-color", "#e8e9e9");    
 }
 
 function setActiveWidget(id, projDir) {
