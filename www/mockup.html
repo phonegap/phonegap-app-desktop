@@ -29,6 +29,7 @@
     global.server = null;
     global.isServerRunning = false;
     global.allowRemoveNotification = "false";
+    global.createChosen = false;
 
     // set default port number it has not been set
     if (!localStorage.portNumber) {
@@ -60,7 +61,11 @@
         global.jQuery("#addNewProject").click(createProject);
         global.jQuery("#chooseNewProjectPath").click(selectProjectPath);
 
-        global.jQuery("#createProject").click(displayAddNewProjectOverlay);
+        global.jQuery("#createProject").click(function() {
+            global.createChosen = true;
+            displayAddNewProjectOverlay();            
+        });
+        
         global.jQuery("#cancelNewProject").click(overlayBackgroundHandler);
 
         global.jQuery("#openProject").click(openProject);
@@ -73,6 +78,11 @@
         global.jQuery("#plus-holder").click(function() {
             if (global.jQuery("#createOpenProjectOverlay").is(":visible") || global.jQuery("#newProjectOverlay").is(":visible")) {
                 overlayBackgroundHandler();
+                
+                if (global.createChosen) {
+                    global.createChosen = false;
+                }
+                
             } else {
                 resetMinusButtonState();
                 displayAddCreateProjectOverlay();

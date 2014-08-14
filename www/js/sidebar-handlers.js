@@ -23,7 +23,7 @@ function handleHideAddNewProjectOverlayAnimationEnd() {
     console.log("handle hide add new");
     global.jQuery("#newProjectOverlay").hide();
     global.jQuery("#newProjectOverlay").removeClass("animated slideOutUp");
-    
+    global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");
     global.jQuery("#projectName").val("");
     global.jQuery("#project-id").val("");
     global.jQuery("#projectPath").val("");
@@ -43,13 +43,16 @@ function hideAddCreateProjectOverlay(evt) {
     global.jQuery("#createOpenProjectOverlay").removeClass("animated slideInLeft");
     global.jQuery("#createOpenProjectOverlay").addClass("animated slideOutLeft");
     global.jQuery("#createOpenProjectOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHideAddCreateProjectOverlayAnimationEnd);  
-    global.jQuery("#plus-holder").removeClass("sidebar-button-active");   
+    global.jQuery("#plus-holder").removeClass("sidebar-button-active");
 }
 
 function handleHideAddCreateProjectOverlayAnimationEnd() {
     console.log("handle hide add create");
     global.jQuery("#createOpenProjectOverlay").hide();
-    global.jQuery("#createOpenProjectOverlay").removeClass("animated slideOutLeft");   
+    global.jQuery("#createOpenProjectOverlay").removeClass("animated slideOutLeft");
+    if (!global.createChosen) {
+        global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");
+    } 
 }
 
 function toggleRemoveProjectView(evt) {
@@ -157,8 +160,8 @@ function overlayBackgroundHandler(evt) {
 
 function hideOverlays() {
     if (global.jQuery("#createOpenProjectOverlay").is(":visible")) {
+        //global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");
         hideAddCreateProjectOverlay();
-        global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");
     }
     
     if (global.jQuery("#settingsOverlay").is(":visible")) {
