@@ -49,7 +49,8 @@
         
         global.jQuery("#port-number-error").hide();
         
-        global.jQuery("#new-project-mandatory-warning").hide();
+        global.jQuery("#project-name-warning").hide();
+        global.jQuery("#project-id-warning").hide();
 
         global.jQuery("#drop_zone").on("drop", handleDrop);
         global.jQuery("#drop_zone").on("dragover", handleDragOver);
@@ -60,6 +61,33 @@
 
         global.jQuery("#addNewProject").click(createProject);
         global.jQuery("#chooseNewProjectPath").click(selectProjectPath);
+        global.jQuery("#projectName").blur(function() {
+            var projectName = global.jQuery("#projectName").val().trim();
+            if (projectName.length == 0) {
+                // no name entered - display error
+                global.jQuery("#new-project-name-label").addClass("required");
+                global.jQuery("#projectName").addClass("required-input");
+                global.jQuery("#project-name-warning").show();
+            } else {
+                // TODO: check if we can validate if an existing project with the same name exists in the project folder
+                global.jQuery("#new-project-name-label").removeClass("required");
+                global.jQuery("#projectName").removeClass("required-input");
+                global.jQuery("#project-name-warning").hide();
+            }
+        });
+        
+        global.jQuery("#project-id").blur(function() {
+            var projectId = global.jQuery("#project-id").val().trim();
+            if (projectId.length == 0) {
+                global.jQuery("#new-project-id-label").addClass("required");
+                global.jQuery("#project-id").addClass("required-input");
+                global.jQuery("#project-id-warning").show();                
+            } else {
+                global.jQuery("#new-project-id-label").removeClass("required");
+                global.jQuery("#project-id").removeClass("required-input");
+                global.jQuery("#project-id-warning").hide();                
+            }
+        });
 
         global.jQuery("#createProject").click(function() {
             global.createChosen = true;
@@ -197,12 +225,9 @@
     </aside>
     
     <aside id="newProjectOverlay" class="new-project-overlay">
-        <div class="overlay-form-item" id="new-project-mandatory-warning">
-            <div class="row">
-                <div class="column" style="width: 35px;"><img id="warning-icon" src="img/icons/normal/warning.svg" /></div>
-                <div class="column" style="width: 240px;">Please fill in the highlighted fields to create your new PhoneGap project.</div>
-            </div>
-        </div>
+
+        <div id="project-name-warning" class="warning-icon" style="top: 148px;"><img id="project-name-warning-icon" src="img/icons/normal/warning.svg" /></div>
+        <div id="project-id-warning" class="warning-icon" style="top: 253px;"><img id="project-id-warning-icon" src="img/icons/normal/warning.svg" /></div>
         
         <div class="overlay-form-item-heading" id="new-project-path-label">Local path:</div>
         <div class="overlay-form-item">
