@@ -26,7 +26,9 @@ function handleHideAddNewProjectOverlayAnimationEnd() {
     global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");
     global.jQuery("#projectName").val("");
     global.jQuery("#project-id").val("");
-    global.jQuery("#projectPath").val("");
+    global.jQuery("#projectPath").addClass("overlay-form-item-description");
+    global.jQuery("#projectPath").addClass("italics");
+    global.jQuery("#projectPath").text("Please choose a local path");
 }
 
 function displayAddCreateProjectOverlay(evt) {

@@ -119,6 +119,9 @@
   color: #999999;
   font-size: small;
 }
+.italics {
+  font-style: italic;
+}
 .error-message {
   color: #ff0000;
   font-size: small;
@@ -126,8 +129,9 @@
 .project-input-field {
   width: 330px;
 }
-.project-path-input-field {
+.project-path-label {
   width: 215px;
+  font-size: small;
 }
 .new-project-choose-button {
   background-color: #1ba1c7;

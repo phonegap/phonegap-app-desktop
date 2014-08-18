@@ -2,7 +2,7 @@ function createProject(e) {
     console.log("createProject handler");
 
     var projectName = global.jQuery("#projectName").val().trim();
-    var projectPath = global.jQuery("#projectPath").val().trim();
+    var projectPath = global.jQuery("#projectPath").text().trim();
     var projectId = global.jQuery("#project-id").val().trim();
     
     var isProjectNameEmpty = isEmptyField(projectName);
@@ -46,7 +46,7 @@ function createProject(e) {
         if (isProjectPathEmpty) {
             // error with project path
             global.jQuery("#new-project-path-label").addClass("required");
-            global.jQuery("#projectPath").addClass("required-input");            
+            //global.jQuery("#projectPath").addClass("required-input");            
         } 
     }    
 }
@@ -69,7 +69,9 @@ function selectDirectory(e) {
     if(global.createClicked) {
         // new project creation workflow
         global.createClicked = false;
-        global.jQuery("#projectPath").val(localStorage.projDir);
+        global.jQuery("#projectPath").removeClass("overlay-form-item-description");
+        global.jQuery("#projectPath").removeClass("italics");
+        global.jQuery("#projectPath").text(localStorage.projDir);
     } else {
         if (global.jQuery("#projectDirectory").val().length > 0) {
             // open existing project workflow
@@ -111,7 +113,7 @@ function create(projectName, projectId) {
 function updateConfig(projectName, projectId) {
     var filename = localStorage.projDir + "/www/config.xml";
     
-    fs.readFile(filename, 'utf8', function(err, data) {
+    fs.readFile(filename, {encoding: 'utf8'}, function(err, data) {
         if (err) {
             //throw err;
             displayErrorMessage("Selected folder doesn't contain a config.xml file");
@@ -135,22 +137,22 @@ function updateConfig(projectName, projectId) {
             var projectIcon = global.jQuery.xml.find("icon").attr("src");
             iconPath += projectIcon;
             
-            var serializer = new XMLSerializer();
-            var contents = serializer.serializeToString(global.jQuery.xmlDoc);
+            //var serializer = new XMLSerializer();
+            //var contents = serializer.serializeToString(global.jQuery.xmlDoc);
             
             // write the user entered project name & project id to the config.xml file
-            fs.writeFile(filename, contents, function (err, data) {
-                if (err) {
+            //fs.writeFile(filename, contents, {encoding: 'utf8'}, function (err, data) {
+            //    if (err) {
                     // throw err
-                } else {
+            //    } else {
                     // check if the project exists in PG-GUI's localstorage before adding
                     if(!projectExists(localStorage.projDir)) {
                         addProject(projName, projVersion, iconPath, localStorage.projDir);       
                     } else {
                         displayErrorMessage("project already exists");
                     }                    
-                }
-            });
+            //    }
+            //});
         }
     });    
 }
