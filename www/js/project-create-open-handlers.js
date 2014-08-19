@@ -66,6 +66,7 @@ function selectDirectory(e) {
         global.createClicked = false;
         global.jQuery("#projectPath").removeClass("overlay-form-item-description");
         global.jQuery("#projectPath").removeClass("italics");
+        hideProjectPathError();
         global.jQuery("#projectPath").text(localStorage.projDir);
     } else {
         if (global.jQuery("#projectDirectory").val().length > 0) {

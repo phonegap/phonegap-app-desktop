@@ -1,10 +1,12 @@
 function displayProjectPathError() {
     global.jQuery("#new-project-path-label").addClass("required");
+    global.jQuery("#project-path-warning-icon").show();
     global.jQuery("#project-path-error-message").show();
 }
 
 function hideProjectPathError() {
     global.jQuery("#new-project-path-label").removeClass("required");
+    global.jQuery("#project-path-warning-icon").hide();
     global.jQuery("#project-path-error-message").hide();
 }
 

@@ -122,10 +122,10 @@
 .italics {
   font-style: italic;
 }
-.warning-icon {
-  position: absolute;
-  left: 330px;
-  z-index: 13;
+#project-path-warning-icon {
+  position: relative;
+  top: 6px;
+  padding-right: 4px;
 }
 .project-creation-warning-icon {
   background: url(../img/icons/normal/warning.svg) no-repeat;
