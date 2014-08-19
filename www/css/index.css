@@ -122,6 +122,16 @@
 .italics {
   font-style: italic;
 }
+.warning-icon {
+  position: absolute;
+  left: 330px;
+  z-index: 13;
+}
+.project-creation-warning-icon {
+  background: url(../img/icons/normal/warning.svg) no-repeat;
+  background-position: 308px 2px;
+  background-color: white;
+}
 .error-message {
   color: #ff0000;
   font-size: small;

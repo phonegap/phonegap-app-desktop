@@ -16,6 +16,7 @@
     <script type="text/javascript" src="js/server-status.js"></script>
     <script type="text/javascript" src="js/drag-n-drop-handlers.js"></script>
     <script type="text/javascript" src="js/project-create-open-handlers.js"></script>
+    <script type="text/javascript" src="js/project-creation-form-validation.js"></script>
     <script type="text/javascript" src="js/project-widget.js"></script>
     <script type="text/javascript" src="js/localStorage.js"></script>
     <script type="text/javascript" src="js/settings-handlers.js"></script>
@@ -49,9 +50,6 @@
         
         global.jQuery("#port-number-error").hide();
         
-        global.jQuery("#project-name-warning").hide();
-        global.jQuery("#project-id-warning").hide();
-
         global.jQuery("#drop_zone").on("drop", handleDrop);
         global.jQuery("#drop_zone").on("dragover", handleDragOver);
 
@@ -61,31 +59,24 @@
 
         global.jQuery("#addNewProject").click(createProject);
         global.jQuery("#chooseNewProjectPath").click(selectProjectPath);
+        
         global.jQuery("#projectName").blur(function() {
             var projectName = global.jQuery("#projectName").val().trim();
             if (projectName.length == 0) {
                 // no name entered - display error
-                global.jQuery("#new-project-name-label").addClass("required");
-                global.jQuery("#projectName").addClass("required-input");
-                global.jQuery("#project-name-warning").show();
+                displayProjectNameError();
             } else {
                 // TODO: check if we can validate if an existing project with the same name exists in the project folder
-                global.jQuery("#new-project-name-label").removeClass("required");
-                global.jQuery("#projectName").removeClass("required-input");
-                global.jQuery("#project-name-warning").hide();
+                hideProjectNameError();
             }
         });
         
         global.jQuery("#project-id").blur(function() {
             var projectId = global.jQuery("#project-id").val().trim();
             if (projectId.length == 0) {
-                global.jQuery("#new-project-id-label").addClass("required");
-                global.jQuery("#project-id").addClass("required-input");
-                global.jQuery("#project-id-warning").show();                
+                displayProjectIdError();
             } else {
-                global.jQuery("#new-project-id-label").removeClass("required");
-                global.jQuery("#project-id").removeClass("required-input");
-                global.jQuery("#project-id-warning").hide();                
+                hideProjectIdError();              
             }
         });
 
@@ -186,6 +177,9 @@
             }
         });
         
+        hideProjectPathError();
+        hideProjectNameError();
+        hideProjectIdError();
         disableMinusButton();
         getProjects();
     });
@@ -224,29 +218,29 @@
         </div>
     </aside>
     
-    <aside id="newProjectOverlay" class="new-project-overlay">
-
-        <div id="project-name-warning" class="warning-icon" style="top: 148px;"><img id="project-name-warning-icon" src="img/icons/normal/warning.svg" /></div>
-        <div id="project-id-warning" class="warning-icon" style="top: 253px;"><img id="project-id-warning-icon" src="img/icons/normal/warning.svg" /></div>
-        
+    <aside id="newProjectOverlay" class="new-project-overlay">   
         <div class="overlay-form-item-heading" id="new-project-path-label">Local path:</div>
         <div class="overlay-form-item">
             <label id="projectPath" class="overlay-form-item-description italics project-path-label">Please choose a local path</label>
             <button id="chooseNewProjectPath" class="new-project-choose-button">Choose...</button>
         </div>
+        <div class="overlay-form-item"></div>       
         <div class="overlay-form-item overlay-form-item-description">This is where the project will be stored on your computer.</div>
+        <div class="overlay-form-item overlay-form-item required" id="project-path-error-message">You must choose a local path where your project will be created.</div>
         
         <div class="overlay-form-item-heading" id="new-project-name-label">Name:</div>
         <div class="overlay-form-item">
             <input type="text" id="projectName" class="text-input project-input-field">
         </div>
         <div class="overlay-form-item overlay-form-item-description">The display name for your app.</div>
+        <div class="overlay-form-item overlay-form-item required" id="project-name-error-message">You must give your new project a name.</div>
         
         <div class="overlay-form-item-heading" id="new-project-id-label">ID:</div>
         <div class="overlay-form-item">
             <input type="text" id="project-id" class="text-input project-input-field">
         </div>
         <div class="overlay-form-item overlay-form-item-description">The unique identifier across app stores. We recommend you use a reverse domain namespace format, for example: com.mydomain.funkyyapp</div>
+        <div class="overlay-form-item overlay-form-item required" id="project-id-error-message">You must create an ID for your project.</div>
 
         <div class="overlay-form-item"> 
             <hr class="dotted-hr" />

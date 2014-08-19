@@ -6,7 +6,7 @@ function createProject(e) {
     var projectId = global.jQuery("#project-id").val().trim();
     
     var isProjectNameEmpty = isEmptyField(projectName);
-    var isProjectPathEmpty = isEmptyField(projectPath);
+    var isProjectPathEmpty = isProjectPathFieldEmpty(projectPath);
     var isProjectIdEmpty = isEmptyField(projectId);
 
     if(!isProjectNameEmpty && !isProjectPathEmpty && !isProjectIdEmpty) {
@@ -31,22 +31,17 @@ function createProject(e) {
         
         if (isProjectNameEmpty) {
             // error with project name
-            global.jQuery("#new-project-name-label").addClass("required");
-            global.jQuery("#projectName").addClass("required-input");
-            global.jQuery("#project-name-warning").show();
+            displayProjectNameError();
         }
         
         if (isProjectIdEmpty) {   
             // error with project id
-            global.jQuery("#new-project-id-label").addClass("required");
-            global.jQuery("#project-id").addClass("required-input");
-            global.jQuery("#project-id-warning").show();  
+            displayProjectIdError(); 
         }
         
         if (isProjectPathEmpty) {
             // error with project path
-            global.jQuery("#new-project-path-label").addClass("required");
-            //global.jQuery("#projectPath").addClass("required-input");            
+            displayProjectPathError();           
         } 
     }    
 }

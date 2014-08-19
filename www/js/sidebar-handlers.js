@@ -24,11 +24,10 @@ function handleHideAddNewProjectOverlayAnimationEnd() {
     global.jQuery("#newProjectOverlay").hide();
     global.jQuery("#newProjectOverlay").removeClass("animated slideOutUp");
     global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");
-    global.jQuery("#projectName").val("");
-    global.jQuery("#project-id").val("");
-    global.jQuery("#projectPath").addClass("overlay-form-item-description");
-    global.jQuery("#projectPath").addClass("italics");
-    global.jQuery("#projectPath").text("Please choose a local path");
+    resetProjectCreationForm();
+    hideProjectPathError();
+    hideProjectNameError();
+    hideProjectIdError();
 }
 
 function displayAddCreateProjectOverlay(evt) {
