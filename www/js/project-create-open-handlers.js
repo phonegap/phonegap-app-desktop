@@ -75,6 +75,7 @@ function selectDirectory(e) {
         global.jQuery("#projectPath").removeClass("italics");
         hideProjectPathError();
         global.jQuery("#projectPath").text(localStorage.projDir);
+        global.jQuery("#projectName").focus();
     } else {
         if (global.jQuery("#projectDirectory").val().length > 0) {
             // open existing project workflow

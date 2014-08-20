@@ -61,14 +61,27 @@
         global.jQuery("#chooseNewProjectPath").click(selectProjectPath);
         
         global.jQuery("#projectName").blur(function() {
+            
+            var projectPath = global.jQuery("#projectPath").text().trim();
             var projectName = global.jQuery("#projectName").val().trim();
+            
+            var isProjectPathEmpty = isProjectPathFieldEmpty(projectPath);
+            
             if (projectName.length > 0) {
-                // TODO: check if we can validate if an existing project with the same name exists in the project folder
-                // if (projectWithSameNameExists) {
-                //    displayProjectNameError();
-                //} else {
-                //    hideProjectNameError();
-                //}
+                
+                if (isProjectPathEmpty) {
+                    // error with project path
+                    displayProjectPathError();           
+                } else {
+                    var project = projectPath + "/" + projectName;                    
+                     if (projectExists(project)) {
+                         displayDuplicateProjectNameError();
+                         global.jQuery("#newProjectOverlay").addClass("new-project-overlay-duplicate-project-name-error");
+                     } else {
+                         hideDuplicateProjectNameError();
+                         global.jQuery("#newProjectOverlay").removeClass("new-project-overlay-duplicate-project-name-error");
+                     }
+                }
             }
         });
         

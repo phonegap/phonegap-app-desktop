@@ -2,22 +2,20 @@ function displayProjectPathError() {
     global.jQuery("#new-project-path-label").addClass("required");
     global.jQuery("#project-path-warning-icon").show();
     global.jQuery("#project-path-error-message").show();
-    global.projectPathErrorDisplayed = true;
 }
 
 function hideProjectPathError() {
     global.jQuery("#new-project-path-label").removeClass("required");
     global.jQuery("#project-path-warning-icon").hide();
     global.jQuery("#project-path-error-message").hide();
-    global.projectPathErrorDisplayed = false;
 }
 
 function displayProjectNameError() {
     global.jQuery("#new-project-name-label").addClass("required");
-    global.jQuery("#projectName").addClass("required-input project-creation-warning-icon");
+    global.jQuery("#projectName").addClass("required-input project-creation-warning-icon");    
+    global.jQuery("#project-name-error-message").text("You must give your new project a name.");
     global.jQuery("#project-name-warning").show();
     global.jQuery("#project-name-error-message").show();
-    global.projectNameErrorDisplayed = true;
 }
 
 function hideProjectNameError() {
@@ -25,15 +23,25 @@ function hideProjectNameError() {
     global.jQuery("#projectName").removeClass("required-input project-creation-warning-icon");
     global.jQuery("#project-name-warning").hide();
     global.jQuery("#project-name-error-message").hide();
-    global.projectNameErrorDisplayed = false;
+}
+
+function displayDuplicateProjectNameError() {
+    global.jQuery("#new-project-name-label").addClass("required");
+    global.jQuery("#projectName").addClass("required-input project-creation-warning-icon");    
+    global.jQuery("#project-name-error-message").text("A folder with this name already exists in the selected local path. Please choose a new name or a new local path.");
+    global.jQuery("#project-name-warning").show();
+    global.jQuery("#project-name-error-message").show();    
+}
+
+function hideDuplicateProjectNameError() {
+    hideProjectNameError();
 }
 
 function displayProjectIdError() {
     global.jQuery("#new-project-id-label").addClass("required");
     global.jQuery("#project-id").addClass("required-input project-creation-warning-icon");
     global.jQuery("#project-id-warning").show();
-    global.jQuery("#project-id-error-message").show();
-    global.projectIdErrorDisplayed = true;   
+    global.jQuery("#project-id-error-message").show();   
 }
 
 function hideProjectIdError() {
@@ -41,7 +49,6 @@ function hideProjectIdError() {
     global.jQuery("#project-id").removeClass("required-input project-creation-warning-icon");
     global.jQuery("#project-id-warning").hide();
     global.jQuery("#project-id-error-message").hide();
-    global.projectIdErrorDisplayed = false;
 }
 
 function adjustProjectCreationFormHeight(isProjectPathEmpty, isProjectNameEmpty, isProjectIdEmpty) {

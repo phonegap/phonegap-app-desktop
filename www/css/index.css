@@ -105,6 +105,9 @@
   width: 375px;
   height: 440px;
 }
+.new-project-overlay-duplicate-project-name-error {
+  height: 520px;
+}
 .new-project-overlay-project-name-or-project-id-error {
   height: 480px;
 }
