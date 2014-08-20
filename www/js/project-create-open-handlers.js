@@ -48,36 +48,8 @@ function createProject(e) {
             // error with project id
             displayProjectIdError(); 
         }
-        
-        if (isProjectPathEmpty && isProjectNameEmpty && isProjectIdEmpty) {
-            // change project creation dialog height to accommodate for project path, project name & project id errors
-            global.jQuery("#newProjectOverlay").addClass("new-project-overlay-all-errors");
-        } else {
-            if (isProjectPathEmpty) {
-                if (!isProjectNameEmpty && !isProjectIdEmpty) {
-                    // change project creation dialog height to accommodate for project path error only
-                    global.jQuery("#newProjectOverlay").addClass("new-project-overlay-project-path-error");
-                } else {
-                    // change project creation dialog height to accommodate for project path error && (project name || project id)
-                    global.jQuery("#newProjectOverlay").addClass("new-project-overlay-project-path-and-other-error");
-                }
-            } else {
-                if (isProjectNameEmpty) {
-                    if (isProjectIdEmpty) {
-                        // change project creation dialog height to accommodate for project name && project id error                       
-                        global.jQuery("#newProjectOverlay").addClass("new-project-overlay-project-name-and-project-id-error");
-                    } else {
-                        // change project creation dialog height to accommodate for project name error only
-                        global.jQuery("#newProjectOverlay").addClass("new-project-overlay-project-name-or-project-id-error");
-                    }
-                } else {
-                    if (isProjectIdEmpty) {
-                        // change project creation dialog height to accommodate for project id error only
-                        global.jQuery("#newProjectOverlay").addClass("new-project-overlay-project-name-or-project-id-error");
-                    }
-                }            
-            }
-        } 
+
+        adjustProjectCreationFormHeight(isProjectPathEmpty, isProjectNameEmpty, isProjectIdEmpty);
     }    
 }
 
