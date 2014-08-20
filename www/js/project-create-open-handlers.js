@@ -1,15 +1,20 @@
 function createProject(e) {
     console.log("createProject handler");
 
-    var projectName = global.jQuery("#projectName").val().trim();
     var projectPath = global.jQuery("#projectPath").text().trim();
+    var projectName = global.jQuery("#projectName").val().trim();
     var projectId = global.jQuery("#project-id").val().trim();
     
-    var isProjectNameEmpty = isEmptyField(projectName);
     var isProjectPathEmpty = isProjectPathFieldEmpty(projectPath);
+    var isProjectNameEmpty = isEmptyField(projectName);
     var isProjectIdEmpty = isEmptyField(projectId);
 
-    if(!isProjectNameEmpty && !isProjectPathEmpty && !isProjectIdEmpty) {
+    hideProjectPathError();
+    hideProjectNameError();
+    hideProjectIdError();
+    resetProjectCreationFormHeight();
+
+    if(!isProjectIdEmpty && !isProjectNameEmpty && !isProjectPathEmpty) {
         localStorage.projDir = projectPath + "/" + projectName; 
         if(!projectExists(localStorage.projDir)) {
 
@@ -28,7 +33,12 @@ function createProject(e) {
             displayErrorMessage("project already exists in the selected folder");
         }
     } else {
-        
+
+        if (isProjectPathEmpty) {
+            // error with project path
+            displayProjectPathError();           
+        }
+                
         if (isProjectNameEmpty) {
             // error with project name
             displayProjectNameError();
@@ -39,9 +49,34 @@ function createProject(e) {
             displayProjectIdError(); 
         }
         
-        if (isProjectPathEmpty) {
-            // error with project path
-            displayProjectPathError();           
+        if (isProjectPathEmpty && isProjectNameEmpty && isProjectIdEmpty) {
+            // change project creation dialog height to accommodate for project path, project name & project id errors
+            global.jQuery("#newProjectOverlay").addClass("new-project-overlay-all-errors");
+        } else {
+            if (isProjectPathEmpty) {
+                if (!isProjectNameEmpty && !isProjectIdEmpty) {
+                    // change project creation dialog height to accommodate for project path error only
+                    global.jQuery("#newProjectOverlay").addClass("new-project-overlay-project-path-error");
+                } else {
+                    // change project creation dialog height to accommodate for project path error && (project name || project id)
+                    global.jQuery("#newProjectOverlay").addClass("new-project-overlay-project-path-and-other-error");
+                }
+            } else {
+                if (isProjectNameEmpty) {
+                    if (isProjectIdEmpty) {
+                        // change project creation dialog height to accommodate for project name && project id error                       
+                        global.jQuery("#newProjectOverlay").addClass("new-project-overlay-project-name-and-project-id-error");
+                    } else {
+                        // change project creation dialog height to accommodate for project name error only
+                        global.jQuery("#newProjectOverlay").addClass("new-project-overlay-project-name-or-project-id-error");
+                    }
+                } else {
+                    if (isProjectIdEmpty) {
+                        // change project creation dialog height to accommodate for project id error only
+                        global.jQuery("#newProjectOverlay").addClass("new-project-overlay-project-name-or-project-id-error");
+                    }
+                }            
+            }
         } 
     }    
 }

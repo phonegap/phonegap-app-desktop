@@ -62,23 +62,29 @@
         
         global.jQuery("#projectName").blur(function() {
             var projectName = global.jQuery("#projectName").val().trim();
-            if (projectName.length == 0) {
-                // no name entered - display error
-                displayProjectNameError();
-            } else {
+            if (projectName.length > 0) {
                 // TODO: check if we can validate if an existing project with the same name exists in the project folder
-                hideProjectNameError();
+                // if (projectWithSameNameExists) {
+                //    displayProjectNameError();
+                //} else {
+                //    hideProjectNameError();
+                //}
             }
         });
         
+        /*
         global.jQuery("#project-id").blur(function() {
             var projectId = global.jQuery("#project-id").val().trim();
-            if (projectId.length == 0) {
-                displayProjectIdError();
-            } else {
-                hideProjectIdError();              
+            if (projectId.length > 0) {
+                // TODO: validate the ID with namespace format validation
+                if (formatIncorrect) {
+                    displayProjectIdError();
+                } else {
+                    hideProjectIdError();
+                }         
             }
         });
+        */
 
         global.jQuery("#createProject").click(function() {
             global.createChosen = true;
@@ -222,7 +228,7 @@
         <div class="overlay-form-item-heading" id="new-project-path-label">Local path:</div>
         <div class="overlay-form-item">
             <img id="project-path-warning-icon" src="img/icons/normal/warning.svg" />
-            <label id="projectPath" class="overlay-form-item-description italics project-path-label">Please choose a local path</label>
+            <div id="projectPath" class="overlay-form-item-description italics project-path-label">Please choose a local path</div>
             <button id="chooseNewProjectPath" class="new-project-choose-button">Choose...</button>
         </div>
         <div class="overlay-form-item"></div>       

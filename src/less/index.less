@@ -119,7 +119,27 @@
     left: 75px; 
     z-index: 12;
     width: 375px;
-    height: 493px;
+    height: 440px;
+}
+
+.new-project-overlay-project-name-or-project-id-error {
+    height: 480px;
+}
+
+.new-project-overlay-project-name-and-project-id-error {
+    height: 515px;
+}
+
+.new-project-overlay-project-path-and-other-error {
+    height: 525px;
+}
+
+.new-project-overlay-project-path-error {
+    height: 495px;
+}
+
+.new-project-overlay-all-errors {
+    height: 555px;
 }
 
 .overlay-form-item-heading {
@@ -145,7 +165,6 @@
 
 #project-path-warning-icon {
     position: relative;
-    top: 6px;
     padding-right: 4px;
 }
 
@@ -165,8 +184,14 @@
 }
 
 .project-path-label {
-    width: 215px;
-    font-size: small;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 225px;
+    white-space: nowrap;
+    text-align: left;
+    font-size: 10pt;
+    display: inline-block;
+    padding-top: 4px;
 }
 
 .new-project-choose-button {
