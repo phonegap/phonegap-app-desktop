@@ -159,7 +159,7 @@
 .project-path-label {
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 225px;
+  max-width: 200px;
   white-space: nowrap;
   text-align: left;
   font-size: 10pt;

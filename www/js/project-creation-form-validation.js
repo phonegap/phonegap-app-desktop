@@ -1,5 +1,11 @@
+function displayPhoneGapProjectInFolderError() {
+    global.jQuery("#newProjectOverlay").addClass("new-project-overlay-project-path-error");
+    global.jQuery("#project-path-error-message").text("The chosen folder already contains a PhoneGap project. Please select a different folder.");
+    displayProjectPathError();
+}
+
 function displayProjectPathError() {
-    global.jQuery("#new-project-path-label").addClass("required");
+    global.jQuery("#new-project-path-label").addClass("required"); 
     global.jQuery("#project-path-warning-icon").show();
     global.jQuery("#project-path-error-message").show();
 }

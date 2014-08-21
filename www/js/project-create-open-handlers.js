@@ -76,6 +76,27 @@ function selectDirectory(e) {
         hideProjectPathError();
         global.jQuery("#projectPath").text(localStorage.projDir);
         global.jQuery("#projectName").focus();
+        
+        if(!projectExistsInLocalStorage(localStorage.projDir)) {
+
+            var filename = projectPath + "/www/config.xml";
+
+            fs.readFile(filename, 'utf8', function(err, data) {
+                if (err) {
+                    // assume that no www/config.xml means a project doesn't exist in selected local path
+                    hideProjectPathError();
+                    global.jQuery("#newProjectOverlay").removeClass("new-project-overlay-project-path-error");
+                } else {
+                    // www/config.xml exists in selected local path, assume that there is an existing project in the local path
+                    displayPhoneGapProjectInFolderError();
+                }
+            });
+            
+        } else {
+            // selected local path already exists in local storage, assume that there is an existing project in the local path
+            displayPhoneGapProjectInFolderError();
+        }
+                
     } else {
         if (global.jQuery("#projectDirectory").val().length > 0) {
             // open existing project workflow

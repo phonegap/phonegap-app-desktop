@@ -78,20 +78,6 @@
                 }
             }
         });
-        
-        /*
-        global.jQuery("#project-id").blur(function() {
-            var projectId = global.jQuery("#project-id").val().trim();
-            if (projectId.length > 0) {
-                // TODO: validate the ID with namespace format validation
-                if (formatIncorrect) {
-                    displayProjectIdError();
-                } else {
-                    hideProjectIdError();
-                }         
-            }
-        });
-        */
 
         global.jQuery("#createProject").click(function() {
             global.createChosen = true;
@@ -231,7 +217,7 @@
         </div>
     </aside>
     
-    <aside id="newProjectOverlay" class="new-project-overlay">   
+    <aside id="newProjectOverlay" class="new-project-overlay">  
         <div class="overlay-form-item-heading" id="new-project-path-label">Local path:</div>
         <div class="overlay-form-item">
             <img id="project-path-warning-icon" src="img/icons/normal/warning.svg" />
