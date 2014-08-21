@@ -90,6 +90,8 @@
 
         global.jQuery("#saveSettings").click(saveSettings);
         global.jQuery("#cancelSettings").click(cancelSettings);
+        
+        global.jQuery("#portNumber").blur(settingsFormValidatePortNumber);
 
         global.jQuery("#closeServerLog").click(toggleLog);
                     
@@ -195,9 +197,9 @@
     
     <aside id="settingsOverlay" class="settings-overlay">
         <div class="overlay-form-item-heading">Server port:</div>
-        <div class="overlay-form-item"><span id="settings-ip" class="settings-ip-label"></span><input type="text" id="portNumber" class="text-input settings-port-number-input"></div>
+        <div class="overlay-form-item"><span id="settings-ip" class="settings-ip-label"></span><input type="text" id="portNumber" class="text-input settings-port-number-input" maxlength="5"></div>
         <div class="overlay-form-item overlay-form-item-description">This is the port where the local server will serve all projects.</div>
-        <div class="overlay-form-item error-message" id="port-number-error">Port must be a numeric value.</div>
+        <div class="overlay-form-item required" id="port-number-error">The server port must contain only numbers.</div>
         <div class="overlay-form-item"> 
             <hr class="dotted-hr" />
         </div>

@@ -115,6 +115,7 @@ function displaySettingsOverlay(evt) {
 }
 
 function hideSettingsOverlay(evt) {
+    hidePortError();
     global.jQuery("#settings-icon").attr("src", "img/icons/normal/settings.svg");
     global.jQuery("#settingsOverlay").removeClass("animated slideInLeft");
     global.jQuery("#settingsOverlay").addClass("animated slideOutLeft");
