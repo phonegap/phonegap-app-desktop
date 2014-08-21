@@ -73,14 +73,8 @@
                     // error with project path
                     displayProjectPathError();           
                 } else {
-                    var project = projectPath + "/" + projectName;                    
-                     if (projectExists(project)) {
-                         displayDuplicateProjectNameError();
-                         global.jQuery("#newProjectOverlay").addClass("new-project-overlay-duplicate-project-name-error");
-                     } else {
-                         hideDuplicateProjectNameError();
-                         global.jQuery("#newProjectOverlay").removeClass("new-project-overlay-duplicate-project-name-error");
-                     }
+                    var project = projectPath + "/" + projectName; 
+                    folderExistsInFileSystem(project);
                 }
             }
         });

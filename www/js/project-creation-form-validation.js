@@ -88,7 +88,8 @@ function resetProjectCreationFormHeight() {
     global.jQuery("#newProjectOverlay").removeClass("new-project-overlay-project-path-error");
     global.jQuery("#newProjectOverlay").removeClass("new-project-overlay-project-path-and-other-error");
     global.jQuery("#newProjectOverlay").removeClass("new-project-overlay-project-name-and-project-id-error");
-    global.jQuery("#newProjectOverlay").removeClass("new-project-overlay-project-name-or-project-id-error");    
+    global.jQuery("#newProjectOverlay").removeClass("new-project-overlay-project-name-or-project-id-error");
+    global.jQuery("#newProjectOverlay").removeClass("new-project-overlay-duplicate-project-name-error");     
 }
 
 function resetProjectCreationForm() {

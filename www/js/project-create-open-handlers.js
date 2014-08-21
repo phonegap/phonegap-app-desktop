@@ -16,7 +16,7 @@ function createProject(e) {
 
     if(!isProjectIdEmpty && !isProjectNameEmpty && !isProjectPathEmpty) {
         localStorage.projDir = projectPath + "/" + projectName; 
-        if(!projectExists(localStorage.projDir)) {
+        if(!projectExistsInLocalStorage(localStorage.projDir)) {
 
             var filename = projectPath + "/www/config.xml";
 
@@ -30,7 +30,7 @@ function createProject(e) {
             });
             
         } else {
-            displayErrorMessage("project already exists in the selected folder");
+            displayErrorMessage("Selected folder already contains an existing project");
         }
     } else {
 
@@ -150,7 +150,7 @@ function updateConfig(projectName, projectId) {
                     // throw err
             //    } else {
                     // check if the project exists in PG-GUI's localstorage before adding
-                    if(!projectExists(localStorage.projDir)) {
+                    if(!projectExistsInLocalStorage(localStorage.projDir)) {
                         addProject(projName, projVersion, iconPath, localStorage.projDir);       
                     } else {
                         displayErrorMessage("project already exists");
@@ -186,7 +186,7 @@ function parseProjectConfig() {
             iconPath += projectIcon;
         
             // check if the project exists in PG-GUI's localstorage before adding
-            if(!projectExists(localStorage.projDir)) {
+            if(!projectExistsInLocalStorage(localStorage.projDir)) {
                 addProject(projectName, projectVersion, iconPath, localStorage.projDir);       
             } else {
                 displayErrorMessage("project already exists");
@@ -195,7 +195,7 @@ function parseProjectConfig() {
     });    
 }
 
-function projectExists(projDir) {
+function projectExistsInLocalStorage(projDir) {
     
     var projectFound = false;
     
@@ -212,4 +212,17 @@ function projectExists(projDir) {
     }  
     
     return projectFound;
+}
+
+function folderExistsInFileSystem(projDir) {
+  
+    fs.exists(projDir, function(exists) {
+        if (exists) {
+            displayDuplicateProjectNameError();
+            global.jQuery("#newProjectOverlay").addClass("new-project-overlay-duplicate-project-name-error");
+        } else {
+            hideDuplicateProjectNameError();
+            global.jQuery("#newProjectOverlay").removeClass("new-project-overlay-duplicate-project-name-error");            
+        }
+    });
 }
