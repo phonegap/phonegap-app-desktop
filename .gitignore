@@ -9,3 +9,6 @@ npm-debug.log
 build/
 www/node_modules/
 www/package.json
+
+# Node WebKit
+cache/

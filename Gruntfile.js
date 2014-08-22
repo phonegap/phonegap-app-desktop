@@ -63,8 +63,8 @@ module.exports = function(grunt) {
         os = require('os'),
         opener = require('opener'),
         appName = JSON.parse(fs.readFileSync('./www/package.json')).name,
-        macPath = 'build/releases/appName/mac/appName.app',
-        winPath = 'build/releases/appName/win/appName/appName.exe';
+        macPath = 'build/appName/osx/appName.app',
+        winPath = 'build/appName/win/appName.exe';
 
     macPath = macPath.replace(/appName/g, appName);
     winPath = winPath.replace(/appName/g, appName);
