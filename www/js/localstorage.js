@@ -8,6 +8,7 @@ function addProject(projName, projVersion, iconPath, projDir) {
     var projectObj = {};
     projectObj.id = id;
     projectObj.projDir = projDir;
+    projectObj.projName = projName;
 
     if (localStorage["projects"]) {
         // retrieve exsiting projects to appending a new project
@@ -32,13 +33,15 @@ function getProjects() {
         var projects = JSON.parse(localStorage["projects"]);
         var index = projects.length;
         
-        console.log(JSON.stringify(projects));
+        var sortedProjects = projects.sort(sortByProperty("projName"))
+        
+        console.log(JSON.stringify(sortedProjects));
         
         if (index > 0) {            
             for (var i=0;i<index;i++) {
         
-                var id = projects[i].id;
-                var projDir = projects[i].projDir
+                var id = sortedProjects[i].id;
+                var projDir = sortedProjects[i].projDir
         
                 getProjectConfig(id, projDir, i);
             } 
