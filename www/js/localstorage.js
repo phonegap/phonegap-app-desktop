@@ -109,3 +109,18 @@ function removeProjectById(currentId) {
     }
    
 }
+
+function updateProjectNameInLocalStorage(id, projectName) {
+    if (localStorage["projects"]) {
+        var projects = JSON.parse(localStorage["projects"]);
+
+        for (var i = 0; i < projects.length; i++) {
+            if (id === projects[i].id) {
+                projects[i].projName = projectName;
+                break;
+            }
+        }
+
+        localStorage["projects"] = JSON.stringify(projects);
+    }
+}

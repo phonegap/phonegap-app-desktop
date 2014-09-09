@@ -206,6 +206,7 @@ function setConfigWatcher(id, projDir) {
 
                 // get the project name
                 var projectName = global.jQuery.xml.find("name").text();
+                updateProjectNameInLocalStorage(id, projectName);
 
                 // get the project version
                 var projectVersion = global.jQuery.xml.find("widget").attr("version");
