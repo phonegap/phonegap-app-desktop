@@ -37,15 +37,12 @@ function getProjects() {
         
         console.log(JSON.stringify(sortedProjects));
         
-        if (index > 0) {            
-            for (var i=0;i<index;i++) {
-        
-                var id = sortedProjects[i].id;
-                var projDir = sortedProjects[i].projDir
-        
-                getProjectConfig(id, projDir, i);
-            } 
-        } 
+        global.jQuery.each(sortedProjects, function(idx, obj) {
+            var id = sortedProjects[idx].id;
+            var projDir = sortedProjects[idx].projDir
+            console.log(projDir);
+            getProjectConfig(id, projDir, idx);
+        });
     }  
 }
 
