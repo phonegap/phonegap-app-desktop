@@ -28,22 +28,45 @@ function addProject(projName, projVersion, iconPath, projDir) {
     setActiveWidget(id, projDir);
 }
 
+function testingRemove(i) {
+    var projects = JSON.parse(localStorage["projects"]);
+    var projDir = projects[i].projDir;
+    var filename = projDir + "/www/config.xml";
+    
+    fs.readFile(filename, 'utf8', function(err, data) {
+        if (err) {
+            console.log("IN HERE!!!!!!!!");
+            projects.splice(i, 1);
+            localStorage["projects"] = JSON.stringify(projects);
+        }
+    });       
+}
+
 function getProjects() {
     if (localStorage["projects"]) {
         var projects = JSON.parse(localStorage["projects"]);
         var index = projects.length;
+                
+        for (var i=0;i<index;i++) {
+            testingRemove(i);            
+        }
         
-        var sortedProjects = projects.sort(sortByProperty("projName"))
+        var sortedProjects = projects.sort(sortByProperty("projName"));
+        localStorage["projects"] = JSON.stringify(sortedProjects);
+                  
+        for (var i=0;i<index;i++) {
+            renderProjects(i);
+        }
         
         console.log(JSON.stringify(sortedProjects));
-        
-        global.jQuery.each(sortedProjects, function(idx, obj) {
-            var id = sortedProjects[idx].id;
-            var projDir = sortedProjects[idx].projDir
-            console.log(projDir);
-            getProjectConfig(id, projDir, idx);
-        });
     }  
+}
+
+function renderProjects(i) { 
+    var projects = JSON.parse(localStorage["projects"]);
+    var id = projects[i].id;
+    var projDir = projects[i].projDir;
+    getProjectConfig(id, projDir, i);    
 }
 
 function getProjectConfig(id, projDir, i) {
@@ -51,8 +74,8 @@ function getProjectConfig(id, projDir, i) {
 
     fs.readFile(filename, 'utf8', function(err, data) {
         if (err) throw err;
-
-        var iconPath = projDir + "/www/"
+        
+        var iconPath = projDir + "/www/";
 
         global.jQuery.xmlDoc = global.jQuery.parseXML(data);
         global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc);
@@ -91,7 +114,7 @@ function removeProjectById(currentId) {
         }
     }
     
-    localStorage["projects"] = JSON.stringify(projects); 
+    localStorage["projects"] = JSON.stringify(projects);
   
     console.log(JSON.stringify(projects));  
         

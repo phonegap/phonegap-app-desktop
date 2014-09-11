@@ -1,5 +1,5 @@
 function addProjectWidget(id, projectName, projectVersion, projectIcon, projectDir) {
-    console.log("addProjectWidget");
+    console.log("addProjectWidget: " + projectName);
     
     var widgetId = "projectWidget_" + id.toString();
     var projectStatusId = "project-status_" + id.toString();
