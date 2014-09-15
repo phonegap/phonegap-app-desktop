@@ -28,14 +28,14 @@ function addProject(projName, projVersion, iconPath, projDir) {
     setActiveWidget(id, projDir);
 }
 
-function testingRemove(i) {
+function removeMissingProjects(i) {
+    // removes a project from localStorage if the project is not found on the file system
     var projects = JSON.parse(localStorage["projects"]);
     var projDir = projects[i].projDir;
     var filename = projDir + "/www/config.xml";
     
     fs.readFile(filename, 'utf8', function(err, data) {
         if (err) {
-            console.log("IN HERE!!!!!!!!");
             projects.splice(i, 1);
             localStorage["projects"] = JSON.stringify(projects);
         }
@@ -48,25 +48,28 @@ function getProjects() {
         var index = projects.length;
                 
         for (var i=0;i<index;i++) {
-            testingRemove(i);            
+            removeMissingProjects(i);            
         }
-        
+
         var sortedProjects = projects.sort(sortByProperty("projName"));
         localStorage["projects"] = JSON.stringify(sortedProjects);
-                  
-        for (var i=0;i<index;i++) {
-            renderProjects(i);
-        }
-        
-        console.log(JSON.stringify(sortedProjects));
+                
+        setTimeout(renderProjects, 1000);          
+
     }  
 }
 
-function renderProjects(i) { 
+function renderProjects() {
     var projects = JSON.parse(localStorage["projects"]);
-    var id = projects[i].id;
-    var projDir = projects[i].projDir;
-    getProjectConfig(id, projDir, i);    
+    var index = projects.length;
+    
+    for (var i=0;i<index;i++) {
+        var id = projects[i].id;
+        var projDir = projects[i].projDir;
+        getProjectConfig(id, projDir, i); 
+    }
+    
+    console.log(JSON.stringify(projects));    
 }
 
 function getProjectConfig(id, projDir, i) {
