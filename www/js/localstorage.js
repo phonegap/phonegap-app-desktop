@@ -28,34 +28,29 @@ function addProject(projName, projVersion, iconPath, projDir) {
     setActiveWidget(id, projDir);
 }
 
-function removeMissingProjects(i) {
-    // removes a project from localStorage if the project is not found on the file system
-    var projects = JSON.parse(localStorage["projects"]);
-    var projDir = projects[i].projDir;
-    var filename = projDir + "/www/config.xml";
-    
-    fs.readFile(filename, 'utf8', function(err, data) {
-        if (err) {
-            projects.splice(i, 1);
-            localStorage["projects"] = JSON.stringify(projects);
-        }
-    });       
-}
-
 function getProjects() {
     if (localStorage["projects"]) {
+
         var projects = JSON.parse(localStorage["projects"]);
         var index = projects.length;
-                
-        for (var i=0;i<index;i++) {
-            removeMissingProjects(i);            
-        }
-
-        var sortedProjects = projects.sort(sortByProperty("projName"));
-        localStorage["projects"] = JSON.stringify(sortedProjects);
-                
-        setTimeout(renderProjects, 1000);          
-
+        var missing = [];
+        
+        console.log(JSON.stringify(projects));
+        
+        global.jQuery.each(projects, function(idx, project) {
+            var projDir = project.projDir;
+            var id = project.id;
+                       
+            fs.exists(projDir, function(exists) {
+                if (exists) {
+                    console.log(projDir);
+                    getProjectConfig(id, projDir, idx);
+                } else {
+                    // project folder not found...must remove from 
+                    missing.push(id);
+                }               
+            });            
+        });
     }  
 }
 
