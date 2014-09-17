@@ -33,8 +33,7 @@ function getProjects() {
 
         var projects = JSON.parse(localStorage["projects"]);
         var index = projects.length;
-        var missing = [];
-        
+
         console.log(JSON.stringify(projects));
         
         global.jQuery.each(projects, function(idx, project) {
@@ -43,28 +42,47 @@ function getProjects() {
                        
             fs.exists(projDir, function(exists) {
                 if (exists) {
-                    console.log(projDir);
                     getProjectConfig(id, projDir, idx);
                 } else {
-                    // project folder not found...must remove from 
-                    missing.push(id);
+                    // project folder not found...store the IDs to be removed from localStorage
+                    missingId(id);
                 }               
             });            
         });
-    }  
+        
+        setTimeout(removeMissingProjects, 1000);
+    }
 }
 
-function renderProjects() {
-    var projects = JSON.parse(localStorage["projects"]);
-    var index = projects.length;
+function missingId(id) {
+    global.missing.push(id);
+}
+
+function removeMissingProjects() {
+    console.log(global.missing.length);
     
-    for (var i=0;i<index;i++) {
-        var id = projects[i].id;
-        var projDir = projects[i].projDir;
-        getProjectConfig(id, projDir, i); 
+    var projects = JSON.parse(localStorage["projects"]);        
+    var index = projects.length;
+    var missing = global.missing;
+    
+    for (var j=0;j<missing.length;j++) {
+        
+        var currentId = missing[j];
+            
+        for (var i=0;i<index;i++) {        
+            var id = projects[i].id;
+            if (id == currentId) {
+                projects.splice(i, 1);
+                index = projects.length;
+                break;
+            }
+        }    
     }
     
-    console.log(JSON.stringify(projects));    
+    localStorage["projects"] = JSON.stringify(projects);
+  
+    console.log(JSON.stringify(projects));  
+    
 }
 
 function getProjectConfig(id, projDir, i) {
@@ -120,7 +138,6 @@ function removeProjectById(currentId) {
     
      // set new active widget if there are still projects, otherwise disable the remove button
     if (index > 0) {
-        //resetMinusButtonState();
         setActiveWidget(projects[0].id, projects[0].projDir);       
     } else {
         disableMinusButton();
