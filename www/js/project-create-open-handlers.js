@@ -100,7 +100,7 @@ function selectDirectory(e) {
     } else {
         if (global.jQuery("#projectDirectory").val().length > 0) {
             // open existing project workflow
-            parseProjectConfig();
+            checkIfProjectConfigExists();
             global.jQuery("#overlay-bg").hide();
             hideAddCreateProjectOverlay();
             global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");
@@ -182,38 +182,49 @@ function updateConfig(projectName, projectId) {
     });    
 }
 
-function parseProjectConfig() {
+function checkIfProjectConfigExists() {
     
-    var filename = localStorage.projDir + "/www/config.xml";
-    
-    fs.readFile(filename, 'utf8', function(err, data) {
+    var oldPathToConfigFile = localStorage.projDir + "/www/config.xml";
+    var newPathToConfigFile = localStorage.projDir + "/config.xml";
+        
+    fs.readFile(newPathToConfigFile, 'utf8', function(err, data) {
         if (err) {
-            //throw err;
-            displayErrorMessage("Selected folder doesn't contain a config.xml file");
+            fs.readFile(oldPathToConfigFile, 'utf8', function(err, data) {
+                if(err) {
+                    displayErrorMessage("Selected folder doesn't contain a config.xml file");
+                } else {
+                    parseProjectConfig(data);
+                }
+            });
         } else {
-            var iconPath = localStorage.projDir + "/www/"
-
-            global.jQuery.xmlDoc = global.jQuery.parseXML(data);
-            global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc);
-        
-            // get the project name
-            var projectName = global.jQuery.xml.find("name").text();
-        
-            // get the project version
-            var projectVersion = global.jQuery.xml.find("widget").attr("version");
-        
-            // get the app icon
-            var projectIcon = global.jQuery.xml.find("icon").attr("src");
-            iconPath += projectIcon;
-        
-            // check if the project exists in PG-GUI's localstorage before adding
-            if(!projectExistsInLocalStorage(localStorage.projDir)) {
-                addProject(projectName, projectVersion, iconPath, localStorage.projDir);       
-            } else {
-                displayErrorMessage("project already exists");
-            }
+           parseProjectConfig(data); 
         }
     });    
+}
+
+function parseProjectConfig(data) {
+    
+    var iconPath = localStorage.projDir + "/www/"
+
+    global.jQuery.xmlDoc = global.jQuery.parseXML(data);
+    global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc);
+
+    // get the project name
+    var projectName = global.jQuery.xml.find("name").text();
+
+    // get the project version
+    var projectVersion = global.jQuery.xml.find("widget").attr("version");
+
+    // get the app icon
+    var projectIcon = global.jQuery.xml.find("icon").attr("src");
+    iconPath += projectIcon;
+
+    // check if the project exists in PG-GUI's localstorage before adding
+    if(!projectExistsInLocalStorage(localStorage.projDir)) {
+        addProject(projectName, projectVersion, iconPath, localStorage.projDir);       
+    } else {
+        displayErrorMessage("project already exists");
+    }    
 }
 
 function projectExistsInLocalStorage(projDir) {
