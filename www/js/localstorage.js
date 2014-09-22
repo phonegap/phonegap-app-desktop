@@ -86,32 +86,47 @@ function removeMissingProjects() {
 }
 
 function getProjectConfig(id, projDir, i) {
-    var filename = projDir + "/www/config.xml";
-
-    fs.readFile(filename, 'utf8', function(err, data) {
-        if (err) throw err;
-        
-        var iconPath = projDir + "/www/";
-
-        global.jQuery.xmlDoc = global.jQuery.parseXML(data);
-        global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc);
-
-        // get the project name
-        var projectName = global.jQuery.xml.find("name").text();
-
-        // get the project version
-        var projectVersion = global.jQuery.xml.find("widget").attr("version");
-
-        // get the app icon
-        var projectIcon = global.jQuery.xml.find("icon").attr("src");
-        iconPath += projectIcon;
-
-        addProjectWidget(id, projectName, projectVersion, iconPath, projDir);
-        
-        if (i == 0) {
-            setActiveWidget(id, projDir);            
+    
+    var oldPathToConfig = projDir + "/www/config.xml";
+    var newPathToConfig = projDir + "/config.xml";
+    
+    fs.readFile(newPathToConfig, 'utf8', function(err, data) {
+        if (err) {
+            fs.readFile(oldPathToConfig, 'utf8', function(err, data) {
+                if (err) {
+                    displayErrorMessage("config.xml not found in: " + oldPathToConfig + " or " + newPathToConfig);
+                } else {
+                    parseConfigForRendering(data, id, projDir, i);
+                }
+            });            
+        } else {
+            parseConfigForRendering(data, id, projDir, i);
         }
     });
+
+}
+
+function parseConfigForRendering(data, id, projDir, i) {
+    var iconPath = projDir + "/www/";
+
+    global.jQuery.xmlDoc = global.jQuery.parseXML(data);
+    global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc);
+
+    // get the project name
+    var projectName = global.jQuery.xml.find("name").text();
+
+    // get the project version
+    var projectVersion = global.jQuery.xml.find("widget").attr("version");
+
+    // get the app icon
+    var projectIcon = global.jQuery.xml.find("icon").attr("src");
+    iconPath += projectIcon;
+
+    addProjectWidget(id, projectName, projectVersion, iconPath, projDir);
+
+    if (i == 0) {
+        setActiveWidget(id, projDir);            
+    }    
 }
 
 function removeProjectById(currentId) {
