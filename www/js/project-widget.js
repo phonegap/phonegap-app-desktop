@@ -247,22 +247,6 @@ function deleteProjectWidget(idToDelete) {
 
 function displayRemoveNotification() {
     console.log("displayRemoveNotification");
-    global.jQuery("#remove-notification").addClass("animated slideInUp");
-    global.jQuery("#remove-notification").show();       
-    global.jQuery("#remove-notification").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", function() {
-        setTimeout(hideRemoveNotification, 3000);
-    });
-}
-
-function hideRemoveNotification() {
-    console.log("hideRemoveNotification");
-    global.jQuery("#remove-notification").removeClass("animated slideInUp"); 
-    global.jQuery("#remove-notification").addClass("animated fadeOut");    
-    global.jQuery("#remove-notification").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", resetRemoveNotification);
-}
-
-function resetRemoveNotification() {
-    console.log("resetRemoveNotification");
-    global.jQuery("#remove-notification").removeClass("animated fadeOut"); 
-    global.jQuery("#remove-notification").hide();
+    setNotificationText("Project removed from this list, but not deleted from your computer.");
+    displayNotification();
 }

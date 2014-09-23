@@ -2,44 +2,25 @@ function displayErrorMessage(msg) {
     alert(msg);
 }
 
-function displayInlineError(control) {
-    control.addClass("animatedNotification slideInRight");
-    control.show();
-    control.one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", function() {
-        hideInlineError(control);
-    });    
+function setNotificationText(notificationText) {
+    global.jQuery("#notification-text").text(notificationText);
 }
 
-function hideInlineError(control) {
-    control.removeClass("animatedNotification slideInRight"); 
-    control.addClass("animatedFade fadeOut");    
-    control.one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", function() {
-        resetInlineError(control);
-    });    
+function displayNotification() {
+    global.jQuery("#notification-bar").addClass("animated slideInUp");
+    global.jQuery("#notification-bar").show();       
+    global.jQuery("#notification-bar").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", function() {
+        setTimeout(hideNotification, 3000);
+    });
 }
 
-function resetInlineError(control) {
-    control.removeClass("animatedFade fadeOut"); 
-    control.hide();
+function hideNotification() {
+    global.jQuery("#notification-bar").removeClass("animated slideInUp"); 
+    global.jQuery("#notification-bar").addClass("animated fadeOut");    
+    global.jQuery("#notification-bar").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", resetNotification);
 }
 
-function displayErrorFromTop(control) {
-    control.addClass("animated slideInDown");
-    control.show();
-    control.one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", function() {
-        //hideErrorFromTop(control);
-    });    
-}
-
-function hideErrorFromTop(control) {
-    control.removeClass("animated slideInDown"); 
-    control.addClass("animated slideOutUp");    
-    control.one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", function() {
-        resetErrorFromTop(control);
-    });    
-}
-
-function resetErrorFromTop(control) {
-    control.removeClass("animated slideOutUp"); 
-    control.hide();
+function resetNotification() {
+    global.jQuery("#notification-bar").removeClass("animated fadeOut"); 
+    global.jQuery("#notification-bar").hide();
 }

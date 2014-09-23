@@ -46,7 +46,7 @@
         global.jQuery("#settingsOverlay").hide();
         global.jQuery("#serverLogOverlay").hide();
         global.jQuery("#overlay-bg").hide();
-        global.jQuery("#remove-notification").hide();
+        global.jQuery("#notification-bar").hide();
         global.jQuery("#status-field").hide();
         
         global.jQuery("#port-number-error").hide();
@@ -297,8 +297,8 @@
                 </div>
             </div>
             <div id="drop_zone" class="box-row dropzone"></div>
-            <div class="remove-notification" id="remove-notification">
-                <div style="padding-left: 15px; padding-top: 15px;">Project removed from this list, but not deleted from your computer</div>
+            <div class="notification-bar" id="notification-bar">
+                <div style="padding-left: 15px; padding-top: 15px;" id="notification-text"></div>
             </div>
         </div>
         <input type="file" id="projectDirectory" nwdirectory>

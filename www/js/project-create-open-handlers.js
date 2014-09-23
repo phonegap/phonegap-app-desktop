@@ -223,8 +223,13 @@ function parseProjectConfig(data) {
     if(!projectExistsInLocalStorage(localStorage.projDir)) {
         addProject(projectName, projectVersion, iconPath, localStorage.projDir);       
     } else {
-        displayErrorMessage("project already exists");
+        displayProjectExistsNotification();
     }    
+}
+
+function displayProjectExistsNotification() {
+    setNotificationText("You tried to add a project that already exists. A duplicate has not been added.");
+    displayNotification();
 }
 
 function projectExistsInLocalStorage(projDir) {
