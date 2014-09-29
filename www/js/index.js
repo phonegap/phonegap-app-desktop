@@ -4,7 +4,13 @@ var win = gui.Window.get();
 // load file system module
 var fs = require("fs");
 var gaze = require("gaze");
-var opener = require('opener');
+var opener = require("opener"); 
+var jsxml= require("node-jsxml");
+
+var Namespace = jsxml.Namespace,
+    QName = jsxml.QName,
+    XML = jsxml.XML,
+    XMLList = jsxml.XMLList;
 
 var menubar = new gui.Menu({ type: 'menubar' });
 var file = new gui.Menu();

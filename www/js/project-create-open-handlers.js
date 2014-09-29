@@ -146,14 +146,19 @@ function updateConfig(projectName, projectId) {
             var iconPath = localStorage.projDir + "/www/"
 
             global.jQuery.xmlDoc = global.jQuery.parseXML(data);
-            global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc);
+            global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc); 
+            
+            var serializer = new XMLSerializer();
+            var contents = serializer.serializeToString(global.jQuery.xmlDoc);    
+            
+            var xml = new XML(contents);
         
             // update project name
             var projName = projectName;
-            global.jQuery.xml.find("name").text(projName);
+            xml.child("name").setValue(projName);
             
-            // update project id
-            global.jQuery.xml.find("widget").attr("id", projectId);
+            // update project id                                     
+            xml.attribute("id").setValue(projectId);
         
             // get the project version
             var projVersion = global.jQuery.xml.find("widget").attr("version");
@@ -162,22 +167,19 @@ function updateConfig(projectName, projectId) {
             var projectIcon = global.jQuery.xml.find("icon").attr("src");
             iconPath += projectIcon;
             
-            //var serializer = new XMLSerializer();
-            //var contents = serializer.serializeToString(global.jQuery.xmlDoc);
-            
             // write the user entered project name & project id to the config.xml file
-            //fs.writeFile(filename, contents, {encoding: 'utf8'}, function (err, data) {
-            //    if (err) {
+            fs.writeFile(filename, xml, function (err, data) {
+                if (err) {
                     // throw err
-            //    } else {
+                } else {
                     // check if the project exists in PG-GUI's localstorage before adding
                     if(!projectExistsInLocalStorage(localStorage.projDir)) {
                         addProject(projName, projVersion, iconPath, localStorage.projDir);       
                     } else {
                         displayErrorMessage("project already exists");
                     }                    
-            //    }
-            //});
+                }
+            });
         }
     });    
 }
