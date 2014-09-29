@@ -136,39 +136,84 @@ function create(projectName, projectId) {
 }
 
 function updateConfig(projectName, projectId) {
-    var filename = localStorage.projDir + "/www/config.xml";
+    var oldPathToConfigFile = localStorage.projDir + "/www/config.xml";
+    var newPathToConfigFile = localStorage.projDir + "/config.xml";
     
-    fs.readFile(filename, {encoding: 'utf8'}, function(err, data) {
-        if (err) {
-            //throw err;
-            displayErrorMessage("Selected folder doesn't contain a config.xml file");
+    fs.readFile(newPathToConfigFile, {encoding: 'utf8'}, function(err, newPathData) {
+        if(err) {
+            fs.readFile(oldPathToConfigFile, {encoding: 'utf8'}, function(err, oldPathData) {
+                if (err) {
+                    //throw err;
+                    setNotificationText("Selected folder doesn't contain a config.xml file");
+                    displayNotification();
+                } else {
+                    var iconPath = localStorage.projDir + "/www/"
+
+                    global.jQuery.xmlDoc = global.jQuery.parseXML(oldPathData);
+                    global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc); 
+
+                    var serializer = new XMLSerializer();
+                    var contents = serializer.serializeToString(global.jQuery.xmlDoc);    
+
+                    var xml = new XML(contents);
+
+                    // update project name
+                    var projName = projectName;
+                    xml.child("name").setValue(projName);
+
+                    // update project id                                     
+                    xml.attribute("id").setValue(projectId);
+
+                    // get the project version
+                    var projVersion = global.jQuery.xml.find("widget").attr("version");
+
+                    // get the app icon
+                    var projectIcon = global.jQuery.xml.find("icon").attr("src");
+                    iconPath += projectIcon;
+
+                    // write the user entered project name & project id to the config.xml file
+                    fs.writeFile(oldPathToConfigFile, xml, function (err) {
+                        if (err) {
+                            // throw err
+                        } else {
+                            // check if the project exists in PG-GUI's localstorage before adding
+                            if(!projectExistsInLocalStorage(localStorage.projDir)) {
+                                addProject(projName, projVersion, iconPath, localStorage.projDir);       
+                            } else {
+                                setNotificationText("project already exists");
+                                displayNotification();
+                            }                    
+                        }
+                    });
+                }
+            });            
         } else {
             var iconPath = localStorage.projDir + "/www/"
 
-            global.jQuery.xmlDoc = global.jQuery.parseXML(data);
+            global.jQuery.xmlDoc = global.jQuery.parseXML(newPathData);
             global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc); 
-            
+
             var serializer = new XMLSerializer();
             var contents = serializer.serializeToString(global.jQuery.xmlDoc);    
-            
+
             var xml = new XML(contents);
-        
+
             // update project name
             var projName = projectName;
             xml.child("name").setValue(projName);
-            
+
             // update project id                                     
             xml.attribute("id").setValue(projectId);
-        
+
             // get the project version
             var projVersion = global.jQuery.xml.find("widget").attr("version");
-        
+
             // get the app icon
             var projectIcon = global.jQuery.xml.find("icon").attr("src");
             iconPath += projectIcon;
-            
+
             // write the user entered project name & project id to the config.xml file
-            fs.writeFile(filename, xml, function (err, data) {
+            fs.writeFile(newPathToConfigFile, xml, function (err) {
                 if (err) {
                     // throw err
                 } else {
@@ -176,12 +221,15 @@ function updateConfig(projectName, projectId) {
                     if(!projectExistsInLocalStorage(localStorage.projDir)) {
                         addProject(projName, projVersion, iconPath, localStorage.projDir);       
                     } else {
-                        displayErrorMessage("project already exists");
+                        setNotificationText("project already exists");
+                        displayNotification();
                     }                    
                 }
-            });
+            });            
         }
-    });    
+    });
+    
+    
 }
 
 function checkIfProjectConfigExists() {
