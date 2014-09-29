@@ -33,3 +33,11 @@ function sortByProperty(property) {
         return sortStatus;
     }
 }
+
+function openIssueTracker() {
+    gui.Shell.openExternal("https://github.com/hermwong/phonegap-gui/issues?state=open");    // opens user's default browser & loads page 
+}
+
+function openTutorials() {
+    gui.Shell.openExternal("https://github.com/hermwong/phonegap-gui/wiki/PhoneGap-GUI-Overview");    // opens user's default browser & loads page 
+}

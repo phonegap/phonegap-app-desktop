@@ -123,10 +123,34 @@ function hideSettingsOverlay(evt) {
     global.jQuery("#settingsOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHideSettingsAnimationEnd);
 }
 
+
 function handleHideSettingsAnimationEnd() {
     global.jQuery("#settingsOverlay").hide();
     global.jQuery("#overlay-bg").hide();
     global.jQuery("#settingsOverlay").removeClass("animated slideOutLeft");
+}
+
+function displayHelpOverlay(evt) {
+    hideOverlays();
+    global.jQuery("#help-holder").addClass("sidebar-button-active");
+    global.jQuery("#help-icon").attr("src", "img/icons/hover/help-hover.svg");
+    global.jQuery("#helpOverlay").addClass("animated slideInLeft");
+    global.jQuery("#helpOverlay").show();
+    global.jQuery("#overlay-bg").show();    
+}
+
+function hideHelpOverlay(evt) {
+    global.jQuery("#helpOverlay").removeClass("animated slideInLeft");
+    global.jQuery("#helpOverlay").addClass("animated slideOutLeft");
+    global.jQuery("#helpOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHelpOverlayAnimationEnd);  
+    global.jQuery("#help-holder").removeClass("sidebar-button-active"); 
+    global.jQuery("#help-icon").attr("src", "img/icons/normal/help.svg"); 
+} 
+
+function handleHelpOverlayAnimationEnd() {
+    global.jQuery("#helpOverlay").hide();
+    global.jQuery("#overlay-bg").hide();
+    global.jQuery("#helpOverlay").removeClass("animated slideOutLeft"); 
 }
 
 function toggleLog() {
@@ -162,7 +186,6 @@ function overlayBackgroundHandler(evt) {
 
 function hideOverlays() {
     if (global.jQuery("#createOpenProjectOverlay").is(":visible")) {
-        //global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");
         hideAddCreateProjectOverlay();
     }
     
@@ -176,5 +199,9 @@ function hideOverlays() {
     
     if (global.jQuery("#serverLogOverlay").is(":visible")) {
         toggleLog();
-    }   
+    }
+    
+    if (global.jQuery("#helpOverlay").is(":visible")) {
+        hideHelpOverlay();
+    }  
 }

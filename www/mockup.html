@@ -45,7 +45,8 @@
         global.jQuery("#newProjectOverlay").hide();
         global.jQuery("#createOpenProjectOverlay").hide();
         global.jQuery("#settingsOverlay").hide();
-        global.jQuery("#serverLogOverlay").hide();
+        global.jQuery("#serverLogOverlay").hide(); 
+        global.jQuery("#helpOverlay").hide();
         global.jQuery("#overlay-bg").hide();
         global.jQuery("#notification-bar").hide();
         global.jQuery("#status-field").hide();
@@ -95,7 +96,18 @@
         
         global.jQuery("#portNumber").blur(settingsFormValidatePortNumber);
 
-        global.jQuery("#closeServerLog").click(toggleLog);
+        global.jQuery("#closeServerLog").click(toggleLog);  
+        
+        //tutorials & reportIssue
+        global.jQuery("#tutorials").click(function() {
+            openTutorials();
+            hideHelpOverlay();
+        }); 
+        
+        global.jQuery("#reportIssue").click(function() {
+            openIssueTracker();
+            hideHelpOverlay();
+        });
                     
         global.jQuery("#plus-holder").click(function() {
             if (global.jQuery("#createOpenProjectOverlay").is(":visible") || global.jQuery("#newProjectOverlay").is(":visible")) {
@@ -133,7 +145,7 @@
         
         global.jQuery("#help-holder").click(function() {
             resetMinusButtonState();
-            displayErrorMessage("not implemented yet...");
+            displayHelpOverlay();
         });
 
         global.jQuery("#plus-holder").on("mouseout", function() {          
@@ -177,6 +189,14 @@
                 imgSwapper('settings-icon', 'img/icons/normal/settings.svg');
             } else {
                 imgSwapper('settings-icon', 'img/icons/active/settings-active.svg');
+            }
+        }); 
+        
+        global.jQuery("#help-holder").on("mouseout", function() {
+            if (!global.jQuery("#helpOverlay").is(":visible")) {
+                imgSwapper('help-icon', 'img/icons/normal/help.svg');
+            } else {
+                imgSwapper('help-icon', 'img/icons/hover/help-hover.svg');
             }
         });
         
@@ -259,6 +279,12 @@
         <div id="createProject" class="create-project-button">Create new PhoneGap project...</div>
         <div class="create-open-separator-spacer"><hr class="dotted-hr" /></div>
         <div id="openProject" class="open-project-button">Add existing PhoneGap project...</div>
+    </aside>
+    
+    <aside id="helpOverlay" class="create-overlay">
+        <div id="tutorials" class="create-project-button">Tutorials</div>
+        <div class="create-open-separator-spacer"><hr class="dotted-hr" /></div>
+        <div id="reportIssue" class="open-project-button">Report issue</div>
     </aside>
 
     <div class="row container" style="overflow-x: hidden; overflow-y: hidden;">

@@ -46,14 +46,14 @@ win.menu.append(new gui.MenuItem({ label: 'Help', submenu: help }));
 menubar.items[menubar.items.length-1].submenu.append(new gui.MenuItem({
    	label: "Tutorials",
    	click: function () {
-   	    gui.Shell.openExternal("https://github.com/hermwong/phonegap-gui/wiki/PhoneGap-GUI-Overview");    // opens user's default browser & loads page
+   	    openTutorials();
    	}
 }));
 
 menubar.items[menubar.items.length-1].submenu.append(new gui.MenuItem({
    	label: "Report Issue",
    	click: function () {
-   	    gui.Shell.openExternal("https://github.com/hermwong/phonegap-gui/issues?state=open");    // opens user's default browser & loads page
+   	    openIssueTracker();
    	}
 }));
 
