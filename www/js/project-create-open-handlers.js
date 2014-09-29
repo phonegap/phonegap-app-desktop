@@ -143,93 +143,53 @@ function updateConfig(projectName, projectId) {
         if(err) {
             fs.readFile(oldPathToConfigFile, {encoding: 'utf8'}, function(err, oldPathData) {
                 if (err) {
-                    //throw err;
-                    setNotificationText("Selected folder doesn't contain a config.xml file");
-                    displayNotification();
+                    displayMissingConfigFileNotification();
                 } else {
-                    var iconPath = localStorage.projDir + "/www/"
-
                     global.jQuery.xmlDoc = global.jQuery.parseXML(oldPathData);
-                    global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc); 
-
-                    var serializer = new XMLSerializer();
-                    var contents = serializer.serializeToString(global.jQuery.xmlDoc);    
-
-                    var xml = new XML(contents);
-
-                    // update project name
-                    var projName = projectName;
-                    xml.child("name").setValue(projName);
-
-                    // update project id                                     
-                    xml.attribute("id").setValue(projectId);
-
-                    // get the project version
-                    var projVersion = global.jQuery.xml.find("widget").attr("version");
-
-                    // get the app icon
-                    var projectIcon = global.jQuery.xml.find("icon").attr("src");
-                    iconPath += projectIcon;
-
-                    // write the user entered project name & project id to the config.xml file
-                    fs.writeFile(oldPathToConfigFile, xml, function (err) {
-                        if (err) {
-                            // throw err
-                        } else {
-                            // check if the project exists in PG-GUI's localstorage before adding
-                            if(!projectExistsInLocalStorage(localStorage.projDir)) {
-                                addProject(projName, projVersion, iconPath, localStorage.projDir);       
-                            } else {
-                                setNotificationText("project already exists");
-                                displayNotification();
-                            }                    
-                        }
-                    });
+                    updateConfigOnProjectCreation(global.jQuery.xmlDoc, projectName, projectId, oldPathToConfigFile);
                 }
             });            
         } else {
-            var iconPath = localStorage.projDir + "/www/"
-
             global.jQuery.xmlDoc = global.jQuery.parseXML(newPathData);
-            global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc); 
+            updateConfigOnProjectCreation(global.jQuery.xmlDoc, projectName, projectId, newPathToConfigFile);           
+        }
+    });    
+}
 
-            var serializer = new XMLSerializer();
-            var contents = serializer.serializeToString(global.jQuery.xmlDoc);    
+function updateConfigOnProjectCreation(configXML, projectName, projectId, pathToConfigFile) {
+    
+    var iconPath = localStorage.projDir + "/www/"
+    var serializer = new XMLSerializer();
+    var contents = serializer.serializeToString(configXML);    
+    var xml = new XML(contents);
+    global.jQuery.xml = global.jQuery(configXML); 
 
-            var xml = new XML(contents);
+    // update project name
+    xml.child("name").setValue(projectName);
 
-            // update project name
-            var projName = projectName;
-            xml.child("name").setValue(projName);
+    // update project id                                     
+    xml.attribute("id").setValue(projectId);
+    
+    // get the project version
+    var projVersion = xml.attribute("version").getValue();
 
-            // update project id                                     
-            xml.attribute("id").setValue(projectId);
-
-            // get the project version
-            var projVersion = global.jQuery.xml.find("widget").attr("version");
-
-            // get the app icon
-            var projectIcon = global.jQuery.xml.find("icon").attr("src");
-            iconPath += projectIcon;
-
-            // write the user entered project name & project id to the config.xml file
-            fs.writeFile(newPathToConfigFile, xml, function (err) {
-                if (err) {
-                    // throw err
-                } else {
-                    // check if the project exists in PG-GUI's localstorage before adding
-                    if(!projectExistsInLocalStorage(localStorage.projDir)) {
-                        addProject(projName, projVersion, iconPath, localStorage.projDir);       
-                    } else {
-                        setNotificationText("project already exists");
-                        displayNotification();
-                    }                    
-                }
-            });            
+    // get the app icon
+    var projectIcon = global.jQuery.xml.find("icon").attr("src");
+    iconPath += projectIcon;
+    
+    // write the user entered project name & project id to the config.xml file
+    fs.writeFile(pathToConfigFile, xml, function (err) {
+        if (err) {
+            // throw err
+        } else {
+            // check if the project exists in PG-GUI's localstorage before adding
+            if(!projectExistsInLocalStorage(localStorage.projDir)) {
+                addProject(projectName, projVersion, iconPath, localStorage.projDir);       
+            } else {
+                displayProjectExistsNotification();
+            }                    
         }
     });
-    
-    
 }
 
 function checkIfProjectConfigExists() {
@@ -241,7 +201,7 @@ function checkIfProjectConfigExists() {
         if (err) {
             fs.readFile(oldPathToConfigFile, 'utf8', function(err, data) {
                 if(err) {
-                    displayErrorMessage("Selected folder doesn't contain a config.xml file");
+                    displayMissingConfigFileNotification();
                 } else {
                     parseProjectConfig(data);
                 }
@@ -275,6 +235,11 @@ function parseProjectConfig(data) {
     } else {
         displayProjectExistsNotification();
     }    
+}
+
+function displayMissingConfigFileNotification() {
+    setNotificationText("Selected folder doesn't contain a config.xml file.");
+    displayNotification();    
 }
 
 function displayProjectExistsNotification() {
