@@ -18,19 +18,25 @@ function createProject(e) {
         localStorage.projDir = projectPath + "/" + projectName; 
         if(!projectExistsInLocalStorage(localStorage.projDir)) {
 
-            var filename = projectPath + "/www/config.xml";
-
-            fs.readFile(filename, 'utf8', function(err, data) {
-                if (err) {
-                    // if no www/config.xml found then create a new project
-                    create(projectName, projectId);
-                } else {
-                    displayErrorMessage("Selected folder already contains an existing project");
-                }
-            });
+            var oldPathToConfigFile = projectPath + "/www/config.xml";
+            var newPathToConfigFile = projectPath + "/config.xml";
             
+            fs.readFile(newPathToConfigFile, {encoding:'utf8'}, function(err, newPathData) {
+                if (err) {
+                    fs.readFile(oldPathToConfigFile, {encoding:'utf8'}, function(err, oldPathData) {
+                        if (err) {
+                            // if no www/config.xml found then create a new project
+                            create(projectName, projectId);
+                        } else {
+                            displayPhoneGapProjectInFolderError();
+                        }
+                    });                    
+                } else {
+                    displayPhoneGapProjectInFolderError(); 
+                }
+            });      
         } else {
-            displayErrorMessage("Selected folder already contains an existing project");
+            displayPhoneGapProjectInFolderError();
         }
     } else {
 
@@ -79,24 +85,32 @@ function selectDirectory(e) {
         
         if(!projectExistsInLocalStorage(localStorage.projDir)) {
 
-            var filename = projectPath + "/www/config.xml";
-
-            fs.readFile(filename, 'utf8', function(err, data) {
+            var oldPathToConfigFile = localStorage.projDir + "/www/config.xml";
+            var newPathToConfigFile = localStorage.projDir + "/config.xml";
+            
+            fs.readFile(newPathToConfigFile, {encoding:'utf8'}, function(err, newPathData) {
                 if (err) {
-                    // assume that no www/config.xml means a project doesn't exist in selected local path
-                    hideProjectPathError();
-                    global.jQuery("#newProjectOverlay").removeClass("new-project-overlay-project-path-error");
+                    console.log("config.xml not found in new path: " + newPathToConfigFile);
+                    fs.readFile(oldPathToConfigFile, {encoding:'utf8'}, function(err, oldPathData) {
+                        if (err) {
+                            // assume that no www/config.xml means a project doesn't exist in selected local path
+                            hideProjectPathError();
+                            global.jQuery("#newProjectOverlay").removeClass("new-project-overlay-project-path-error");
+                        } else {
+                            // www/config.xml exists in selected local path, assume that there is an existing project in the local path
+                            displayPhoneGapProjectInFolderError();
+                        }
+                    });                    
                 } else {
-                    // www/config.xml exists in selected local path, assume that there is an existing project in the local path
-                    displayPhoneGapProjectInFolderError();
+                    console.log("config.xml found in new path");
+                    // config.xml exists in selected local path, assume that there is an existing project in the local path
+                    displayPhoneGapProjectInFolderError();                    
                 }
             });
-            
         } else {
             // selected local path already exists in local storage, assume that there is an existing project in the local path
             displayPhoneGapProjectInFolderError();
-        }
-                
+        }               
     } else {
         if (global.jQuery("#projectDirectory").val().length > 0) {
             // open existing project workflow
