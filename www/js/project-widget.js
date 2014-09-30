@@ -178,10 +178,27 @@ function setActiveWidget(id, projDir) {
 function setConfigWatcher(id, projDir) {
     console.log("config watcher");
     
-    var configFile = projDir + "/www/config.xml";
-    
-    process.chdir(projDir + "/www");
-   
+    var oldPathToConfigFile = projDir + "/www/config.xml";
+    var newPathToConfigFile = projDir + "/config.xml";
+
+    fs.readFile(newPathToConfigFile, {encoding:'utf8'}, function(err, newPathData) {
+        if (err) {
+            fs.readFile(oldPathToConfigFile, {encoding:'utf8'}, function(err, oldPathData) {
+                if (err) {
+                    throw err;
+                } else {
+                    process.chdir(projDir + "/www");
+                    setWatcher(oldPathToConfigFile, projDir, id);
+                }
+            });            
+        } else {
+            process.chdir(projDir);
+            setWatcher(newPathToConfigFile, projDir, id);
+        }
+    });
+} 
+
+function setWatcher(filePath, projDir, id) {
     gaze("config.xml", function (err, watcher) {
         
         console.log(this.watched());
@@ -192,7 +209,7 @@ function setConfigWatcher(id, projDir) {
         
         this.on("changed", function(filepath) {          
             // reload the updated values from config.xml & update the GUI
-            fs.readFile(configFile, 'utf8', function(err, data) {
+            fs.readFile(filePath, {encoding:'utf8'}, function(err, data) {
                 if (err) throw err;
 
                 var iconPath = projDir + "/www/";
@@ -220,7 +237,7 @@ function setConfigWatcher(id, projDir) {
                 global.jQuery("#" + projectIconId).attr("src", iconPath);
             });
         });
-    });
+    });    
 }
 
 function removeProjectWidget(idToDelete) {
