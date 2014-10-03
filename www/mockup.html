@@ -49,12 +49,11 @@
         global.jQuery("#helpOverlay").hide();
         global.jQuery("#overlay-bg").hide();
         global.jQuery("#notification-bar").hide();
-        //global.jQuery("#status-field").hide();
-        
+      
         global.jQuery("#port-number-error").hide();
-        
-        global.jQuery("#drop_zone").on("drop", handleDrop);
-        global.jQuery("#drop_zone").on("dragover", handleDragOver);
+
+        global.jQuery("#body").on("drop", handleDrop);
+        global.jQuery("#body").on("dragover", handleDragOver);
 
         global.jQuery("#projectDirectory").change(selectDirectory);
 
@@ -213,7 +212,7 @@
 
     </script>
 </head>
-<body style="overflow-x: hidden; overflow-y: hidden;">
+<body style="overflow-x: hidden; overflow-y: hidden;" id="body">
 
     <div id="overlay-bg" class="topcoat-overlay-bg-grey"></div>
     
@@ -287,7 +286,7 @@
         <div id="reportIssue" class="open-project-button">Report issue</div>
     </aside>
 
-    <div class="row container" style="overflow-x: hidden; overflow-y: hidden;">
+    <div class="row container" style="overflow-x: hidden; overflow-y: hidden;" id="sideMenu">
         <div class="column-2-hand sidebar">
             <div id="plus-holder" class="box-row center-hand sidebar-button-holder" onMouseOver="imgSwapper('plus-icon', 'img/icons/hover/plus-hover.svg');">
                 <button id="plus" class="sidebarbutton" title="Add / Open Project">
@@ -332,7 +331,7 @@
     </div>
 
     <div class="row">
-        <div class="column-2-hand sidebar-bottom">
+        <div class="column-2-hand sidebar-bottom" id="sideMenuBottom">
             <div class="box-row">&nbsp;</div>
         </div>
         <div class="column-10-hand">

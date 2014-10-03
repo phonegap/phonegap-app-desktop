@@ -184,6 +184,14 @@ function overlayBackgroundHandler(evt) {
     hideOverlays();
 }
 
+function toggleOverlayBG() {
+    if (global.jQuery("#overlay-bg").is(":visible")) {
+        global.jQuery("#overlay-bg").hide();
+    } else {
+        global.jQuery("#overlay-bg").show();
+    }
+}
+
 function hideOverlays() {
     if (global.jQuery("#createOpenProjectOverlay").is(":visible")) {
         hideAddCreateProjectOverlay();
