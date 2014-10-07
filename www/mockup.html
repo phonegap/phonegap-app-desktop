@@ -55,7 +55,9 @@
         global.jQuery("#body").on("drop", handleDrop);
         global.jQuery("#body").on("dragover", handleDragOver);
 
-        global.jQuery("#projectDirectory").change(selectDirectory);
+        global.jQuery("#projectDirectory").on("change", function(e) {
+            selectDirectory(e);
+        });
 
         global.jQuery("#overlay-bg").click(overlayBackgroundHandler)
 

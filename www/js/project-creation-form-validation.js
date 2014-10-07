@@ -101,6 +101,7 @@ function resetProjectCreationFormHeight() {
 function resetProjectCreationForm() {
     global.jQuery("#projectName").val("");
     global.jQuery("#project-id").val("");
+    global.jQuery("#projectDirectory").val("");
     global.jQuery("#projectPath").addClass("overlay-form-item-description");
     global.jQuery("#projectPath").addClass("italics");
     global.jQuery("#projectPath").text("Please choose a local path");
