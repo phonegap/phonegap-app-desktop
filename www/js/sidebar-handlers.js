@@ -32,7 +32,7 @@ function handleHideAddNewProjectOverlayAnimationEnd() {
 
 function displayAddCreateProjectOverlay(evt) {
     console.log("addProjectOverlay - plus click handler");
-    hideOverlays();
+    //hideOverlays();
     global.jQuery("#plus-holder").addClass("sidebar-button-active");
     global.jQuery("#plus-icon").attr("src", "img/icons/active/plus-active.svg");
     global.jQuery("#createOpenProjectOverlay").addClass("animated slideInLeft");
@@ -182,14 +182,6 @@ function overlayBackgroundHandler(evt) {
     console.log("overlayBackgroundHandler - click handler");   
     global.jQuery("#overlay-bg").hide(); 
     hideOverlays();
-}
-
-function toggleOverlayBG() {
-    if (global.jQuery("#overlay-bg").is(":visible")) {
-        global.jQuery("#overlay-bg").hide();
-    } else {
-        global.jQuery("#overlay-bg").show();
-    }
 }
 
 function hideOverlays() {
