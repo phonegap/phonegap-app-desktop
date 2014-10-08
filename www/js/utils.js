@@ -39,5 +39,5 @@ function openIssueTracker() {
 }
 
 function openTutorials() {
-    gui.Shell.openExternal("https://github.com/hermwong/phonegap-gui/wiki/PhoneGap-GUI-Overview");    // opens user's default browser & loads page 
+    gui.Shell.openExternal("https://github.com/hermwong/phonegap-gui/wiki/PhoneGap-Developer-Desktop-App-Overview");    // opens user's default browser & loads page 
 }
