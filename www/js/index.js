@@ -18,7 +18,7 @@ var file = new gui.Menu();
 win.setResizable(false);
 
 win.menu = menubar;
-win.menu.insert(new gui.MenuItem({ label: 'File', submenu: file }), 1);
+win.menu.append(new gui.MenuItem({ label: 'File', submenu: file }), 1);
 
 // TODO: gotta be a better way of adding menu items by index number...
 menubar.items[0].submenu.append(new gui.MenuItem({
