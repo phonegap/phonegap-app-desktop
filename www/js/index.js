@@ -12,15 +12,19 @@ var Namespace = jsxml.Namespace,
     XML = jsxml.XML,
     XMLList = jsxml.XMLList;
 
+win.setResizable(false);
+/*
 var menubar = new gui.Menu({ type: 'menubar' });
 var file = new gui.Menu();
-
-win.setResizable(false);
+var help = new gui.Menu();
 
 win.menu = menubar;
-win.menu.append(new gui.MenuItem({ label: 'File', submenu: file }), 1);
+win.menu.append(new gui.MenuItem({ label: 'File', submenu: file }));
+win.menu.append(new gui.MenuItem({ label: 'Help', submenu: help }));
+
 
 // TODO: gotta be a better way of adding menu items by index number...
+// add menuItems for the File option
 menubar.items[0].submenu.append(new gui.MenuItem({
    	label: "New Project",
    	click: function () {
@@ -40,9 +44,7 @@ menubar.items[0].submenu.append(new gui.MenuItem({
    	}
 }));
 
-var help = new gui.Menu();
-win.menu.append(new gui.MenuItem({ label: 'Help', submenu: help }));
-
+// add menuItems for the Help option
 menubar.items[menubar.items.length-1].submenu.append(new gui.MenuItem({
    	label: "Tutorials",
    	click: function () {
@@ -56,6 +58,10 @@ menubar.items[menubar.items.length-1].submenu.append(new gui.MenuItem({
    	    openIssueTracker();
    	}
 }));
+
+
+console.log("menubar items: " + win.menu.items.length);
+*/
 
 win.show();    
 
