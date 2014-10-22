@@ -185,7 +185,7 @@ function setConfigWatcher(id, projDir) {
         if (err) {
             fs.readFile(oldPathToConfigFile, {encoding:'utf8'}, function(err, oldPathData) {
                 if (err) {
-                    throw err;
+                    displayErrorMessage(err.message);
                 } else {
                     process.chdir(projDir + "/www");
                     setWatcher(oldPathToConfigFile, projDir, id);
@@ -210,7 +210,9 @@ function setWatcher(filePath, projDir, id) {
         this.on("changed", function(filepath) {          
             // reload the updated values from config.xml & update the GUI
             fs.readFile(filePath, {encoding:'utf8'}, function(err, data) {
-                if (err) throw err;
+                if (err) {
+                    displayErrorMessage(err.message);
+                }
 
                 var iconPath = projDir + "/www/";
                 var projectDetailsId = "project-details_" + id.toString();

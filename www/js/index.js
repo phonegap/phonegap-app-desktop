@@ -72,10 +72,12 @@ win.on("close", function () {
         // if server is currently running, stop it before opening a new server instance
         setServerOffline();
     } else {
+        localStorage.projDir = "";
         win.close(true);
     }
 	
 	global.server.on("close", function(e) {
+	    localStorage.projDir = "";
 	    win.close(true);
 	});
 });

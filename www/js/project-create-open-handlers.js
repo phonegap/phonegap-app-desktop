@@ -8,6 +8,8 @@ function createProject(e) {
     var isProjectPathEmpty = isProjectPathFieldEmpty(projectPath);
     var isProjectNameEmpty = isEmptyField(projectName);
     var isProjectIdEmpty = isEmptyField(projectId);
+    
+    var projDir = "";
 
     hideProjectPathError();
     hideProjectNameError();
@@ -15,7 +17,8 @@ function createProject(e) {
     resetProjectCreationFormHeight();
 
     if(!isProjectIdEmpty && !isProjectNameEmpty && !isProjectPathEmpty) {
-        localStorage.projDir = projectPath + "/" + projectName; 
+        localStorage.projDir = projectPath + "/" + projectName;
+        projDir = projectPath + "/" + projectName;
         if(!projectExistsInLocalStorage(localStorage.projDir)) {
 
             var oldPathToConfigFile = projectPath + "/www/config.xml";
@@ -26,7 +29,7 @@ function createProject(e) {
                     fs.readFile(oldPathToConfigFile, {encoding:'utf8'}, function(err, oldPathData) {
                         if (err) {
                             // if no www/config.xml found then create a new project
-                            create(projectName, projectId);
+                            create(projectName, projectId, projDir);
                         } else {
                             displayPhoneGapProjectInFolderError();
                         }
@@ -129,10 +132,10 @@ function selectDirectory(e) {
     global.jQuery("#projectDirectory").val("");
 }
 
-function create(projectName, projectId) {
+function create(projectName, projectId, projDir) {
     console.log("create();")
 	var options = {};
-       options.path = localStorage.projDir;
+       options.path = projDir;
        options.version = global.pgVersion;
                    
        global.pgServer.create(options)
@@ -149,16 +152,16 @@ function create(projectName, projectId) {
               console.log("created project at:" + data.path);
 
               // update the config.xml of the newly created project with the project name & project id entered by the user
-              updateConfig(projectName, projectId);
+              updateConfig(projectName, projectId, projDir);
               
               global.jQuery("#overlay-bg").hide();
               hideAddNewProjectOverlay();
           });
 }
 
-function updateConfig(projectName, projectId) {
-    var oldPathToConfigFile = localStorage.projDir + "/www/config.xml";
-    var newPathToConfigFile = localStorage.projDir + "/config.xml";
+function updateConfig(projectName, projectId, projDir) {
+    var oldPathToConfigFile = projDir + "/www/config.xml";
+    var newPathToConfigFile = projDir + "/config.xml";
     
     fs.readFile(newPathToConfigFile, {encoding: 'utf8'}, function(err, newPathData) {
         if(err) {
@@ -167,19 +170,19 @@ function updateConfig(projectName, projectId) {
                     displayMissingConfigFileNotification();
                 } else {
                     global.jQuery.xmlDoc = global.jQuery.parseXML(oldPathData);
-                    updateConfigOnProjectCreation(global.jQuery.xmlDoc, projectName, projectId, oldPathToConfigFile);
+                    updateConfigOnProjectCreation(global.jQuery.xmlDoc, projectName, projectId, oldPathToConfigFile, projDir);
                 }
             });            
         } else {
             global.jQuery.xmlDoc = global.jQuery.parseXML(newPathData);
-            updateConfigOnProjectCreation(global.jQuery.xmlDoc, projectName, projectId, newPathToConfigFile);           
+            updateConfigOnProjectCreation(global.jQuery.xmlDoc, projectName, projectId, newPathToConfigFile, projDir);           
         }
     });    
 }
 
-function updateConfigOnProjectCreation(configXML, projectName, projectId, pathToConfigFile) {
+function updateConfigOnProjectCreation(configXML, projectName, projectId, pathToConfigFile, projDir) {
     
-    var iconPath = localStorage.projDir + "/www/"
+    var iconPath = projDir + "/www/"
     var serializer = new XMLSerializer();
     var contents = serializer.serializeToString(configXML);    
     var xml = new XML(contents);
@@ -205,7 +208,7 @@ function updateConfigOnProjectCreation(configXML, projectName, projectId, pathTo
         } else {
             // check if the project exists in PG-GUI's localstorage before adding
             if(!projectExistsInLocalStorage(localStorage.projDir)) {
-                addProject(projectName, projVersion, iconPath, localStorage.projDir);       
+                addProject(projectName, projVersion, iconPath, projDir);       
             } else {
                 displayProjectExistsNotification();
             }                    
@@ -256,7 +259,7 @@ function parseProjectConfig(data, projDir) {
 
     // check if the project exists in PG-GUI's localstorage before adding
     if(!projectExistsInLocalStorage(projDir)) {
-        addProject(projectName, projectVersion, iconPath, localStorage.projDir);       
+        addProject(projectName, projectVersion, iconPath, projDir);       
     } else {
         displayProjectExistsNotification();
     }    
