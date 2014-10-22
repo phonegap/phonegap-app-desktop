@@ -116,7 +116,7 @@ function selectDirectory(e) {
     } else {
         if (projectDir.length > 0) {
             // open existing project workflow
-            checkIfProjectConfigExists();
+            checkIfProjectConfigExists(projectDir);
             global.jQuery("#overlay-bg").hide();
             hideAddCreateProjectOverlay();
             global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");
@@ -213,10 +213,12 @@ function updateConfigOnProjectCreation(configXML, projectName, projectId, pathTo
     });
 }
 
-function checkIfProjectConfigExists() {
+function checkIfProjectConfigExists(projDir) {
     console.log("checkIfProjectConfigExists");
-    var oldPathToConfigFile = localStorage.projDir + "/www/config.xml";
-    var newPathToConfigFile = localStorage.projDir + "/config.xml";
+    var oldPathToConfigFile = projDir + "/www/config.xml";
+    var newPathToConfigFile = projDir + "/config.xml";
+    console.log("oldPath: " + oldPathToConfigFile);
+    console.log("newPath: " + newPathToConfigFile);
         
     fs.readFile(newPathToConfigFile, 'utf8', function(err, data) {
         if (err) {
@@ -225,19 +227,19 @@ function checkIfProjectConfigExists() {
                     displayMissingConfigFileNotification();
                 } else {
                     console.log("oldPathToConfigFile found");
-                    parseProjectConfig(data);
+                    parseProjectConfig(data, projDir);
                 }
             });
         } else {
             console.log("newPathToConfigFile found");
-            parseProjectConfig(data); 
+            parseProjectConfig(data, projDir); 
         }
     });    
 }
 
-function parseProjectConfig(data) {
+function parseProjectConfig(data, projDir) {
     
-    var iconPath = localStorage.projDir + "/www/"
+    var iconPath = projDir + "/www/"
 
     global.jQuery.xmlDoc = global.jQuery.parseXML(data);
     global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc);
@@ -253,7 +255,7 @@ function parseProjectConfig(data) {
     iconPath += projectIcon;
 
     // check if the project exists in PG-GUI's localstorage before adding
-    if(!projectExistsInLocalStorage(localStorage.projDir)) {
+    if(!projectExistsInLocalStorage(projDir)) {
         addProject(projectName, projectVersion, iconPath, localStorage.projDir);       
     } else {
         displayProjectExistsNotification();
