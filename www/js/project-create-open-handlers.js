@@ -19,7 +19,7 @@ function createProject(e) {
     if(!isProjectIdEmpty && !isProjectNameEmpty && !isProjectPathEmpty) {
         localStorage.projDir = projectPath + "/" + projectName;
         projDir = projectPath + "/" + projectName;
-        if(!projectExistsInLocalStorage(localStorage.projDir)) {
+        if(!projectExistsInLocalStorage(projDir)) {
 
             var oldPathToConfigFile = projectPath + "/www/config.xml";
             var newPathToConfigFile = projectPath + "/config.xml";
@@ -207,7 +207,7 @@ function updateConfigOnProjectCreation(configXML, projectName, projectId, pathTo
             // throw err
         } else {
             // check if the project exists in PG-GUI's localstorage before adding
-            if(!projectExistsInLocalStorage(localStorage.projDir)) {
+            if(!projectExistsInLocalStorage(projDir)) {
                 addProject(projectName, projVersion, iconPath, projDir);       
             } else {
                 displayProjectExistsNotification();
