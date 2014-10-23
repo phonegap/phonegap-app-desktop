@@ -178,8 +178,8 @@ function setActiveWidget(id, projDir) {
 function setConfigWatcher(id, projDir) {
     console.log("config watcher");
     
-    var oldPathToConfigFile = projDir + "/www/config.xml";
-    var newPathToConfigFile = projDir + "/config.xml";
+    var oldPathToConfigFile = projDir + buildPathBasedOnOS("/www/config.xml");
+    var newPathToConfigFile = projDir + buildPathBasedOnOS("/config.xml");
 
     fs.readFile(newPathToConfigFile, {encoding:'utf8'}, function(err, newPathData) {
         if (err) {
@@ -214,7 +214,7 @@ function setWatcher(filePath, projDir, id) {
                     displayErrorMessage(err.message);
                 }
 
-                var iconPath = projDir + "/www/";
+                var iconPath = projDir + buildPathBasedOnOS("/www/");
                 var projectDetailsId = "project-details_" + id.toString();
                 var projectIconId = "projectIconId_" + id.toString();
                 var projectNameLabel = "projectNameLabel_" + id.toString();

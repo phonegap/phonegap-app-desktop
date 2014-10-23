@@ -21,8 +21,8 @@ function createProject(e) {
         projDir = projectPath + "/" + projectName;
         if(!projectExistsInLocalStorage(projDir)) {
 
-            var oldPathToConfigFile = projectPath + "/www/config.xml";
-            var newPathToConfigFile = projectPath + "/config.xml";
+            var oldPathToConfigFile = projectPath + buildPathBasedOnOS("/www/config.xml");
+            var newPathToConfigFile = projectPath + buildPathBasedOnOS("/config.xml");
             
             fs.readFile(newPathToConfigFile, {encoding:'utf8'}, function(err, newPathData) {
                 if (err) {
@@ -90,9 +90,9 @@ function selectDirectory(e) {
         
         if(!projectExistsInLocalStorage(projectDir)) {
 
-            var oldPathToConfigFile = projectDir + "/www/config.xml";
-            var newPathToConfigFile = projectDir + "/config.xml";
-            
+            var oldPathToConfigFile = projectDir + buildPathBasedOnOS("/www/config.xml");
+            var newPathToConfigFile = projectDir + buildPathBasedOnOS("/config.xml");
+                        
             fs.readFile(newPathToConfigFile, {encoding:'utf8'}, function(err, newPathData) {
                 if (err) {
                     console.log("config.xml not found in new path: " + newPathToConfigFile);
@@ -160,8 +160,8 @@ function create(projectName, projectId, projDir) {
 }
 
 function updateConfig(projectName, projectId, projDir) {
-    var oldPathToConfigFile = projDir + "/www/config.xml";
-    var newPathToConfigFile = projDir + "/config.xml";
+    var oldPathToConfigFile = projDir + buildPathBasedOnOS("/www/config.xml");
+    var newPathToConfigFile = projDir + buildPathBasedOnOS("/config.xml");
     
     fs.readFile(newPathToConfigFile, {encoding: 'utf8'}, function(err, newPathData) {
         if(err) {
@@ -182,7 +182,7 @@ function updateConfig(projectName, projectId, projDir) {
 
 function updateConfigOnProjectCreation(configXML, projectName, projectId, pathToConfigFile, projDir) {
     
-    var iconPath = projDir + "/www/"
+    var iconPath = projDir + buildPathBasedOnOS("/www/");
     var serializer = new XMLSerializer();
     var contents = serializer.serializeToString(configXML);    
     var xml = new XML(contents);
@@ -218,8 +218,8 @@ function updateConfigOnProjectCreation(configXML, projectName, projectId, pathTo
 
 function checkIfProjectConfigExists(projDir) {
     console.log("checkIfProjectConfigExists");
-    var oldPathToConfigFile = projDir + "/www/config.xml";
-    var newPathToConfigFile = projDir + "/config.xml";
+    var oldPathToConfigFile = projDir + buildPathBasedOnOS("/www/config.xml");
+    var newPathToConfigFile = projDir + buildPathBasedOnOS("/config.xml");
     console.log("oldPath: " + oldPathToConfigFile);
     console.log("newPath: " + newPathToConfigFile);
         
@@ -242,7 +242,7 @@ function checkIfProjectConfigExists(projDir) {
 
 function parseProjectConfig(data, projDir) {
     
-    var iconPath = projDir + "/www/"
+    var iconPath = projDir + buildPathBasedOnOS("/www/");
 
     global.jQuery.xmlDoc = global.jQuery.parseXML(data);
     global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc);

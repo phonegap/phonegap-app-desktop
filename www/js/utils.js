@@ -34,6 +34,19 @@ function sortByProperty(property) {
     }
 }
 
+function determineOperatingSystem() {
+    // valid return values: 'darwin', 'freebsd', 'linux', 'sunos' or 'win32'
+    return process.platform;
+}
+
+function buildPathBasedOnOS(path) {
+    var configPath = path;
+    if (determineOperatingSystem() == 'win32') {
+        configPath = path.replace(/\//g,"\\");
+    }
+    return configPath; 
+}
+
 function openIssueTracker() {
     gui.Shell.openExternal("https://github.com/hermwong/phonegap-gui/issues?state=open");    // opens user's default browser & loads page 
 }
