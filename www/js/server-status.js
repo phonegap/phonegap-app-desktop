@@ -6,7 +6,7 @@ function toggleServerStatus() {
         setServerOffline();
     } 
     
-    fs.exists(localStorage.projDir + "/www", function(exists) {
+    fs.exists(localStorage.projDir + buildWindowsConfigFilePath("/www"), function(exists) {
         if (exists) {
             process.chdir(localStorage.projDir);
             console.log("server started");
