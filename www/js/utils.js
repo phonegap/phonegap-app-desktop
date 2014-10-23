@@ -39,12 +39,20 @@ function determineOperatingSystem() {
     return process.platform;
 }
 
-function buildPathBasedOnOS(path) {
-    var configPath = path;
+function buildPathBasedOnOS(existingPath) {
+    var path = existingPath;
     if (determineOperatingSystem() == 'win32') {
-        configPath = path.replace(/\//g,"\\");
+        path = existingPath.replace(/\//g,"\\");
     }
-    return configPath; 
+    return path; 
+}
+
+function buildWindowsConfigFilePath(existingPath) {
+    var path = existingPath;
+    if (determineOperatingSystem() == 'win32') {
+        path = "\\" + global.pgVersion + buildPathBasedOnOS(existingPath);
+    } 
+    return path;
 }
 
 function openIssueTracker() {
