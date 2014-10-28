@@ -33,5 +33,5 @@ __note:__ the first build requires a second call to `grunt`.
 
 Opens the application located in:
 
-  - __OS X__: `build/releases/phonegap-gui/mac/PhoneGap.app`
-  - __Windows__: `build/releases/phonegap-gui/win/phonegap-gui/PhoneGap.exe`
+  - __OS X__: `build/PhoneGap/osx/PhoneGap.app`
+  - __Windows__: `build/PhoneGap/win/PhoneGap.exe`
