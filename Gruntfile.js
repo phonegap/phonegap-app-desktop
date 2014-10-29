@@ -12,7 +12,7 @@ module.exports = function(grunt) {
     },
     nodewebkit: {
       options: {
-        version: '0.9.1',
+        version: '0.10.5',
         build_dir: './build', // Destination for built apps.
         mac: true,            // OS X support.
         win: true,            // Windows support.
