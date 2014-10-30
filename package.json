@@ -12,7 +12,8 @@
     ],
     "preferGlobal": "false",
     "scripts": {
-        "grunt": "grunt"
+        "grunt": "grunt",
+        "test": "jasmine-node --color spec"
     },
     "devDependencies": {
         "grunt": "0.4.2",
@@ -21,6 +22,7 @@
         "grunt-contrib-less": "0.9.0",
         "grunt-contrib-watch": "0.5.3",
         "grunt-node-webkit-builder": "0.2.2",
+        "jasmine-node": "1.14.5",
         "opener": "1.3.0"
     },
     "contributors": [
