@@ -295,8 +295,8 @@ function projectExistsInLocalStorage(projDir) {
 }
 
 function folderExistsInFileSystem(projDir) {
-  
-    fs.exists(projDir, function(exists) {
+    var folder = buildWindowsConfigFilePath(projDir);
+    fs.exists(folder, function(exists) {
         if (exists) {
             displayDuplicateProjectNameError();
             global.jQuery("#newProjectOverlay").addClass("new-project-overlay-duplicate-project-name-error");
