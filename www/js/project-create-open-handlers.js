@@ -17,8 +17,8 @@ function createProject(e) {
     resetProjectCreationFormHeight();
 
     if(!isProjectIdEmpty && !isProjectNameEmpty && !isProjectPathEmpty) {
-        localStorage.projDir = projectPath + buildWindowsConfigFilePath("/") + projectName;
         projDir = projectPath + buildWindowsConfigFilePath("/") + projectName;
+        localStorage.projDir = projDir;
         if(!projectExistsInLocalStorage(projDir)) {
 
             var oldPathToConfigFile = projectPath + buildWindowsConfigFilePath("/www/config.xml");

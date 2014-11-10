@@ -1,4 +1,4 @@
-function toggleServerStatus() {
+function toggleServerStatus(projDir) {
     console.log("toggleServerStatus");
 
     if (global.isServerRunning) {
@@ -6,11 +6,19 @@ function toggleServerStatus() {
         setServerOffline();
     } 
     
-    fs.exists(localStorage.projDir + buildWindowsConfigFilePath("/www"), function(exists) {
+    if (projDir) {
+        projDir = localStorage.projDir;
+    } else {
+        if (projDir.length < 0) {
+            projDir = localStorage.projDir;
+        }
+    }
+    
+    fs.exists(projDir + buildWindowsConfigFilePath("/www"), function(exists) {
         if (exists) {
-            process.chdir(localStorage.projDir);
+            process.chdir(projDir);
             console.log("server started");
-            console.log("project opened at: " + localStorage.projDir);
+            console.log("project opened at: " + projDir);
 
             global.pgServer.listen({ port: localStorage.portNumber })
             .on("complete", function(data) {

@@ -165,7 +165,7 @@ function setActiveWidget(id, projDir) {
     setConfigWatcher(id, projDir);
     
     // turn on the server
-    toggleServerStatus();
+    toggleServerStatus(projDir);
            
     // reset the previous active widget
     if (previousActiveWidget) {       

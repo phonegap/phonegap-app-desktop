@@ -8,7 +8,7 @@ function saveSettings(evt) {
     } else {
         localStorage.portNumber = portNumber;
         hideSettingsOverlay();
-        toggleServerStatus();
+        toggleServerStatus("");
     }  
 }
 
