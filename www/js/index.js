@@ -6,6 +6,7 @@ var fs = require("fs");
 var gaze = require("gaze");
 var opener = require("opener"); 
 var jsxml= require("node-jsxml");
+var uuid = require("node-uuid");
 
 var Namespace = jsxml.Namespace,
     QName = jsxml.QName,

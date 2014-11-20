@@ -1,5 +1,16 @@
 function generateId() {
-    var id = new Date().getTime();
+    // used to generate Ids for user & projects
+    var id = uuid.v1();
+    return id;
+}
+
+function getUserId() {
+    var id = null;
+    if (!localStorage.userId) {
+        localStorage.userId = generateId();
+    }
+    id = localStorage.userId; 
+    console.log("userId: " + id);
     return id;
 }
 
