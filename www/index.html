@@ -46,6 +46,7 @@
     global.isServerRunning = false;
     global.allowRemoveNotification = "false";
     global.createChosen = false;
+    global.debugMode = null;
     global.missing = new Array();
 
     // set default port number it has not been set
@@ -222,7 +223,8 @@
         disableMinusButton();
         getProjects();  
         
-        trackAppOpened();
+        checkIfToolbarEnabled();
+        setTimeout(trackAppOpened, 100);
     });
 
     function imgSwapper(img, src) {

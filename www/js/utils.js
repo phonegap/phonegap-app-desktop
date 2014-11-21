@@ -61,4 +61,19 @@ function openIssueTracker() {
 
 function openTutorials() {
     gui.Shell.openExternal("https://github.com/hermwong/phonegap-gui/wiki/PhoneGap-Developer-Desktop-App-Overview");    // opens user's default browser & loads page 
+} 
+
+function checkIfToolbarEnabled() {
+    console.log("checkIfToolbarEnabled");
+    var pathToPackageJSONFile = "package.json"; // TODO: need to test this path on windows
+        
+    fs.readFile(pathToPackageJSONFile, 'utf8', function(err, data) {
+        if (err) {
+            console.log("pathToPackageJSONFile not found"); 
+        } else {
+            console.log("pathToPackageJSONFile found");
+            var obj = JSON.parse(data);
+            global.debugMode = obj.window.toolbar;            
+        }
+    });    
 }
