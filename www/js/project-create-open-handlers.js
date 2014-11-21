@@ -28,6 +28,7 @@ function createProject(e) {
                 if (err) {
                     fs.readFile(oldPathToConfigFile, {encoding:'utf8'}, function(err, oldPathData) {
                         if (err) {
+                            trackProjectCreated();
                             // if no www/config.xml found then create a new project
                             create(projectName, projectId, projDir);
                         } else {
@@ -123,6 +124,7 @@ function selectDirectory(e) {
             global.jQuery("#overlay-bg").hide();
             hideAddCreateProjectOverlay();
             global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");
+            trackProjectOpened();
         } else {
             setNotificationText("Project directory error");
             displayNotification();

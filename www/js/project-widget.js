@@ -247,6 +247,7 @@ function removeProjectWidget(idToDelete) {
     var widgetId = "projectWidget_" + idToDelete.toString();
     global.jQuery("#" + widgetId).addClass("animated slideOutLeft");
     global.jQuery("#" + widgetId).one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", function() {
+        trackProjectRemoved();
         deleteProjectWidget(idToDelete);
     });
     if (global.allowRemoveNotification === "true") {
