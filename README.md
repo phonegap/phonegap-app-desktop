@@ -1,4 +1,4 @@
-# PhoneGap Desktop
+## PhoneGap Desktop [![Build status](https://badge.buildbox.io/d5b26a9e3bc79e808d8cdb483ee14d45d371c9f41bd8371c3b.svg?branch=master)](https://buildbox.io/phonegap/phonegap-desktop)
 
 Initial prototype of creating a GUI for the PhoneGap CLI.
 
