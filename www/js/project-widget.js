@@ -86,20 +86,29 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     });
     
     global.jQuery("#start-icon_" + id.toString()).on("mouseover", function() {
-        imgSwapper("start-icon_" + id.toString(), "img/icons/hover/start-hover.svg");
+        if (global.isServerRunning) {
+            imgSwapper("start-icon_" + id.toString(), "img/icons/hover/start-hover.svg");
+        }
     });
     
     global.jQuery("#start-icon_" + id.toString()).on("mouseout", function() {
-        if (id == global.activeWidget.projectId) {
-            imgSwapper("start-icon_" + id.toString(), "img/icons/active/start-active.svg");
-        } else {
-            imgSwapper("start-icon_" + id.toString(), "img/icons/normal/start.svg");
+        if (global.isServerRunning) {
+            if (id == global.activeWidget.projectId) {
+                imgSwapper("start-icon_" + id.toString(), "img/icons/active/start-active.svg");
+            } else {
+                imgSwapper("start-icon_" + id.toString(), "img/icons/normal/start.svg");
+            }
         }        
     });
 
     global.jQuery("#start-icon_" + id.toString()).on("click", function() {
-       setActiveWidget(id, projectDir);
-       widgetServerOnlineState(id);
+        if (global.isServerRunning) {
+            setActiveWidget(id, projectDir);
+            widgetServerOnlineState(id); 
+        } else {
+            console.log(projectDir);
+            toggleServerStatus(projectDir);
+        }                  
     });
 
     global.jQuery("#stop-icon_" + id.toString()).on("mouseover", function() {
@@ -112,23 +121,27 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     
     global.jQuery("#stop-icon_" + id.toString()).on("click", function() {
         if (global.jQuery("#stop-icon_" + id.toString()).hasClass("stop-icon-active")) {
-            // turn off the server
-            setServerOffline();
-            serverOfflineState();
-            widgetSeverOfflineState(id);
+            if (global.isServerRunning) {
+                // turn off the server
+                setServerOffline();
+                serverOfflineState();
+                widgetSeverOfflineState(id);       
+            }
         }
     });
 }
 
 function widgetServerOnlineState(id) {
-    // update view to reflect that server is running
-    global.jQuery("#widgetStatus_" + id.toString()).addClass("widget-online");
-    global.jQuery("#widgetStatusBottom_" + id.toString()).addClass("widget-online");                                                                           
-    global.jQuery("#start-icon_" + id.toString()).attr("src", "img/icons/active/start-active.svg");
-    global.jQuery("#hr-icon_" + id.toString()).css("opacity", 1.0);
-    global.jQuery("#stop-icon_" + id.toString()).css("opacity", 1.0);
-    global.jQuery("#stop-icon_" + id.toString()).addClass("stop-icon-active"); 
-    global.jQuery("#" + global.activeWidget.widgetId).css("background-color", "#f0f0f0");  
+    if (global.isServerRunning) {
+        // update view to reflect that server is running
+        global.jQuery("#widgetStatus_" + id.toString()).addClass("widget-online");
+        global.jQuery("#widgetStatusBottom_" + id.toString()).addClass("widget-online");                                                                           
+        global.jQuery("#start-icon_" + id.toString()).attr("src", "img/icons/active/start-active.svg");
+        global.jQuery("#hr-icon_" + id.toString()).css("opacity", 1.0);
+        global.jQuery("#stop-icon_" + id.toString()).css("opacity", 1.0);
+        global.jQuery("#stop-icon_" + id.toString()).addClass("stop-icon-active"); 
+        global.jQuery("#" + global.activeWidget.widgetId).css("background-color", "#f0f0f0");                
+    } 
 }
 
 function widgetSeverOfflineState(id) {
@@ -144,9 +157,9 @@ function widgetSeverOfflineState(id) {
 
 function setActiveWidget(id, projDir) {
     console.log("setActiveWidget"); 
-   
+
     var previousActiveWidget = global.activeWidget;
-        
+
     var activeWidget = {};
     activeWidget.widgetId = "projectWidget_" + id.toString();
     activeWidget.widgetStatus = "widgetStatus_" + id.toString();
@@ -154,19 +167,19 @@ function setActiveWidget(id, projDir) {
     activeWidget.projectId = id;
     global.activeWidget = activeWidget;
     localStorage.projDir = projDir;
-    
+
     console.log("activeId: " + id);
-       
+
     // update GUI to display details of the active widget          
     global.jQuery("#" + activeWidget.widgetId).css("background-color", "#f0f0f0");
     widgetServerOnlineState(activeWidget.projectId);
 
     // set a watch on the config.xml of the active project
     setConfigWatcher(id, projDir);
-    
+
     // turn on the server
     toggleServerStatus(projDir);
-           
+
     // reset the previous active widget
     if (previousActiveWidget) {       
         console.log("prevId: " + previousActiveWidget.projectId);
