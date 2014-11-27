@@ -123,6 +123,14 @@
         global.jQuery("#reportIssue").click(function() {
             openIssueTracker();
             hideHelpOverlay();
+        }); 
+        
+        global.jQuery("#termsOfUse").click(function() {
+            openTermsOfUse();
+        });
+        
+        global.jQuery("#privacyPolicy").click(function() {
+            openPrivacyPolicy();
         });
                     
         global.jQuery("#plus-holder").click(function() {
@@ -296,15 +304,19 @@
     </aside>
     
     <aside id="createOpenProjectOverlay" class="create-overlay">
-        <div id="createProject" class="create-project-button">Create new PhoneGap project...</div>
+        <div id="createProject" class="flyout-top-button">Create new PhoneGap project...</div>
         <div class="create-open-separator-spacer"><hr class="dotted-hr" /></div>
-        <div id="openProject" class="open-project-button">Add existing PhoneGap project...</div>
+        <div id="openProject" class="flyout-button">Add existing PhoneGap project...</div>
     </aside>
     
-    <aside id="helpOverlay" class="create-overlay">
-        <div id="tutorials" class="create-project-button">Tutorials</div>
+    <aside id="helpOverlay" class="help-overlay">
+        <div id="tutorials" class="flyout-top-button">Tutorials</div>
         <div class="create-open-separator-spacer"><hr class="dotted-hr" /></div>
-        <div id="reportIssue" class="open-project-button">Report issue</div>
+        <div id="reportIssue" class="flyout-button">Report Issue</div>
+        <div class="create-open-separator-spacer"><hr class="dotted-hr" /></div>
+        <div id="termsOfUse" class="flyout-button">Terms of Use</div>
+        <div class="create-open-separator-spacer"><hr class="dotted-hr" /></div>
+        <div id="privacyPolicy" class="flyout-button">Privacy Policy</div>
     </aside>
 
     <div class="row container" style="overflow-x: hidden; overflow-y: hidden;" id="sideMenu">

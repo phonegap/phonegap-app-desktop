@@ -66,6 +66,20 @@ if (process.platform == 'darwin') {
    	    }
     }));
 
+    menubar.items[menubar.items.length-1].submenu.append(new gui.MenuItem({
+   	    label: "Terms of Use",
+   	    click: function () {
+   	        openTermsOfUse();
+   	    }
+    }));     
+    
+    menubar.items[menubar.items.length-1].submenu.append(new gui.MenuItem({
+   	    label: "Privacy Policy",
+   	    click: function () {
+   	        openPrivacyPolicy();
+   	    }
+    }));
+    
     console.log("menubar items: " + win.menu.items.length);
 
 }

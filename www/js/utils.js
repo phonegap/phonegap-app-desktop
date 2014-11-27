@@ -60,8 +60,16 @@ function openIssueTracker() {
 }
 
 function openTutorials() {
-    gui.Shell.openExternal("https://github.com/hermwong/phonegap-gui/wiki/PhoneGap-Developer-Desktop-App-Overview");    // opens user's default browser & loads page 
+    gui.Shell.openExternal("https://github.com/hermwong/phonegap-gui/wiki/PhoneGap-Developer-Desktop-App-Overview");
 } 
+
+function openTermsOfUse() {
+    gui.Shell.openExternal("http://www.adobe.com/legal/general-terms.html");
+}
+
+function openPrivacyPolicy() {
+    gui.Shell.openExternal("http://www.adobe.com/privacy.html");
+}
 
 function checkIfToolbarEnabled() {
     console.log("checkIfToolbarEnabled");
