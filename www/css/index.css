@@ -155,6 +155,15 @@
   position: relative;
   padding-right: 4px;
 }
+#project-path-border {
+  border: 1px solid;
+  border-color: #999999;
+  display: inline-block;
+  width: 225px;
+  max-width: 225px;
+  white-space: nowrap;
+  padding-top: 2px;
+}
 .project-creation-warning-icon {
   background: url(../img/icons/normal/warning.svg) no-repeat;
   background-position: 308px 2px;
