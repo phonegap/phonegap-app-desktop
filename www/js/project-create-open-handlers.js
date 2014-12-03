@@ -3,11 +3,11 @@ function createProject(e) {
 
     var projectPath = global.jQuery("#projectPath").text().trim();
     var projectName = global.jQuery("#projectName").val().trim();
-    var projectId = global.jQuery("#project-id").val().trim();
+    // var projectId = global.jQuery("#project-id").val().trim();
     
     var isProjectPathEmpty = isProjectPathFieldEmpty(projectPath);
     var isProjectNameEmpty = isEmptyField(projectName);
-    var isProjectIdEmpty = isEmptyField(projectId);
+    // var isProjectIdEmpty = isEmptyField(projectId);
     
     var projDir = "";
 
@@ -81,6 +81,10 @@ function selectDirectory(e) {
     console.log("change handler");
     
     var projectDir = global.jQuery("#projectDirectory").val().trim();
+    var projectName = global.jQuery("#projectName").val().trim();
+  
+    var isProjectPathEmpty = isProjectPathFieldEmpty(projectDir);
+    var isProjectNameEmpty = isEmptyField(projectName);
     
     console.log("projectDir: " + projectDir);
         
@@ -105,6 +109,8 @@ function selectDirectory(e) {
                         if (err) {
                             // assume that no www/config.xml means a project doesn't exist in selected local path
                             hideProjectPathError();
+                            resetProjectCreationFormHeight();
+                            adjustProjectCreationFormHeight(isProjectPathEmpty, isProjectNameEmpty);
                             global.jQuery("#newProjectOverlay").removeClass("new-project-overlay-project-path-error");
                         } else {
                             // www/config.xml exists in selected local path, assume that there is an existing project in the local path

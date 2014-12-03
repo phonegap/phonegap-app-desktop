@@ -105,9 +105,7 @@ function adjustProjectCreationFormHeight(isProjectPathEmpty, isProjectNameEmpty)
                 global.jQuery("#newProjectOverlay").addClass("new-project-overlay-project-path-and-other-error");
             }
         } else {
-            if (!isProjectNameEmpty) {
-                // do nothing - no error since project path has been provided and project name has been provided
-            } else {
+            if (isProjectNameEmpty) {
                 // change project creation dialog height to accommodate for project path error & project name error
                 global.jQuery("#newProjectOverlay").addClass("new-project-overlay-project-name-or-project-id-error");
             }          
