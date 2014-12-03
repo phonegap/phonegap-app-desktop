@@ -2,21 +2,18 @@ function createProject(e) {
     console.log("createProject handler");
 
     var projectPath = global.jQuery("#projectPath").text().trim();
-    var projectName = global.jQuery("#projectName").val().trim();
-    // var projectId = global.jQuery("#project-id").val().trim();
+    var projectName = global.jQuery("#projectName").val().trim();   
+    var projectId = global.jQuery("#project-id").val().trim() || global.jQuery("#project-id").attr("placeholder").trim();
     
     var isProjectPathEmpty = isProjectPathFieldEmpty(projectPath);
     var isProjectNameEmpty = isEmptyField(projectName);
-    // var isProjectIdEmpty = isEmptyField(projectId);
     
     var projDir = "";
 
     hideProjectPathError();
     hideProjectNameError();
-    hideProjectIdError();
     resetProjectCreationFormHeight();
 
-    // if(!isProjectIdEmpty && !isProjectNameEmpty && !isProjectPathEmpty) {
     if(!isProjectNameEmpty && !isProjectPathEmpty) { 
         projDir = projectPath + buildWindowsConfigFilePath("/") + projectName;
         localStorage.projDir = projDir;
@@ -55,14 +52,6 @@ function createProject(e) {
             displayProjectNameError();
         }
         
-        /*
-        if (isProjectIdEmpty) {   
-            // error with project id
-            displayProjectIdError(); 
-        } 
-        */
-
-        //adjustProjectCreationFormHeight(isProjectPathEmpty, isProjectNameEmpty, isProjectIdEmpty); 
         adjustProjectCreationFormHeight(isProjectPathEmpty, isProjectNameEmpty); 
     }    
 }
