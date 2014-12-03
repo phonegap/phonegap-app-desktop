@@ -57,6 +57,7 @@ function hideProjectIdError() {
     global.jQuery("#project-id-error-message").hide();
 }
 
+/*
 function adjustProjectCreationFormHeight(isProjectPathEmpty, isProjectNameEmpty, isProjectIdEmpty) {
     if (isProjectPathEmpty && isProjectNameEmpty && isProjectIdEmpty) {
         // change project creation dialog height to accommodate for project path, project name & project id errors
@@ -85,6 +86,31 @@ function adjustProjectCreationFormHeight(isProjectPathEmpty, isProjectNameEmpty,
                     global.jQuery("#newProjectOverlay").addClass("new-project-overlay-project-name-or-project-id-error");
                 }
             }            
+        }
+    }     
+}
+*/
+
+function adjustProjectCreationFormHeight(isProjectPathEmpty, isProjectNameEmpty) {
+    if (isProjectPathEmpty && isProjectNameEmpty) {
+        // change project creation dialog height to accommodate for project path & project name
+        global.jQuery("#newProjectOverlay").addClass("new-project-overlay-project-path-and-other-error");
+    } else {
+        if (isProjectPathEmpty) {
+            if (!isProjectNameEmpty) {
+                // change project creation dialog height to accommodate for project path error only
+                global.jQuery("#newProjectOverlay").addClass("new-project-overlay-project-path-error");
+            } else {
+                // change project creation dialog height to accommodate for project path error & project name error
+                global.jQuery("#newProjectOverlay").addClass("new-project-overlay-project-path-and-other-error");
+            }
+        } else {
+            if (!isProjectNameEmpty) {
+                // do nothing - no error since project path has been provided and project name has been provided
+            } else {
+                // change project creation dialog height to accommodate for project path error & project name error
+                global.jQuery("#newProjectOverlay").addClass("new-project-overlay-project-name-or-project-id-error");
+            }          
         }
     }     
 }

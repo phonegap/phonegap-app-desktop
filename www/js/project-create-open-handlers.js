@@ -16,7 +16,8 @@ function createProject(e) {
     hideProjectIdError();
     resetProjectCreationFormHeight();
 
-    if(!isProjectIdEmpty && !isProjectNameEmpty && !isProjectPathEmpty) {
+    // if(!isProjectIdEmpty && !isProjectNameEmpty && !isProjectPathEmpty) {
+    if(!isProjectNameEmpty && !isProjectPathEmpty) { 
         projDir = projectPath + buildWindowsConfigFilePath("/") + projectName;
         localStorage.projDir = projDir;
         if(!projectExistsInLocalStorage(projDir)) {
@@ -54,12 +55,15 @@ function createProject(e) {
             displayProjectNameError();
         }
         
+        /*
         if (isProjectIdEmpty) {   
             // error with project id
             displayProjectIdError(); 
-        }
+        } 
+        */
 
-        adjustProjectCreationFormHeight(isProjectPathEmpty, isProjectNameEmpty, isProjectIdEmpty);
+        //adjustProjectCreationFormHeight(isProjectPathEmpty, isProjectNameEmpty, isProjectIdEmpty); 
+        adjustProjectCreationFormHeight(isProjectPathEmpty, isProjectNameEmpty); 
     }    
 }
 
