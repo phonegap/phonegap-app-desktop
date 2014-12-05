@@ -104,9 +104,11 @@ function handleFlipEnded() {
 
 function displaySettingsOverlay(evt) {
     console.log("settingsOverlay - settings click handler");
+    var usageFlag = getSendUsageFlag();
     hideOverlays();
     // prepopulate port number from localStorage
-    global.jQuery("#portNumber").val(localStorage.portNumber);
+    global.jQuery("#portNumber").val(localStorage.portNumber);    
+    global.jQuery("#sendUsage").prop("checked", usageFlag);   
     global.jQuery("#settings-holder").addClass("sidebar-button-active");
     global.jQuery("#settings-icon").attr("src", "img/icons/active/settings-active.svg");
     global.jQuery("#settingsOverlay").addClass("animated slideInLeft");

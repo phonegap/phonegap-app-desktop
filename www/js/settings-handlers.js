@@ -1,3 +1,23 @@
+function initSettings() {
+    // set default port number if it has not been set
+    if (!localStorage.portNumber) {
+        localStorage.portNumber = 3000;
+    }
+    
+    // set default analytics flag if it has not been set
+    if (!localStorage.sendUsage) {
+        localStorage.sendUsage = "true";
+    }
+}
+
+function getSendUsageFlag() {
+    var usageFlag = true;
+    if (localStorage.sendUsage == "false") {
+        usageFlag = false;
+    }
+    return usageFlag;
+}
+
 function saveSettings(evt) {
     console.log("saveSettings");
     
@@ -9,7 +29,13 @@ function saveSettings(evt) {
         localStorage.portNumber = portNumber;
         hideSettingsOverlay();
         toggleServerStatus("");
-    }  
+    }
+    
+    if (global.jQuery("#sendUsage").is(":checked")) {
+        localStorage.sendUsage = "true";
+    } else {
+        localStorage.sendUsage = "false";
+    }
 }
 
 function cancelSettings(evt) {

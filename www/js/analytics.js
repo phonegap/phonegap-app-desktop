@@ -1,35 +1,43 @@
 function trackAppOpened() {
-    var appOpened = {
-        userId: getUserId(),
-        debug: global.debugMode
-    };
+    if(getSendUsageFlag()) {
+        var appOpened = {
+            userId: getUserId(),
+            debug: global.debugMode
+        };
     
-    global.client.addEvent("appOpened", appOpened);
+        global.client.addEvent("appOpened", appOpened);
+    }
 } 
 
 function trackProjectCreated() {
-    var projectCreated = {
-        userId: getUserId(),
-        debug: global.debugMode
-    };
+    if(getSendUsageFlag()) {
+        var projectCreated = {
+            userId: getUserId(),
+            debug: global.debugMode
+        };
     
-    global.client.addEvent("projectCreated", projectCreated);    
+        global.client.addEvent("projectCreated", projectCreated);
+    }    
 }   
 
 function trackProjectOpened() {
-    var projectOpened = {
-        userId: getUserId(),
-        debug: global.debugMode
-    };
+    if(getSendUsageFlag()) {
+        var projectOpened = {
+            userId: getUserId(),
+            debug: global.debugMode
+        };
     
-    global.client.addEvent("projectOpened", projectOpened);    
+        global.client.addEvent("projectOpened", projectOpened);
+    }    
 }   
 
 function trackProjectRemoved() {
-    var projectRemoved = {
-        userId: getUserId(),
-        debug: global.debugMode
-    };
+    if(getSendUsageFlag()) {
+        var projectRemoved = {
+            userId: getUserId(),
+            debug: global.debugMode
+        };
     
-    global.client.addEvent("projectRemoved", projectRemoved);    
+        global.client.addEvent("projectRemoved", projectRemoved); 
+    }
 }
