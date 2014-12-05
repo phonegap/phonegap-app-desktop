@@ -56,11 +56,11 @@ function buildWindowsConfigFilePath(existingPath) {
 }
 
 function openIssueTracker() {
-    gui.Shell.openExternal("https://github.com/hermwong/phonegap-gui/issues?state=open");    // opens user's default browser & loads page 
+    gui.Shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/issues?state=open");    // opens user's default browser & loads page 
 }
 
 function openTutorials() {
-    gui.Shell.openExternal("https://github.com/hermwong/phonegap-gui/wiki/PhoneGap-Developer-Desktop-App-Overview");
+    gui.Shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/wiki/PhoneGap-Developer-Desktop-App-Overview");
 } 
 
 function openTermsOfUse() {
