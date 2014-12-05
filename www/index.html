@@ -49,11 +49,6 @@
     global.debugMode = null;
     global.missing = new Array();
 
-    // set default port number it has not been set
-    if (!localStorage.portNumber) {
-        localStorage.portNumber = 3000;
-    }
-
     global.jQuery(document).ready(function() {
         
         global.jQuery("#projectDirectory").hide();
@@ -225,6 +220,8 @@
             }
         });
         
+        initSettings();
+        
         hideProjectPathError();
         hideProjectNameError();
         hideProjectIdError();
@@ -250,15 +247,15 @@
         <div class="overlay-form-item"><span id="settings-ip" class="settings-ip-label"></span><input type="text" id="portNumber" class="text-input settings-port-number-input" maxlength="5"></div>
         <div class="overlay-form-item overlay-form-item-description">This is the port where the local server will serve all projects.</div>
         <div class="overlay-form-item required" id="port-number-error">The server port must contain only numbers.</div>        
-        <div class="overlay-form-item-heading">Diagnostics:</div>
+        <div class="overlay-form-item-heading">Diagnostic & Usage Data:</div>
         <div class="overlay-form-item">
             <label class="topcoat-checkbox">
                 <input type="checkbox" id="sendUsage">
                 <div class="topcoat-checkbox__checkmark"></div>
             </label>
-            <span class="settings-ip-label" style="padding-left: 3px;">Send anonymous usage data</span>
+            <span class="settings-ip-label" style="padding-left: 3px;">Send anonymous diagnostic & usage data</span>
         </div>
-        <div class="overlay-form-item overlay-form-item-description">Help us improve by automatically sending anonymous usage data.</div>        
+        <div class="overlay-form-item overlay-form-item-description">Help us improve by automatically sending anonymous diagnostic & usage data.</div>        
         <div class="overlay-form-item"> 
             <hr class="dotted-hr" />
         </div>
