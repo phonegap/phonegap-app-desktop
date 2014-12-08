@@ -1,10 +1,10 @@
-## PhoneGap Desktop [![Build status](https://badge.buildbox.io/d5b26a9e3bc79e808d8cdb483ee14d45d371c9f41bd8371c3b.svg?branch=master)](https://buildbox.io/phonegap/phonegap-desktop)
+## PhoneGap App Desktop [![Build status](https://badge.buildbox.io/d5b26a9e3bc79e808d8cdb483ee14d45d371c9f41bd8371c3b.svg?branch=master)](https://buildbox.io/phonegap/phonegap-desktop)
 
-Initial prototype of creating a GUI for the PhoneGap CLI.
+Initial prototype of creating a desktop app for the PhoneGap CLI.
 
 ## Getting Started
 
-### How To Build the PhoneGap Desktop App
+### How To Build the PhoneGap App Desktop
 
 1. Make sure you have Git installed & setup; instructions can be found [here](https://help.github.com/articles/set-up-git/).
 2. Make sure you have nodejs [installed](http://nodejs.org/).
