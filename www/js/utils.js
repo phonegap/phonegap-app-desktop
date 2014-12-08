@@ -60,7 +60,7 @@ function openIssueTracker() {
 }
 
 function openTutorials() {
-    gui.Shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/wiki/PhoneGap-Developer-Desktop-App-Overview");
+    gui.Shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/wiki/PhoneGap-Desktop-Overview");
 } 
 
 function openTermsOfUse() {
