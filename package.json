@@ -1,11 +1,11 @@
 {
     "name": "PhoneGap",
     "description": "PhoneGap",
-    "version": "0.0.6",
-    "homepage": "http://github.com/phonegap/phonegap-gui",
+    "version": "0.1.0",
+    "homepage": "http://github.com/phonegap/phonegap-app-desktop",
     "repository": {
         "type": "git",
-        "url": "git://github.com/phonegap/phonegap-gui.git"
+        "url": "git://github.com/phonegap/phonegap-app-desktop.git"
     },
     "keywords": [
         "phonegap"
