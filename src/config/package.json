@@ -8,7 +8,8 @@
         "position": "center",
         "width": 450,
         "height": 600,
-        "toolbar": true
+        "toolbar": true,
+        "icon": "img/app-icons/icon.png"
     },
     "dependencies": {
         "connect-phonegap": "0.14.1",
