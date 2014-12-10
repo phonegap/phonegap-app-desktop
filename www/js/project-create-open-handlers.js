@@ -161,13 +161,15 @@ function create(projectName, projectId, projDir) {
 }
 
 function updateConfig(projectName, projectId, projDir) {
-    var oldPathToConfigFile = projDir + buildWindowsConfigFilePath("/www/config.xml");
-    var newPathToConfigFile = projDir + buildWindowsConfigFilePath("/config.xml");
+    var oldPathToConfigFile = projDir + buildPathBasedOnOS("/www/config.xml");
+    var newPathToConfigFile = projDir + buildPathBasedOnOS("/config.xml");
     
     fs.readFile(newPathToConfigFile, {encoding: 'utf8'}, function(err, newPathData) {
         if(err) {
             fs.readFile(oldPathToConfigFile, {encoding: 'utf8'}, function(err, oldPathData) {
                 if (err) {
+                    console.log("old: " + oldPathToConfigFile);
+                    console.log("new: " + newPathToConfigFile);
                     displayMissingConfigFileNotification();
                 } else {
                     global.jQuery.xmlDoc = global.jQuery.parseXML(oldPathData);
