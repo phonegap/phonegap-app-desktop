@@ -47,14 +47,6 @@ function buildPathBasedOnOS(existingPath) {
     return path; 
 }
 
-function buildWindowsConfigFilePath(existingPath) {
-    var path = existingPath;
-    if (determineOperatingSystem() == 'win32') {
-        path = "\\" + global.pgVersion + buildPathBasedOnOS(existingPath);
-    } 
-    return path;
-}
-
 function openIssueTracker() {
     gui.Shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/issues?state=open");    // opens user's default browser & loads page 
 }

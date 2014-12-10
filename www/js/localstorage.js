@@ -98,13 +98,14 @@ function removeMissingProjects() {
 
 function getProjectConfig(id, projDir, i) {
     
-    var oldPathToConfigFile = projDir + buildWindowsConfigFilePath("/www/config.xml");
-    var newPathToConfigFile = projDir + buildWindowsConfigFilePath("/config.xml");
+    var oldPathToConfigFile = projDir + buildPathBasedOnOS("/www/config.xml");
+    var newPathToConfigFile = projDir + buildPathBasedOnOS("/config.xml");
     
     fs.readFile(newPathToConfigFile, 'utf8', function(err, data) {
         if (err) {
             fs.readFile(oldPathToConfigFile, 'utf8', function(err, data) {
                 if (err) {
+                    console.log("config.xml not found in: " + oldPathToConfigFile + " or " + newPathToConfigFile); 
                     displayErrorMessage("config.xml not found in: " + oldPathToConfigFile + " or " + newPathToConfigFile);
                 } else {
                     parseConfigForRendering(data, id, projDir, i);
@@ -118,7 +119,7 @@ function getProjectConfig(id, projDir, i) {
 }
 
 function parseConfigForRendering(data, id, projDir, i) {
-    var iconPath = projDir + buildWindowsConfigFilePath("/www/");
+    var iconPath = projDir + buildPathBasedOnOS("/www/");
 
     global.jQuery.xmlDoc = global.jQuery.parseXML(data);
     global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc);

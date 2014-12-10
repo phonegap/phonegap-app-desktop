@@ -191,16 +191,17 @@ function setActiveWidget(id, projDir) {
 function setConfigWatcher(id, projDir) {
     console.log("config watcher");
     
-    var oldPathToConfigFile = projDir + buildWindowsConfigFilePath("/www/config.xml");
-    var newPathToConfigFile = projDir + buildWindowsConfigFilePath("/config.xml");
+    var oldPathToConfigFile = projDir + buildPathBasedOnOS("/www/config.xml");
+    var newPathToConfigFile = projDir + buildPathBasedOnOS("/config.xml");
 
     fs.readFile(newPathToConfigFile, {encoding:'utf8'}, function(err, newPathData) {
         if (err) {
             fs.readFile(oldPathToConfigFile, {encoding:'utf8'}, function(err, oldPathData) {
                 if (err) {
+                    console.log(err.message);
                     displayErrorMessage(err.message);
                 } else {
-                    process.chdir(projDir + buildWindowsConfigFilePath("/www"));
+                    process.chdir(projDir + buildPathBasedOnOS("/www"));
                     setWatcher(oldPathToConfigFile, projDir, id);
                 }
             });            
@@ -224,10 +225,11 @@ function setWatcher(filePath, projDir, id) {
             // reload the updated values from config.xml & update the GUI
             fs.readFile(filePath, {encoding:'utf8'}, function(err, data) {
                 if (err) {
+                    console.log(err.message);
                     displayErrorMessage(err.message);
                 }
 
-                var iconPath = projDir + buildWindowsConfigFilePath("/www/");
+                var iconPath = projDir + buildPathBasedOnOS("/www/");
                 var projectDetailsId = "project-details_" + id.toString();
                 var projectIconId = "projectIconId_" + id.toString();
                 var projectNameLabel = "projectNameLabel_" + id.toString();

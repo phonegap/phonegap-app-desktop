@@ -14,7 +14,7 @@ function toggleServerStatus(projDir) {
         }
     }
    
-    fs.exists(projDir + buildWindowsConfigFilePath("/www"), function(exists) {
+    fs.exists(projDir + buildPathBasedOnOS("/www"), function(exists) {
         if (exists) {
             process.chdir(projDir);
             console.log("server started");
