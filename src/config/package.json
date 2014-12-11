@@ -4,12 +4,18 @@
     "version": "0.1.1",
     "main": "index.html",
     "window": {
+        "title": "PhoneGap Desktop",
         "show": false,
         "position": "center",
         "width": 450,
+        "min_width": 450,
+        "max_width": 450,
         "height": 600,
+        "min_height": 600,
+        "max_height": 600,
         "toolbar": true,
-        "icon": "img/app-icons/icon.png"
+        "icon": "img/app-icons/icon.png",
+        "resizable": false
     },
     "dependencies": {
         "connect-phonegap": "0.14.3",
