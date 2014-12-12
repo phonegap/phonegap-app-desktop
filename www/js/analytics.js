@@ -1,7 +1,8 @@
 function trackAppOpened() {
     if(getSendUsageFlag()) {
         var appOpened = {
-            userId: getUserId(),
+            userId: getUserId(),   
+            platform: determineOperatingSystem(),
             debug: global.debugMode
         };
     
@@ -13,6 +14,7 @@ function trackProjectCreated() {
     if(getSendUsageFlag()) {
         var projectCreated = {
             userId: getUserId(),
+            platform: determineOperatingSystem(),
             debug: global.debugMode
         };
     
@@ -24,6 +26,7 @@ function trackProjectOpened() {
     if(getSendUsageFlag()) {
         var projectOpened = {
             userId: getUserId(),
+            platform: determineOperatingSystem(),
             debug: global.debugMode
         };
     
@@ -35,6 +38,7 @@ function trackProjectRemoved() {
     if(getSendUsageFlag()) {
         var projectRemoved = {
             userId: getUserId(),
+            platform: determineOperatingSystem(),
             debug: global.debugMode
         };
     
