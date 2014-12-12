@@ -75,5 +75,7 @@ function checkIfToolbarEnabled() {
             var obj = JSON.parse(data);
             global.debugMode = obj.window.toolbar;            
         }
+        
+        trackAppOpened();
     });    
 }

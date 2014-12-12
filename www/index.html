@@ -46,7 +46,7 @@
     global.isServerRunning = false;
     global.allowRemoveNotification = "false";
     global.createChosen = false;
-    global.debugMode = null;
+    global.debugMode = true;
     global.missing = new Array();
 
     global.jQuery(document).ready(function() {
@@ -229,7 +229,6 @@
         getProjects();  
         
         checkIfToolbarEnabled();
-        setTimeout(trackAppOpened, 100);
     });
 
     function imgSwapper(img, src) {
