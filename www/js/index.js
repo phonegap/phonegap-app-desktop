@@ -24,11 +24,59 @@ win.setResizable(false);
  6. The new app will run itself from original folder and exit the process.
 */
 
+
 var updater = require("node-webkit-updater");
-var pkg = require("../package.json");
+var pkg = require("./package.json");
 var upd = new updater(pkg);
 var copyPath, execPath;
 
+console.log(gui.App.argv.length);
+
+if(gui.App.argv.length) {
+    console.log("auto-updating");
+    // ------------- Step 5 -------------
+    copyPath = gui.App.argv[0];
+    execPath = gui.App.argv[1];
+
+    // Replace old app, Run updated app from original location and close temp instance
+    upd.install(copyPath, function(err) {
+        if(!err) {
+            console.log("run the newest version");
+            // ------------- Step 6 -------------
+            upd.run(execPath, null);
+            gui.App.quit();
+        }
+    });
+} else {
+// ------------- Step 1 -------------
+    upd.checkNewVersion(function(error, newVersionExists, manifest) {
+        if (!error && newVersionExists) {
+            console.log("new version found");
+
+            // ------------- Step 2 -------------
+            upd.download(function(error, filename) {
+                if (!error) {
+                    console.log("downloading new version");
+
+                    // ------------- Step 3 -------------
+                    upd.unpack(filename, function(error, newAppPath) {
+                        if (!error) {
+                            console.log("unpack & run the new version");    
+                                
+                            // ------------- Step 4 -------------
+                            upd.runInstaller(newAppPath, [upd.getAppPath(), upd.getAppExec()],{});
+                            gui.App.quit();
+                        }
+                    }, manifest);
+                }
+            }, manifest);
+        } else {
+            if (!newVersionExists) {
+                console.log("latest version");
+            }
+        }
+    });
+}
 
 
 // valid return values: 'darwin', 'freebsd', 'linux', 'sunos' or 'win32'
