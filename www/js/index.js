@@ -15,6 +15,21 @@ var Namespace = jsxml.Namespace,
 
 win.setResizable(false);
 
+/*
+ 1. Check the manifest for version (from your running "old" app).
+ 2. If the version is different from the running one, download new package to a temp directory.
+ 3. Unpack the package in temp.
+ 4. Run new app from temp and kill the old one (i.e. still all from the running app).
+ 5. The new app (in temp) will copy itself to the original folder, overwriting the old app.
+ 6. The new app will run itself from original folder and exit the process.
+*/
+
+var updater = require("node-webkit-updater");
+var pkg = require("../package.json");
+var upd = new updater(pkg);
+var copyPath, execPath;
+
+
 
 // valid return values: 'darwin', 'freebsd', 'linux', 'sunos' or 'win32'
 if (process.platform == 'darwin') {
