@@ -15,55 +15,48 @@ var Namespace = jsxml.Namespace,
 
 win.setResizable(false);
 
-/*
- 1. Check the manifest for version (from your running "old" app).
- 2. If the version is different from the running one, download new package to a temp directory.
- 3. Unpack the package in temp.
- 4. Run new app from temp and kill the old one (i.e. still all from the running app).
- 5. The new app (in temp) will copy itself to the original folder, overwriting the old app.
- 6. The new app will run itself from original folder and exit the process.
+/**
+    Auto-updater code
 */
-
-
 var updater = require("node-webkit-updater");
 var pkg = require("./package.json");
 var upd = new updater(pkg);
 var copyPath, execPath;
 
-console.log(gui.App.argv.length);
-
 if(gui.App.argv.length) {
     console.log("auto-updating");
-    // ------------- Step 5 -------------
+    // in the original dir, overwrite the old app with the new version
     copyPath = gui.App.argv[0];
     execPath = gui.App.argv[1];
+    
+    console.log("copy path: " + copyPath);
+    console.log("exec path: " + execPath);
 
-    // Replace old app, Run updated app from original location and close temp instance
+    // run the new version from the original dir (instead of the temp dir)
     upd.install(copyPath, function(err) {
         if(!err) {
             console.log("run the newest version");
-            // ------------- Step 6 -------------
             upd.run(execPath, null);
             gui.App.quit();
         }
     });
 } else {
-// ------------- Step 1 -------------
+    // check manifest to see if version has been updated
     upd.checkNewVersion(function(error, newVersionExists, manifest) {
         if (!error && newVersionExists) {
             console.log("new version found");
 
-            // ------------- Step 2 -------------
+            // if new version found, download new package to a temp dir
             upd.download(function(error, filename) {
                 if (!error) {
                     console.log("downloading new version");
 
-                    // ------------- Step 3 -------------
+                    // unpack new package in temp dir
                     upd.unpack(filename, function(error, newAppPath) {
                         if (!error) {
                             console.log("unpack & run the new version");    
                                 
-                            // ------------- Step 4 -------------
+                            // run the new version & quit the old app
                             upd.runInstaller(newAppPath, [upd.getAppPath(), upd.getAppExec()],{});
                             gui.App.quit();
                         }
@@ -77,8 +70,11 @@ if(gui.App.argv.length) {
         }
     });
 }
+/* End of Auto-updater code */
 
-
+/**
+    Menubar generation code, currently only works for Mac
+*/
 // valid return values: 'darwin', 'freebsd', 'linux', 'sunos' or 'win32'
 if (process.platform == 'darwin') {
 
@@ -146,6 +142,7 @@ if (process.platform == 'darwin') {
     console.log("menubar items: " + win.menu.items.length);
 
 }
+/* End of Menubar generation code */
 
 win.show();    
 
