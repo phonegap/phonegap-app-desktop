@@ -4,6 +4,8 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING .ISS SCRIPT FILES!
 
 [Setup]
+AppPublisher=Adobe Inc.
+AppPublisherURL=https://www.adobe.com/
 AppName=PhoneGap Desktop
 AppVersion=0.1.1
 DefaultDirName={pf}\My Program\PhoneGap Desktop
@@ -12,6 +14,7 @@ UninstallDisplayIcon={app}\MyProg.exe
 Compression=lzma2
 SolidCompression=yes
 OutputDir=userdocs:Inno Setup Examples Output
+; LicenseFile=license.text
 
 [Files]
 Source: "C:\Users\herm\Documents\HermWong\phonegap-gui\build\PhoneGap\win\PhoneGap.exe"; DestDir: "{app}"
