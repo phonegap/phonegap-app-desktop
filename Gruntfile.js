@@ -49,13 +49,19 @@ module.exports = function(grunt) {
   
   grunt.task.registerTask('copy-dev-config', function() {
       //var config = grunt.file.read('./src/config/package.json');
-      grunt.file.copy('./src/config/package.json', './www/package.json');   
+      grunt.file.copy('./src/config/package.json', './www/package.json');
+       
   });
 
   grunt.task.registerTask('copy-release-config', function() {
       var config = grunt.file.read('./src/config/package.json');
       var releaseConfig = config.replace("\"toolbar\": true", "\"toolbar\": false");
       grunt.file.write('./www/package.json', releaseConfig);
+  });
+  
+  grunt.task.registerTask('copy-eula', function() {
+      grunt.file.copy('./src/license.txt', './res/installers/osx/license.txt');
+      grunt.file.copy('./src/license.txt', './res/installers/win/license.txt');
   });
   
   // Register the task to open an app.
@@ -74,7 +80,7 @@ module.exports = function(grunt) {
   });
 
   // Default tasks.
-  grunt.registerTask('default', ['install-dependencies', 'less', 'copy-dev-config', 'nodewebkit', 'open']);
-  grunt.registerTask('release', ['install-dependencies', 'less', 'copy-release-config', 'nodewebkit']);
+  grunt.registerTask('default', ['install-dependencies', 'less', 'copy-dev-config', 'copy-eula', 'nodewebkit', 'open']);
+  grunt.registerTask('release', ['install-dependencies', 'less', 'copy-release-config', 'copy-eula', 'nodewebkit']);
 
 };
