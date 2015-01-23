@@ -14,7 +14,7 @@ UninstallDisplayIcon={app}\MyProg.exe
 Compression=lzma2
 SolidCompression=yes
 OutputDir=userdocs:Inno Setup Examples Output
-; LicenseFile=license.text
+LicenseFile=license.txt
 
 [Files]
 Source: "C:\Users\herm\Documents\HermWong\phonegap-gui\build\PhoneGap\win\PhoneGap.exe"; DestDir: "{app}"
