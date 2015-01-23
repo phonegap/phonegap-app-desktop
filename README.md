@@ -12,7 +12,7 @@ Initial prototype of creating a desktop app for the PhoneGap CLI.
 4. install gcc, different methods listed below:
   1. using homebrew:
     1. `brew search gcc` list available version of gcc
-    1. `brew install gcc49` (installs gcc version 4.9)
+    1. `brew install gcc49` or `brew install homebrew/versions/gcc49` depending on what is returned from the `brew search gcc` query (installs gcc version 4.9)
   1. command line without xcode: http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/
   1. using xcode: http://stackoverflow.com/questions/9353444/how-to-use-install-gcc-on-mac-os-x-10-8-xcode-4-4
 5. install [wine](http://www.winehq.org) `brew install wine --devel` (dev version is 1.7.32, the current stable __version 1.6.2 caused a bunch of errors and did not work__)
