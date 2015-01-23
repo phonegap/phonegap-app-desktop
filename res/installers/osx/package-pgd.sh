@@ -3,6 +3,7 @@ test -f ../../../installers/osx/PhoneGapDesktop.dmg && rm ../../../installers/os
 
 ./create-dmg \
 --volname "PhoneGap Desktop Installer" \
+--background "bg-500x300.png" \
 --window-size 500 300 \
 --icon-size 48 \
 --icon PhoneGap.app 100 110 \
