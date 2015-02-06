@@ -20,7 +20,7 @@ Source: "C:\Users\herm\Documents\HermWong\phonegap-gui\build\PhoneGap\win\icudtl
 Source: "C:\Users\herm\Documents\HermWong\phonegap-gui\build\PhoneGap\win\ffmpegsumo.dll"; DestDir: "{app}"
 
 [Icons]
-;Name: "{group}\My Program"; Filename: "{app}\MyProg.exe"
+Name: "{group}\Adobe\PhoneGap\PhoneGap Desktop"; Filename: "{app}\PhoneGap.exe"
 
 [Code]
 // Utility functions for Inno Setup
