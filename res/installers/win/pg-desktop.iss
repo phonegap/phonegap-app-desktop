@@ -1,14 +1,9 @@
-; -- Example1.iss --
-; Demonstrates copying 3 files and creating an icon.
-
-; SEE THE DOCUMENTATION FOR DETAILS ON CREATING .ISS SCRIPT FILES!
-
 [Setup]
 AppPublisher=Adobe Inc.
 AppPublisherURL=https://www.adobe.com/
 AppName=PhoneGap Desktop
 AppVersion=0.1.1
-DefaultDirName={pf}\My Program\PhoneGap Desktop
+DefaultDirName={pf}\Adobe\PhoneGap\PhoneGap Desktop
 DefaultGroupName=My Program
 UninstallDisplayIcon={app}\MyProg.exe
 Compression=lzma2
