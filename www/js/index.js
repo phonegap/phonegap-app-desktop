@@ -36,7 +36,9 @@ if(gui.App.argv.length) {
     upd.install(copyPath, function(err) {
         if(!err) {
             console.log("run the newest version");
-            upd.run(execPath, null);
+            console.log("execPath: " + execPath);
+            //upd.run(execPath, null);
+            gui.Shell.openItem(execPath);
             gui.App.quit();
         }
     });
@@ -46,23 +48,36 @@ if(gui.App.argv.length) {
         if (!error && newVersionExists) {
             console.log("new version found");
 
-            // if new version found, download new package to a temp dir
-            upd.download(function(error, filename) {
-                if (!error) {
-                    console.log("downloading new version");
+            // only auto-update for OSX
+            if (process.platform == 'darwin') {
 
-                    // unpack new package in temp dir
-                    upd.unpack(filename, function(error, newAppPath) {
-                        if (!error) {
-                            console.log("unpack & run the new version");    
+                // if new version found, download new package to a temp dir
+                upd.download(function(error, filename) {
+                    if (!error) {
+                        console.log("downloading new version");
+
+                        // unpack new package in temp dir
+                        upd.unpack(filename, function(error, newAppPath) {
+                            if (!error) {
+                                console.log("unpack & run the new version");
+
+                                console.log("appPath: " + upd.getAppPath());
+                                console.log("execPath: " + upd.getAppExec());    
+
+                                // run the new version & quit the old app
+                                upd.runInstaller(newAppPath, [upd.getAppPath(), upd.getAppExec()],{});
+                                gui.App.quit();
+                            }
+                        }, manifest);
+                    }
+                }, manifest);
                                 
-                            // run the new version & quit the old app
-                            upd.runInstaller(newAppPath, [upd.getAppPath(), upd.getAppExec()],{});
-                            gui.App.quit();
-                        }
-                    }, manifest);
-                }
-            }, manifest);
+            } else {
+                // TODO: notify user there is an update
+                alert("A newer version of the PhoneGap Desktop is available. You can download it here: https://github.com/phonegap/phonegap-app-desktop/releases");
+            }
+
+           
         } else {
             if (!newVersionExists) {
                 console.log("latest version");
