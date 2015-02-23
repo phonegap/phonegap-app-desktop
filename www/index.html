@@ -51,6 +51,7 @@
 
     global.jQuery(document).ready(function() {
         
+        global.jQuery("#updateOverlay").hide();
         global.jQuery("#projectDirectory").hide();
         global.jQuery("#newProjectOverlay").hide();
         global.jQuery("#createOpenProjectOverlay").hide();
@@ -220,6 +221,15 @@
             }
         });
         
+        global.jQuery("#updateLater").click(function() {
+            global.jQuery("#updateOverlay").hide();
+        });
+        
+        global.jQuery("#updateNow").click(function() {
+            gui.Shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/releases");
+            global.jQuery("#updateOverlay").hide();
+        });
+        
         initSettings();
         
         hideProjectPathError();
@@ -240,6 +250,16 @@
 <body style="overflow-x: hidden; overflow-y: hidden;" id="body">
 
     <div id="overlay-bg" class="topcoat-overlay-bg-grey"></div>
+    
+    <aside id="updateOverlay" class="update-overlay">
+        <div class="overlay-form-item-heading">Update Available</div>
+        <div class="overlay-form-item settings-ip-label">A new version of the PhoneGap Desktop App is available.</div>
+        <div class="overlay-form-item">
+            <button id="updateLater" class="cancel-button">Cancel</button>           
+            <button id="updateNow" class="action-button">Update</button>
+        </div>        
+    </aside>
+    
     
     <aside id="settingsOverlay" class="settings-overlay">
         <div class="overlay-form-item-heading">Server port:</div>
