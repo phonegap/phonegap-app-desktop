@@ -298,6 +298,16 @@
 .open-project-button:hover {
   color: #40afd4;
 }
+.update-overlay {
+  background-color: #1f2326;
+  color: white;
+  position: fixed;
+  top: 0px;
+  left: 75px;
+  z-index: 13;
+  width: 375px;
+  height: 150px;
+}
 .settings-overlay {
   background-color: #1f2326;
   color: white;
