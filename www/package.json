@@ -1,7 +1,7 @@
 {
     "name": "PhoneGap",
     "description": "PhoneGap",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "main": "index.html",
     "window": {
         "title": "PhoneGap Desktop",
@@ -13,7 +13,7 @@
         "height": 600,
         "min_height": 600,
         "max_height": 600,
-        "toolbar": true,
+        "toolbar": false,
         "icon": "img/app-icons/icon.png",
         "resizable": false
     },
