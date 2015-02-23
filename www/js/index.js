@@ -24,6 +24,7 @@ var upd = new updater(pkg);
 var copyPath, execPath;
 
 if(gui.App.argv.length) {
+    /*
     console.log("auto-updating");
     // in the original dir, overwrite the old app with the new version
     copyPath = gui.App.argv[0];
@@ -42,12 +43,15 @@ if(gui.App.argv.length) {
             gui.App.quit();
         }
     });
+    */
 } else {
     // check manifest to see if version has been updated
     upd.checkNewVersion(function(error, newVersionExists, manifest) {
         if (!error && newVersionExists) {
             console.log("new version found");
 
+            global.jQuery("#updateOverlay").show();
+            /*
             // only auto-update for OSX
             if (process.platform == 'darwin') {
 
@@ -70,14 +74,8 @@ if(gui.App.argv.length) {
                             }
                         }, manifest);
                     }
-                }, manifest);
-                                
-            } else {
-                // TODO: notify user there is an update
-                alert("A newer version of the PhoneGap Desktop is available. You can download it here: https://github.com/phonegap/phonegap-app-desktop/releases");
-            }
-
-           
+                }, manifest);   
+            }*/
         } else {
             if (!newVersionExists) {
                 console.log("latest version");
