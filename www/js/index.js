@@ -24,14 +24,10 @@ var upd = new updater(pkg);
 var copyPath, execPath;
 
 if(gui.App.argv.length) {
-    /*
     console.log("auto-updating");
     // in the original dir, overwrite the old app with the new version
     copyPath = gui.App.argv[0];
     execPath = gui.App.argv[1];
-    
-    console.log("copy path: " + copyPath);
-    console.log("exec path: " + execPath);
 
     // run the new version from the original dir (instead of the temp dir)
     upd.install(copyPath, function(err) {
@@ -43,12 +39,14 @@ if(gui.App.argv.length) {
             gui.App.quit();
         }
     });
-    */
 } else {
     // check manifest to see if version has been updated
     upd.checkNewVersion(function(error, newVersionExists, manifest) {
         if (!error && newVersionExists) {
             console.log("new version found");
+            console.log(manifest);
+            
+            global.manifest = manifest;
 
             global.jQuery("#updateOverlay").show();
             /*
