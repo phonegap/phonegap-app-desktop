@@ -44,36 +44,8 @@ if(gui.App.argv.length) {
     upd.checkNewVersion(function(error, newVersionExists, manifest) {
         if (!error && newVersionExists) {
             console.log("new version found");
-            console.log(manifest);
-            
             global.manifest = manifest;
-
-            global.jQuery("#updateOverlay").show();
-            /*
-            // only auto-update for OSX
-            if (process.platform == 'darwin') {
-
-                // if new version found, download new package to a temp dir
-                upd.download(function(error, filename) {
-                    if (!error) {
-                        console.log("downloading new version");
-
-                        // unpack new package in temp dir
-                        upd.unpack(filename, function(error, newAppPath) {
-                            if (!error) {
-                                console.log("unpack & run the new version");
-
-                                console.log("appPath: " + upd.getAppPath());
-                                console.log("execPath: " + upd.getAppExec());    
-
-                                // run the new version & quit the old app
-                                upd.runInstaller(newAppPath, [upd.getAppPath(), upd.getAppExec()],{});
-                                gui.App.quit();
-                            }
-                        }, manifest);
-                    }
-                }, manifest);   
-            }*/
+            displayUpdateAvailablePrompt();
         } else {
             if (!newVersionExists) {
                 console.log("latest version");
