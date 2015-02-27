@@ -1,3 +1,24 @@
+function displayUpdateAvailablePrompt() {
+    global.jQuery("#updateOverlayTitle").text("Update Available");
+    global.jQuery("#updateOverlayPrompt").text("A new version of the PhoneGap Desktop App is available.");
+    global.jQuery("#updateNow").text("Update");
+    global.jQuery("#updateOverlay").show();
+}
+
+function displayInstallUpdatePrompt() {
+    global.jQuery("#updateOverlayTitle").text("Update Downloaded");
+    global.jQuery("#updateOverlayPrompt").text("Install the downloaded update and restart PhoneGap Desktop.");
+    global.jQuery("#updateNow").text("Restart");
+    global.jQuery("#updateOverlay").show();   
+}
+
+function restartApp () {
+    // run the new version & quit the old app
+    var newAppPath = global.newAppPath;
+    upd.runInstaller(newAppPath, [upd.getAppPath(), upd.getAppExec()],{});
+    gui.App.quit();    
+}
+
 function updateApp() {
 
     var manifest = global.manifest;
@@ -14,17 +35,15 @@ function updateApp() {
                          console.log("unpack & run the new version");
 
                          console.log("appPath: " + upd.getAppPath());
-                         console.log("execPath: " + upd.getAppExec());    
-
-                         // run the new version & quit the old app
-                         upd.runInstaller(newAppPath, [upd.getAppPath(), upd.getAppExec()],{});
-                         gui.App.quit();
+                         console.log("execPath: " + upd.getAppExec());
+                         
+                         global.newAppPath = newAppPath;    
+                         displayInstallUpdatePrompt();
                      }
                  }, manifest);
              }
          }, manifest);        
     } else {
         gui.Shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/releases");
-    }
- 
+    } 
 }
