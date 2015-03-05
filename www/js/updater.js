@@ -2,18 +2,29 @@ function displayUpdateAvailablePrompt() {
     global.jQuery("#updateOverlayTitle").text("Update Available");
     global.jQuery("#updateOverlayPrompt").text("A new version of the PhoneGap Desktop App is available.");
     global.jQuery("#updateNow").text("Update");
+    global.jQuery("#updateOverlay").addClass("animated slideInDown");
     global.jQuery("#updateOverlay").show();
+    global.jQuery("#overlay-bg").show();
 }
 
 function displayInstallUpdatePrompt() {
     global.jQuery("#updateOverlayTitle").text("Update Downloaded");
     global.jQuery("#updateOverlayPrompt").text("Install the downloaded update and restart PhoneGap Desktop.");
     global.jQuery("#updateNow").text("Restart");
-    global.jQuery("#updateOverlay").show();   
+    global.jQuery("#updateOverlay").addClass("animated slideInDown");
+    global.jQuery("#updateOverlay").show();
+    global.jQuery("#overlay-bg").show();   
 }
 
 function hideUpdateOverlay() {
+    global.jQuery("#updateOverlay").removeClass("animated slideInDown");
+    global.jQuery("#updateOverlay").addClass("animated slideOutUp");
+    global.jQuery("#updateOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", hideUpdateOverlayAnimationEnd);
+}
+
+function hideUpdateOverlayAnimationEnd() {
     global.jQuery("#updateOverlay").hide();
+    global.jQuery("#updateOverlay").removeClass("animated slideOutUp");
 }
 
 function restartApp () {
