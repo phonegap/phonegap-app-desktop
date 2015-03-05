@@ -12,6 +12,10 @@ function displayInstallUpdatePrompt() {
     global.jQuery("#updateOverlay").show();   
 }
 
+function hideUpdateOverlay() {
+    global.jQuery("#updateOverlay").hide();
+}
+
 function restartApp () {
     // run the new version & quit the old app
     var newAppPath = global.newAppPath;
