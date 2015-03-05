@@ -205,5 +205,9 @@ function hideOverlays() {
     
     if (global.jQuery("#helpOverlay").is(":visible")) {
         hideHelpOverlay();
-    }  
+    }
+    
+    if (global.jQuery("#updateOverlay").is(":visible")) {
+        hideUpdateOverlay();
+    }
 }
