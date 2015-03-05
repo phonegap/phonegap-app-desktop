@@ -63,9 +63,9 @@ function openPrivacyPolicy() {
     gui.Shell.openExternal("http://www.adobe.com/privacy.html");
 }
 
-function checkIfToolbarEnabled() {
+function parsePackageJSON() {
     console.log("checkIfToolbarEnabled");
-    var pathToPackageJSONFile = "package.json"; // TODO: need to test this path on windows
+    var pathToPackageJSONFile = "package.json";
         
     fs.readFile(pathToPackageJSONFile, 'utf8', function(err, data) {
         if (err) {
@@ -73,7 +73,8 @@ function checkIfToolbarEnabled() {
         } else {
             console.log("pathToPackageJSONFile found");
             var obj = JSON.parse(data);
-            global.debugMode = obj.window.toolbar;            
+            global.debugMode = obj.window.toolbar; 
+            global.pgdVersion = obj.version;           
         }
         
         trackAppOpened();
