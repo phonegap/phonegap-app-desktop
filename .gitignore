@@ -8,7 +8,8 @@ npm-debug.log
 # Project
 build/
 www/node_modules/
-www/package.json
+res/installers/osx/license.txt
+res/installers/win/license.txt
 
 # Node WebKit
 cache/
