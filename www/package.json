@@ -13,7 +13,7 @@
         "height": 600,
         "min_height": 600,
         "max_height": 600,
-        "toolbar": true,
+        "toolbar": false,
         "icon": "img/app-icons/icon.png",
         "resizable": false
     },
