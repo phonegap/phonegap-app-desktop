@@ -13,7 +13,7 @@ function displayInstallUpdatePrompt() {
     global.jQuery("#updateNow").text("Restart");
     global.jQuery("#updateOverlay").addClass("animated slideInDown");
     global.jQuery("#updateOverlay").show();
-    global.jQuery("#overlay-bg").show();   
+    global.jQuery("#overlay-bg").show();
 }
 
 function hideUpdateOverlay() {
@@ -29,15 +29,31 @@ function hideUpdateOverlayAnimationEnd() {
 
 function restartApp () {
     // run the new version & quit the old app
+    console.log("restartApp");
     var newAppPath = global.newAppPath;
-    upd.runInstaller(newAppPath, [upd.getAppPath(), upd.getAppExec()],{});
-    gui.App.quit();    
+    var execPath = process.execPath.substr(0,process.execPath.search("PhoneGap\\.")-1);
+    var copyPath = execPath;
+
+    switch (determineOperatingSystem()) {
+        case 'darwin':
+            copyPath = copyPath + "/PhoneGap.app";
+            break;
+        case 'win32':
+            // TODO: determine correct path for windows
+            // copyPath = ?????;
+            break;
+    }
+
+    upd.runInstaller(newAppPath, [copyPath, execPath],{});
+    gui.App.quit();
 }
 
 function updateApp() {
 
     var manifest = global.manifest;
-    
+
+    console.log("manifest: " + JSON.stringify(manifest));
+
     if (manifest) {
         // if new version found, download new package to a temp dir
          upd.download(function(error, filename) {
@@ -48,17 +64,13 @@ function updateApp() {
                  upd.unpack(filename, function(error, newAppPath) {
                      if (!error) {
                          console.log("unpack & run the new version");
-
-                         console.log("appPath: " + upd.getAppPath());
-                         console.log("execPath: " + upd.getAppExec());
-                         
-                         global.newAppPath = newAppPath;    
+                         global.newAppPath = newAppPath;
                          displayInstallUpdatePrompt();
                      }
                  }, manifest);
              }
-         }, manifest);        
+         }, manifest);
     } else {
         gui.Shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/releases");
-    } 
+    }
 }
