@@ -1,11 +1,12 @@
 var gui = require('nw.gui');
-var win = gui.Window.get();   
+var win = gui.Window.get();
 
-// load file system module
+// load dependencies module
 var fs = require("fs");
 var gaze = require("gaze");
-var opener = require("opener"); 
 var jsxml= require("node-jsxml");
+var opener = require("opener");
+var path = require("path");
 var uuid = require("node-uuid");
 
 var Namespace = jsxml.Namespace,
@@ -21,22 +22,21 @@ win.setResizable(false);
 var updater = require("node-webkit-updater");
 var pkg = require("./package.json");
 var upd = new updater(pkg);
-var copyPath, execPath;
+var copyPath1, execPath1;
 
 if(gui.App.argv.length) {
     console.log("auto-updating");
     // in the original dir, overwrite the old app with the new version
-    copyPath = gui.App.argv[0];
-    execPath = gui.App.argv[1];
+    copyPath1 = gui.App.argv[0];
+    execPath1 = gui.App.argv[1];
 
     // run the new version from the original dir (instead of the temp dir)
-    upd.install(copyPath, function(err) {
+    upd.install(copyPath1, function(err) {
         if(!err) {
             console.log("run the newest version");
-            console.log("execPath: " + execPath);
-            //upd.run(execPath, null);
-            gui.Shell.openItem(execPath);
-            gui.App.quit();
+            //upd.run(execPath1, null);
+            gui.Shell.openItem(execPath1);
+            //gui.App.quit();
         }
     });
 } else {
@@ -80,7 +80,7 @@ if (process.platform == 'darwin') {
             animateAddNewProjectOverlayEntry();
    	    }
     }));
-    
+
     menubar.items[menubar.items.length-1].submenu.append(new gui.MenuItem({
    	    label: "Open Project",
    	    click: function () {
@@ -113,25 +113,25 @@ if (process.platform == 'darwin') {
    	    click: function () {
    	        openTermsOfUse();
    	    }
-    }));     
-    
+    }));
+
     menubar.items[menubar.items.length-1].submenu.append(new gui.MenuItem({
    	    label: "Privacy Policy",
    	    click: function () {
    	        openPrivacyPolicy();
    	    }
     }));
-    
+
     console.log("menubar items: " + win.menu.items.length);
 
 }
 /* End of Menubar generation code */
 
-win.show();    
+win.show();
 
 win.on("close", function () {
 	console.log("window close handler");
-	
+
     if (global.isServerRunning) {
         // if server is currently running, stop it before opening a new server instance
         setServerOffline();
@@ -139,7 +139,7 @@ win.on("close", function () {
         localStorage.projDir = "";
         win.close(true);
     }
-	
+
 	global.server.on("close", function(e) {
 	    localStorage.projDir = "";
 	    win.close(true);
