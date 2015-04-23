@@ -1,7 +1,7 @@
 {
     "name": "PhoneGap",
     "description": "PhoneGap",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "main": "index.html",
     "window": {
         "title": "PhoneGap Desktop",
