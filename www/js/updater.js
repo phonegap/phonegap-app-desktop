@@ -36,16 +36,22 @@ function restartApp () {
 
     switch (determineOperatingSystem()) {
         case 'darwin':
-            copyPath = copyPath + "/PhoneGap.app";
+            copyPath = execPath + "/PhoneGap.app";
+
+            console.log("newAppPath: " + newAppPath);
+            console.log("execPath: " + execPath);
+            console.log("copyPath: " + copyPath);
+
+            upd.runInstaller(newAppPath, [copyPath, execPath],{});// this line crashes windows...
+            gui.App.quit();
             break;
         case 'win32':
             // TODO: determine correct path for windows
-            // copyPath = ?????;
+            // execPath = execPath + "\\";
+            // copyPath = execPath;
             break;
     }
 
-    upd.runInstaller(newAppPath, [copyPath, execPath],{});
-    gui.App.quit();
 }
 
 function updateApp() {

@@ -34,8 +34,8 @@ if(gui.App.argv.length) {
     upd.install(copyPath1, function(err) {
         if(!err) {
             console.log("run the newest version");
-            //upd.run(execPath1, null);
-            gui.Shell.openItem(execPath1);
+            upd.run(execPath1, null);
+            //gui.Shell.openItem(execPath1);
             //gui.App.quit();
         }
     });
