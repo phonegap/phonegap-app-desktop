@@ -5,19 +5,20 @@ AppName=PhoneGap Desktop
 AppVersion=0.1.4
 DefaultDirName={pf}\Adobe\PhoneGap\PhoneGap Desktop
 DefaultGroupName=Adobe\PhoneGap
-UninstallDisplayIcon={app}\MyProg.exe
+UninstallDisplayIcon={app}\PhoneGap.exe
 Compression=lzma2
 SolidCompression=yes
-OutputDir=userdocs:Inno Setup Examples Output
+OutputDir="\\vmware-host\Shared Folders\Documents\PhoneGap\phonegap-app-desktop\installers\win"
 LicenseFile=license.txt
+OutputBaseFilename=PhoneGapSetup
 
 [Files]
-Source: "C:\Users\herm\Documents\HermWong\phonegap-gui\build\PhoneGap\win\PhoneGap.exe"; DestDir: "{app}"
-Source: "C:\Users\herm\Documents\HermWong\phonegap-gui\build\PhoneGap\win\nw.pak"; DestDir: "{app}"
-Source: "C:\Users\herm\Documents\HermWong\phonegap-gui\build\PhoneGap\win\libGLESv2.dll"; DestDir: "{app}"
-Source: "C:\Users\herm\Documents\HermWong\phonegap-gui\build\PhoneGap\win\libEGL.dll"; DestDir: "{app}"
-Source: "C:\Users\herm\Documents\HermWong\phonegap-gui\build\PhoneGap\win\icudtl.dat"; DestDir: "{app}"
-Source: "C:\Users\herm\Documents\HermWong\phonegap-gui\build\PhoneGap\win\ffmpegsumo.dll"; DestDir: "{app}"
+Source: "\\vmware-host\Shared Folders\Documents\PhoneGap\phonegap-app-desktop\build\PhoneGap\win\PhoneGap.exe"; DestDir: "{app}"
+Source: "\\vmware-host\Shared Folders\Documents\PhoneGap\phonegap-app-desktop\build\PhoneGap\win\nw.pak"; DestDir: "{app}"
+Source: "\\vmware-host\Shared Folders\Documents\PhoneGap\phonegap-app-desktop\build\PhoneGap\win\libGLESv2.dll"; DestDir: "{app}"
+Source: "\\vmware-host\Shared Folders\Documents\PhoneGap\phonegap-app-desktop\build\PhoneGap\win\libEGL.dll"; DestDir: "{app}"
+Source: "\\vmware-host\Shared Folders\Documents\PhoneGap\phonegap-app-desktop\build\PhoneGap\win\icudtl.dat"; DestDir: "{app}"
+Source: "\\vmware-host\Shared Folders\Documents\PhoneGap\phonegap-app-desktop\build\PhoneGap\win\ffmpegsumo.dll"; DestDir: "{app}"
 
 [Icons]
 Name: "{group}\Adobe\PhoneGap\PhoneGap Desktop"; Filename: "{app}\PhoneGap.exe"
