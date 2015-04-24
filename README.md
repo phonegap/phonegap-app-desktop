@@ -1,4 +1,4 @@
-## PhoneGap App Desktop [![Build status](https://badge.buildbox.io/d5b26a9e3bc79e808d8cdb483ee14d45d371c9f41bd8371c3b.svg?branch=master)](https://buildbox.io/phonegap/phonegap-desktop)
+## PhoneGap App Desktop [![Build status][buildbox-img]][buildbox-url] [![bitHound Score][bithound-img]][bithound-url]
 
 Initial prototype of creating a desktop app for the PhoneGap CLI.
 
@@ -65,3 +65,9 @@ Opens the application located in:
 
   - __OS X__: `build/PhoneGap/osx/PhoneGap.app`
   - __Windows__: `build/PhoneGap/win/PhoneGap.exe`
+
+[buildbox-img]: https://badge.buildbox.io/d5b26a9e3bc79e808d8cdb483ee14d45d371c9f41bd8371c3b.svg?branch=master
+[buildbox-url]: https://buildbox.io/phonegap/phonegap-desktop
+[bithound-img]: https://www.bithound.io/github/phonegap/phonegap-app-desktop/badges/score.svg
+[bithound-url]: https://www.bithound.io/github/phonegap/phonegap-app-desktop
+
