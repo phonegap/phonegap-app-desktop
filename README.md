@@ -15,7 +15,7 @@ Initial prototype of creating a desktop app for the PhoneGap CLI.
     1. `brew install gcc49` or `brew install homebrew/versions/gcc49` depending on what is returned from the `brew search gcc` query (installs gcc version 4.9)
   1. command line without xcode: http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/
   1. using xcode: http://stackoverflow.com/questions/9353444/how-to-use-install-gcc-on-mac-os-x-10-8-xcode-4-4
-5. install [wine](http://www.winehq.org) `brew install wine --devel` (dev version is 1.7.32, the current stable __version 1.6.2 caused a bunch of errors and did not work__)
+5. install [wine](http://www.winehq.org) `brew install wine --devel` (dev version is 1.7.35, the current stable __version 1.6.2 caused a bunch of errors and did not work__)
 6. you _might_ be prompted to install [XQuartz](http://xquartz.macosforge.org/landing/) before you can complete the wine install.
 7. if `libpng16.16.dylib` is missing from `usr/local/lib/`, you can download it from one of the following places:
   1. clone the following project from Git `https://github.com/anura-engine/anura.git` and then copy `anura/MacOS/dylibs/libpng16.16.dylib` from your local repo and paste into `usr/local/lib/`
