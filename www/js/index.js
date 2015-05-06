@@ -74,7 +74,6 @@ if (process.platform == 'darwin') {
     menubar.items[menubar.items.length-1].submenu.append(new gui.MenuItem({
    	    label: "New Project",
    	    click: function () {
-		    console.log("new project from menubar");
 		    resetMinusButtonState();
 		    // create a new project
             animateAddNewProjectOverlayEntry();
@@ -84,7 +83,6 @@ if (process.platform == 'darwin') {
     menubar.items[menubar.items.length-1].submenu.append(new gui.MenuItem({
    	    label: "Open Project",
    	    click: function () {
-      	    console.log("open project from menubar");
       	    resetMinusButtonState();
 		    // open an existing project
 		    openProject();
@@ -121,17 +119,12 @@ if (process.platform == 'darwin') {
    	        openPrivacyPolicy();
    	    }
     }));
-
-    console.log("menubar items: " + win.menu.items.length);
-
 }
 /* End of Menubar generation code */
 
 win.show();
 
 win.on("close", function () {
-	console.log("window close handler");
-
     if (global.isServerRunning) {
         // if server is currently running, stop it before opening a new server instance
         setServerOffline();
