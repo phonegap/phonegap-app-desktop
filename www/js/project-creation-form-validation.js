@@ -5,7 +5,7 @@ function displayPhoneGapProjectInFolderError() {
 }
 
 function displayProjectPathError() {
-    global.jQuery("#new-project-path-label").addClass("required"); 
+    global.jQuery("#new-project-path-label").addClass("required");
     global.jQuery("#project-path-warning-icon").show();
     global.jQuery("#project-path-error-message").show();
 }
@@ -18,7 +18,7 @@ function hideProjectPathError() {
 
 function displayProjectNameError() {
     global.jQuery("#new-project-name-label").addClass("required");
-    global.jQuery("#projectName").addClass("required-input project-creation-warning-icon");    
+    global.jQuery("#projectName").addClass("required-input project-creation-warning-icon");
     global.jQuery("#project-name-error-message").text("You must give your new project a name.");
     global.jQuery("#project-name-warning").show();
     global.jQuery("#project-name-error-message").show();
@@ -33,10 +33,10 @@ function hideProjectNameError() {
 
 function displayDuplicateProjectNameError() {
     global.jQuery("#new-project-name-label").addClass("required");
-    global.jQuery("#projectName").addClass("required-input project-creation-warning-icon");    
+    global.jQuery("#projectName").addClass("required-input project-creation-warning-icon");
     global.jQuery("#project-name-error-message").text("A folder with this name already exists in the selected local path. Please choose a new name or a new local path.");
     global.jQuery("#project-name-warning").show();
-    global.jQuery("#project-name-error-message").show();    
+    global.jQuery("#project-name-error-message").show();
 }
 
 function hideDuplicateProjectNameError() {
@@ -47,7 +47,7 @@ function displayProjectIdError() {
     global.jQuery("#new-project-id-label").addClass("required");
     global.jQuery("#project-id").addClass("required-input project-creation-warning-icon");
     global.jQuery("#project-id-warning").show();
-    global.jQuery("#project-id-error-message").show();   
+    global.jQuery("#project-id-error-message").show();
 }
 
 function hideProjectIdError() {
@@ -74,9 +74,9 @@ function adjustProjectCreationFormHeight(isProjectPathEmpty, isProjectNameEmpty)
             if (isProjectNameEmpty) {
                 // change project creation dialog height to accommodate for project path error & project name error
                 global.jQuery("#newProjectOverlay").addClass("new-project-overlay-project-name-or-project-id-error");
-            }          
+            }
         }
-    }     
+    }
 }
 
 function resetProjectCreationFormHeight() {
@@ -85,7 +85,7 @@ function resetProjectCreationFormHeight() {
     global.jQuery("#newProjectOverlay").removeClass("new-project-overlay-project-path-and-other-error");
     global.jQuery("#newProjectOverlay").removeClass("new-project-overlay-project-name-and-project-id-error");
     global.jQuery("#newProjectOverlay").removeClass("new-project-overlay-project-name-or-project-id-error");
-    global.jQuery("#newProjectOverlay").removeClass("new-project-overlay-duplicate-project-name-error");     
+    global.jQuery("#newProjectOverlay").removeClass("new-project-overlay-duplicate-project-name-error");
 }
 
 function resetProjectCreationForm() {
