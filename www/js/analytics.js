@@ -11,6 +11,20 @@ function trackAppOpened() {
     }
 }
 
+function trackProjectsLoaded(count) {
+    if(getSendUsageFlag()) {
+        var projectsLoaded = {
+            userId: getUserId(),
+            platform: determineOperatingSystem(),
+            debug: global.debugMode,
+            version: global.pgdVersion,
+            quantity: count
+        };
+
+        global.client.addEvent("projectsLoaded", projectsLoaded);
+    }
+}
+
 function trackProjectCreated() {
     if(getSendUsageFlag()) {
         var projectCreated = {
