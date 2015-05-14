@@ -2,7 +2,7 @@
 AppPublisher=Adobe Inc.
 AppPublisherURL=https://www.adobe.com/
 AppName=PhoneGap Desktop
-AppVersion=0.1.5
+AppVersion=0.1.6
 DefaultDirName={pf}\Adobe\PhoneGap\PhoneGap Desktop
 DefaultGroupName=Adobe\PhoneGap
 UninstallDisplayIcon={app}\PhoneGap.exe
