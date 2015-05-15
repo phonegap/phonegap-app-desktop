@@ -1,5 +1,5 @@
-#! /bin/bash 
-test -f ../../../installers/osx/PhoneGapDesktop.dmg && rm ../../../installers/osx/PhoneGapDesktop.dmg 
+#! /bin/bash
+test -f ../../../installers/osx/PhoneGapDesktop.dmg && rm ../../../installers/osx/PhoneGapDesktop.dmg
 
 ./create-dmg \
 --volname "PhoneGap Desktop Installer" \
@@ -11,4 +11,4 @@ test -f ../../../installers/osx/PhoneGapDesktop.dmg && rm ../../../installers/os
 --app-drop-link 388 160 \
 --eula license.txt \
 ../../../installers/osx/PhoneGapDesktop.dmg \
-../../../build/PhoneGap/OSX
+../../../build/PhoneGap/osx64
