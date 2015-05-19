@@ -1,27 +1,25 @@
 function createProject(e) {
-    console.log("createProject handler");
-
     var projectPath = global.jQuery("#projectPath").text().trim();
-    var projectName = global.jQuery("#projectName").val().trim();   
+    var projectName = global.jQuery("#projectName").val().trim();
     var projectId = global.jQuery("#project-id").val().trim() || global.jQuery("#project-id").attr("placeholder").trim();
-    
+
     var isProjectPathEmpty = isProjectPathFieldEmpty(projectPath);
     var isProjectNameEmpty = isEmptyField(projectName);
-    
+
     var projDir = "";
 
     hideProjectPathError();
     hideProjectNameError();
     resetProjectCreationFormHeight();
 
-    if(!isProjectNameEmpty && !isProjectPathEmpty) { 
+    if(!isProjectNameEmpty && !isProjectPathEmpty) {
         projDir = projectPath + buildPathBasedOnOS("/") + projectName;
         localStorage.projDir = projDir;
         if(!projectExistsInLocalStorage(projDir)) {
 
             var oldPathToConfigFile = projectPath + buildPathBasedOnOS("/www/config.xml");
             var newPathToConfigFile = projectPath + buildPathBasedOnOS("/config.xml");
-            
+
             fs.readFile(newPathToConfigFile, {encoding:'utf8'}, function(err, newPathData) {
                 if (err) {
                     fs.readFile(oldPathToConfigFile, {encoding:'utf8'}, function(err, oldPathData) {
@@ -32,11 +30,11 @@ function createProject(e) {
                         } else {
                             displayPhoneGapProjectInFolderError();
                         }
-                    });                    
+                    });
                 } else {
-                    displayPhoneGapProjectInFolderError(); 
+                    displayPhoneGapProjectInFolderError();
                 }
-            });      
+            });
         } else {
             displayPhoneGapProjectInFolderError();
         }
@@ -44,16 +42,16 @@ function createProject(e) {
 
         if (isProjectPathEmpty) {
             // error with project path
-            displayProjectPathError();           
+            displayProjectPathError();
         }
-                
+
         if (isProjectNameEmpty) {
             // error with project name
             displayProjectNameError();
         }
-        
-        adjustProjectCreationFormHeight(isProjectPathEmpty, isProjectNameEmpty); 
-    }    
+
+        adjustProjectCreationFormHeight(isProjectPathEmpty, isProjectNameEmpty);
+    }
 }
 
 function selectProjectPath(e) {
@@ -62,21 +60,16 @@ function selectProjectPath(e) {
 }
 
 function openProject(e) {
-    console.log("open project click handler");
     global.jQuery("#projectDirectory").trigger("click");
 }
 
 function selectDirectory(e) {
-    console.log("change handler");
-    
     var projectDir = global.jQuery("#projectDirectory").val().trim();
     var projectName = global.jQuery("#projectName").val().trim();
-  
+
     var isProjectPathEmpty = isProjectPathFieldEmpty(projectDir);
     var isProjectNameEmpty = isEmptyField(projectName);
-    
-    console.log("projectDir: " + projectDir);
-        
+
     if(global.createClicked) {
         // new project creation workflow
         global.createClicked = false;
@@ -85,12 +78,12 @@ function selectDirectory(e) {
         hideProjectPathError();
         global.jQuery("#projectPath").text(projectDir);
         global.jQuery("#projectName").focus();
-        
+
         if(!projectExistsInLocalStorage(projectDir)) {
 
             var oldPathToConfigFile = projectDir + buildPathBasedOnOS("/www/config.xml");
             var newPathToConfigFile = projectDir + buildPathBasedOnOS("/config.xml");
-                        
+
             fs.readFile(newPathToConfigFile, {encoding:'utf8'}, function(err, newPathData) {
                 if (err) {
                     console.log("config.xml not found in new path: " + newPathToConfigFile);
@@ -105,17 +98,17 @@ function selectDirectory(e) {
                             // www/config.xml exists in selected local path, assume that there is an existing project in the local path
                             displayPhoneGapProjectInFolderError();
                         }
-                    });                    
+                    });
                 } else {
                     console.log("config.xml found in new path");
                     // config.xml exists in selected local path, assume that there is an existing project in the local path
-                    displayPhoneGapProjectInFolderError();                    
+                    displayPhoneGapProjectInFolderError();
                 }
             });
         } else {
             // selected local path already exists in local storage, assume that there is an existing project in the local path
             displayPhoneGapProjectInFolderError();
-        }               
+        }
     } else {
         if (projectDir.length > 0) {
             // open existing project workflow
@@ -128,33 +121,32 @@ function selectDirectory(e) {
             setNotificationText("Project directory error");
             displayNotification();
         }
-    } 
-    
+    }
+
     global.jQuery("#projectDirectory").val("");
 }
 
 function create(projectName, projectId, projDir) {
-    console.log("create();")
-	var options = {};
+    var options = {};
        options.path = projDir;
        options.version = global.pgVersion;
-                   
+
        global.pgServer.create(options)
           .on("progress", function(state) {
               if (state.percentage) {
                   console.log("downloaded: " + state.percentage + "%");
               }
-          })               
+          })
           .on("error", function(e) {
               console.log(e.message);
               displayErrorMessage(e.message);
-          })                 
+          })
           .on("complete", function(data) {
               console.log("created project at:" + data.path);
 
               // update the config.xml of the newly created project with the project name & project id entered by the user
               updateConfig(projectName, projectId, projDir);
-              
+
               global.jQuery("#overlay-bg").hide();
               hideAddNewProjectOverlay();
           });
@@ -163,7 +155,7 @@ function create(projectName, projectId, projDir) {
 function updateConfig(projectName, projectId, projDir) {
     var oldPathToConfigFile = projDir + buildPathBasedOnOS("/www/config.xml");
     var newPathToConfigFile = projDir + buildPathBasedOnOS("/config.xml");
-    
+
     fs.readFile(newPathToConfigFile, {encoding: 'utf8'}, function(err, newPathData) {
         if(err) {
             fs.readFile(oldPathToConfigFile, {encoding: 'utf8'}, function(err, oldPathData) {
@@ -175,35 +167,34 @@ function updateConfig(projectName, projectId, projDir) {
                     global.jQuery.xmlDoc = global.jQuery.parseXML(oldPathData);
                     updateConfigOnProjectCreation(global.jQuery.xmlDoc, projectName, projectId, oldPathToConfigFile, projDir);
                 }
-            });            
+            });
         } else {
             global.jQuery.xmlDoc = global.jQuery.parseXML(newPathData);
-            updateConfigOnProjectCreation(global.jQuery.xmlDoc, projectName, projectId, newPathToConfigFile, projDir);           
+            updateConfigOnProjectCreation(global.jQuery.xmlDoc, projectName, projectId, newPathToConfigFile, projDir);
         }
-    });    
+    });
 }
 
 function updateConfigOnProjectCreation(configXML, projectName, projectId, pathToConfigFile, projDir) {
-    
     var iconPath = projDir + buildPathBasedOnOS("/www/");
     var serializer = new XMLSerializer();
-    var contents = serializer.serializeToString(configXML);    
+    var contents = serializer.serializeToString(configXML);
     var xml = new XML(contents);
-    global.jQuery.xml = global.jQuery(configXML); 
+    global.jQuery.xml = global.jQuery(configXML);
 
     // update project name
     xml.child("name").setValue(projectName);
 
-    // update project id                                     
+    // update project id
     xml.attribute("id").setValue(projectId);
-    
+
     // get the project version
     var projVersion = xml.attribute("version").getValue();
 
     // get the app icon
     var projectIcon = global.jQuery.xml.find("icon").attr("src");
     iconPath += projectIcon;
-    
+
     // write the user entered project name & project id to the config.xml file
     fs.writeFile(pathToConfigFile, xml, function (err) {
         if (err) {
@@ -211,21 +202,18 @@ function updateConfigOnProjectCreation(configXML, projectName, projectId, pathTo
         } else {
             // check if the project exists in PG-GUI's localstorage before adding
             if(!projectExistsInLocalStorage(projDir)) {
-                addProject(projectName, projVersion, iconPath, projDir);       
+                addProject(projectName, projVersion, iconPath, projDir);
             } else {
                 displayProjectExistsNotification();
-            }                    
+            }
         }
     });
 }
 
 function checkIfProjectConfigExists(projDir) {
-    console.log("checkIfProjectConfigExists");
     var oldPathToConfigFile = projDir + buildPathBasedOnOS("/www/config.xml");
     var newPathToConfigFile = projDir + buildPathBasedOnOS("/config.xml");
-    console.log("oldPath: " + oldPathToConfigFile);
-    console.log("newPath: " + newPathToConfigFile);
-        
+
     fs.readFile(newPathToConfigFile, 'utf8', function(err, data) {
         if (err) {
             fs.readFile(oldPathToConfigFile, 'utf8', function(err, data) {
@@ -238,13 +226,13 @@ function checkIfProjectConfigExists(projDir) {
             });
         } else {
             console.log("newPathToConfigFile found");
-            parseProjectConfig(data, projDir); 
+            parseProjectConfig(data, projDir);
         }
-    });    
+    });
 }
 
 function parseProjectConfig(data, projDir) {
-    
+
     var iconPath = projDir + buildPathBasedOnOS("/www/");
 
     global.jQuery.xmlDoc = global.jQuery.parseXML(data);
@@ -262,15 +250,15 @@ function parseProjectConfig(data, projDir) {
 
     // check if the project exists in PG-GUI's localstorage before adding
     if(!projectExistsInLocalStorage(projDir)) {
-        addProject(projectName, projectVersion, iconPath, projDir);       
+        addProject(projectName, projectVersion, iconPath, projDir);
     } else {
         displayProjectExistsNotification();
-    }    
+    }
 }
 
 function displayMissingConfigFileNotification() {
     setNotificationText("Selected folder doesn't contain a config.xml file.");
-    displayNotification();    
+    displayNotification();
 }
 
 function displayProjectExistsNotification() {
@@ -279,21 +267,21 @@ function displayProjectExistsNotification() {
 }
 
 function projectExistsInLocalStorage(projDir) {
-    
+
     var projectFound = false;
-    
+
     if (localStorage["projects"]) {
         var projects = JSON.parse(localStorage["projects"]);
         var index = projects.length;
-                 
+
         for (var i=0;i<index;i++) {
             if(projDir == projects[i].projDir) {
                 projectFound = true;
                 break;
             }
-        }           
-    }  
-    
+        }
+    }
+
     return projectFound;
 }
 
@@ -305,7 +293,7 @@ function folderExistsInFileSystem(projDir) {
             global.jQuery("#newProjectOverlay").addClass("new-project-overlay-duplicate-project-name-error");
         } else {
             hideDuplicateProjectNameError();
-            global.jQuery("#newProjectOverlay").removeClass("new-project-overlay-duplicate-project-name-error");            
+            global.jQuery("#newProjectOverlay").removeClass("new-project-overlay-duplicate-project-name-error");
         }
     });
 }
