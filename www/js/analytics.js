@@ -1,15 +1,29 @@
 function trackAppOpened() {
     if(getSendUsageFlag()) {
         var appOpened = {
-            userId: getUserId(),   
+            userId: getUserId(),
             platform: determineOperatingSystem(),
             debug: global.debugMode,
             version: global.pgdVersion
         };
-    
+
         global.client.addEvent("appOpened", appOpened);
     }
-} 
+}
+
+function trackProjectsLoaded(count) {
+    if(getSendUsageFlag()) {
+        var projectsLoaded = {
+            userId: getUserId(),
+            platform: determineOperatingSystem(),
+            debug: global.debugMode,
+            version: global.pgdVersion,
+            quantity: count
+        };
+
+        global.client.addEvent("projectsLoaded", projectsLoaded);
+    }
+}
 
 function trackProjectCreated() {
     if(getSendUsageFlag()) {
@@ -19,10 +33,10 @@ function trackProjectCreated() {
             debug: global.debugMode,
             version: global.pgdVersion
         };
-    
+
         global.client.addEvent("projectCreated", projectCreated);
-    }    
-}   
+    }
+}
 
 function trackProjectOpened() {
     if(getSendUsageFlag()) {
@@ -32,10 +46,10 @@ function trackProjectOpened() {
             debug: global.debugMode,
             version: global.pgdVersion
         };
-    
+
         global.client.addEvent("projectOpened", projectOpened);
-    }    
-}   
+    }
+}
 
 function trackProjectRemoved() {
     if(getSendUsageFlag()) {
@@ -45,7 +59,7 @@ function trackProjectRemoved() {
             debug: global.debugMode,
             version: global.pgdVersion
         };
-    
-        global.client.addEvent("projectRemoved", projectRemoved); 
+
+        global.client.addEvent("projectRemoved", projectRemoved);
     }
 }

@@ -12,12 +12,12 @@ module.exports = function(grunt) {
     },
     nodewebkit: {
       options: {
-        version: '0.10.5',
+        version: '0.12.0',
         build_dir: './build', // Destination for built apps.
         mac: true,            // OS X support.
         win: true,            // Windows support.
-        linux32: true,       // Linux 32-bit support.
-        linux64: true,        // Linux 64-bit support.
+        linux32: false,       // Linux 32-bit support.
+        linux64: false,        // Linux 64-bit support.
         credits: 'www/credits.html',
         mac_icns: 'www/img/app-icons/icon.icns',
         winIco: 'www/img/app-icons/icon.ico'
@@ -46,11 +46,11 @@ module.exports = function(grunt) {
       callback();
     });
   });
-  
+
   grunt.task.registerTask('copy-dev-config', function() {
       //var config = grunt.file.read('./src/config/package.json');
       grunt.file.copy('./src/config/package.json', './www/package.json');
-       
+
   });
 
   grunt.task.registerTask('copy-release-config', function() {
@@ -58,20 +58,36 @@ module.exports = function(grunt) {
       var releaseConfig = config.replace("\"toolbar\": true", "\"toolbar\": false");
       grunt.file.write('./www/package.json', releaseConfig);
   });
-  
+
   grunt.task.registerTask('copy-eula', function() {
       grunt.file.copy('./src/license.txt', './res/installers/osx/license.txt');
       grunt.file.copy('./src/license.txt', './res/installers/win/license.txt');
   });
-  
+
   // Register the task to open an app.
   grunt.task.registerTask('open', 'Open the app', function() {
 	var fs = require('fs'),
         os = require('os'),
         opener = require('opener'),
         appName = JSON.parse(fs.readFileSync('./www/package.json')).name,
-        macPath = 'build/appName/osx/appName.app',
-        winPath = 'build/appName/win/appName.exe';
+        architecture = os.arch(),
+        macPath = '',
+        winPath = '';
+
+        switch (architecture) {
+            case 'x64':
+                macPath = 'build/appName/osx64/appName.app',
+                winPath = 'build/appName/win64/appName.exe';
+                break;
+            case 'ia32':
+                macPath = 'build/appName/osx32/appName.app',
+                winPath = 'build/appName/win32/appName.exe';
+                break;
+            default:
+                macPath = 'build/appName/osx/appName.app',
+                winPath = 'build/appName/win/appName.exe';
+
+        }
 
     macPath = macPath.replace(/appName/g, appName);
     winPath = winPath.replace(/appName/g, appName);
