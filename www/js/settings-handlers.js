@@ -3,7 +3,7 @@ function initSettings() {
     if (!localStorage.portNumber) {
         localStorage.portNumber = 3000;
     }
-    
+
     // set default analytics flag if it has not been set
     if (!localStorage.sendUsage) {
         localStorage.sendUsage = "true";
@@ -19,10 +19,8 @@ function getSendUsageFlag() {
 }
 
 function saveSettings(evt) {
-    console.log("saveSettings");
-    
     var portNumber = global.jQuery("#portNumber").val();
-    
+
     if (isNaN(portNumber)) {
         displayPortError();
     } else {
@@ -30,7 +28,7 @@ function saveSettings(evt) {
         hideSettingsOverlay();
         toggleServerStatus("");
     }
-    
+
     if (global.jQuery("#sendUsage").is(":checked")) {
         localStorage.sendUsage = "true";
     } else {
@@ -39,7 +37,6 @@ function saveSettings(evt) {
 }
 
 function cancelSettings(evt) {
-    console.log("cancelSettings");
     hideSettingsOverlay();
 }
 
@@ -50,15 +47,15 @@ function displayPortError() {
 
 function hidePortError() {
     global.jQuery("#port-number-error").hide();
-    global.jQuery("#settingsOverlay").removeClass("settings-port-error");    
+    global.jQuery("#settingsOverlay").removeClass("settings-port-error");
 }
 
 function settingsFormValidatePortNumber() {
     var portNumber = global.jQuery("#portNumber").val();
-    
+
     if (isNaN(portNumber)) {
         displayPortError();
     } else {
         hidePortError();
-    }    
+    }
 }
