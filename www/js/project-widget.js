@@ -59,7 +59,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     widgetDOM += "</div>";
 
     widgetDOM += "<div class='column project-folder-column'>";
-    widgetDOM += "<div class='localPath'>Local path:</div>"
+    widgetDOM += "<div class='localPath'>Local path:</div>";
     widgetDOM += "<div class='projDir'><a href='#' id='" + projectDirId + "' class='projectDirLink'>" + projectDir + "</a></div>";
     widgetDOM += "</div>";
     widgetDOM += "</div>";
