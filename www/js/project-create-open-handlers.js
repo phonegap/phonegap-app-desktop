@@ -270,8 +270,8 @@ function projectExistsInLocalStorage(projDir) {
 
     var projectFound = false;
 
-    if (localStorage['projects']) {
-        var projects = JSON.parse(localStorage['projects']);
+    if (localStorage.projects) {
+        var projects = JSON.parse(localStorage.projects);
         var index = projects.length;
 
         for (var i=0;i<index;i++) {
