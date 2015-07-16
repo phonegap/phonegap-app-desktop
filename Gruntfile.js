@@ -64,6 +64,17 @@ module.exports = function(grunt) {
       grunt.file.copy('./src/license.txt', './res/installers/win/license.txt');
   });
 
+  // Remove build directories
+  grunt.task.registerTask('clean-build-dir', function() {
+      var shell = require('shelljs');
+      shell.rm('-rf', './build/PhoneGap/osx32');
+      shell.rm('-rf', './build/PhoneGap/osx64');
+      shell.rm('-rf', './build/PhoneGap/win32');
+      shell.rm('-rf', './build/PhoneGap/win64');
+      shell.rm('-rf', './build/PhoneGap/linux32');
+      shell.rm('-rf', './build/PhoneGap/linux64');
+  });
+
   // Register the task to open an app.
   grunt.task.registerTask('open', 'Open the app', function() {
 	var fs = require('fs'),
@@ -96,7 +107,7 @@ module.exports = function(grunt) {
   });
 
   // Default tasks.
-  grunt.registerTask('default', ['install-dependencies', 'less', 'copy-dev-config', 'copy-eula', 'nodewebkit', 'open']);
-  grunt.registerTask('release', ['install-dependencies', 'less', 'copy-release-config', 'copy-eula', 'nodewebkit']);
+  grunt.registerTask('default', ['install-dependencies', 'less', 'copy-dev-config', 'copy-eula', 'clean-build-dir', 'nodewebkit', 'open']);
+  grunt.registerTask('release', ['install-dependencies', 'less', 'copy-release-config', 'copy-eula', 'clean-build-dir', 'nodewebkit']);
 
 };
