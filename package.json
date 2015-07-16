@@ -23,7 +23,8 @@
         "grunt-contrib-watch": "0.6.1",
         "grunt-node-webkit-builder": "1.0.2",
         "jasmine-node": "1.14.5",
-        "opener": "1.4.1"
+        "opener": "1.4.1",
+        "shelljs": "0.5.1"
     },
     "contributors": [
         {
