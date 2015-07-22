@@ -10,7 +10,7 @@ module.exports = function(grunt) {
         }
       }
     },
-    nodewebkit: {
+    nwjs: {
       options: {
         version: '0.12.0',
         build_dir: './build', // Destination for built apps.
@@ -34,7 +34,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-node-webkit-builder');
+  grunt.loadNpmTasks('grunt-nw-builder');
 
   // Register the task to install nodewebkit dependencies.
   grunt.task.registerTask('install-dependencies', function() {
@@ -107,7 +107,7 @@ module.exports = function(grunt) {
   });
 
   // Default tasks.
-  grunt.registerTask('default', ['install-dependencies', 'less', 'copy-dev-config', 'copy-eula', 'clean-build-dir', 'nodewebkit', 'open']);
-  grunt.registerTask('release', ['install-dependencies', 'less', 'copy-release-config', 'copy-eula', 'clean-build-dir', 'nodewebkit']);
+  grunt.registerTask('default', ['install-dependencies', 'less', 'copy-dev-config', 'copy-eula', 'clean-build-dir', 'nwjs', 'open']);
+  grunt.registerTask('release', ['install-dependencies', 'less', 'copy-release-config', 'copy-eula', 'clean-build-dir', 'nwjs']);
 
 };

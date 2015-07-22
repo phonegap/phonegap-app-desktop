@@ -21,7 +21,7 @@
         "grunt-contrib-copy": "0.8.0",
         "grunt-contrib-less": "1.0.1",
         "grunt-contrib-watch": "0.6.1",
-        "grunt-node-webkit-builder": "1.0.2",
+        "grunt-nw-builder": "2.0.0",
         "jasmine-node": "1.14.5",
         "opener": "1.4.1",
         "shelljs": "0.5.1"
