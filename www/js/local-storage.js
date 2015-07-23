@@ -42,8 +42,6 @@ function getProjects() {
         var projects = JSON.parse(localStorage.projects);
         var index = projects.length;
 
-        trackProjectsLoaded(index);
-
         global.jQuery.each(projects, function(idx, project) {
             var projDir = project.projDir;
             var id = project.id;
@@ -86,6 +84,7 @@ function removeMissingProjects() {
     }
 
     localStorage.projects = JSON.stringify(projects);
+    trackProjectsLoaded(projects.length);
 
     // if there are still projects remaining, set an active widget
     if (index > 0) {
