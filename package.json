@@ -1,7 +1,7 @@
 {
     "name": "PhoneGap",
     "description": "PhoneGap",
-    "version": "0.1.8",
+    "version": "0.1.9",
     "homepage": "http://github.com/phonegap/phonegap-app-desktop",
     "repository": {
         "type": "git",
@@ -21,9 +21,10 @@
         "grunt-contrib-copy": "0.8.0",
         "grunt-contrib-less": "1.0.1",
         "grunt-contrib-watch": "0.6.1",
-        "grunt-node-webkit-builder": "1.0.2",
+        "grunt-nw-builder": "2.0.0",
         "jasmine-node": "1.14.5",
-        "opener": "1.4.1"
+        "opener": "1.4.1",
+        "shelljs": "0.5.1"
     },
     "contributors": [
         {
@@ -38,10 +39,10 @@
     ],
     "packages": {
         "mac": {
-            "url": "https://github.com/phonegap/phonegap-app-desktop/releases/download/0.1.8/PhoneGap-Desktop-Beta-0.1.8-mac.zip"
+            "url": "https://github.com/phonegap/phonegap-app-desktop/releases/download/0.1.9/PhoneGap-Desktop-Beta-0.1.9-mac.zip"
         },
         "win": {
-            "url": "https://github.com/phonegap/phonegap-app-desktop/releases/download/0.1.8/PhoneGap-Desktop-Beta-0.1.8-win.zip"
+            "url": "https://github.com/phonegap/phonegap-app-desktop/releases/download/0.1.9/PhoneGap-Desktop-Beta-0.1.9-win.zip"
         }
     }
 }

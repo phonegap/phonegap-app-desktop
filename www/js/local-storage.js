@@ -20,15 +20,15 @@ function addProject(projName, projVersion, iconPath, projDir) {
     projectObj.projDir = projDir;
     projectObj.projName = projName;
 
-    if (localStorage['projects']) {
+    if (localStorage.projects) {
         // retrieve exsiting projects to appending a new project
-        var projects = JSON.parse(localStorage['projects']);
+        var projects = JSON.parse(localStorage.projects);
         projects.push(projectObj);
-        localStorage['projects'] = JSON.stringify(projects);
+        localStorage.projects = JSON.stringify(projects);
     } else {
         var myProjects = new Array();
         myProjects.push(projectObj);
-        localStorage['projects'] = JSON.stringify(myProjects);
+        localStorage.projects = JSON.stringify(myProjects);
     }
 
     // render newly added project to GUI & set it as the active widget
@@ -37,12 +37,10 @@ function addProject(projName, projVersion, iconPath, projDir) {
 }
 
 function getProjects() {
-    if (localStorage['projects']) {
+    if (localStorage.projects) {
 
-        var projects = JSON.parse(localStorage['projects']);
+        var projects = JSON.parse(localStorage.projects);
         var index = projects.length;
-
-        trackProjectsLoaded(index);
 
         global.jQuery.each(projects, function(idx, project) {
             var projDir = project.projDir;
@@ -67,7 +65,7 @@ function missingId(id) {
 }
 
 function removeMissingProjects() {
-    var projects = JSON.parse(localStorage['projects']);
+    var projects = JSON.parse(localStorage.projects);
     var index = projects.length;
     var missing = global.missing;
 
@@ -85,7 +83,8 @@ function removeMissingProjects() {
         }
     }
 
-    localStorage['projects'] = JSON.stringify(projects);
+    localStorage.projects = JSON.stringify(projects);
+    trackProjectsLoaded(projects.length);
 
     // if there are still projects remaining, set an active widget
     if (index > 0) {
@@ -142,7 +141,7 @@ function parseConfigForRendering(data, id, projDir, i) {
 function removeProjectById(currentId) {
 
     // retrieve exsiting projects to find the project to remove
-    var projects = JSON.parse(localStorage['projects']);
+    var projects = JSON.parse(localStorage.projects);
     var index = projects.length;
 
     for (var i=0;i<index;i++) {
@@ -155,7 +154,7 @@ function removeProjectById(currentId) {
         }
     }
 
-    localStorage['projects'] = JSON.stringify(projects);
+    localStorage.projects = JSON.stringify(projects);
 
     index = projects.length;
 
@@ -172,8 +171,8 @@ function removeProjectById(currentId) {
 }
 
 function updateProjectNameInLocalStorage(id, projectName) {
-    if (localStorage['projects']) {
-        var projects = JSON.parse(localStorage['projects']);
+    if (localStorage.projects) {
+        var projects = JSON.parse(localStorage.projects);
 
         for (var i = 0; i < projects.length; i++) {
             if (id === projects[i].id) {
@@ -182,6 +181,6 @@ function updateProjectNameInLocalStorage(id, projectName) {
             }
         }
 
-        localStorage['projects'] = JSON.stringify(projects);
+        localStorage.projects = JSON.stringify(projects);
     }
 }
