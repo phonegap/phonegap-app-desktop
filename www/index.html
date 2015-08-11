@@ -37,6 +37,13 @@
       });
     </script>
 
+    <script type="text/javascript" src="js/ga/GALocalStorage.js"></script>
+    <script type="text/javascript">
+        ga_storage._setAccount('UA-94271-31'); //Replace with your own
+        ga_storage._trackPageview('/index.html');
+    </script>
+    <script type="text/javascript" src="js/ga/gaTracking.js"></script>
+
     <script type='text/javascript'>
 
     global.pgServer = require("connect-phonegap");
@@ -256,9 +263,12 @@
         hideProjectNameError();
         hideProjectIdError();
         disableMinusButton();
-        getProjects();
 
         parsePackageJSON();
+
+        gaAppLoaded();
+        getProjects();
+
     });
 
     function imgSwapper(img, src) {
@@ -353,7 +363,7 @@
     <aside id="createOpenProjectOverlay" class="create-overlay">
         <div id="createProject" class="flyout-top-button">Create new PhoneGap project...</div>
         <div class="create-open-separator-spacer"><hr class="dotted-hr" /></div>
-        <div id="openProject" class="flyout-button">Add existing PhoneGap project...</div>
+        <div id="openProject" class="flyout-button">Open existing PhoneGap project...</div>
     </aside>
 
     <aside id="helpOverlay" class="help-overlay">

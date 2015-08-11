@@ -10,7 +10,7 @@ module.exports = function(grunt) {
         }
       }
     },
-    nodewebkit: {
+    nwjs: {
       options: {
         version: '0.12.0',
         build_dir: './build', // Destination for built apps.
@@ -34,7 +34,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-node-webkit-builder');
+  grunt.loadNpmTasks('grunt-nw-builder');
 
   // Register the task to install nodewebkit dependencies.
   grunt.task.registerTask('install-dependencies', function() {
@@ -62,6 +62,17 @@ module.exports = function(grunt) {
   grunt.task.registerTask('copy-eula', function() {
       grunt.file.copy('./src/license.txt', './res/installers/osx/license.txt');
       grunt.file.copy('./src/license.txt', './res/installers/win/license.txt');
+  });
+
+  // Remove build directories
+  grunt.task.registerTask('clean-build-dir', function() {
+      var shell = require('shelljs');
+      shell.rm('-rf', './build/PhoneGap/osx32');
+      shell.rm('-rf', './build/PhoneGap/osx64');
+      shell.rm('-rf', './build/PhoneGap/win32');
+      shell.rm('-rf', './build/PhoneGap/win64');
+      shell.rm('-rf', './build/PhoneGap/linux32');
+      shell.rm('-rf', './build/PhoneGap/linux64');
   });
 
   // Register the task to open an app.
@@ -96,7 +107,7 @@ module.exports = function(grunt) {
   });
 
   // Default tasks.
-  grunt.registerTask('default', ['install-dependencies', 'less', 'copy-dev-config', 'copy-eula', 'nodewebkit', 'open']);
-  grunt.registerTask('release', ['install-dependencies', 'less', 'copy-release-config', 'copy-eula', 'nodewebkit']);
+  grunt.registerTask('default', ['install-dependencies', 'less', 'copy-dev-config', 'copy-eula', 'clean-build-dir', 'nwjs', 'open']);
+  grunt.registerTask('release', ['install-dependencies', 'less', 'copy-release-config', 'copy-eula', 'clean-build-dir', 'nwjs']);
 
 };
