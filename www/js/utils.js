@@ -48,19 +48,19 @@ function buildPathBasedOnOS(existingPath) {
 }
 
 function openIssueTracker() {
-    gui.Shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/issues?state=open");   // opens user's default browser & loads page
+    shell.openExternal('https://github.com/phonegap/phonegap-app-desktop/issues?state=open');
 }
 
 function openTutorials() {
-    gui.Shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/wiki/PhoneGap-Desktop-Overview");
+    shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/wiki/PhoneGap-Desktop-Overview");
 }
 
 function openTermsOfUse() {
-    gui.Shell.openExternal("http://www.adobe.com/legal/general-terms.html");
+    shell.openExternal("http://www.adobe.com/legal/general-terms.html");
 }
 
 function openPrivacyPolicy() {
-    gui.Shell.openExternal("http://www.adobe.com/privacy.html");
+    shell.openExternal("http://www.adobe.com/privacy.html");
 }
 
 function parsePackageJSON() {
