@@ -28,6 +28,10 @@ app.on('ready', function() {
   // Open the devtools.
   mainWindow.openDevTools();
 
+  mainWindow.webContents.on('did-finish-load', function() {
+      mainWindow.webContents.executeJavaScript('alert("current version: '+ app.getVersion() +' ");');
+  });
+
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
     // Dereference the window object, usually you would store windows
