@@ -428,6 +428,7 @@ a.projectDirLink:hover {
 .hr-icon {
   width: inherit;
   opacity: 0.0;
+  padding-top: 6px;
   padding-bottom: 6px;
 }
 .stop-icon {
