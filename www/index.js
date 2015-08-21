@@ -29,7 +29,7 @@ app.on('ready', function() {
   mainWindow.openDevTools();
 
   mainWindow.webContents.on('did-finish-load', function() {
-      mainWindow.webContents.executeJavaScript('alert("current version: '+ app.getVersion() +' ");');
+      mainWindow.webContents.executeJavaScript('console.log("current version: '+ app.getVersion() +' ");');
   });
 
   // Emitted when the window is closed.
