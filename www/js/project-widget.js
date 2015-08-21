@@ -98,8 +98,8 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     });
 
     global.jQuery("#start-icon_" + id.toString()).on("click", function() {
+        setActiveWidget(id, projectDir);
         if (global.isServerRunning) {
-            setActiveWidget(id, projectDir);
             widgetServerOnlineState(id);
         } else {
             toggleServerStatus(projectDir);
@@ -121,6 +121,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
                 setServerOffline();
                 serverOfflineState();
                 widgetSeverOfflineState(id);
+                global.activeWidget = null;
             }
         }
     });
