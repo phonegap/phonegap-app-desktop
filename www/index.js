@@ -12,32 +12,51 @@ var mainWindow = null;
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
-  if (process.platform != 'darwin')
-    app.quit();
+    if (process.platform != 'darwin')
+        app.quit();
 });
 
 // This method will be called when Electron has done everything
 // initialization and ready for creating browser windows.
 app.on('ready', function() {
-  // Create the browser window.
-  mainWindow = new BrowserWindow({width: 450, height: 622, resizable: false, title: 'PhoneGap Desktop', center: true});
+    // Create the browser window.
+    mainWindow = new BrowserWindow({width: 450, height: 622, resizable: false, title: 'PhoneGap Desktop', center: true});
 
-  // and load the index.html of the app.
-  mainWindow.loadUrl('file://' + __dirname + '/index.html');
+    // and load the index.html of the app.
+    mainWindow.loadUrl('file://' + __dirname + '/index.html');
 
-  // Open the devtools.
-  mainWindow.openDevTools();
+    var fs = require('fs');
 
-  mainWindow.webContents.on('did-finish-load', function() {
-      mainWindow.webContents.executeJavaScript('console.log("current version: '+ app.getVersion() +' ");');
-  });
+    var pathToPackageJSONFile = __dirname + "/package.json";
 
-  // Emitted when the window is closed.
-  mainWindow.on('closed', function() {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null;
-    app.quit();
-  });
+    fs.readFile(pathToPackageJSONFile, 'utf8', function(err, data) {
+        if (err) {
+            mainWindow.webContents.executeJavaScript('console.log("not found");');
+        } else {
+            mainWindow.webContents.executeJavaScript('console.log("found");');
+            var obj = JSON.parse(data);
+            global.debugMode = obj.window.devTools;
+            mainWindow.webContents.executeJavaScript('console.log(global.debugMode);');
+
+            if (global.debugMode) {
+                // Open the devtools.
+                mainWindow.openDevTools();
+            }
+        }
+
+    });
+
+    mainWindow.webContents.on('did-finish-load', function() {
+        mainWindow.webContents.executeJavaScript('console.log("current version: '+ app.getVersion() +' ");');
+
+    });
+
+    // Emitted when the window is closed.
+    mainWindow.on('closed', function() {
+        // Dereference the window object, usually you would store windows
+        // in an array if your app supports multi windows, this is the time
+        // when you should delete the corresponding element.
+        mainWindow = null;
+        app.quit();
+    });
 });
