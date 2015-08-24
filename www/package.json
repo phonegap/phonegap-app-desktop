@@ -2,6 +2,9 @@
   "name"    : "PhoneGap",
   "version" : "0.2.0",
   "main"    : "index.js",
+  "window"  : {
+      "devTools" : true
+  },
   "dependencies" : {
       "connect-phonegap": "0.16.1",
       "gaze": "0.5.1",
