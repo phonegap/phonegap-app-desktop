@@ -27,6 +27,16 @@ module.exports = function(grunt) {
         });
     });
 
+    grunt.task.registerTask('copy-dev-config', function() {
+        grunt.file.copy('./src/config/package.json', './www/package.json');
+    });
+
+    grunt.task.registerTask('copy-release-config', function() {
+        var config = grunt.file.read('./src/config/package.json');
+        var releaseConfig = config.replace('"devTools" : true', '"devTools" : false');
+        grunt.file.write('./www/package.json', releaseConfig);
+    });
+
     // Remove build directories
     grunt.task.registerTask('clean-build-dir', function() {
         var shell = require('shelljs');
@@ -56,6 +66,6 @@ module.exports = function(grunt) {
             opener((os.platform() === 'darwin') ? macPath : winPath);
     });
 
-    grunt.registerTask('default', ['install-dependencies', 'clean-build-dir', 'build-electron-app', 'rename-app', 'open']);
-
+    grunt.registerTask('default', ['install-dependencies', 'copy-dev-config', 'clean-build-dir', 'build-electron-app', 'rename-app', 'open']);
+    grunt.registerTask('release', ['install-dependencies', 'copy-release-config', 'clean-build-dir', 'build-electron-app', 'rename-app', 'open']);
 };
