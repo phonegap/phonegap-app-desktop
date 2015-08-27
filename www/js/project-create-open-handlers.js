@@ -56,11 +56,13 @@ function createProject(e) {
 
 function selectProjectPath(e) {
     global.createClicked = true;
-    global.jQuery("#projectDirectory").trigger("click");
+    //global.jQuery("#projectDirectory").trigger("click");
+    selectDirectory(e);
 }
 
 function openProject(e) {
-    global.jQuery("#projectDirectory").trigger("click");
+    //global.jQuery("#projectDirectory").trigger("click");
+    selectDirectory(e);
 }
 
 function selectDirectory(e) {
