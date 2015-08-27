@@ -96,17 +96,13 @@
             global.jQuery("#body").on("drop", handleDrop);
             global.jQuery("#body").on("dragover", handleDragOver);
 
-            global.jQuery("#projectDirectory").on("change", function(e) {
-                selectDirectory(e);
-            });
-
-            global.jQuery("#overlay-bg").click(overlayBackgroundHandler)
+            global.jQuery("#overlay-bg").click(overlayBackgroundHandler);
 
             global.jQuery("#addNewProject").click(createProject);
-            //global.jQuery("#chooseNewProjectPath").click(selectProjectPath);
+
             global.jQuery("#chooseNewProjectPath").click(function(e) {
-                var path = dialog.showOpenDialog({properties: ['openDirectory']});
-                console.log(path);
+                getProjectPath();
+                selectProjectPath(e);
             });
 
             global.jQuery("#projectName").blur(function() {
@@ -135,7 +131,11 @@
 
             global.jQuery("#cancelNewProject").click(overlayBackgroundHandler);
 
-            global.jQuery("#openProject").click(openProject);
+            //global.jQuery("#openProject").click(openProject);
+            global.jQuery("#openProject").click(function(e) {
+                getProjectPath();
+                openProject(e);
+            });
 
             global.jQuery("#saveSettings").click(saveSettings);
             global.jQuery("#cancelSettings").click(cancelSettings);
@@ -294,6 +294,21 @@
 
         });
 
+        function getProjectPath() {
+            var path = dialog.showOpenDialog({properties: ['openDirectory']});
+            if (global.jQuery.isArray(path)) {
+                if (path.length > 0) {
+                    path = path[0];
+                    global.jQuery('#projectDirectory').val(path);
+                    console.log(path);
+                } else {
+                    console.log("path array was empty");
+                }
+            } else {
+                console.log("path returned was not array");
+            }
+        }
+
         function imgSwapper(img, src) {
             global.jQuery("#" + img).attr("src", src);
         }
@@ -442,7 +457,7 @@
                     <div style="padding-left: 15px; padding-top: 15px;" id="notification-text"></div>
                 </div>
             </div>
-            <input type="file" id="projectDirectory" webkitdirectory>
+            <input type="hidden" id="projectDirectory">
         </div>
 
         <div class="row">
