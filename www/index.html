@@ -10,6 +10,10 @@
         <link rel="stylesheet" type="text/css" href="css/flipper.css">
 
         <script type="text/javascript">
+
+            var remote = require('remote');
+            var dialog = remote.require('dialog');
+
             // load dependencies module
             var fs = require("fs");
             var gaze = require("gaze");
@@ -99,7 +103,10 @@
             global.jQuery("#overlay-bg").click(overlayBackgroundHandler)
 
             global.jQuery("#addNewProject").click(createProject);
-            global.jQuery("#chooseNewProjectPath").click(selectProjectPath);
+            //global.jQuery("#chooseNewProjectPath").click(selectProjectPath);
+            global.jQuery("#chooseNewProjectPath").click(function(e) {
+                dialog.showOpenDialog({properties: ['openDirectory']})
+            });
 
             global.jQuery("#projectName").blur(function() {
 
@@ -434,7 +441,7 @@
                     <div style="padding-left: 15px; padding-top: 15px;" id="notification-text"></div>
                 </div>
             </div>
-            <input type="file" id="projectDirectory" nwdirectory>
+            <input type="file" id="projectDirectory" webkitdirectory>
         </div>
 
         <div class="row">
