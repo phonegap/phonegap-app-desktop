@@ -105,7 +105,8 @@
             global.jQuery("#addNewProject").click(createProject);
             //global.jQuery("#chooseNewProjectPath").click(selectProjectPath);
             global.jQuery("#chooseNewProjectPath").click(function(e) {
-                dialog.showOpenDialog({properties: ['openDirectory']})
+                var path = dialog.showOpenDialog({properties: ['openDirectory']});
+                console.log(path);
             });
 
             global.jQuery("#projectName").blur(function() {
