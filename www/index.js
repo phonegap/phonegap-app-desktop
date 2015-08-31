@@ -26,9 +26,7 @@ app.on('ready', function() {
     mainWindow.loadUrl('file://' + __dirname + '/index.html');
 
     var fs = require('fs');
-
     var pathToPackageJSONFile = __dirname + "/package.json";
-
     fs.readFile(pathToPackageJSONFile, 'utf8', function(err, data) {
         if (err) {
             mainWindow.webContents.executeJavaScript('console.log("not found");');
@@ -36,19 +34,16 @@ app.on('ready', function() {
             mainWindow.webContents.executeJavaScript('console.log("found");');
             var obj = JSON.parse(data);
             global.debugMode = obj.window.devTools;
-            mainWindow.webContents.executeJavaScript('console.log(global.debugMode);');
 
             if (global.debugMode) {
                 // Open the devtools.
                 mainWindow.openDevTools();
             }
         }
-
     });
 
     mainWindow.webContents.on('did-finish-load', function() {
         mainWindow.webContents.executeJavaScript('console.log("current version: '+ app.getVersion() +' ");');
-
     });
 
     // Emitted when the window is closed.
