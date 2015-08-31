@@ -63,19 +63,7 @@ function openPrivacyPolicy() {
     shell.openExternal("http://www.adobe.com/privacy.html");
 }
 
-function parsePackageJSON() {
-    var pathToPackageJSONFile = "package.json";
-
-    fs.readFile(pathToPackageJSONFile, 'utf8', function(err, data) {
-        if (err) {
-            console.log("pathToPackageJSONFile not found");
-        } else {
-            console.log("pathToPackageJSONFile found");
-            var obj = JSON.parse(data);
-            global.debugMode = obj.window.toolbar;
-            global.pgdVersion = obj.version;
-        }
-
-        trackAppOpened();
-    });
+function aboutContent() {
+    var year = new Date().getFullYear();
+    alert("PhoneGap (v" + global.pgdVersion + ")\nCopyright \u00A9 " + year + " Adobe Systems Incorporated.\nAll rights reserved.");
 }

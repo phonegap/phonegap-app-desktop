@@ -31,6 +31,7 @@
 
         <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
         <script type="text/javascript" src="js/error-notification.js"></script>
+        <script type="text/javascript" src="js/file-menu.js"></script>
         <script type="text/javascript" src="js/sidebar-handlers.js"></script>
         <script type="text/javascript" src="js/server-status.js"></script>
         <script type="text/javascript" src="js/drag-n-drop-handlers.js"></script>
@@ -90,7 +91,6 @@
             global.jQuery("#helpOverlay").hide();
             global.jQuery("#overlay-bg").hide();
             global.jQuery("#notification-bar").hide();
-
             global.jQuery("#port-number-error").hide();
 
             global.jQuery("#body").on("drop", handleDrop);
@@ -131,7 +131,6 @@
 
             global.jQuery("#cancelNewProject").click(overlayBackgroundHandler);
 
-            //global.jQuery("#openProject").click(openProject);
             global.jQuery("#openProject").click(function(e) {
                 getProjectPath();
                 openProject(e);
@@ -145,8 +144,7 @@
             global.jQuery("#closeServerLog").click(toggleLog);
 
             global.jQuery("#about").click(function() {
-                var year = new Date().getFullYear();
-                alert("PhoneGap (v" + global.pgdVersion + ")\nCopyright \u00A9 " + year + " Adobe Systems Incorporated.\nAll rights reserved.");
+                aboutContent();
             });
 
             //tutorials & reportIssue
@@ -287,8 +285,9 @@
             hideProjectIdError();
             disableMinusButton();
 
-            parsePackageJSON();
+            initFileMenu();
 
+            trackAppOpened();
             gaAppLoaded();
             getProjects();
 
