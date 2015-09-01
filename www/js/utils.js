@@ -47,6 +47,11 @@ function buildPathBasedOnOS(existingPath) {
     return path;
 }
 
+function getVersion() {
+    var app = remote.require('app');
+    return app.getVersion();
+}
+
 function openIssueTracker() {
     shell.openExternal('https://github.com/phonegap/phonegap-app-desktop/issues?state=open');
 }
@@ -65,5 +70,5 @@ function openPrivacyPolicy() {
 
 function aboutContent() {
     var year = new Date().getFullYear();
-    alert("PhoneGap (v" + global.pgdVersion + ")\nCopyright \u00A9 " + year + " Adobe Systems Incorporated.\nAll rights reserved.");
+    alert("PhoneGap (v" + getVersion() + ")\nCopyright \u00A9 " + year + " Adobe Systems Incorporated.\nAll rights reserved.");
 }
