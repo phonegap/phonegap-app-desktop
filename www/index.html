@@ -13,6 +13,7 @@
 
             var remote = require('remote');
             var dialog = remote.require('dialog');
+            var app = remote.require('app');
 
             // load dependencies module
             var fs = require("fs");
@@ -81,6 +82,8 @@
         global.pgdVersion = "";
 
         global.jQuery(document).ready(function() {
+
+            global.pgdVersion = app.getVersion();
 
             global.jQuery("#updateOverlay").hide();
             global.jQuery("#projectDirectory").hide();
