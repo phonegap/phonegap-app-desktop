@@ -72,3 +72,8 @@ function aboutContent() {
     var year = new Date().getFullYear();
     alert("PhoneGap (v" + getVersion() + ")\nCopyright \u00A9 " + year + " Adobe Systems Incorporated.\nAll rights reserved.");
 }
+
+function quitApp() {
+    var app = remote.require('app');
+    app.quit();
+}
