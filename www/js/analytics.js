@@ -4,7 +4,7 @@ function trackAppOpened() {
             userId: getUserId(),
             platform: determineOperatingSystem(),
             debug: global.debugMode,
-            version: global.pgdVersion
+            version: getVersion()
         };
 
         global.client.addEvent("appOpened", appOpened);
@@ -17,7 +17,7 @@ function trackProjectsLoaded(count) {
             userId: getUserId(),
             platform: determineOperatingSystem(),
             debug: global.debugMode,
-            version: global.pgdVersion,
+            version: getVersion(),
             quantity: count
         };
 
@@ -31,7 +31,7 @@ function trackProjectCreated() {
             userId: getUserId(),
             platform: determineOperatingSystem(),
             debug: global.debugMode,
-            version: global.pgdVersion
+            version: getVersion()
         };
 
         global.client.addEvent("projectCreated", projectCreated);
@@ -44,7 +44,7 @@ function trackProjectOpened() {
             userId: getUserId(),
             platform: determineOperatingSystem(),
             debug: global.debugMode,
-            version: global.pgdVersion
+            version: getVersion()
         };
 
         global.client.addEvent("projectOpened", projectOpened);
@@ -57,7 +57,7 @@ function trackProjectRemoved() {
             userId: getUserId(),
             platform: determineOperatingSystem(),
             debug: global.debugMode,
-            version: global.pgdVersion
+            version: getVersion()
         };
 
         global.client.addEvent("projectRemoved", projectRemoved);
