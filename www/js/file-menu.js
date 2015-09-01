@@ -21,7 +21,7 @@ function getMenuTemplate() {
                 {
                     label: 'Quit PhoneGap',
                     click: function() {
-                        console.log('quit PhoneGap');
+                        quitApp();
                     }
                 }
             ]
