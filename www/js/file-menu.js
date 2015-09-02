@@ -32,13 +32,13 @@ function getMenuTemplate() {
                 {
                     label: 'Create new project',
                     click: function() {
-                        global.jQuery("#createProject").trigger('click');
+                        $("#createProject").trigger('click');
                     }
                 },
                 {
                     label: 'Add existing project',
                     click: function() {
-                        global.jQuery("#openProject").trigger('click');
+                        $("#openProject").trigger('click');
                     }
                 }
             ]
