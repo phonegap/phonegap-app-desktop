@@ -1,30 +1,30 @@
 function displayUpdateAvailablePrompt() {
-    global.jQuery("#updateOverlayTitle").text("Update Available");
-    global.jQuery("#updateOverlayPrompt").text("A new version of the PhoneGap Desktop App is available.");
-    global.jQuery("#updateNow").text("Update");
-    global.jQuery("#updateOverlay").addClass("animated slideInDown");
-    global.jQuery("#updateOverlay").show();
-    global.jQuery("#overlay-bg").show();
+    $("#updateOverlayTitle").text("Update Available");
+    $("#updateOverlayPrompt").text("A new version of the PhoneGap Desktop App is available.");
+    $("#updateNow").text("Update");
+    $("#updateOverlay").addClass("animated slideInDown");
+    $("#updateOverlay").show();
+    $("#overlay-bg").show();
 }
 
 function displayInstallUpdatePrompt() {
-    global.jQuery("#updateOverlayTitle").text("Update Downloaded");
-    global.jQuery("#updateOverlayPrompt").text("Install the downloaded update and restart PhoneGap Desktop.");
-    global.jQuery("#updateNow").text("Restart");
-    global.jQuery("#updateOverlay").addClass("animated slideInDown");
-    global.jQuery("#updateOverlay").show();
-    global.jQuery("#overlay-bg").show();
+    $("#updateOverlayTitle").text("Update Downloaded");
+    $("#updateOverlayPrompt").text("Install the downloaded update and restart PhoneGap Desktop.");
+    $("#updateNow").text("Restart");
+    $("#updateOverlay").addClass("animated slideInDown");
+    $("#updateOverlay").show();
+    $("#overlay-bg").show();
 }
 
 function hideUpdateOverlay() {
-    global.jQuery("#updateOverlay").removeClass("animated slideInDown");
-    global.jQuery("#updateOverlay").addClass("animated slideOutUp");
-    global.jQuery("#updateOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", hideUpdateOverlayAnimationEnd);
+    $("#updateOverlay").removeClass("animated slideInDown");
+    $("#updateOverlay").addClass("animated slideOutUp");
+    $("#updateOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", hideUpdateOverlayAnimationEnd);
 }
 
 function hideUpdateOverlayAnimationEnd() {
-    global.jQuery("#updateOverlay").hide();
-    global.jQuery("#updateOverlay").removeClass("animated slideOutUp");
+    $("#updateOverlay").hide();
+    $("#updateOverlay").removeClass("animated slideOutUp");
 }
 
 function restartApp () {

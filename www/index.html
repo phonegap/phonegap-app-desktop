@@ -68,7 +68,6 @@
 
         global.pgServer = require("connect-phonegap");
         global.pgVersion = "3.3.0";
-        global.jQuery = jQuery;
         global.createClicked = false;
         global.server = null;
         global.isServerRunning = false;
@@ -79,35 +78,35 @@
         global.manifest = null;
         global.newAppPath = null;
 
-        global.jQuery(document).ready(function() {
+        $(document).ready(function() {
 
-            global.jQuery("#updateOverlay").hide();
-            global.jQuery("#projectDirectory").hide();
-            global.jQuery("#newProjectOverlay").hide();
-            global.jQuery("#createOpenProjectOverlay").hide();
-            global.jQuery("#settingsOverlay").hide();
-            global.jQuery("#serverLogOverlay").hide();
-            global.jQuery("#helpOverlay").hide();
-            global.jQuery("#overlay-bg").hide();
-            global.jQuery("#notification-bar").hide();
-            global.jQuery("#port-number-error").hide();
+            $("#updateOverlay").hide();
+            $("#projectDirectory").hide();
+            $("#newProjectOverlay").hide();
+            $("#createOpenProjectOverlay").hide();
+            $("#settingsOverlay").hide();
+            $("#serverLogOverlay").hide();
+            $("#helpOverlay").hide();
+            $("#overlay-bg").hide();
+            $("#notification-bar").hide();
+            $("#port-number-error").hide();
 
-            global.jQuery("#body").on("drop", handleDrop);
-            global.jQuery("#body").on("dragover", handleDragOver);
+            $("#body").on("drop", handleDrop);
+            $("#body").on("dragover", handleDragOver);
 
-            global.jQuery("#overlay-bg").click(overlayBackgroundHandler);
+            $("#overlay-bg").click(overlayBackgroundHandler);
 
-            global.jQuery("#addNewProject").click(createProject);
+            $("#addNewProject").click(createProject);
 
-            global.jQuery("#chooseNewProjectPath").click(function(e) {
+            $("#chooseNewProjectPath").click(function(e) {
                 getProjectPath();
                 selectProjectPath(e);
             });
 
-            global.jQuery("#projectName").blur(function() {
+            $("#projectName").blur(function() {
 
-                var projectPath = global.jQuery("#projectPath").text().trim();
-                var projectName = global.jQuery("#projectName").val().trim();
+                var projectPath = $("#projectPath").text().trim();
+                var projectName = $("#projectName").val().trim();
 
                 var isProjectPathEmpty = isProjectPathFieldEmpty(projectPath);
 
@@ -123,50 +122,50 @@
                 }
             });
 
-            global.jQuery("#createProject").click(function() {
+            $("#createProject").click(function() {
                 global.createChosen = true;
                 displayAddNewProjectOverlay();
             });
 
-            global.jQuery("#cancelNewProject").click(overlayBackgroundHandler);
+            $("#cancelNewProject").click(overlayBackgroundHandler);
 
-            global.jQuery("#openProject").click(function(e) {
+            $("#openProject").click(function(e) {
                 getProjectPath();
                 openProject(e);
             });
 
-            global.jQuery("#saveSettings").click(saveSettings);
-            global.jQuery("#cancelSettings").click(cancelSettings);
+            $("#saveSettings").click(saveSettings);
+            $("#cancelSettings").click(cancelSettings);
 
-            global.jQuery("#portNumber").blur(settingsFormValidatePortNumber);
+            $("#portNumber").blur(settingsFormValidatePortNumber);
 
-            global.jQuery("#closeServerLog").click(toggleLog);
+            $("#closeServerLog").click(toggleLog);
 
-            global.jQuery("#about").click(function() {
+            $("#about").click(function() {
                 aboutContent();
             });
 
             //tutorials & reportIssue
-            global.jQuery("#tutorials").click(function() {
+            $("#tutorials").click(function() {
                 openTutorials();
                 hideHelpOverlay();
             });
 
-            global.jQuery("#reportIssue").click(function() {
+            $("#reportIssue").click(function() {
                 openIssueTracker();
                 hideHelpOverlay();
             });
 
-            global.jQuery("#termsOfUse").click(function() {
+            $("#termsOfUse").click(function() {
                 openTermsOfUse();
             });
 
-            global.jQuery("#privacyPolicy").click(function() {
+            $("#privacyPolicy").click(function() {
                 openPrivacyPolicy();
             });
 
-            global.jQuery("#plus-holder").click(function() {
-                if (global.jQuery("#createOpenProjectOverlay").is(":visible") || global.jQuery("#newProjectOverlay").is(":visible")) {
+            $("#plus-holder").click(function() {
+                if ($("#createOpenProjectOverlay").is(":visible") || $("#newProjectOverlay").is(":visible")) {
                     overlayBackgroundHandler();
 
                     if (global.createChosen) {
@@ -180,14 +179,14 @@
                 }
             });
 
-            global.jQuery("#minus-holder").click(function() {
-                if(!global.jQuery("#minus-holder").hasClass("sidebar-button-holder-inactive")) {
+            $("#minus-holder").click(function() {
+                if(!$("#minus-holder").hasClass("sidebar-button-holder-inactive")) {
                     toggleRemoveProjectView();
                 }
             });
 
-            global.jQuery("#settings-holder").click(function() {
-                if (global.jQuery("#settingsOverlay").is(":visible")) {
+            $("#settings-holder").click(function() {
+                if ($("#settingsOverlay").is(":visible")) {
                     hideSettingsOverlay();
                 } else {
                     resetMinusButtonState();
@@ -195,74 +194,74 @@
                 }
             });
 
-            global.jQuery("#log-holder").click(function() {
+            $("#log-holder").click(function() {
                 resetMinusButtonState();
                 toggleLog();
             });
 
-            global.jQuery("#help-holder").click(function() {
+            $("#help-holder").click(function() {
                 resetMinusButtonState();
                 displayHelpOverlay();
             });
 
-            global.jQuery("#plus-holder").on("mouseout", function() {
-                if (!global.jQuery("#createOpenProjectOverlay").is(":visible") && !global.jQuery("#newProjectOverlay").is(":visible")) {
+            $("#plus-holder").on("mouseout", function() {
+                if (!$("#createOpenProjectOverlay").is(":visible") && !$("#newProjectOverlay").is(":visible")) {
                     imgSwapper('plus-icon', 'img/icons/normal/plus.svg');
                 }
 
-                if (global.jQuery("#createOpenProjectOverlay").is(":visible") || global.jQuery("#newProjectOverlay").is(":visible")) {
+                if ($("#createOpenProjectOverlay").is(":visible") || $("#newProjectOverlay").is(":visible")) {
                     imgSwapper('plus-icon', 'img/icons/active/plus-active.svg');
                 }
             });
 
-            global.jQuery("#minus-holder").on("mouseover", function() {
-                if(!global.jQuery("#minus-holder").hasClass("sidebar-button-holder-inactive")) {
+            $("#minus-holder").on("mouseover", function() {
+                if(!$("#minus-holder").hasClass("sidebar-button-holder-inactive")) {
                    imgSwapper('minus-icon', 'img/icons/hover/minus-hover.svg');
                 }
 
-                if(global.jQuery("#minus-holder").hasClass("sidebar-button-active")) {
+                if($("#minus-holder").hasClass("sidebar-button-active")) {
                    imgSwapper('minus-icon', 'img/icons/active/minus-active.svg');
                 }
             });
 
-            global.jQuery("#minus-holder").on("mouseout", function() {
-                if(!global.jQuery("#minus-holder").hasClass("sidebar-button-holder-inactive")) {
-                    if (!global.jQuery(".flip-container").hasClass("flip")) {
+            $("#minus-holder").on("mouseout", function() {
+                if(!$("#minus-holder").hasClass("sidebar-button-holder-inactive")) {
+                    if (!$(".flip-container").hasClass("flip")) {
                         imgSwapper('minus-icon', 'img/icons/normal/minus.svg');
                     }
 
-                    if (global.jQuery(".flip-container").hasClass("flip")) {
+                    if ($(".flip-container").hasClass("flip")) {
                         imgSwapper('minus-icon', 'img/icons/active/minus-active.svg');
                     }
                 }
 
-                if(global.jQuery("#minus-holder").hasClass("sidebar-button-active")) {
+                if($("#minus-holder").hasClass("sidebar-button-active")) {
                    imgSwapper('minus-icon', 'img/icons/active/minus-active.svg');
                 }
             });
 
-            global.jQuery("#settings-holder").on("mouseout", function() {
-                if (!global.jQuery("#settingsOverlay").is(":visible")) {
+            $("#settings-holder").on("mouseout", function() {
+                if (!$("#settingsOverlay").is(":visible")) {
                     imgSwapper('settings-icon', 'img/icons/normal/settings.svg');
                 } else {
                     imgSwapper('settings-icon', 'img/icons/active/settings-active.svg');
                 }
             });
 
-            global.jQuery("#help-holder").on("mouseout", function() {
-                if (!global.jQuery("#helpOverlay").is(":visible")) {
+            $("#help-holder").on("mouseout", function() {
+                if (!$("#helpOverlay").is(":visible")) {
                     imgSwapper('help-icon', 'img/icons/normal/help.svg');
                 } else {
                     imgSwapper('help-icon', 'img/icons/hover/help-hover.svg');
                 }
             });
 
-            global.jQuery("#updateLater").click(function() {
+            $("#updateLater").click(function() {
                 overlayBackgroundHandler();
             });
 
-            global.jQuery("#updateNow").click(function() {
-                var text = global.jQuery("#updateNow").text();
+            $("#updateNow").click(function() {
+                var text = $("#updateNow").text();
                 if (text == "Restart") {
                     restartApp();
                 } else {
@@ -270,7 +269,7 @@
                         updateApp();
                     } else {
                         gui.Shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/releases");
-                        global.jQuery("#updateOverlay").hide();
+                        $("#updateOverlay").hide();
                     }
                 }
 
@@ -294,10 +293,10 @@
 
         function getProjectPath() {
             var path = dialog.showOpenDialog({properties: ['openDirectory']});
-            if (global.jQuery.isArray(path)) {
+            if ($.isArray(path)) {
                 if (path.length > 0) {
                     path = path[0];
-                    global.jQuery('#projectDirectory').val(path);
+                    $('#projectDirectory').val(path);
                     console.log(path);
                 } else {
                     console.log("path array was empty");
@@ -308,7 +307,7 @@
         }
 
         function imgSwapper(img, src) {
-            global.jQuery("#" + img).attr("src", src);
+            $("#" + img).attr("src", src);
         }
 
         </script>

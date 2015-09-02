@@ -1,7 +1,7 @@
 function createProject(e) {
-    var projectPath = global.jQuery("#projectPath").text().trim();
-    var projectName = global.jQuery("#projectName").val().trim();
-    var projectId = global.jQuery("#project-id").val().trim() || global.jQuery("#project-id").attr("placeholder").trim();
+    var projectPath = $("#projectPath").text().trim();
+    var projectName = $("#projectName").val().trim();
+    var projectId = $("#project-id").val().trim() || $("#project-id").attr("placeholder").trim();
 
     var isProjectPathEmpty = isProjectPathFieldEmpty(projectPath);
     var isProjectNameEmpty = isEmptyField(projectName);
@@ -56,18 +56,18 @@ function createProject(e) {
 
 function selectProjectPath(e) {
     global.createClicked = true;
-    //global.jQuery("#projectDirectory").trigger("click");
+    //$("#projectDirectory").trigger("click");
     selectDirectory(e);
 }
 
 function openProject(e) {
-    //global.jQuery("#projectDirectory").trigger("click");
+    //$("#projectDirectory").trigger("click");
     selectDirectory(e);
 }
 
 function selectDirectory(e) {
-    var projectDir = global.jQuery("#projectDirectory").val().trim();
-    var projectName = global.jQuery("#projectName").val().trim();
+    var projectDir = $("#projectDirectory").val().trim();
+    var projectName = $("#projectName").val().trim();
 
     var isProjectPathEmpty = isProjectPathFieldEmpty(projectDir);
     var isProjectNameEmpty = isEmptyField(projectName);
@@ -75,11 +75,11 @@ function selectDirectory(e) {
     if(global.createClicked) {
         // new project creation workflow
         global.createClicked = false;
-        global.jQuery("#projectPath").removeClass("overlay-form-item-description");
-        global.jQuery("#projectPath").removeClass("italics");
+        $("#projectPath").removeClass("overlay-form-item-description");
+        $("#projectPath").removeClass("italics");
         hideProjectPathError();
-        global.jQuery("#projectPath").text(projectDir);
-        global.jQuery("#projectName").focus();
+        $("#projectPath").text(projectDir);
+        $("#projectName").focus();
 
         if(!projectExistsInLocalStorage(projectDir)) {
 
@@ -95,7 +95,7 @@ function selectDirectory(e) {
                             hideProjectPathError();
                             resetProjectCreationFormHeight();
                             adjustProjectCreationFormHeight(isProjectPathEmpty, isProjectNameEmpty);
-                            global.jQuery("#newProjectOverlay").removeClass("new-project-overlay-project-path-error");
+                            $("#newProjectOverlay").removeClass("new-project-overlay-project-path-error");
                         } else {
                             // www/config.xml exists in selected local path, assume that there is an existing project in the local path
                             displayPhoneGapProjectInFolderError();
@@ -115,9 +115,9 @@ function selectDirectory(e) {
         if (projectDir.length > 0) {
             // open existing project workflow
             checkIfProjectConfigExists(projectDir);
-            global.jQuery("#overlay-bg").hide();
+            $("#overlay-bg").hide();
             hideAddCreateProjectOverlay();
-            global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");
+            $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
             trackProjectOpened();
         } else {
             setNotificationText("Project directory error");
@@ -125,7 +125,7 @@ function selectDirectory(e) {
         }
     }
 
-    global.jQuery("#projectDirectory").val("");
+    $("#projectDirectory").val("");
 }
 
 function create(projectName, projectId, projDir) {
@@ -149,7 +149,7 @@ function create(projectName, projectId, projDir) {
               // update the config.xml of the newly created project with the project name & project id entered by the user
               updateConfig(projectName, projectId, projDir);
 
-              global.jQuery("#overlay-bg").hide();
+              $("#overlay-bg").hide();
               hideAddNewProjectOverlay();
           });
 }
@@ -166,13 +166,13 @@ function updateConfig(projectName, projectId, projDir) {
                     console.log("new: " + newPathToConfigFile);
                     displayMissingConfigFileNotification();
                 } else {
-                    global.jQuery.xmlDoc = global.jQuery.parseXML(oldPathData);
-                    updateConfigOnProjectCreation(global.jQuery.xmlDoc, projectName, projectId, oldPathToConfigFile, projDir);
+                    $.xmlDoc = $.parseXML(oldPathData);
+                    updateConfigOnProjectCreation($.xmlDoc, projectName, projectId, oldPathToConfigFile, projDir);
                 }
             });
         } else {
-            global.jQuery.xmlDoc = global.jQuery.parseXML(newPathData);
-            updateConfigOnProjectCreation(global.jQuery.xmlDoc, projectName, projectId, newPathToConfigFile, projDir);
+            $.xmlDoc = $.parseXML(newPathData);
+            updateConfigOnProjectCreation($.xmlDoc, projectName, projectId, newPathToConfigFile, projDir);
         }
     });
 }
@@ -182,7 +182,7 @@ function updateConfigOnProjectCreation(configXML, projectName, projectId, pathTo
     var serializer = new XMLSerializer();
     var contents = serializer.serializeToString(configXML);
     var xml = new XML(contents);
-    global.jQuery.xml = global.jQuery(configXML);
+    $.xml = $(configXML);
 
     // update project name
     xml.child("name").setValue(projectName);
@@ -194,7 +194,7 @@ function updateConfigOnProjectCreation(configXML, projectName, projectId, pathTo
     var projVersion = xml.attribute("version").getValue();
 
     // get the app icon
-    var projectIcon = global.jQuery.xml.find("icon").attr("src");
+    var projectIcon = $.xml.find("icon").attr("src");
     iconPath += projectIcon;
 
     // write the user entered project name & project id to the config.xml file
@@ -237,17 +237,17 @@ function parseProjectConfig(data, projDir) {
 
     var iconPath = projDir + buildPathBasedOnOS("/www/");
 
-    global.jQuery.xmlDoc = global.jQuery.parseXML(data);
-    global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc);
+    $.xmlDoc = $.parseXML(data);
+    $.xml = $($.xmlDoc);
 
     // get the project name
-    var projectName = global.jQuery.xml.find("name").text();
+    var projectName = $.xml.find("name").text();
 
     // get the project version
-    var projectVersion = global.jQuery.xml.find("widget").attr("version");
+    var projectVersion = $.xml.find("widget").attr("version");
 
     // get the app icon
-    var projectIcon = global.jQuery.xml.find("icon").attr("src");
+    var projectIcon = $.xml.find("icon").attr("src");
     iconPath += projectIcon;
 
     // check if the project exists in PG-GUI's localstorage before adding
@@ -292,10 +292,10 @@ function folderExistsInFileSystem(projDir) {
     fs.exists(folder, function(exists) {
         if (exists) {
             displayDuplicateProjectNameError();
-            global.jQuery("#newProjectOverlay").addClass("new-project-overlay-duplicate-project-name-error");
+            $("#newProjectOverlay").addClass("new-project-overlay-duplicate-project-name-error");
         } else {
             hideDuplicateProjectNameError();
-            global.jQuery("#newProjectOverlay").removeClass("new-project-overlay-duplicate-project-name-error");
+            $("#newProjectOverlay").removeClass("new-project-overlay-duplicate-project-name-error");
         }
     });
 }

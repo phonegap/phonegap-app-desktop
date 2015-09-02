@@ -42,7 +42,7 @@ function getProjects() {
         var projects = JSON.parse(localStorage.projects);
         var index = projects.length;
 
-        global.jQuery.each(projects, function(idx, project) {
+        $.each(projects, function(idx, project) {
             var projDir = project.projDir;
             var id = project.id;
 
@@ -118,17 +118,17 @@ function getProjectConfig(id, projDir, i) {
 function parseConfigForRendering(data, id, projDir, i) {
     var iconPath = projDir + buildPathBasedOnOS("/www/");
 
-    global.jQuery.xmlDoc = global.jQuery.parseXML(data);
-    global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc);
+    $.xmlDoc = $.parseXML(data);
+    $.xml = $($.xmlDoc);
 
     // get the project name
-    var projectName = global.jQuery.xml.find("name").text();
+    var projectName = $.xml.find("name").text();
 
     // get the project version
-    var projectVersion = global.jQuery.xml.find("widget").attr("version");
+    var projectVersion = $.xml.find("widget").attr("version");
 
     // get the app icon
-    var projectIcon = global.jQuery.xml.find("icon").attr("src");
+    var projectIcon = $.xml.find("icon").attr("src");
     iconPath += projectIcon;
 
     addProjectWidget(id, projectName, projectVersion, iconPath, projDir);
@@ -163,8 +163,8 @@ function removeProjectById(currentId) {
         setActiveWidget(projects[0].id, projects[0].projDir);
     } else {
         disableMinusButton();
-        global.jQuery("#status-field").hide();
-        global.jQuery("#guide-add").show();
+        $("#status-field").hide();
+        $("#guide-add").show();
         serverOfflineState();
     }
 
