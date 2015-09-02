@@ -52,6 +52,15 @@ function getVersion() {
     return app.getVersion();
 }
 
+function getDebugFlag() {
+    return global.debugMode;
+}
+
+function setDebugFlag(debugMode) {
+    global.debugMode = debugMode;
+    console.log('setDebugFlag: ' + debugMode);
+}
+
 function openIssueTracker() {
     shell.openExternal('https://github.com/phonegap/phonegap-app-desktop/issues?state=open');
 }
@@ -74,6 +83,6 @@ function aboutContent() {
 }
 
 function quitApp() {
-    var app = remote.require('app');
-    app.quit();
+    var win = remote.getCurrentWindow();
+    win.close();
 }
