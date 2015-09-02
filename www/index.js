@@ -9,6 +9,7 @@ require('crash-reporter').start();
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the javascript object is GCed.
 var mainWindow = null;
+var debugMode = null;
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
@@ -33,9 +34,9 @@ app.on('ready', function() {
         } else {
             mainWindow.webContents.executeJavaScript('console.log("found");');
             var obj = JSON.parse(data);
-            global.debugMode = obj.window.devTools;
+            debugMode = obj.window.devTools;
 
-            if (global.debugMode) {
+            if (debugMode) {
                 // Open the devtools.
                 mainWindow.openDevTools();
             }
@@ -44,6 +45,8 @@ app.on('ready', function() {
 
     mainWindow.webContents.on('did-finish-load', function() {
         mainWindow.webContents.executeJavaScript('console.log("current version: '+ app.getVersion() +' ");');
+        mainWindow.webContents.executeJavaScript('console.log("debugMode: '+ debugMode +' ");');
+        mainWindow.webContents.executeJavaScript('setDebugFlag('+ debugMode +');');
     });
 
     // Emitted when the window is closed.
