@@ -4,25 +4,25 @@ function displayAddNewProjectOverlay(evt) {
 }
 
 function animateAddNewProjectOverlayEntry() {
-    global.jQuery("#plus-icon").attr("src", "img/icons/active/plus-active.svg");
-    global.jQuery("#plus-holder").addClass("sidebar-button-active");
-    global.jQuery("#newProjectOverlay").addClass("animated slideInDown");
-    global.jQuery("#newProjectOverlay").show();
-    global.jQuery("#overlay-bg").show();
+    $("#plus-icon").attr("src", "img/icons/active/plus-active.svg");
+    $("#plus-holder").addClass("sidebar-button-active");
+    $("#newProjectOverlay").addClass("animated slideInDown");
+    $("#newProjectOverlay").show();
+    $("#overlay-bg").show();
 }
 
 function hideAddNewProjectOverlay(evt) {
-    global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");
-    global.jQuery("#plus-holder").removeClass("sidebar-button-active");
-    global.jQuery("#newProjectOverlay").removeClass("animated slideInDown");
-    global.jQuery("#newProjectOverlay").addClass("animated slideOutUp");
-    global.jQuery("#newProjectOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHideAddNewProjectOverlayAnimationEnd);
+    $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
+    $("#plus-holder").removeClass("sidebar-button-active");
+    $("#newProjectOverlay").removeClass("animated slideInDown");
+    $("#newProjectOverlay").addClass("animated slideOutUp");
+    $("#newProjectOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHideAddNewProjectOverlayAnimationEnd);
 }
 
 function handleHideAddNewProjectOverlayAnimationEnd() {
-    global.jQuery("#newProjectOverlay").hide();
-    global.jQuery("#newProjectOverlay").removeClass("animated slideOutUp");
-    global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");
+    $("#newProjectOverlay").hide();
+    $("#newProjectOverlay").removeClass("animated slideOutUp");
+    $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
     resetProjectCreationForm();
     hideProjectPathError();
     hideProjectNameError();
@@ -30,35 +30,35 @@ function handleHideAddNewProjectOverlayAnimationEnd() {
 }
 
 function displayAddCreateProjectOverlay(evt) {
-    global.jQuery("#plus-holder").addClass("sidebar-button-active");
-    global.jQuery("#plus-icon").attr("src", "img/icons/active/plus-active.svg");
-    global.jQuery("#createOpenProjectOverlay").addClass("animated slideInLeft");
-    global.jQuery("#createOpenProjectOverlay").show();
-    global.jQuery("#overlay-bg").show();
+    $("#plus-holder").addClass("sidebar-button-active");
+    $("#plus-icon").attr("src", "img/icons/active/plus-active.svg");
+    $("#createOpenProjectOverlay").addClass("animated slideInLeft");
+    $("#createOpenProjectOverlay").show();
+    $("#overlay-bg").show();
 }
 
 function hideAddCreateProjectOverlay(evt) {
-    global.jQuery("#createOpenProjectOverlay").removeClass("animated slideInLeft");
-    global.jQuery("#createOpenProjectOverlay").addClass("animated slideOutLeft");
-    global.jQuery("#createOpenProjectOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHideAddCreateProjectOverlayAnimationEnd);
-    global.jQuery("#plus-holder").removeClass("sidebar-button-active");
+    $("#createOpenProjectOverlay").removeClass("animated slideInLeft");
+    $("#createOpenProjectOverlay").addClass("animated slideOutLeft");
+    $("#createOpenProjectOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHideAddCreateProjectOverlayAnimationEnd);
+    $("#plus-holder").removeClass("sidebar-button-active");
 }
 
 function handleHideAddCreateProjectOverlayAnimationEnd() {
-    global.jQuery("#createOpenProjectOverlay").hide();
-    global.jQuery("#createOpenProjectOverlay").removeClass("animated slideOutLeft");
+    $("#createOpenProjectOverlay").hide();
+    $("#createOpenProjectOverlay").removeClass("animated slideOutLeft");
     if (!global.createChosen) {
-        global.jQuery("#plus-icon").attr("src", "img/icons/normal/plus.svg");
+        $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
     }
 }
 
 function toggleRemoveProjectView(evt) {
     overlayBackgroundHandler();
 
-    if (!global.jQuery(".flip-container").hasClass("flipped")) {
-        global.jQuery(".flip-container").addClass("animated flipped");
-        global.jQuery("#minus-holder").addClass("sidebar-button-active");
-        global.jQuery("#minus-icon").attr("src", "img/icons/active/minus-active.svg");
+    if (!$(".flip-container").hasClass("flipped")) {
+        $(".flip-container").addClass("animated flipped");
+        $("#minus-holder").addClass("sidebar-button-active");
+        $("#minus-icon").attr("src", "img/icons/active/minus-active.svg");
         global.allowRemoveNotification = "true";
     } else {
         resetMinusButtonState();
@@ -66,139 +66,139 @@ function toggleRemoveProjectView(evt) {
 }
 
 function disableMinusButton() {
-    global.jQuery("#minus-icon").attr("src", "img/icons/inactive/minus-inactive.svg");
-    global.jQuery(".flip-container").removeClass("animated flip");
-    global.jQuery("#minus-holder").removeClass("sidebar-button-holder");
-    global.jQuery("#minus-holder").removeClass("sidebar-button-active");
-    global.jQuery("#minus-holder").addClass("sidebar-button-holder-inactive");
-    global.jQuery("#minus").addClass("sidebar-button-inactive");
-    global.jQuery("#minus").prop("disabled", true);
+    $("#minus-icon").attr("src", "img/icons/inactive/minus-inactive.svg");
+    $(".flip-container").removeClass("animated flip");
+    $("#minus-holder").removeClass("sidebar-button-holder");
+    $("#minus-holder").removeClass("sidebar-button-active");
+    $("#minus-holder").addClass("sidebar-button-holder-inactive");
+    $("#minus").addClass("sidebar-button-inactive");
+    $("#minus").prop("disabled", true);
 }
 
 function enableMinusButton() {
-    global.jQuery("#minus-icon").attr("src", "img/icons/normal/minus.svg");
-    global.jQuery("#minus-holder").removeClass("sidebar-button-holder-inactive");
-    global.jQuery("#minus").removeClass("sidebar-button-inactive");
-    global.jQuery("#minus-holder").addClass("sidebar-button-holder");
-    global.jQuery("#minus").addClass("sidebarbutton");
-    global.jQuery("#minus").prop("disabled", false);
+    $("#minus-icon").attr("src", "img/icons/normal/minus.svg");
+    $("#minus-holder").removeClass("sidebar-button-holder-inactive");
+    $("#minus").removeClass("sidebar-button-inactive");
+    $("#minus-holder").addClass("sidebar-button-holder");
+    $("#minus").addClass("sidebarbutton");
+    $("#minus").prop("disabled", false);
 }
 
 function resetMinusButtonState() {
-    global.jQuery(".flip-container").removeClass("animated flipped");
-    global.jQuery("#minus-icon").attr("src", "img/icons/normal/minus.svg");
-    global.jQuery("#minus-holder").removeClass("sidebar-button-active");
+    $(".flip-container").removeClass("animated flipped");
+    $("#minus-icon").attr("src", "img/icons/normal/minus.svg");
+    $("#minus-holder").removeClass("sidebar-button-active");
 
     global.allowRemoveNotification = "false";
 }
 
 function handleFlipEnded() {
-    global.jQuery("#flip-container").removeClass("animated flip");
+    $("#flip-container").removeClass("animated flip");
 }
 
 function displaySettingsOverlay(evt) {
     var usageFlag = getSendUsageFlag();
     hideOverlays();
     // prepopulate port number from localStorage
-    global.jQuery("#portNumber").val(localStorage.portNumber);
-    global.jQuery("#sendUsage").prop("checked", usageFlag);
-    global.jQuery("#settings-holder").addClass("sidebar-button-active");
-    global.jQuery("#settings-icon").attr("src", "img/icons/active/settings-active.svg");
-    global.jQuery("#settingsOverlay").addClass("animated slideInLeft");
-    global.jQuery("#settingsOverlay").show();
-    global.jQuery("#overlay-bg").show();
+    $("#portNumber").val(localStorage.portNumber);
+    $("#sendUsage").prop("checked", usageFlag);
+    $("#settings-holder").addClass("sidebar-button-active");
+    $("#settings-icon").attr("src", "img/icons/active/settings-active.svg");
+    $("#settingsOverlay").addClass("animated slideInLeft");
+    $("#settingsOverlay").show();
+    $("#overlay-bg").show();
 }
 
 function hideSettingsOverlay(evt) {
     hidePortError();
-    global.jQuery("#settings-icon").attr("src", "img/icons/normal/settings.svg");
-    global.jQuery("#settingsOverlay").removeClass("animated slideInLeft");
-    global.jQuery("#settingsOverlay").addClass("animated slideOutLeft");
-    global.jQuery("#settings-holder").removeClass("sidebar-button-active");
-    global.jQuery("#settingsOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHideSettingsAnimationEnd);
+    $("#settings-icon").attr("src", "img/icons/normal/settings.svg");
+    $("#settingsOverlay").removeClass("animated slideInLeft");
+    $("#settingsOverlay").addClass("animated slideOutLeft");
+    $("#settings-holder").removeClass("sidebar-button-active");
+    $("#settingsOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHideSettingsAnimationEnd);
 }
 
 
 function handleHideSettingsAnimationEnd() {
-    global.jQuery("#settingsOverlay").hide();
-    global.jQuery("#overlay-bg").hide();
-    global.jQuery("#settingsOverlay").removeClass("animated slideOutLeft");
+    $("#settingsOverlay").hide();
+    $("#overlay-bg").hide();
+    $("#settingsOverlay").removeClass("animated slideOutLeft");
 }
 
 function displayHelpOverlay(evt) {
     hideOverlays();
-    global.jQuery("#help-holder").addClass("sidebar-button-active");
-    global.jQuery("#help-icon").attr("src", "img/icons/hover/help-hover.svg");
-    global.jQuery("#helpOverlay").addClass("animated slideInLeft");
-    global.jQuery("#helpOverlay").show();
-    global.jQuery("#overlay-bg").show();
+    $("#help-holder").addClass("sidebar-button-active");
+    $("#help-icon").attr("src", "img/icons/hover/help-hover.svg");
+    $("#helpOverlay").addClass("animated slideInLeft");
+    $("#helpOverlay").show();
+    $("#overlay-bg").show();
 }
 
 function hideHelpOverlay(evt) {
-    global.jQuery("#helpOverlay").removeClass("animated slideInLeft");
-    global.jQuery("#helpOverlay").addClass("animated slideOutLeft");
-    global.jQuery("#helpOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHelpOverlayAnimationEnd);
-    global.jQuery("#help-holder").removeClass("sidebar-button-active");
-    global.jQuery("#help-icon").attr("src", "img/icons/normal/help.svg");
+    $("#helpOverlay").removeClass("animated slideInLeft");
+    $("#helpOverlay").addClass("animated slideOutLeft");
+    $("#helpOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHelpOverlayAnimationEnd);
+    $("#help-holder").removeClass("sidebar-button-active");
+    $("#help-icon").attr("src", "img/icons/normal/help.svg");
 }
 
 function handleHelpOverlayAnimationEnd() {
-    global.jQuery("#helpOverlay").hide();
-    global.jQuery("#overlay-bg").hide();
-    global.jQuery("#helpOverlay").removeClass("animated slideOutLeft");
+    $("#helpOverlay").hide();
+    $("#overlay-bg").hide();
+    $("#helpOverlay").removeClass("animated slideOutLeft");
 }
 
 function toggleLog() {
-    if (global.jQuery("#serverLogOverlay").is(":visible")) {
-        global.jQuery("#serverLogOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHideServerLogAnimationEnd);
-        global.jQuery("#log-holder").removeClass("sidebar-button-active");
-        global.jQuery("#serverLogOverlay").removeClass("animated slideInLeft");
-        global.jQuery("#serverLogOverlay").addClass("animated slideOutLeft");
-        global.jQuery("#overlay-bg").hide();
+    if ($("#serverLogOverlay").is(":visible")) {
+        $("#serverLogOverlay").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", handleHideServerLogAnimationEnd);
+        $("#log-holder").removeClass("sidebar-button-active");
+        $("#serverLogOverlay").removeClass("animated slideInLeft");
+        $("#serverLogOverlay").addClass("animated slideOutLeft");
+        $("#overlay-bg").hide();
     } else {
         hideOverlays();
-        global.jQuery("#log-holder").addClass("sidebar-button-active");
-        global.jQuery("#serverLogOverlay").removeClass("animated slideOutLeft");
-        global.jQuery("#serverLogOverlay").addClass("animated slideInLeft");
-        global.jQuery("#status-field").hide();
-        global.jQuery("#overlay-bg").show();
-        global.jQuery("#serverLogOverlay").show();
+        $("#log-holder").addClass("sidebar-button-active");
+        $("#serverLogOverlay").removeClass("animated slideOutLeft");
+        $("#serverLogOverlay").addClass("animated slideInLeft");
+        $("#status-field").hide();
+        $("#overlay-bg").show();
+        $("#serverLogOverlay").show();
     }
 }
 
 function handleHideServerLogAnimationEnd() {
-    global.jQuery("#status-field").show();
-    global.jQuery("#serverLogOverlay").hide();
-    global.jQuery("#serverLogOverlay").removeClass("animated slideOutLeft");
+    $("#status-field").show();
+    $("#serverLogOverlay").hide();
+    $("#serverLogOverlay").removeClass("animated slideOutLeft");
 }
 
 function overlayBackgroundHandler(evt) {
-    global.jQuery("#overlay-bg").hide();
+    $("#overlay-bg").hide();
     hideOverlays();
 }
 
 function hideOverlays() {
-    if (global.jQuery("#createOpenProjectOverlay").is(":visible")) {
+    if ($("#createOpenProjectOverlay").is(":visible")) {
         hideAddCreateProjectOverlay();
     }
 
-    if (global.jQuery("#settingsOverlay").is(":visible")) {
+    if ($("#settingsOverlay").is(":visible")) {
         hideSettingsOverlay();
     }
 
-    if (global.jQuery("#newProjectOverlay").is(":visible")) {
+    if ($("#newProjectOverlay").is(":visible")) {
         hideAddNewProjectOverlay();
     }
 
-    if (global.jQuery("#serverLogOverlay").is(":visible")) {
+    if ($("#serverLogOverlay").is(":visible")) {
         toggleLog();
     }
 
-    if (global.jQuery("#helpOverlay").is(":visible")) {
+    if ($("#helpOverlay").is(":visible")) {
         hideHelpOverlay();
     }
 
-    if (global.jQuery("#updateOverlay").is(":visible")) {
+    if ($("#updateOverlay").is(":visible")) {
         hideUpdateOverlay();
     }
 }
