@@ -13,12 +13,12 @@
         "height": 600,
         "min_height": 600,
         "max_height": 600,
-        "toolbar": false,
+        "toolbar": true,
         "icon": "img/app-icons/icon.png",
         "resizable": false
     },
     "dependencies": {
-        "connect-phonegap": "0.16.0",
+        "connect-phonegap": "0.18.0",
         "gaze": "0.5.1",
         "opener": "1.3.0",
         "node-jsxml": "0.6.0",
