@@ -3,10 +3,10 @@
   "version" : "0.2.0",
   "main"    : "index.js",
   "window"  : {
-      "devTools" : false
+      "devTools" : true
   },
   "dependencies" : {
-      "connect-phonegap": "0.16.1",
+      "connect-phonegap": "0.18.0",
       "gaze": "0.5.1",
       "opener": "1.4.1",
       "node-jsxml": "0.6.0",
