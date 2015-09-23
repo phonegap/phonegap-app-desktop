@@ -12,14 +12,12 @@ module.exports = function(grunt) {
     },
     nwjs: {
       options: {
-        version: '0.12.0',
-        build_dir: './build', // Destination for built apps.
-        mac: true,            // OS X support.
-        win: true,            // Windows support.
-        linux32: false,       // Linux 32-bit support.
-        linux64: false,        // Linux 64-bit support.
-        credits: 'www/credits.html',
-        mac_icns: 'www/img/app-icons/icon.icns',
+        version: '0.12.3',
+        appName: 'PhoneGap',
+        buildDir: './build', // Destination for built apps.
+        platforms: ['osx64', 'win32'],
+        macCredits: 'www/credits.html',
+        macIcns: 'www/img/app-icons/icon.icns',
         winIco: 'www/img/app-icons/icon.ico'
       },
       src: ['./www/**/*', './node_modules/phonegap/**/*']
@@ -62,6 +60,12 @@ module.exports = function(grunt) {
   grunt.task.registerTask('copy-eula', function() {
       grunt.file.copy('./src/license.txt', './res/installers/osx/license.txt');
       grunt.file.copy('./src/license.txt', './res/installers/win/license.txt');
+  });
+
+  // Remove node dependencies
+  grunt.task.registerTask('clean-node-modules', function() {
+      var shell = require('shelljs');
+      shell.rm('-rf', './www/node_modules');
   });
 
   // Remove build directories
@@ -107,7 +111,7 @@ module.exports = function(grunt) {
   });
 
   // Default tasks.
-  grunt.registerTask('default', ['install-dependencies', 'less', 'copy-dev-config', 'copy-eula', 'clean-build-dir', 'nwjs', 'open']);
-  grunt.registerTask('release', ['install-dependencies', 'less', 'copy-release-config', 'copy-eula', 'clean-build-dir', 'nwjs']);
+  grunt.registerTask('default', ['clean-node-modules', 'install-dependencies', 'less', 'copy-dev-config', 'copy-eula', 'clean-build-dir', 'nwjs', 'open']);
+  grunt.registerTask('release', ['clean-node-modules', 'install-dependencies', 'less', 'copy-release-config', 'copy-eula', 'clean-build-dir', 'nwjs']);
 
 };
