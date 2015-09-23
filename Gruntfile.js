@@ -71,12 +71,7 @@ module.exports = function(grunt) {
   // Remove build directories
   grunt.task.registerTask('clean-build-dir', function() {
       var shell = require('shelljs');
-      shell.rm('-rf', './build/PhoneGap/osx32');
-      shell.rm('-rf', './build/PhoneGap/osx64');
-      shell.rm('-rf', './build/PhoneGap/win32');
-      shell.rm('-rf', './build/PhoneGap/win64');
-      shell.rm('-rf', './build/PhoneGap/linux32');
-      shell.rm('-rf', './build/PhoneGap/linux64');
+      shell.rm('-rf', './build');
   });
 
   // Register the task to open an app.
