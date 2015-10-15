@@ -1,4 +1,4 @@
-## phonegap-desktop-electron-prototype
+## phonegap-desktop-electron-prototype [![bitHound Score][bithound-img]][bithound-url]
 
 #### Installation
 ```
