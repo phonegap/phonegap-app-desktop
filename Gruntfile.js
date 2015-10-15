@@ -27,6 +27,12 @@ module.exports = function(grunt) {
         });
     });
 
+    // Remove node dependencies
+    grunt.task.registerTask('clean-node-modules', function() {
+        var shell = require('shelljs');
+        shell.rm('-rf', './www/node_modules');
+    });
+
     grunt.task.registerTask('copy-dev-config', function() {
         grunt.file.copy('./src/config/package.json', './www/package.json');
     });
@@ -40,8 +46,7 @@ module.exports = function(grunt) {
     // Remove build directories
     grunt.task.registerTask('clean-build-dir', function() {
         var shell = require('shelljs');
-        shell.rm('-rf', './build/darwin');
-        shell.rm('-rf', './build/win32');
+        shell.rm('-rf', './build');
     });
 
     // Rename app from Electron to PhoneGap
@@ -66,6 +71,6 @@ module.exports = function(grunt) {
             opener((os.platform() === 'darwin') ? macPath : winPath);
     });
 
-    grunt.registerTask('default', ['install-dependencies', 'copy-dev-config', 'clean-build-dir', 'build-electron-app', 'rename-app', 'open']);
-    grunt.registerTask('release', ['install-dependencies', 'copy-release-config', 'clean-build-dir', 'build-electron-app', 'rename-app', 'open']);
+    grunt.registerTask('default', ['clean-node-modules', 'install-dependencies', 'copy-dev-config', 'clean-build-dir', 'build-electron-app', 'rename-app', 'open']);
+    grunt.registerTask('release', ['clean-node-modules', 'install-dependencies', 'copy-release-config', 'clean-build-dir', 'build-electron-app', 'rename-app', 'open']);
 };
