@@ -1,11 +1,28 @@
 module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        'build-electron-app': {
-            options: {
-                platforms: ["darwin", "win32"],
-                app_dir: './www',
-                build_dir: './build'
+        'electron': {
+            osxBuild: {
+                options: {
+                    name: 'PhoneGap',
+                    dir: './www',
+                    out: './build',
+                    version: '0.34.0',
+                    platform: 'darwin',
+                    arch: 'x64',
+                    icon: './www/img/app-icons/icon.icns'
+                }
+            },
+            winBuild: {
+                options: {
+                    name: 'PhoneGap',
+                    dir: './www',
+                    out: './build',
+                    version: '0.34.0',
+                    platform: 'win32',
+                    arch: 'ia32',
+                    icon: './www/img/app-icons/icon.ico'
+                }
             }
         }
     });
@@ -14,7 +31,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-electron-app-builder');
+    grunt.loadNpmTasks('grunt-electron');
 
     // Register the task to install dependencies.
     grunt.task.registerTask('install-dependencies', function() {
@@ -27,7 +44,7 @@ module.exports = function(grunt) {
         });
     });
 
-    // Remove node dependencies
+    // Clean node dependencies
     grunt.task.registerTask('clean-node-modules', function() {
         var shell = require('shelljs');
         shell.rm('-rf', './www/node_modules');
@@ -43,17 +60,10 @@ module.exports = function(grunt) {
         grunt.file.write('./www/package.json', releaseConfig);
     });
 
-    // Remove build directories
+    // Clean build directories
     grunt.task.registerTask('clean-build-dir', function() {
         var shell = require('shelljs');
         shell.rm('-rf', './build');
-    });
-
-    // Rename app from Electron to PhoneGap
-    grunt.task.registerTask('rename-app', function() {
-        var fs = require('fs');
-        fs.rename('./build/darwin/Electron.app', './build/darwin/PhoneGap.app');
-        fs.rename('./build/win32/electron.exe', './build/win32/PhoneGap.exe');
     });
 
     // Open the built app
@@ -61,16 +71,12 @@ module.exports = function(grunt) {
         var os = require('os'),
             fs = require('fs'),
             opener = require('opener'),
-            appName = JSON.parse(fs.readFileSync('./www/package.json')).name,
-            macPath = 'build/darwin/appName.app',
-            winPath = 'build/win32/appName.exe';
-
-            macPath = macPath.replace(/appName/g, appName);
-            winPath = winPath.replace(/appName/g, appName);
+            macPath = 'build/PhoneGap-darwin-x64/PhoneGap.app',
+            winPath = 'build/PhoneGap-win32-ia32/PhoneGap.exe';
 
             opener((os.platform() === 'darwin') ? macPath : winPath);
     });
 
-    grunt.registerTask('default', ['clean-node-modules', 'install-dependencies', 'copy-dev-config', 'clean-build-dir', 'build-electron-app', 'rename-app', 'open']);
-    grunt.registerTask('release', ['clean-node-modules', 'install-dependencies', 'copy-release-config', 'clean-build-dir', 'build-electron-app', 'rename-app', 'open']);
+    grunt.registerTask('default', ['clean-node-modules', 'install-dependencies', 'copy-dev-config', 'clean-build-dir', 'electron', 'open']);
+    grunt.registerTask('release', ['clean-node-modules', 'install-dependencies', 'copy-release-config', 'clean-build-dir', 'electron', 'open']);
 };

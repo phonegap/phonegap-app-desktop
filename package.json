@@ -20,7 +20,7 @@
         "grunt-contrib-copy": "0.8.1",
         "grunt-contrib-less": "1.0.1",
         "grunt-contrib-watch": "0.6.1",
-        "grunt-electron-app-builder": "0.1.0",
+        "grunt-electron": "2.0.1",
         "opener": "1.4.1",
         "shelljs": "0.5.3"
     },
