@@ -10,7 +10,8 @@ module.exports = function(grunt) {
                     version: '0.34.0',
                     platform: 'darwin',
                     arch: 'x64',
-                    icon: './www/img/app-icons/icon.icns'
+                    icon: './www/img/app-icons/icon.icns',
+                    asar: true
                 }
             },
             winBuild: {
@@ -21,7 +22,8 @@ module.exports = function(grunt) {
                     version: '0.34.0',
                     platform: 'win32',
                     arch: 'ia32',
-                    icon: './www/img/app-icons/icon.ico'
+                    icon: './www/img/app-icons/icon.ico',
+                    asar: true
                 }
             }
         }
