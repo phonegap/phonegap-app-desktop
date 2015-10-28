@@ -119,9 +119,6 @@ function selectDirectory(e) {
             hideAddCreateProjectOverlay();
             $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
             trackProjectOpened();
-        } else {
-            setNotificationText("Project directory error");
-            displayNotification();
         }
     }
 
