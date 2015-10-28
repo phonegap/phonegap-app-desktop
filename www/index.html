@@ -99,7 +99,7 @@
 
             $("#chooseNewProjectPath").click(function(e) {
                 getProjectPath();
-                selectProjectPath(e);
+                //selectProjectPath(e);
             });
 
             $("#projectName").blur(function() {
@@ -130,7 +130,7 @@
 
             $("#openProject").click(function(e) {
                 getProjectPath();
-                openProject(e);
+                //openProject(e);
             });
 
             $("#saveSettings").click(saveSettings);
@@ -290,13 +290,20 @@
 
         });
 
-        function getProjectPath() {
+        function getProjectPath(e) {
             var path = dialog.showOpenDialog({properties: ['openDirectory']});
             if ($.isArray(path)) {
                 if (path.length > 0) {
                     path = path[0];
                     $('#projectDirectory').val(path);
                     console.log(path);
+
+                    if (global.createChosen) {
+                        selectProjectPath(e);
+                    } else {
+                        openProject(e);
+                    }
+
                 } else {
                     console.log("path array was empty");
                 }
@@ -323,7 +330,6 @@
                 <button id="updateNow" class="action-button">Update</button>
             </div>
         </aside>
-
 
         <aside id="settingsOverlay" class="settings-overlay">
             <div class="overlay-form-item-heading">Server port:</div>
