@@ -142,35 +142,36 @@
 
             $("#about").click(function() {
                 aboutContent();
+                toggleHelp();
             });
 
             //tutorials & reportIssue
             $("#tutorials").click(function() {
                 openTutorials();
-                hideHelpOverlay();
+                toggleHelp();
             });
 
             $("#reportIssue").click(function() {
                 openIssueTracker();
-                hideHelpOverlay();
+                toggleHelp();
             });
 
             $("#termsOfUse").click(function() {
                 openTermsOfUse();
+                toggleHelp();
             });
 
             $("#privacyPolicy").click(function() {
                 openPrivacyPolicy();
+                toggleHelp();
             });
 
             $("#plus-holder").click(function() {
                 if ($("#createOpenProjectOverlay").is(":visible") || $("#newProjectOverlay").is(":visible")) {
                     overlayBackgroundHandler();
-
                     if (global.createChosen) {
                         global.createChosen = false;
                     }
-
                 } else {
                     resetMinusButtonState();
                     hideOverlays();
@@ -185,12 +186,10 @@
             });
 
             $("#settings-holder").click(function() {
-                if ($("#settingsOverlay").is(":visible")) {
-                    hideSettingsOverlay();
-                } else {
+                if (!$("#settingsOverlay").is(":visible")) {
                     resetMinusButtonState();
-                    displaySettingsOverlay();
                 }
+                toggleSettings();
             });
 
             $("#log-holder").click(function() {
@@ -200,7 +199,7 @@
 
             $("#help-holder").click(function() {
                 resetMinusButtonState();
-                displayHelpOverlay();
+                toggleHelp();
             });
 
             $("#plus-holder").on("mouseout", function() {
