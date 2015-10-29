@@ -66,7 +66,7 @@ function openIssueTracker() {
 }
 
 function openTutorials() {
-    shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/wiki/PhoneGap-Desktop-Overview");
+    shell.openExternal("http://docs.phonegap.com/references/desktop-app/");
 }
 
 function openTermsOfUse() {
