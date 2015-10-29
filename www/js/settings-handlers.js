@@ -25,7 +25,7 @@ function saveSettings(evt) {
         displayPortError();
     } else {
         localStorage.portNumber = portNumber;
-        hideSettingsOverlay();
+        toggleSettings();
         toggleServerStatus("");
     }
 
@@ -37,7 +37,7 @@ function saveSettings(evt) {
 }
 
 function cancelSettings(evt) {
-    hideSettingsOverlay();
+    toggleSettings();
 }
 
 function displayPortError() {
