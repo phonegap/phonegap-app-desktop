@@ -3,7 +3,7 @@
 }
 .container {
   width: 450px;
-  height: 550px;
+  height: 100%;
   overflow-x: hidden;
   overflow-y: hidden;
 }
@@ -73,12 +73,12 @@
   padding-left: 15px;
   color: white;
   background-color: #999999;
+  position: absolute;
+  top: 550px;
+  left: 75px;
 }
 .status-field-windows-shim {
   top: 515px;
-  left: 75px;
-  border: none;
-  position: absolute;
 }
 .dropzone {
   width: 100%;
