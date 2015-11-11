@@ -3,7 +3,7 @@
 }
 .container {
   width: 450px;
-  height: 550px;
+  height: 500px;
   overflow-x: hidden;
   overflow-y: hidden;
 }
@@ -70,17 +70,17 @@
 }
 .dropzone {
   width: 100%;
-  height: 550px;
+  height: 500px;
   overflow-x: hidden;
   overflow-y: auto;
   z-index: 4;
   position: fixed;
-  top: 0px;
+  top: 50px;
   left: 75px;
 }
 .dropzone-content {
   text-align: center;
-  height: 550px;
+  height: 500px;
   color: #c1c3c2;
   font-size: 14pt;
   font-weight: 500;
@@ -90,7 +90,7 @@
   background-color: #1f2326;
   color: white;
   position: fixed;
-  top: 0px;
+  top: 50px;
   left: 75px;
   z-index: 12;
   width: 375px;
@@ -100,7 +100,7 @@
   background-color: #1f2326;
   color: white;
   position: fixed;
-  top: 0px;
+  top: 50px;
   left: 75px;
   z-index: 12;
   width: 375px;
@@ -110,7 +110,7 @@
   background-color: #1f2326;
   color: white;
   position: fixed;
-  top: 0px;
+  top: 50px;
   left: 75px;
   z-index: 12;
   width: 375px;
@@ -212,15 +212,15 @@
   background-color: #1f2326;
   color: white;
   position: fixed;
-  top: 0px;
+  top: 50px;
   left: 75px;
   z-index: 12;
   width: 375px;
-  height: 600px;
+  height: 550px;
 }
 .server-log-textarea {
   width: 330px;
-  height: 490px;
+  height: 450px;
   background-color: black;
   color: white;
   border: none;
@@ -302,7 +302,7 @@
   background-color: #1f2326;
   color: white;
   position: fixed;
-  top: 0px;
+  top: 50px;
   left: 75px;
   z-index: 13;
   width: 375px;
@@ -312,7 +312,7 @@
   background-color: #1f2326;
   color: white;
   position: fixed;
-  top: 0px;
+  top: 50px;
   left: 75px;
   z-index: 12;
   width: 375px;
