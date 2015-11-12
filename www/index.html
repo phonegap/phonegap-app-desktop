@@ -257,6 +257,8 @@
             overlayBackgroundHandler();
         });
 
+        //global.jQuery("#banner").html("PhoneGap Desktop 0.2.0 is available and requires a manual upgrade (read more).");
+
         initSettings();
 
         hideProjectPathError();
@@ -268,7 +270,6 @@
 
         gaAppLoaded();
         getProjects();
-
     });
 
     function imgSwapper(img, src) {
@@ -378,11 +379,8 @@
     </aside>
 
 
-    <div class="row" style="width: 450px; height: 50px;">
-        <div class="column-12-hand" style=" z-index: 20;">
-            blah blah blah
-        </div>
-
+    <div class="banner">
+        PhoneGap Desktop 0.2.0 is available! <span class="banner-link">Download now</span>.<br/>This update requires a manual download (<span class="banner-link">read more</span>).
     </div>
 
     <div class="row container" style="overflow-x: hidden; overflow-y: hidden;" id="sideMenu">
