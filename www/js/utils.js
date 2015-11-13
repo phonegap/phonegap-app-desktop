@@ -64,7 +64,7 @@ function openPrivacyPolicy() {
 }
 
 function openReleasePage() {
-    gui.Shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/releases");
+    gui.Shell.openExternal("http://docs.phonegap.com/getting-started/1-install-phonegap/desktop/");
 }
 
 function openBlogPost() {
