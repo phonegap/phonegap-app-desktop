@@ -67,6 +67,10 @@ function openReleasePage() {
     gui.Shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/releases");
 }
 
+function openBlogPost() {
+    gui.Shell.openExternal("http://phonegap.com/blog/");
+}
+
 function parsePackageJSON() {
     var pathToPackageJSONFile = "package.json";
 

@@ -261,6 +261,10 @@
             openReleasePage();
         });
 
+        global.jQuery("#readMore").click(function() {
+            openBlogPost();
+        });
+
         initSettings();
 
         hideProjectPathError();
@@ -382,7 +386,7 @@
 
 
     <div class="banner">
-        PhoneGap Desktop 0.2.0 is available! <span id="releaseLink" class="banner-link">Download now</span>.<br/>This update requires a manual download (<span class="banner-link">read more</span>).
+        PhoneGap Desktop 0.2.0 is available! <span id="releaseLink" class="banner-link">Download now</span>.<br/>This update requires a manual download (<span id="readMore" class="banner-link">read more</span>).
     </div>
 
     <div class="row container" style="overflow-x: hidden; overflow-y: hidden;" id="sideMenu">
