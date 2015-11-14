@@ -36,5 +36,9 @@ $ npm install
 #### Build
 
 ```
+# builds development version
 grunt
+
+# builds release version
+grunt -release
 ```
