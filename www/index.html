@@ -283,11 +283,6 @@
 
             initFileMenu();
 
-            if (determineOperatingSystem() == 'win32') {
-                $("#notification-bar").addClass("notification-bar-windows-shim");
-                $("#status-field").addClass("status-field-windows-shim");
-            }
-
             trackAppOpened();
             gaAppLoaded();
             getProjects();
