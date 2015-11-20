@@ -37,10 +37,10 @@
     ],
     "packages": {
         "mac": {
-            "url": "https://github.com/phonegap/phonegap-app-desktop/releases/download/0.1.11/PhoneGap-Desktop-Beta-0.1.11-mac.zip"
+            "url": "https://github.com/phonegap/phonegap-app-desktop/releases/download/0.2.0/PhoneGap-Desktop-Beta-0.2.0-mac.zip"
         },
         "win": {
-            "url": "https://github.com/phonegap/phonegap-app-desktop/releases/download/0.1.11/PhoneGap-Desktop-Beta-0.1.11-win.zip"
+            "url": "https://github.com/phonegap/phonegap-app-desktop/releases/download/0.2.0/PhoneGap-Desktop-Beta-0.2.0-win.zip"
         }
     }
 }
