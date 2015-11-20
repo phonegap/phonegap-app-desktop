@@ -3,7 +3,7 @@
   "version" : "0.2.0",
   "main"    : "index.js",
   "window"  : {
-      "devTools" : true
+      "devTools" : false
   },
   "dependencies" : {
       "connect-phonegap": "0.18.0",
