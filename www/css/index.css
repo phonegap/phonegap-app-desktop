@@ -1,6 +1,18 @@
 #app {
   background-color: #dfe2e2;
 }
+.banner {
+  width: 450px;
+  height: 60px;
+  background-color: #1ba1c7;
+  color: white;
+  padding-top: 15px;
+  text-align: center;
+}
+.banner-link {
+  text-decoration: underline;
+  cursor: pointer;
+}
 .container {
   width: 450px;
   height: 550px;
@@ -62,25 +74,28 @@
 }
 .status-field {
   width: 100%;
-  height: 50px;
+  height: 70px;
   padding-top: 15px;
   padding-left: 15px;
   color: white;
   background-color: #999999;
+  position: absolute;
+  top: 550px;
+  left: 75px;
 }
 .dropzone {
   width: 100%;
-  height: 550px;
+  height: 475px;
   overflow-x: hidden;
   overflow-y: auto;
   z-index: 4;
   position: fixed;
-  top: 0px;
+  top: 75px;
   left: 75px;
 }
 .dropzone-content {
   text-align: center;
-  height: 550px;
+  height: 475px;
   color: #c1c3c2;
   font-size: 14pt;
   font-weight: 500;
@@ -90,7 +105,7 @@
   background-color: #1f2326;
   color: white;
   position: fixed;
-  top: 0px;
+  top: 75px;
   left: 75px;
   z-index: 12;
   width: 375px;
@@ -100,7 +115,7 @@
   background-color: #1f2326;
   color: white;
   position: fixed;
-  top: 0px;
+  top: 75px;
   left: 75px;
   z-index: 12;
   width: 375px;
@@ -110,7 +125,7 @@
   background-color: #1f2326;
   color: white;
   position: fixed;
-  top: 0px;
+  top: 75px;
   left: 75px;
   z-index: 12;
   width: 375px;
@@ -212,15 +227,15 @@
   background-color: #1f2326;
   color: white;
   position: fixed;
-  top: 0px;
+  top: 75px;
   left: 75px;
   z-index: 12;
   width: 375px;
-  height: 600px;
+  height: 525px;
 }
 .server-log-textarea {
   width: 330px;
-  height: 490px;
+  height: 415px;
   background-color: black;
   color: white;
   border: none;
@@ -302,7 +317,7 @@
   background-color: #1f2326;
   color: white;
   position: fixed;
-  top: 0px;
+  top: 75px;
   left: 75px;
   z-index: 13;
   width: 375px;
@@ -312,7 +327,7 @@
   background-color: #1f2326;
   color: white;
   position: fixed;
-  top: 0px;
+  top: 75px;
   left: 75px;
   z-index: 12;
   width: 375px;

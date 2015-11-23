@@ -2,23 +2,23 @@
 AppPublisher=Adobe Inc.
 AppPublisherURL=https://www.adobe.com/
 AppName=PhoneGap Desktop
-AppVersion=0.1.11
+AppVersion=0.1.12
 DefaultDirName={pf}\Adobe\PhoneGap\PhoneGap Desktop
 DefaultGroupName=Adobe\PhoneGap
 UninstallDisplayIcon={app}\PhoneGap.exe
 Compression=lzma2
 SolidCompression=yes
-OutputDir="\\vmware-host\Shared Folders\Documents\PhoneGap\phonegap-app-desktop\installers\win"
+OutputDir="\\vmware-host\Shared Folders\phonegap-app-desktop\installers\win"
 LicenseFile=license.txt
 OutputBaseFilename=PhoneGapSetup-win32
 
 [Files]
-Source: "\\vmware-host\Shared Folders\Documents\PhoneGap\phonegap-app-desktop\build\PhoneGap\win32\PhoneGap.exe"; DestDir: "{app}"
-Source: "\\vmware-host\Shared Folders\Documents\PhoneGap\phonegap-app-desktop\build\PhoneGap\win32\nw.pak"; DestDir: "{app}"
-Source: "\\vmware-host\Shared Folders\Documents\PhoneGap\phonegap-app-desktop\build\PhoneGap\win32\libGLESv2.dll"; DestDir: "{app}"
-Source: "\\vmware-host\Shared Folders\Documents\PhoneGap\phonegap-app-desktop\build\PhoneGap\win32\libEGL.dll"; DestDir: "{app}"
-Source: "\\vmware-host\Shared Folders\Documents\PhoneGap\phonegap-app-desktop\build\PhoneGap\win32\icudtl.dat"; DestDir: "{app}"
-Source: "\\vmware-host\Shared Folders\Documents\PhoneGap\phonegap-app-desktop\build\PhoneGap\win32\ffmpegsumo.dll"; DestDir: "{app}"
+Source: "\\vmware-host\Shared Folders\phonegap-app-desktop\build\PhoneGap\win32\PhoneGap.exe"; DestDir: "{app}"
+Source: "\\vmware-host\Shared Folders\phonegap-app-desktop\build\PhoneGap\win32\nw.pak"; DestDir: "{app}"
+Source: "\\vmware-host\Shared Folders\phonegap-app-desktop\build\PhoneGap\win32\libGLESv2.dll"; DestDir: "{app}"
+Source: "\\vmware-host\Shared Folders\phonegap-app-desktop\build\PhoneGap\win32\libEGL.dll"; DestDir: "{app}"
+Source: "\\vmware-host\Shared Folders\phonegap-app-desktop\build\PhoneGap\win32\icudtl.dat"; DestDir: "{app}"
+Source: "\\vmware-host\Shared Folders\phonegap-app-desktop\build\PhoneGap\win32\ffmpegsumo.dll"; DestDir: "{app}"
 
 [Icons]
 Name: "{group}\Adobe\PhoneGap\PhoneGap Desktop"; Filename: "{app}\PhoneGap.exe"
