@@ -257,6 +257,14 @@
             overlayBackgroundHandler();
         });
 
+        global.jQuery("#releaseLink").click(function() {
+            openReleasePage();
+        });
+
+        global.jQuery("#readMore").click(function() {
+            openBlogPost();
+        });
+
         initSettings();
 
         hideProjectPathError();
@@ -268,7 +276,6 @@
 
         gaAppLoaded();
         getProjects();
-
     });
 
     function imgSwapper(img, src) {
@@ -289,7 +296,6 @@
             <button id="updateNow" class="action-button">Update</button>
         </div>
     </aside>
-
 
     <aside id="settingsOverlay" class="settings-overlay">
         <div class="overlay-form-item-heading">Server port:</div>
@@ -378,6 +384,11 @@
         <div id="privacyPolicy" class="flyout-button">Privacy Policy</div>
     </aside>
 
+
+    <div class="banner">
+        PhoneGap Desktop 0.2.0 is available! <span id="releaseLink" class="banner-link">Download now</span>.<br/>This update requires a manual download (<span id="readMore" class="banner-link">read more</span>).
+    </div>
+
     <div class="row container" style="overflow-x: hidden; overflow-y: hidden;" id="sideMenu">
         <div class="column-2-hand sidebar">
             <div id="plus-holder" class="box-row center-hand sidebar-button-holder" onMouseOver="imgSwapper('plus-icon', 'img/icons/hover/plus-hover.svg');">
@@ -422,15 +433,8 @@
         <input type="file" id="projectDirectory" nwdirectory>
     </div>
 
-    <div class="row">
-        <div class="column-2-hand sidebar-bottom" id="sideMenuBottom">
-            <div class="box-row">&nbsp;</div>
-        </div>
-        <div class="column-10-hand">
-            <div class="status-field" id="status-field">
-                <label id="server-status-label">Server is offline</label>
-            </div>
-        </div>
+    <div class="status-field" id="status-field" style="position: absolute; top: 550px; left: 75px;">
+        <label id="server-status-label">Server is offline</label>
     </div>
 
 </body>

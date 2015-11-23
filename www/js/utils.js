@@ -63,6 +63,14 @@ function openPrivacyPolicy() {
     gui.Shell.openExternal("http://www.adobe.com/privacy.html");
 }
 
+function openReleasePage() {
+    gui.Shell.openExternal("http://docs.phonegap.com/getting-started/1-install-phonegap/desktop/");
+}
+
+function openBlogPost() {
+    gui.Shell.openExternal("http://phonegap.com/blog/2015/11/23/phonegap-app-desktop-0-2-0/");
+}
+
 function parsePackageJSON() {
     var pathToPackageJSONFile = "package.json";
 
