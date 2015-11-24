@@ -66,28 +66,28 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
 
     widgetDOM += "</div>";  // close the widget
 
-    global.jQuery("#drop_zone").append(widgetDOM);
+    $("#drop_zone").append(widgetDOM);
     enableMinusButton();
-    global.jQuery("#guide-add").hide();
+    $("#guide-add").hide();
 
-    global.jQuery("#" + deleteId).on("click", function(event) {
-        var temp = global.jQuery("#" + deleteId).attr("id").split("_");
+    $("#" + deleteId).on("click", function(event) {
+        var temp = $("#" + deleteId).attr("id").split("_");
         var clickedId = temp[1];
 
         removeProjectWidget(clickedId);
     });
 
-    global.jQuery("#" + projectDirId).on("click", function() {
+    $("#" + projectDirId).on("click", function() {
         opener(projectDir);
     });
 
-    global.jQuery("#start-icon_" + id.toString()).on("mouseover", function() {
+    $("#start-icon_" + id.toString()).on("mouseover", function() {
         if (global.isServerRunning) {
             imgSwapper("start-icon_" + id.toString(), "img/icons/hover/start-hover.svg");
         }
     });
 
-    global.jQuery("#start-icon_" + id.toString()).on("mouseout", function() {
+    $("#start-icon_" + id.toString()).on("mouseout", function() {
         if (global.isServerRunning) {
             if (id == global.activeWidget.projectId) {
                 imgSwapper("start-icon_" + id.toString(), "img/icons/active/start-active.svg");
@@ -97,30 +97,31 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
         }
     });
 
-    global.jQuery("#start-icon_" + id.toString()).on("click", function() {
+    $("#start-icon_" + id.toString()).on("click", function() {
+        setActiveWidget(id, projectDir);
         if (global.isServerRunning) {
-            setActiveWidget(id, projectDir);
             widgetServerOnlineState(id);
         } else {
             toggleServerStatus(projectDir);
         }
     });
 
-    global.jQuery("#stop-icon_" + id.toString()).on("mouseover", function() {
+    $("#stop-icon_" + id.toString()).on("mouseover", function() {
         imgSwapper("stop-icon_" + id.toString(), "img/icons/hover/stop-hover.svg");
     });
 
-    global.jQuery("#stop-icon_" + id.toString()).on("mouseout", function() {
+    $("#stop-icon_" + id.toString()).on("mouseout", function() {
         imgSwapper("stop-icon_" + id.toString(), "img/icons/normal/stop.svg");
     });
 
-    global.jQuery("#stop-icon_" + id.toString()).on("click", function() {
-        if (global.jQuery("#stop-icon_" + id.toString()).hasClass("stop-icon-active")) {
+    $("#stop-icon_" + id.toString()).on("click", function() {
+        if ($("#stop-icon_" + id.toString()).hasClass("stop-icon-active")) {
             if (global.isServerRunning) {
                 // turn off the server
                 setServerOffline();
                 serverOfflineState();
                 widgetSeverOfflineState(id);
+                global.activeWidget = null;
             }
         }
     });
@@ -129,25 +130,25 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
 function widgetServerOnlineState(id) {
     if (global.isServerRunning) {
         // update view to reflect that server is running
-        global.jQuery("#widgetStatus_" + id.toString()).addClass("widget-online");
-        global.jQuery("#widgetStatusBottom_" + id.toString()).addClass("widget-online");
-        global.jQuery("#start-icon_" + id.toString()).attr("src", "img/icons/active/start-active.svg");
-        global.jQuery("#hr-icon_" + id.toString()).css("opacity", 1.0);
-        global.jQuery("#stop-icon_" + id.toString()).css("opacity", 1.0);
-        global.jQuery("#stop-icon_" + id.toString()).addClass("stop-icon-active");
-        global.jQuery("#" + global.activeWidget.widgetId).css("background-color", "#f0f0f0");
+        $("#widgetStatus_" + id.toString()).addClass("widget-online");
+        $("#widgetStatusBottom_" + id.toString()).addClass("widget-online");
+        $("#start-icon_" + id.toString()).attr("src", "img/icons/active/start-active.svg");
+        $("#hr-icon_" + id.toString()).css("opacity", 1.0);
+        $("#stop-icon_" + id.toString()).css("opacity", 1.0);
+        $("#stop-icon_" + id.toString()).addClass("stop-icon-active");
+        $("#" + global.activeWidget.widgetId).css("background-color", "#f0f0f0");
     }
 }
 
 function widgetSeverOfflineState(id) {
     // update view to reflect that server is stopped
-    global.jQuery("#widgetStatus_" + id.toString()).removeClass("widget-online");
-    global.jQuery("#widgetStatusBottom_" + id.toString()).removeClass("widget-online");
-    global.jQuery("#stop-icon_" + id.toString()).css("opacity", 0.0);
-    global.jQuery("#start-icon_" + id.toString()).attr("src", "img/icons/normal/start.svg");
-    global.jQuery("#stop-icon_" + id.toString()).removeClass("stop-icon-active");
-    global.jQuery("#hr-icon_" + id.toString()).css("opacity", 0.0);
-    global.jQuery("#" + global.activeWidget.widgetId).css("background-color", "#e8e9e9");
+    $("#widgetStatus_" + id.toString()).removeClass("widget-online");
+    $("#widgetStatusBottom_" + id.toString()).removeClass("widget-online");
+    $("#stop-icon_" + id.toString()).css("opacity", 0.0);
+    $("#start-icon_" + id.toString()).attr("src", "img/icons/normal/start.svg");
+    $("#stop-icon_" + id.toString()).removeClass("stop-icon-active");
+    $("#hr-icon_" + id.toString()).css("opacity", 0.0);
+    $("#" + global.activeWidget.widgetId).css("background-color", "#e8e9e9");
 }
 
 function setActiveWidget(id, projDir) {
@@ -163,7 +164,7 @@ function setActiveWidget(id, projDir) {
     localStorage.projDir = projDir;
 
     // update GUI to display details of the active widget
-    global.jQuery("#" + activeWidget.widgetId).css("background-color", "#f0f0f0");
+    $("#" + activeWidget.widgetId).css("background-color", "#f0f0f0");
     widgetServerOnlineState(activeWidget.projectId);
 
     // set a watch on the config.xml of the active project
@@ -174,7 +175,7 @@ function setActiveWidget(id, projDir) {
 
     // reset the previous active widget
     if (previousActiveWidget) {
-        global.jQuery("#" + previousActiveWidget.widgetId).css("background-color", "#e8e9e9");
+        $("#" + previousActiveWidget.widgetId).css("background-color", "#e8e9e9");
         widgetSeverOfflineState(previousActiveWidget.projectId);
     }
 }
@@ -221,23 +222,23 @@ function setWatcher(filePath, projDir, id) {
                 var projectNameLabel = "projectNameLabel_" + id.toString();
                 var projectVersionLabel = "projectVersionLabel_" + id.toString();
 
-                global.jQuery.xmlDoc = global.jQuery.parseXML(data);
-                global.jQuery.xml = global.jQuery(global.jQuery.xmlDoc);
+                $.xmlDoc = $.parseXML(data);
+                $.xml = $($.xmlDoc);
 
                 // get the project name
-                var projectName = global.jQuery.xml.find("name").text();
+                var projectName = $.xml.find("name").text();
                 updateProjectNameInLocalStorage(id, projectName);
 
                 // get the project version
-                var projectVersion = global.jQuery.xml.find("widget").attr("version");
+                var projectVersion = $.xml.find("widget").attr("version");
 
                 // get the app icon
-                var projectIcon = global.jQuery.xml.find("icon").attr("src");
+                var projectIcon = $.xml.find("icon").attr("src");
                 iconPath += projectIcon;
 
-                global.jQuery("#" + projectNameLabel).text(projectName);
-                global.jQuery("#" + projectVersionLabel).text("v" + projectVersion);
-                global.jQuery("#" + projectIconId).attr("src", iconPath);
+                $("#" + projectNameLabel).text(projectName);
+                $("#" + projectVersionLabel).text("v" + projectVersion);
+                $("#" + projectIconId).attr("src", iconPath);
             });
         });
     });
@@ -245,8 +246,8 @@ function setWatcher(filePath, projDir, id) {
 
 function removeProjectWidget(idToDelete) {
     var widgetId = "projectWidget_" + idToDelete.toString();
-    global.jQuery("#" + widgetId).addClass("animated slideOutLeft");
-    global.jQuery("#" + widgetId).one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", function() {
+    $("#" + widgetId).addClass("animated slideOutLeft");
+    $("#" + widgetId).one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd onanimationend animationend", function() {
         trackProjectRemoved();
         deleteProjectWidget(idToDelete);
     });
@@ -258,9 +259,9 @@ function removeProjectWidget(idToDelete) {
 
 function deleteProjectWidget(idToDelete) {
     var widgetId = "projectWidget_" + idToDelete.toString();
-    global.jQuery("#" + widgetId).removeClass("animated slideOutLeft");
-    global.jQuery("#" + widgetId).hide();
-    global.jQuery("#" + widgetId).remove();
+    $("#" + widgetId).removeClass("animated slideOutLeft");
+    $("#" + widgetId).hide();
+    $("#" + widgetId).remove();
     removeProjectById(idToDelete);
 }
 
