@@ -3,7 +3,7 @@
   "version" : "0.2.0",
   "main"    : "index.js",
   "window"  : {
-      "devTools" : false
+      "devTools" : true
   },
   "dependencies" : {
       "connect-phonegap": "0.18.0",
@@ -12,5 +12,9 @@
       "node-jsxml": "0.6.0",
       "node-uuid": "1.4.3",
       "request" : "2.65.0"
-  }
+  },
+  "licenses": [{
+      "type":"ALv2",
+      "url":"http://www.apache.org/licenses/LICENSE-2.0.html"
+  }]
 }
