@@ -1,6 +1,11 @@
-## phonegap-desktop-electron-prototype [![Build Status](https://travis-ci.org/phonegap/phonegap-app-desktop.svg?branch=master)](https://travis-ci.org/phonegap/phonegap-app-desktop) [![bitHound Score](https://www.bithound.io/github/phonegap/phonegap-app-desktop/badges/score.svg)](https://www.bithound.io/github/phonegap/phonegap-app-desktop)
+## Phonegap Desktop App [![Build Status](https://travis-ci.org/phonegap/phonegap-app-desktop.svg?branch=master)](https://travis-ci.org/phonegap/phonegap-app-desktop) [![bitHound Score](https://www.bithound.io/github/phonegap/phonegap-app-desktop/badges/score.svg)](https://www.bithound.io/github/phonegap/phonegap-app-desktop)
 
-#### Installation
+#### Installation for OSX
+
+```
+install the latest XCode from the Mac App Store
+```
+
 ```
 # install grunt cli
 $ [sudo] npm install -g grunt-cli
