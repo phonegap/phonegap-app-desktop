@@ -2,23 +2,26 @@
 AppPublisher=Adobe Inc.
 AppPublisherURL=https://www.adobe.com/
 AppName=PhoneGap Desktop
-AppVersion=0.1.11
+AppVersion=0.2.0
 DefaultDirName={pf}\Adobe\PhoneGap\PhoneGap Desktop
 DefaultGroupName=Adobe\PhoneGap
 UninstallDisplayIcon={app}\PhoneGap.exe
 Compression=lzma2
 SolidCompression=yes
-OutputDir="\\vmware-host\Shared Folders\Documents\PhoneGap\phonegap-app-desktop\installers\win"
+OutputDir="\\vmware-host\Shared Folders\phonegap-app-desktop\installers\win32"
 LicenseFile=license.txt
-OutputBaseFilename=PhoneGapSetup-win64
+OutputBaseFilename=PhoneGapSetup-win32
 
 [Files]
-Source: "\\vmware-host\Shared Folders\Documents\PhoneGap\phonegap-app-desktop\build\PhoneGap\win64\PhoneGap.exe"; DestDir: "{app}"
-Source: "\\vmware-host\Shared Folders\Documents\PhoneGap\phonegap-app-desktop\build\PhoneGap\win64\nw.pak"; DestDir: "{app}"
-Source: "\\vmware-host\Shared Folders\Documents\PhoneGap\phonegap-app-desktop\build\PhoneGap\win64\libGLESv2.dll"; DestDir: "{app}"
-Source: "\\vmware-host\Shared Folders\Documents\PhoneGap\phonegap-app-desktop\build\PhoneGap\win64\libEGL.dll"; DestDir: "{app}"
-Source: "\\vmware-host\Shared Folders\Documents\PhoneGap\phonegap-app-desktop\build\PhoneGap\win64\icudtl.dat"; DestDir: "{app}"
-Source: "\\vmware-host\Shared Folders\Documents\PhoneGap\phonegap-app-desktop\build\PhoneGap\win64\ffmpegsumo.dll"; DestDir: "{app}"
+Source: "\\vmware-host\Shared Folders\phonegap-app-desktop\build\PhoneGap-win32-ia32\PhoneGap.exe"; DestDir: "{app}"
+Source: "\\vmware-host\Shared Folders\phonegap-app-desktop\build\PhoneGap-win32-ia32\*.pak"; DestDir: "{app}"
+Source: "\\vmware-host\Shared Folders\phonegap-app-desktop\build\PhoneGap-win32-ia32\*.dll"; DestDir: "{app}"
+Source: "\\vmware-host\Shared Folders\phonegap-app-desktop\build\PhoneGap-win32-ia32\*.dat"; DestDir: "{app}"
+Source: "\\vmware-host\Shared Folders\phonegap-app-desktop\build\PhoneGap-win32-ia32\*.bin"; DestDir: "{app}"
+Source: "\\vmware-host\Shared Folders\phonegap-app-desktop\build\PhoneGap-win32-ia32\resources\*"; DestDir: "{app}\resources"; Flags: recursesubdirs
+Source: "\\vmware-host\Shared Folders\phonegap-app-desktop\build\PhoneGap-win32-ia32\locales\*.*"; DestDir: "{app}\locales"
+Source: "\\vmware-host\Shared Folders\phonegap-app-desktop\build\PhoneGap-win32-ia32\LICENSE"; DestDir: "{app}"
+Source: "\\vmware-host\Shared Folders\phonegap-app-desktop\build\PhoneGap-win32-ia32\version"; DestDir: "{app}"
 
 [Icons]
 Name: "{group}\Adobe\PhoneGap\PhoneGap Desktop"; Filename: "{app}\PhoneGap.exe"
