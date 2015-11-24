@@ -1,7 +1,7 @@
 {
     "name": "PhoneGap",
     "description": "PhoneGap",
-    "version": "0.1.12",
+    "version": "0.2.0",
     "homepage": "http://github.com/phonegap/phonegap-app-desktop",
     "repository": {
         "type": "git",
@@ -12,8 +12,7 @@
     ],
     "preferGlobal": "false",
     "scripts": {
-        "grunt": "grunt",
-        "test": "jasmine-node --color spec"
+        "grunt": "grunt"
     },
     "devDependencies": {
         "grunt": "0.4.5",
@@ -21,8 +20,7 @@
         "grunt-contrib-copy": "0.8.1",
         "grunt-contrib-less": "1.0.1",
         "grunt-contrib-watch": "0.6.1",
-        "grunt-nw-builder": "2.0.0",
-        "jasmine-node": "1.14.5",
+        "grunt-electron": "2.0.1",
         "opener": "1.4.1",
         "shelljs": "0.5.3"
     },
@@ -39,10 +37,10 @@
     ],
     "packages": {
         "mac": {
-            "url": "https://github.com/phonegap/phonegap-app-desktop/releases/download/0.1.12/PhoneGap-Desktop-Beta-0.1.12-mac.zip"
+            "url": "https://github.com/phonegap/phonegap-app-desktop/releases/download/0.2.0/PhoneGap-Desktop-Beta-0.2.0-mac.zip"
         },
         "win": {
-            "url": "https://github.com/phonegap/phonegap-app-desktop/releases/download/0.1.12/PhoneGap-Desktop-Beta-0.1.12-win.zip"
+            "url": "https://github.com/phonegap/phonegap-app-desktop/releases/download/0.2.0/PhoneGap-Desktop-Beta-0.2.0-win.zip"
         }
     }
 }

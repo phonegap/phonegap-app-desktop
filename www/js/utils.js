@@ -47,43 +47,42 @@ function buildPathBasedOnOS(existingPath) {
     return path;
 }
 
+function getVersion() {
+    var app = remote.require('app');
+    return app.getVersion();
+}
+
+function getDebugFlag() {
+    return global.debugMode;
+}
+
+function setDebugFlag(debugMode) {
+    global.debugMode = debugMode;
+    console.log('setDebugFlag: ' + debugMode);
+}
+
 function openIssueTracker() {
-    gui.Shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/issues?state=open");   // opens user's default browser & loads page
+    shell.openExternal('https://github.com/phonegap/phonegap-app-desktop/issues?state=open');
 }
 
 function openTutorials() {
-    gui.Shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/wiki/PhoneGap-Desktop-Overview");
+    shell.openExternal("http://docs.phonegap.com/references/desktop-app/");
 }
 
 function openTermsOfUse() {
-    gui.Shell.openExternal("http://www.adobe.com/legal/general-terms.html");
+    shell.openExternal("http://www.adobe.com/legal/general-terms.html");
 }
 
 function openPrivacyPolicy() {
-    gui.Shell.openExternal("http://www.adobe.com/privacy.html");
+    shell.openExternal("http://www.adobe.com/privacy.html");
 }
 
-function openReleasePage() {
-    gui.Shell.openExternal("http://docs.phonegap.com/getting-started/1-install-phonegap/desktop/");
+function aboutContent() {
+    var year = new Date().getFullYear();
+    alert("PhoneGap (v" + getVersion() + ")\nCopyright \u00A9 " + year + " Adobe Systems Incorporated.\nAll rights reserved.");
 }
 
-function openBlogPost() {
-    gui.Shell.openExternal("http://phonegap.com/blog/2015/11/23/phonegap-app-desktop-0-2-0/");
-}
-
-function parsePackageJSON() {
-    var pathToPackageJSONFile = "package.json";
-
-    fs.readFile(pathToPackageJSONFile, 'utf8', function(err, data) {
-        if (err) {
-            console.log("pathToPackageJSONFile not found");
-        } else {
-            console.log("pathToPackageJSONFile found");
-            var obj = JSON.parse(data);
-            global.debugMode = obj.window.toolbar;
-            global.pgdVersion = obj.version;
-        }
-
-        trackAppOpened();
-    });
+function quitApp() {
+    var win = remote.getCurrentWindow();
+    win.close();
 }

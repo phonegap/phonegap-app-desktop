@@ -1,23 +1,14 @@
 #app {
   background-color: #dfe2e2;
 }
-.banner {
-  width: 450px;
-  height: 60px;
-  background-color: #1ba1c7;
-  color: white;
-  padding-top: 15px;
-  text-align: center;
-}
-.banner-link {
-  text-decoration: underline;
-  cursor: pointer;
-}
 .container {
   width: 450px;
-  height: 550px;
+  height: 100%;
   overflow-x: hidden;
   overflow-y: hidden;
+}
+.container-windows-shim {
+  height: 515px;
 }
 .sidebar {
   background-color: #2d3033;
@@ -27,7 +18,7 @@
 .sidebar-bottom {
   background-color: #2d3033;
   height: 50px;
-  z-index: 13;
+  z-index: 14;
 }
 .sidebarbutton {
   color: #2d3033;
@@ -72,9 +63,12 @@
   position: absolute;
   z-index: 20;
 }
+.notification-bar-windows-shim {
+  top: 435px;
+}
 .status-field {
   width: 100%;
-  height: 70px;
+  height: 50px;
   padding-top: 15px;
   padding-left: 15px;
   color: white;
@@ -83,19 +77,22 @@
   top: 550px;
   left: 75px;
 }
+.status-field-windows-shim {
+  top: 515px;
+}
 .dropzone {
   width: 100%;
-  height: 475px;
+  height: 550px;
   overflow-x: hidden;
   overflow-y: auto;
   z-index: 4;
   position: fixed;
-  top: 75px;
+  top: 0px;
   left: 75px;
 }
 .dropzone-content {
   text-align: center;
-  height: 475px;
+  height: 550px;
   color: #c1c3c2;
   font-size: 14pt;
   font-weight: 500;
@@ -105,7 +102,7 @@
   background-color: #1f2326;
   color: white;
   position: fixed;
-  top: 75px;
+  top: 0px;
   left: 75px;
   z-index: 12;
   width: 375px;
@@ -115,17 +112,17 @@
   background-color: #1f2326;
   color: white;
   position: fixed;
-  top: 75px;
+  top: 0px;
   left: 75px;
   z-index: 12;
   width: 375px;
-  height: 300px;
+  height: 298px;
 }
 .new-project-overlay {
   background-color: #1f2326;
   color: white;
   position: fixed;
-  top: 75px;
+  top: 0px;
   left: 75px;
   z-index: 12;
   width: 375px;
@@ -227,15 +224,15 @@
   background-color: #1f2326;
   color: white;
   position: fixed;
-  top: 75px;
+  top: 0px;
   left: 75px;
   z-index: 12;
   width: 375px;
-  height: 525px;
+  height: 600px;
 }
 .server-log-textarea {
   width: 330px;
-  height: 415px;
+  height: 490px;
   background-color: black;
   color: white;
   border: none;
@@ -317,7 +314,7 @@
   background-color: #1f2326;
   color: white;
   position: fixed;
-  top: 75px;
+  top: 0px;
   left: 75px;
   z-index: 13;
   width: 375px;
@@ -327,7 +324,7 @@
   background-color: #1f2326;
   color: white;
   position: fixed;
-  top: 75px;
+  top: 0px;
   left: 75px;
   z-index: 12;
   width: 375px;
@@ -443,6 +440,7 @@ a.projectDirLink:hover {
 .hr-icon {
   width: inherit;
   opacity: 0.0;
+  padding-top: 6px;
   padding-bottom: 6px;
 }
 .stop-icon {

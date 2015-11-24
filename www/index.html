@@ -1,441 +1,469 @@
-<!DOCTYPE html>
 <html>
-<head>
-    <title>PhoneGap</title>
-    <link rel="stylesheet" type="text/css" href="css/index.css">
-    <link rel='stylesheet' type='text/css' href='css/animate.css'>
-    <link rel="stylesheet" type="text/css" href="css/topcoat-desktop-light-custom.min.css">
-    <link rel="stylesheet" type="text/css" href="css/topcoat-overlay-custom.min.css">
-    <link rel="stylesheet" type="text/css" href="css/overlays.css">
-    <link rel="stylesheet" type="text/css" href="css/flexboxgrid.min.css">
-    <link rel="stylesheet" type="text/css" href="css/flipper.css">
-    <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
-    <script type='text/javascript' src='js/index.js'></script>
-    <script type="text/javascript" src="js/error-notification.js"></script>
-    <script type="text/javascript" src="js/sidebar-handlers.js"></script>
-    <script type="text/javascript" src="js/server-status.js"></script>
-    <script type="text/javascript" src="js/drag-n-drop-handlers.js"></script>
-    <script type="text/javascript" src="js/project-create-open-handlers.js"></script>
-    <script type="text/javascript" src="js/project-creation-form-validation.js"></script>
-    <script type="text/javascript" src="js/project-widget.js"></script>
-    <script type="text/javascript" src="js/local-storage.js"></script>
-    <script type="text/javascript" src="js/settings-handlers.js"></script>
-    <script type="text/javascript" src="js/utils.js"></script>
-    <script type="text/javascript" src="js/updater.js"></script>
-    <script type="text/javascript" src="js/analytics.js"></script>
+    <head>
+        <title>PhoneGap</title>
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel='stylesheet' type='text/css' href='css/animate.css'>
+        <link rel="stylesheet" type="text/css" href="css/topcoat-desktop-light-custom.min.css">
+        <link rel="stylesheet" type="text/css" href="css/topcoat-overlay-custom.min.css">
+        <link rel="stylesheet" type="text/css" href="css/overlays.css">
+        <link rel="stylesheet" type="text/css" href="css/flexboxgrid.min.css">
+        <link rel="stylesheet" type="text/css" href="css/flipper.css">
 
-    <script type="text/javascript" src="js/keen.3.1.0.min.js"></script>
+        <script type="text/javascript">
 
-    <script type="text/javascript">
-      global.client = new Keen({
-        projectId: "546d2e572481967ede7222b9",       // String (required)
-        writeKey: "84948a28890f632d6fe87abc758380d985a3a0a4f67168d0d23d63c167641f7f32a53e81bb027466b0041d163646bec625a2be3c587fe9a5831308f93c4584ab73a577b5e65fea588d2a02fc409e8be8e6ecaa223717c274e4cc8b0e080388278d91a908a259117ca6f0176c4258f2db", // String (required for sending data)
-        readKey: "f8f1a1c93f38c292c7187da662697ad2c8ee1864835104e1f9549ebda75ab71a9d4fec047eac78aa1610f75059ee320bbfaa1370e1e877a49377d8f68a63eba62909ab013c8a429ffb7bd0e36fdb12bd66dd95f6f12472ec818d117d90a901585ea8b276f6a5c6c06f9653f9452354a3",   // String (required for querying data)
-        protocol: "https",                  // String (optional: https | http | auto)
-        host: "api.keen.io/3.0",            // String (optional)
-        requestType: "jsonp"                // String (optional: jsonp, xhr, beacon)
-      });
-    </script>
+            var remote = require('remote');
+            var dialog = remote.require('dialog');
 
-    <script type="text/javascript" src="js/ga/GALocalStorage.js"></script>
-    <script type="text/javascript">
-        ga_storage._setAccount('UA-94271-31'); //Replace with your own
-        ga_storage._trackPageview('/index.html');
-    </script>
-    <script type="text/javascript" src="js/ga/gaTracking.js"></script>
+            // load dependencies module
+            var fs = require("fs");
+            var gaze = require("gaze");
+            var jsxml= require("node-jsxml");
+            var opener = require("opener");
+            var path = require("path");
+            var shell = require('shell');
+            var uuid = require("node-uuid");
 
-    <script type='text/javascript'>
+            var Namespace = jsxml.Namespace,
+                QName = jsxml.QName,
+                XML = jsxml.XML,
+                XMLList = jsxml.XMLList;
+        </script>
 
-    global.pgServer = require("connect-phonegap");
-    global.pgVersion = "3.3.0";
-    global.jQuery = jQuery;
-    global.createClicked = false;
-    global.server = null;
-    global.isServerRunning = false;
-    global.allowRemoveNotification = "false";
-    global.createChosen = false;
-    global.debugMode = true;
-    global.missing = new Array();
-    global.manifest = null;
-    global.newAppPath = null;
-    global.pgdVersion = "";
+        <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript" src="js/error-notification.js"></script>
+        <script type="text/javascript" src="js/file-menu.js"></script>
+        <script type="text/javascript" src="js/sidebar-handlers.js"></script>
+        <script type="text/javascript" src="js/server-status.js"></script>
+        <script type="text/javascript" src="js/drag-n-drop-handlers.js"></script>
+        <script type="text/javascript" src="js/project-create-open-handlers.js"></script>
+        <script type="text/javascript" src="js/project-creation-form-validation.js"></script>
+        <script type="text/javascript" src="js/project-widget.js"></script>
+        <script type="text/javascript" src="js/local-storage.js"></script>
+        <script type="text/javascript" src="js/settings-handlers.js"></script>
+        <script type="text/javascript" src="js/utils.js"></script>
+        <script type="text/javascript" src="js/analytics.js"></script>
 
-    global.jQuery(document).ready(function() {
+        <script type="text/javascript" src="js/keen.3.1.0.min.js"></script>
 
-        global.jQuery("#updateOverlay").hide();
-        global.jQuery("#projectDirectory").hide();
-        global.jQuery("#newProjectOverlay").hide();
-        global.jQuery("#createOpenProjectOverlay").hide();
-        global.jQuery("#settingsOverlay").hide();
-        global.jQuery("#serverLogOverlay").hide();
-        global.jQuery("#helpOverlay").hide();
-        global.jQuery("#overlay-bg").hide();
-        global.jQuery("#notification-bar").hide();
+        <script type="text/javascript">
+          global.client = new Keen({
+            projectId: "546d2e572481967ede7222b9",       // String (required)
+            writeKey: "84948a28890f632d6fe87abc758380d985a3a0a4f67168d0d23d63c167641f7f32a53e81bb027466b0041d163646bec625a2be3c587fe9a5831308f93c4584ab73a577b5e65fea588d2a02fc409e8be8e6ecaa223717c274e4cc8b0e080388278d91a908a259117ca6f0176c4258f2db", // String (required for sending data)
+            readKey: "f8f1a1c93f38c292c7187da662697ad2c8ee1864835104e1f9549ebda75ab71a9d4fec047eac78aa1610f75059ee320bbfaa1370e1e877a49377d8f68a63eba62909ab013c8a429ffb7bd0e36fdb12bd66dd95f6f12472ec818d117d90a901585ea8b276f6a5c6c06f9653f9452354a3",   // String (required for querying data)
+            protocol: "https",                  // String (optional: https | http | auto)
+            host: "api.keen.io/3.0",            // String (optional)
+            requestType: "jsonp"                // String (optional: jsonp, xhr, beacon)
+          });
+        </script>
 
-        global.jQuery("#port-number-error").hide();
+        <script type="text/javascript" src="js/ga/GALocalStorage.js"></script>
+        <script type="text/javascript">
+            ga_storage._setAccount('UA-94271-31'); //Replace with your own
+            ga_storage._trackPageview('/index.html');
+        </script>
+        <script type="text/javascript" src="js/ga/gaTracking.js"></script>
 
-        global.jQuery("#body").on("drop", handleDrop);
-        global.jQuery("#body").on("dragover", handleDragOver);
+        <script type='text/javascript'>
 
-        global.jQuery("#projectDirectory").on("change", function(e) {
-            selectDirectory(e);
-        });
+        global.pgServer = require("connect-phonegap");
+        global.pgVersion = "3.3.0";
+        global.createClicked = false;
+        global.server = null;
+        global.isServerRunning = false;
+        global.allowRemoveNotification = "false";
+        global.createChosen = false;
+        global.debugMode = true;
+        global.missing = new Array();
+        global.manifest = null;
+        global.newAppPath = null;
 
-        global.jQuery("#overlay-bg").click(overlayBackgroundHandler)
+        $(document).ready(function() {
 
-        global.jQuery("#addNewProject").click(createProject);
-        global.jQuery("#chooseNewProjectPath").click(selectProjectPath);
+            $("#updateOverlay").hide();
+            $("#projectDirectory").hide();
+            $("#newProjectOverlay").hide();
+            $("#createOpenProjectOverlay").hide();
+            $("#settingsOverlay").hide();
+            $("#serverLogOverlay").hide();
+            $("#helpOverlay").hide();
+            $("#overlay-bg").hide();
+            $("#notification-bar").hide();
+            $("#port-number-error").hide();
 
-        global.jQuery("#projectName").blur(function() {
+            $("#body").on("drop", handleDrop);
+            $("#body").on("dragover", handleDragOver);
 
-            var projectPath = global.jQuery("#projectPath").text().trim();
-            var projectName = global.jQuery("#projectName").val().trim();
+            $("#overlay-bg").click(overlayBackgroundHandler);
 
-            var isProjectPathEmpty = isProjectPathFieldEmpty(projectPath);
+            $("#addNewProject").click(createProject);
 
-            if (projectName.length > 0) {
+            $("#chooseNewProjectPath").click(function(e) {
+                getProjectPath();
+                //selectProjectPath(e);
+            });
 
-                if (isProjectPathEmpty) {
-                    // error with project path
-                    displayProjectPathError();
-                } else {
-                    var project = projectPath + "/" + projectName;
-                    folderExistsInFileSystem(project);
+            $("#projectName").blur(function() {
+
+                var projectPath = $("#projectPath").text().trim();
+                var projectName = $("#projectName").val().trim();
+
+                var isProjectPathEmpty = isProjectPathFieldEmpty(projectPath);
+
+                if (projectName.length > 0) {
+
+                    if (isProjectPathEmpty) {
+                        // error with project path
+                        displayProjectPathError();
+                    } else {
+                        var project = projectPath + "/" + projectName;
+                        folderExistsInFileSystem(project);
+                    }
                 }
-            }
-        });
+            });
 
-        global.jQuery("#createProject").click(function() {
-            global.createChosen = true;
-            displayAddNewProjectOverlay();
-        });
+            $("#createProject").click(function() {
+                global.createChosen = true;
+                displayAddNewProjectOverlay();
+            });
 
-        global.jQuery("#cancelNewProject").click(overlayBackgroundHandler);
+            $("#cancelNewProject").click(overlayBackgroundHandler);
 
-        global.jQuery("#openProject").click(openProject);
+            $("#openProject").click(function(e) {
+                getProjectPath();
+                //openProject(e);
+            });
 
-        global.jQuery("#saveSettings").click(saveSettings);
-        global.jQuery("#cancelSettings").click(cancelSettings);
+            $("#saveSettings").click(saveSettings);
+            $("#cancelSettings").click(cancelSettings);
 
-        global.jQuery("#portNumber").blur(settingsFormValidatePortNumber);
+            $("#portNumber").blur(settingsFormValidatePortNumber);
 
-        global.jQuery("#closeServerLog").click(toggleLog);
+            $("#closeServerLog").click(toggleLog);
 
-        global.jQuery("#about").click(function() {
-            var year = new Date().getFullYear();
-            alert("PhoneGap (v" + global.pgdVersion + ")\nCopyright \u00A9 " + year + " Adobe Systems Incorporated.\nAll rights reserved.");
-        });
+            $("#about").click(function() {
+                aboutContent();
+                toggleHelp();
+            });
 
-        //tutorials & reportIssue
-        global.jQuery("#tutorials").click(function() {
-            openTutorials();
-            hideHelpOverlay();
-        });
+            //tutorials & reportIssue
+            $("#tutorials").click(function() {
+                openTutorials();
+                toggleHelp();
+            });
 
-        global.jQuery("#reportIssue").click(function() {
-            openIssueTracker();
-            hideHelpOverlay();
-        });
+            $("#reportIssue").click(function() {
+                openIssueTracker();
+                toggleHelp();
+            });
 
-        global.jQuery("#termsOfUse").click(function() {
-            openTermsOfUse();
-        });
+            $("#termsOfUse").click(function() {
+                openTermsOfUse();
+                toggleHelp();
+            });
 
-        global.jQuery("#privacyPolicy").click(function() {
-            openPrivacyPolicy();
-        });
+            $("#privacyPolicy").click(function() {
+                openPrivacyPolicy();
+                toggleHelp();
+            });
 
-        global.jQuery("#plus-holder").click(function() {
-            if (global.jQuery("#createOpenProjectOverlay").is(":visible") || global.jQuery("#newProjectOverlay").is(":visible")) {
+            $("#plus-holder").click(function() {
+                if ($("#createOpenProjectOverlay").is(":visible") || $("#newProjectOverlay").is(":visible")) {
+                    overlayBackgroundHandler();
+                    if (global.createChosen) {
+                        global.createChosen = false;
+                    }
+                } else {
+                    resetMinusButtonState();
+                    hideOverlays();
+                    displayAddCreateProjectOverlay();
+                }
+            });
+
+            $("#minus-holder").click(function() {
+                if(!$("#minus-holder").hasClass("sidebar-button-holder-inactive")) {
+                    toggleRemoveProjectView();
+                }
+            });
+
+            $("#settings-holder").click(function() {
+                if (!$("#settingsOverlay").is(":visible")) {
+                    resetMinusButtonState();
+                }
+                toggleSettings();
+            });
+
+            $("#log-holder").click(function() {
+                resetMinusButtonState();
+                toggleLog();
+            });
+
+            $("#help-holder").click(function() {
+                resetMinusButtonState();
+                toggleHelp();
+            });
+
+            $("#plus-holder").on("mouseout", function() {
+                if (!$("#createOpenProjectOverlay").is(":visible") && !$("#newProjectOverlay").is(":visible")) {
+                    imgSwapper('plus-icon', 'img/icons/normal/plus.svg');
+                }
+
+                if ($("#createOpenProjectOverlay").is(":visible") || $("#newProjectOverlay").is(":visible")) {
+                    imgSwapper('plus-icon', 'img/icons/active/plus-active.svg');
+                }
+            });
+
+            $("#minus-holder").on("mouseover", function() {
+                if(!$("#minus-holder").hasClass("sidebar-button-holder-inactive")) {
+                   imgSwapper('minus-icon', 'img/icons/hover/minus-hover.svg');
+                }
+
+                if($("#minus-holder").hasClass("sidebar-button-active")) {
+                   imgSwapper('minus-icon', 'img/icons/active/minus-active.svg');
+                }
+            });
+
+            $("#minus-holder").on("mouseout", function() {
+                if(!$("#minus-holder").hasClass("sidebar-button-holder-inactive")) {
+                    if (!$(".flip-container").hasClass("flip")) {
+                        imgSwapper('minus-icon', 'img/icons/normal/minus.svg');
+                    }
+
+                    if ($(".flip-container").hasClass("flip")) {
+                        imgSwapper('minus-icon', 'img/icons/active/minus-active.svg');
+                    }
+                }
+
+                if($("#minus-holder").hasClass("sidebar-button-active")) {
+                   imgSwapper('minus-icon', 'img/icons/active/minus-active.svg');
+                }
+            });
+
+            $("#settings-holder").on("mouseout", function() {
+                if (!$("#settingsOverlay").is(":visible")) {
+                    imgSwapper('settings-icon', 'img/icons/normal/settings.svg');
+                } else {
+                    imgSwapper('settings-icon', 'img/icons/active/settings-active.svg');
+                }
+            });
+
+            $("#help-holder").on("mouseout", function() {
+                if (!$("#helpOverlay").is(":visible")) {
+                    imgSwapper('help-icon', 'img/icons/normal/help.svg');
+                } else {
+                    imgSwapper('help-icon', 'img/icons/hover/help-hover.svg');
+                }
+            });
+
+            $("#updateLater").click(function() {
                 overlayBackgroundHandler();
+            });
 
-                if (global.createChosen) {
-                    global.createChosen = false;
-                }
-
-            } else {
-                resetMinusButtonState();
-                hideOverlays();
-                displayAddCreateProjectOverlay();
-            }
-        });
-
-        global.jQuery("#minus-holder").click(function() {
-            if(!global.jQuery("#minus-holder").hasClass("sidebar-button-holder-inactive")) {
-                toggleRemoveProjectView();
-            }
-        });
-
-        global.jQuery("#settings-holder").click(function() {
-            if (global.jQuery("#settingsOverlay").is(":visible")) {
-                hideSettingsOverlay();
-            } else {
-                resetMinusButtonState();
-                displaySettingsOverlay();
-            }
-        });
-
-        global.jQuery("#log-holder").click(function() {
-            resetMinusButtonState();
-            toggleLog();
-        });
-
-        global.jQuery("#help-holder").click(function() {
-            resetMinusButtonState();
-            displayHelpOverlay();
-        });
-
-        global.jQuery("#plus-holder").on("mouseout", function() {
-            if (!global.jQuery("#createOpenProjectOverlay").is(":visible") && !global.jQuery("#newProjectOverlay").is(":visible")) {
-                imgSwapper('plus-icon', 'img/icons/normal/plus.svg');
-            }
-
-            if (global.jQuery("#createOpenProjectOverlay").is(":visible") || global.jQuery("#newProjectOverlay").is(":visible")) {
-                imgSwapper('plus-icon', 'img/icons/active/plus-active.svg');
-            }
-        });
-
-        global.jQuery("#minus-holder").on("mouseover", function() {
-            if(!global.jQuery("#minus-holder").hasClass("sidebar-button-holder-inactive")) {
-               imgSwapper('minus-icon', 'img/icons/hover/minus-hover.svg');
-            }
-
-            if(global.jQuery("#minus-holder").hasClass("sidebar-button-active")) {
-               imgSwapper('minus-icon', 'img/icons/active/minus-active.svg');
-            }
-        });
-
-        global.jQuery("#minus-holder").on("mouseout", function() {
-            if(!global.jQuery("#minus-holder").hasClass("sidebar-button-holder-inactive")) {
-                if (!global.jQuery(".flip-container").hasClass("flip")) {
-                    imgSwapper('minus-icon', 'img/icons/normal/minus.svg');
-                }
-
-                if (global.jQuery(".flip-container").hasClass("flip")) {
-                    imgSwapper('minus-icon', 'img/icons/active/minus-active.svg');
-                }
-            }
-
-            if(global.jQuery("#minus-holder").hasClass("sidebar-button-active")) {
-               imgSwapper('minus-icon', 'img/icons/active/minus-active.svg');
-            }
-        });
-
-        global.jQuery("#settings-holder").on("mouseout", function() {
-            if (!global.jQuery("#settingsOverlay").is(":visible")) {
-                imgSwapper('settings-icon', 'img/icons/normal/settings.svg');
-            } else {
-                imgSwapper('settings-icon', 'img/icons/active/settings-active.svg');
-            }
-        });
-
-        global.jQuery("#help-holder").on("mouseout", function() {
-            if (!global.jQuery("#helpOverlay").is(":visible")) {
-                imgSwapper('help-icon', 'img/icons/normal/help.svg');
-            } else {
-                imgSwapper('help-icon', 'img/icons/hover/help-hover.svg');
-            }
-        });
-
-        global.jQuery("#updateLater").click(function() {
-            overlayBackgroundHandler();
-        });
-
-        global.jQuery("#updateNow").click(function() {
-            var text = global.jQuery("#updateNow").text();
-            if (text == "Restart") {
-                restartApp();
-            } else {
-                if (determineOperatingSystem() == 'darwin') {
-                    updateApp();
+            $("#updateNow").click(function() {
+                var text = $("#updateNow").text();
+                if (text == "Restart") {
+                    restartApp();
                 } else {
-                    gui.Shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/releases");
-                    global.jQuery("#updateOverlay").hide();
+                    if (determineOperatingSystem() == 'darwin') {
+                        updateApp();
+                    } else {
+                        gui.Shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/releases");
+                        $("#updateOverlay").hide();
+                    }
                 }
+
+                overlayBackgroundHandler();
+            });
+
+            initSettings();
+
+            hideProjectPathError();
+            hideProjectNameError();
+            hideProjectIdError();
+            disableMinusButton();
+
+            initFileMenu();
+
+            trackAppOpened();
+            gaAppLoaded();
+            getProjects();
+
+        });
+
+        function getProjectPath(e) {
+            var path = dialog.showOpenDialog({properties: ['openDirectory']});
+            if ($.isArray(path)) {
+                if (path.length > 0) {
+                    path = path[0];
+                    $('#projectDirectory').val(path);
+                    console.log(path);
+
+                    if (global.createChosen) {
+                        selectProjectPath(e);
+                    } else {
+                        openProject(e);
+                    }
+
+                } else {
+                    console.log("path array was empty");
+                }
+            } else {
+                console.log("path returned was not array");
             }
+        }
 
-            overlayBackgroundHandler();
-        });
+        function imgSwapper(img, src) {
+            $("#" + img).attr("src", src);
+        }
 
-        global.jQuery("#releaseLink").click(function() {
-            openReleasePage();
-        });
+        </script>
+    </head>
+    <body style="overflow-x: hidden; overflow-y: hidden;" id="body">
 
-        global.jQuery("#readMore").click(function() {
-            openBlogPost();
-        });
+        <div id="overlay-bg" class="topcoat-overlay-bg-grey"></div>
 
-        initSettings();
-
-        hideProjectPathError();
-        hideProjectNameError();
-        hideProjectIdError();
-        disableMinusButton();
-
-        parsePackageJSON();
-
-        gaAppLoaded();
-        getProjects();
-    });
-
-    function imgSwapper(img, src) {
-        global.jQuery("#" + img).attr("src", src);
-    }
-
-    </script>
-</head>
-<body style="overflow-x: hidden; overflow-y: hidden;" id="body">
-
-    <div id="overlay-bg" class="topcoat-overlay-bg-grey"></div>
-
-    <aside id="updateOverlay" class="update-overlay">
-        <div class="overlay-form-item-heading" id="updateOverlayTitle"></div>
-        <div class="overlay-form-item settings-ip-label" id="updateOverlayPrompt"></div>
-        <div class="overlay-form-item">
-            <button id="updateLater" class="cancel-button">Cancel</button>
-            <button id="updateNow" class="action-button">Update</button>
-        </div>
-    </aside>
-
-    <aside id="settingsOverlay" class="settings-overlay">
-        <div class="overlay-form-item-heading">Server port:</div>
-        <div class="overlay-form-item"><span id="settings-ip" class="settings-ip-label"></span><input type="text" id="portNumber" class="text-input settings-port-number-input" maxlength="5"></div>
-        <div class="overlay-form-item overlay-form-item-description">This is the port where the local server will serve all projects.</div>
-        <div class="overlay-form-item required" id="port-number-error">The server port must contain only numbers.</div>
-        <div class="overlay-form-item-heading">Diagnostic & Usage Data:</div>
-        <div class="overlay-form-item">
-            <label class="topcoat-checkbox">
-                <input type="checkbox" id="sendUsage">
-                <div class="topcoat-checkbox__checkmark"></div>
-            </label>
-            <span class="settings-ip-label" style="padding-left: 3px;">Send anonymous diagnostic & usage data</span>
-        </div>
-        <div class="overlay-form-item overlay-form-item-description">Help us improve by automatically sending anonymous diagnostic & usage data.</div>
-        <div class="overlay-form-item">
-            <hr class="dotted-hr" />
-        </div>
-        <div class="overlay-form-item">
-            <button id="cancelSettings" class="cancel-button">Cancel</button>
-            <button id="saveSettings" class="action-button">Save</button>
-        </div>
-    </aside>
-
-    <aside id="serverLogOverlay" class="server-log-overlay">
-        <div class="overlay-form-item">Server Log</div>
-        <div class="overlay-form-item">
-            <textarea id="serverLog" readonly class="server-log-textarea"></textarea>
-        </div>
-        <div class="overlay-form-item">
-            <button id="closeServerLog" class="cancel-button" style="float: right;">Close</button>
-        </div>
-    </aside>
-
-    <aside id="newProjectOverlay" class="new-project-overlay">
-        <div class="overlay-form-item-heading" id="new-project-path-label">Local path:</div>
-        <div class="overlay-form-item">
-            <span id="project-path-border">
-                <img id="project-path-warning-icon" src="img/icons/normal/warning.svg" />
-                <div id="projectPath" class="overlay-form-item-description italics project-path-label">Please choose a local path</div>
-            </span>
-            <button id="chooseNewProjectPath" class="new-project-choose-button">Choose...</button>
-        </div>
-        <div class="overlay-form-item"></div>
-        <div class="overlay-form-item overlay-form-item-description">This is where the project will be stored on your computer.</div>
-        <div class="overlay-form-item overlay-form-item required" id="project-path-error-message">You must choose a local path where your project will be created.</div>
-
-        <div class="overlay-form-item-heading" id="new-project-name-label">Name:</div>
-        <div class="overlay-form-item">
-            <input type="text" id="projectName" class="text-input project-input-field" />
-        </div>
-        <div class="overlay-form-item overlay-form-item-description">The display name for your app.</div>
-        <div class="overlay-form-item overlay-form-item required" id="project-name-error-message">You must give your new project a name.</div>
-
-        <div class="overlay-form-item-heading" id="new-project-id-label">ID: <span class="overlay-form-item-description">(optional)</span></div>
-        <div class="overlay-form-item">
-            <input type="text" id="project-id" class="text-input project-input-field" placeholder="com.phonegap.helloworld" />
-        </div>
-        <div class="overlay-form-item overlay-form-item-description">The unique identifier across app stores. We recommend you use a reverse domain namespace format, for example: com.phonegap.helloworld</div>
-        <div class="overlay-form-item overlay-form-item required" id="project-id-error-message">You must create an ID for your project.</div>
-
-        <div class="overlay-form-item">
-            <hr class="dotted-hr" />
-        </div>
-        <div class="overlay-form-item">
-            <button id="cancelNewProject" class="cancel-button">Cancel</button>
-            <button id="addNewProject" class="action-button">Create project</button>
-        </div>
-    </aside>
-
-    <aside id="createOpenProjectOverlay" class="create-overlay">
-        <div id="createProject" class="flyout-top-button">Create new PhoneGap project...</div>
-        <div class="create-open-separator-spacer"><hr class="dotted-hr" /></div>
-        <div id="openProject" class="flyout-button">Open existing PhoneGap project...</div>
-    </aside>
-
-    <aside id="helpOverlay" class="help-overlay">
-        <div id="about" class="flyout-top-button">About</div>
-        <div class="create-open-separator-spacer"><hr class="dotted-hr" /></div>
-        <div id="tutorials" class="flyout-top-button">Tutorials</div>
-        <div class="create-open-separator-spacer"><hr class="dotted-hr" /></div>
-        <div id="reportIssue" class="flyout-button">Report Issue</div>
-        <div class="create-open-separator-spacer"><hr class="dotted-hr" /></div>
-        <div id="termsOfUse" class="flyout-button">Terms of Use</div>
-        <div class="create-open-separator-spacer"><hr class="dotted-hr" /></div>
-        <div id="privacyPolicy" class="flyout-button">Privacy Policy</div>
-    </aside>
-
-
-    <div class="banner">
-        PhoneGap Desktop 0.2.0 is available! <span id="releaseLink" class="banner-link">Download now</span>.<br/>This update requires a manual download (<span id="readMore" class="banner-link">read more</span>).
-    </div>
-
-    <div class="row container" style="overflow-x: hidden; overflow-y: hidden;" id="sideMenu">
-        <div class="column-2-hand sidebar">
-            <div id="plus-holder" class="box-row center-hand sidebar-button-holder" onMouseOver="imgSwapper('plus-icon', 'img/icons/hover/plus-hover.svg');">
-                <button id="plus" class="sidebarbutton" title="Add / Open Project">
-                    <img id="plus-icon" src="img/icons/normal/plus.svg" />
-                </button>
+        <aside id="updateOverlay" class="update-overlay">
+            <div class="overlay-form-item-heading" id="updateOverlayTitle"></div>
+            <div class="overlay-form-item settings-ip-label" id="updateOverlayPrompt"></div>
+            <div class="overlay-form-item">
+                <button id="updateLater" class="cancel-button">Cancel</button>
+                <button id="updateNow" class="action-button">Update</button>
             </div>
-            <div id="minus-holder" class="box-row center-hand sidebar-button-holder-inactive">
-                <button id="minus" class="sidebar-button-inactive" title="Remove Project">
-                    <img id="minus-icon" src="img/icons/inactive/minus-inactive.svg" />
-                </button>
+        </aside>
+
+        <aside id="settingsOverlay" class="settings-overlay">
+            <div class="overlay-form-item-heading">Server port:</div>
+            <div class="overlay-form-item"><span id="settings-ip" class="settings-ip-label"></span><input type="text" id="portNumber" class="text-input settings-port-number-input" maxlength="5"></div>
+            <div class="overlay-form-item overlay-form-item-description">This is the port where the local server will serve all projects.</div>
+            <div class="overlay-form-item required" id="port-number-error">The server port must contain only numbers.</div>
+            <div class="overlay-form-item-heading">Diagnostic & Usage Data:</div>
+            <div class="overlay-form-item">
+                <label class="topcoat-checkbox">
+                    <input type="checkbox" id="sendUsage">
+                    <div class="topcoat-checkbox__checkmark"></div>
+                </label>
+                <span class="settings-ip-label" style="padding-left: 3px;">Send anonymous diagnostic & usage data</span>
             </div>
-            <div id="settings-holder" class="box-row center-hand sidebar-button-holder" onMouseOver="imgSwapper('settings-icon', 'img/icons/hover/settings-hover.svg');">
-                <button id="settings" class="sidebarbutton" title="Settings">
-                    <img id="settings-icon" src="img/icons/normal/settings.svg" />
-                </button>
+            <div class="overlay-form-item overlay-form-item-description">Help us improve by automatically sending anonymous diagnostic & usage data.</div>
+            <div class="overlay-form-item">
+                <hr class="dotted-hr" />
             </div>
-            <div id="log-holder" class="box-row center-hand sidebar-button-holder" onMouseOver="imgSwapper('log-icon', 'img/icons/hover/log-hover.svg');" onMouseOut="imgSwapper('log-icon', 'img/icons/normal/log.svg');">
-                <button id="log" class="sidebarbutton" title="View Server Log" disabled>
-                    <img id="log-icon" src="img/icons/normal/log.svg" />
-                </button>
+            <div class="overlay-form-item">
+                <button id="cancelSettings" class="cancel-button">Cancel</button>
+                <button id="saveSettings" class="action-button">Save</button>
             </div>
-            <div id="help-holder" class="box-row center-hand sidebar-button-holder" onMouseOver="imgSwapper('help-icon', 'img/icons/hover/help-hover.svg');" onMouseOut="imgSwapper('help-icon', 'img/icons/normal/help.svg');">
-                <button id="help" class="sidebarbutton" title="Help">
-                    <img id="help-icon" src="img/icons/normal/help.svg" />
-                </button>
+        </aside>
+
+        <aside id="serverLogOverlay" class="server-log-overlay">
+            <div class="overlay-form-item">Server Log</div>
+            <div class="overlay-form-item">
+                <textarea id="serverLog" readonly class="server-log-textarea"></textarea>
             </div>
-        </div>
-        <div class="column-10-hand">
-            <div id="guide-add">
-                <div class="dropzone-content">
-                    <img src="img/icons/normal/dragdrop.svg" />
-                    <div>Drop PhoneGap</div>
-                    <div>project folders here</div>
+            <div class="overlay-form-item">
+                <button id="closeServerLog" class="cancel-button" style="float: right;">Close</button>
+            </div>
+        </aside>
+
+        <aside id="newProjectOverlay" class="new-project-overlay">
+            <div class="overlay-form-item-heading" id="new-project-path-label">Local path:</div>
+            <div class="overlay-form-item">
+                <span id="project-path-border">
+                    <img id="project-path-warning-icon" src="img/icons/normal/warning.svg" />
+                    <div id="projectPath" class="overlay-form-item-description italics project-path-label">Please choose a local path</div>
+                </span>
+                <button id="chooseNewProjectPath" class="new-project-choose-button">Choose...</button>
+            </div>
+            <div class="overlay-form-item"></div>
+            <div class="overlay-form-item overlay-form-item-description">This is where the project will be stored on your computer.</div>
+            <div class="overlay-form-item overlay-form-item required" id="project-path-error-message">You must choose a local path where your project will be created.</div>
+
+            <div class="overlay-form-item-heading" id="new-project-name-label">Name:</div>
+            <div class="overlay-form-item">
+                <input type="text" id="projectName" class="text-input project-input-field" />
+            </div>
+            <div class="overlay-form-item overlay-form-item-description">The display name for your app.</div>
+            <div class="overlay-form-item overlay-form-item required" id="project-name-error-message">You must give your new project a name.</div>
+
+            <div class="overlay-form-item-heading" id="new-project-id-label">ID: <span class="overlay-form-item-description">(optional)</span></div>
+            <div class="overlay-form-item">
+                <input type="text" id="project-id" class="text-input project-input-field" placeholder="com.phonegap.helloworld" />
+            </div>
+            <div class="overlay-form-item overlay-form-item-description">The unique identifier across app stores. We recommend you use a reverse domain namespace format, for example: com.phonegap.helloworld</div>
+            <div class="overlay-form-item overlay-form-item required" id="project-id-error-message">You must create an ID for your project.</div>
+
+            <div class="overlay-form-item">
+                <hr class="dotted-hr" />
+            </div>
+            <div class="overlay-form-item">
+                <button id="cancelNewProject" class="cancel-button">Cancel</button>
+                <button id="addNewProject" class="action-button">Create project</button>
+            </div>
+        </aside>
+
+        <aside id="createOpenProjectOverlay" class="create-overlay">
+            <div id="createProject" class="flyout-top-button">Create new PhoneGap project...</div>
+            <div class="create-open-separator-spacer"><hr class="dotted-hr" /></div>
+            <div id="openProject" class="flyout-button">Open existing PhoneGap project...</div>
+        </aside>
+
+        <aside id="helpOverlay" class="help-overlay">
+            <div id="about" class="flyout-top-button">About</div>
+            <div class="create-open-separator-spacer"><hr class="dotted-hr" /></div>
+            <div id="tutorials" class="flyout-button">Tutorials</div>
+            <div class="create-open-separator-spacer"><hr class="dotted-hr" /></div>
+            <div id="reportIssue" class="flyout-button">Report Issue</div>
+            <div class="create-open-separator-spacer"><hr class="dotted-hr" /></div>
+            <div id="termsOfUse" class="flyout-button">Terms of Use</div>
+            <div class="create-open-separator-spacer"><hr class="dotted-hr" /></div>
+            <div id="privacyPolicy" class="flyout-button">Privacy Policy</div>
+        </aside>
+
+        <div class="row container" style="overflow-x: hidden; overflow-y: hidden;" id="sideMenu">
+            <div class="column-2-hand sidebar">
+                <div id="plus-holder" class="box-row center-hand sidebar-button-holder" onMouseOver="imgSwapper('plus-icon', 'img/icons/hover/plus-hover.svg');">
+                    <button id="plus" class="sidebarbutton" title="Add / Open Project">
+                        <img id="plus-icon" src="img/icons/normal/plus.svg" />
+                    </button>
+                </div>
+                <div id="minus-holder" class="box-row center-hand sidebar-button-holder-inactive">
+                    <button id="minus" class="sidebar-button-inactive" title="Remove Project">
+                        <img id="minus-icon" src="img/icons/inactive/minus-inactive.svg" />
+                    </button>
+                </div>
+                <div id="settings-holder" class="box-row center-hand sidebar-button-holder" onMouseOver="imgSwapper('settings-icon', 'img/icons/hover/settings-hover.svg');">
+                    <button id="settings" class="sidebarbutton" title="Settings">
+                        <img id="settings-icon" src="img/icons/normal/settings.svg" />
+                    </button>
+                </div>
+                <div id="log-holder" class="box-row center-hand sidebar-button-holder" onMouseOver="imgSwapper('log-icon', 'img/icons/hover/log-hover.svg');" onMouseOut="imgSwapper('log-icon', 'img/icons/normal/log.svg');">
+                    <button id="log" class="sidebarbutton" title="View Server Log" disabled>
+                        <img id="log-icon" src="img/icons/normal/log.svg" />
+                    </button>
+                </div>
+                <div id="help-holder" class="box-row center-hand sidebar-button-holder" onMouseOver="imgSwapper('help-icon', 'img/icons/hover/help-hover.svg');" onMouseOut="imgSwapper('help-icon', 'img/icons/normal/help.svg');">
+                    <button id="help" class="sidebarbutton" title="Help">
+                        <img id="help-icon" src="img/icons/normal/help.svg" />
+                    </button>
                 </div>
             </div>
-            <div id="drop_zone" class="box-row dropzone"></div>
-            <div class="notification-bar" id="notification-bar">
-                <div style="padding-left: 15px; padding-top: 15px;" id="notification-text"></div>
+            <div class="column-10-hand">
+                <div id="guide-add">
+                    <div class="dropzone-content">
+                        <img src="img/icons/normal/dragdrop.svg" />
+                        <div>Drop PhoneGap</div>
+                        <div>project folders here</div>
+                    </div>
+                </div>
+                <div id="drop_zone" class="box-row dropzone"></div>
+                <div class="notification-bar" id="notification-bar">
+                    <div style="padding-left: 15px; padding-top: 15px;" id="notification-text"></div>
+                </div>
             </div>
+            <input type="hidden" id="projectDirectory">
         </div>
-        <input type="file" id="projectDirectory" nwdirectory>
-    </div>
 
-    <div class="status-field" id="status-field" style="position: absolute; top: 550px; left: 75px;">
-        <label id="server-status-label">Server is offline</label>
-    </div>
+        <div class="status-field" id="status-field">
+            <label id="server-status-label">Server is offline</label>
+        </div>
 
-</body>
+    </body>
 </html>

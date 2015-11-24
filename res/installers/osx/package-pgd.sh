@@ -1,5 +1,12 @@
 #! /bin/bash
-test -f ../../../installers/osx/PhoneGapDesktop.dmg && rm ../../../installers/osx/PhoneGapDesktop.dmg
+if test -e ../../../installers/osx64; then
+    echo "osx64 directory already exists"
+else
+    echo "creating osx64 directory"
+    mkdir ../../../installers/osx64
+fi
+
+test -f ../../../installers/osx64/PhoneGapDesktop.dmg && rm ../../../installers/osx64/PhoneGapDesktop.dmg
 
 ./create-dmg \
 --volname "PhoneGap Desktop Installer" \
@@ -10,5 +17,5 @@ test -f ../../../installers/osx/PhoneGapDesktop.dmg && rm ../../../installers/os
 --hide-extension PhoneGap.app \
 --app-drop-link 388 160 \
 --eula license.txt \
-../../../installers/osx/PhoneGapDesktop.dmg \
-../../../build/PhoneGap/osx64
+../../../installers/osx64/PhoneGapDesktop.dmg \
+../../../build/PhoneGap-darwin-x64/PhoneGap.app
