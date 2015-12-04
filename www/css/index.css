@@ -1,459 +1,462 @@
 #app {
-  background-color: #dfe2e2;
+    background-color: #dfe2e2;
 }
 .container {
-  width: 450px;
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: hidden;
-}
-.container-windows-shim {
-  height: 515px;
+    width: 450px;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 .sidebar {
-  background-color: #2d3033;
-  height: 100%;
-  z-index: 13;
+    background-color: #2d3033;
+    height: 100%;
+    z-index: 13;
 }
 .sidebar-bottom {
-  background-color: #2d3033;
-  height: 50px;
-  z-index: 14;
+    background-color: #2d3033;
+    height: 50px;
+    z-index: 14;
 }
 .sidebarbutton {
-  color: #2d3033;
-  background-color: rgba(45, 48, 51, 0);
-  border: none;
-  padding-top: 15px;
-  cursor: pointer;
+    color: #2d3033;
+    background-color: rgba(45, 48, 51, 0);
+    border: none;
+    padding-top: 15px;
+    cursor: pointer;
 }
 .sidebarbutton:hover {
-  background-color: rgba(31, 35, 38, 0);
+    background-color: rgba(31, 35, 38, 0);
 }
 .sidebar-button-holder {
-  background-color: #2d3033;
-  padding-bottom: 10px;
-  cursor: pointer;
+    background-color: #2d3033;
+    padding-bottom: 10px;
+    cursor: pointer;
 }
 .sidebar-button-holder:hover {
-  background-color: #1f2326;
+    background-color: #1f2326;
 }
 .sidebar-button-active {
-  background-color: #1f2326;
+    background-color: #1f2326;
 }
 .sidebar-button-inactive {
-  background-color: #43474b;
-  color: #43474b;
-  border: none;
-  padding-top: 15px;
-  cursor: inherit;
+    background-color: #43474b;
+    color: #43474b;
+    border: none;
+    padding-top: 15px;
+    cursor: inherit;
 }
 .sidebar-button-holder-inactive {
-  background-color: #43474b;
-  padding-bottom: 10px;
-  cursor: auto;
+    background-color: #43474b;
+    padding-bottom: 10px;
+    cursor: auto;
 }
 .notification-bar {
-  width: 375px;
-  height: 80px;
-  color: white;
-  background-color: #ff3200;
-  top: 470px;
-  left: 75px;
-  position: absolute;
-  z-index: 20;
-}
-.notification-bar-windows-shim {
-  top: 435px;
+    width: 375px;
+    height: 80px;
+    color: white;
+    background-color: #ff3200;
+    top: 470px;
+    left: 75px;
+    position: absolute;
+    z-index: 20;
 }
 .status-field {
-  width: 100%;
-  height: 50px;
-  padding-top: 15px;
-  padding-left: 15px;
-  color: white;
-  background-color: #999999;
-  position: absolute;
-  top: 550px;
-  left: 75px;
+    width: 100%;
+    height: 50px;
+    padding-top: 15px;
+    padding-left: 15px;
+    color: white;
+    background-color: #999999;
+    position: absolute;
+    top: 550px;
+    left: 75px;
 }
-.status-field-windows-shim {
-  top: 515px;
+.ip-list {
+    width: 100%;
+    height: auto;
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-bottom: 15px;
+    color: white;
+    background-color: #0c6d29;
+    position: absolute;
+    top: 400px;
+    left: 75px;
 }
 .dropzone {
-  width: 100%;
-  height: 550px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  z-index: 4;
-  position: fixed;
-  top: 0px;
-  left: 75px;
+    width: 100%;
+    height: 550px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 4;
+    position: fixed;
+    top: 0px;
+    left: 75px;
 }
 .dropzone-content {
-  text-align: center;
-  height: 550px;
-  color: #c1c3c2;
-  font-size: 14pt;
-  font-weight: 500;
-  padding-top: 205px;
+    text-align: center;
+    height: 550px;
+    color: #c1c3c2;
+    font-size: 14pt;
+    font-weight: 500;
+    padding-top: 205px;
 }
 .create-overlay {
-  background-color: #1f2326;
-  color: white;
-  position: fixed;
-  top: 0px;
-  left: 75px;
-  z-index: 12;
-  width: 375px;
-  height: 120px;
+    background-color: #1f2326;
+    color: white;
+    position: fixed;
+    top: 0px;
+    left: 75px;
+    z-index: 12;
+    width: 375px;
+    height: 120px;
 }
 .help-overlay {
-  background-color: #1f2326;
-  color: white;
-  position: fixed;
-  top: 0px;
-  left: 75px;
-  z-index: 12;
-  width: 375px;
-  height: 298px;
+    background-color: #1f2326;
+    color: white;
+    position: fixed;
+    top: 0px;
+    left: 75px;
+    z-index: 12;
+    width: 375px;
+    height: 298px;
 }
 .new-project-overlay {
-  background-color: #1f2326;
-  color: white;
-  position: fixed;
-  top: 0px;
-  left: 75px;
-  z-index: 12;
-  width: 375px;
-  height: 440px;
+    background-color: #1f2326;
+    color: white;
+    position: fixed;
+    top: 0px;
+    left: 75px;
+    z-index: 12;
+    width: 375px;
+    height: 440px;
 }
 .new-project-overlay-duplicate-project-name-error {
-  height: 520px;
+    height: 520px;
 }
 .new-project-overlay-project-name-or-project-id-error {
-  height: 480px;
+    height: 480px;
 }
 .new-project-overlay-project-name-and-project-id-error {
-  height: 515px;
+    height: 515px;
 }
 .new-project-overlay-project-path-and-other-error {
-  height: 525px;
+    height: 525px;
 }
 .new-project-overlay-project-path-error {
-  height: 495px;
+    height: 495px;
 }
 .new-project-overlay-all-errors {
-  height: 555px;
+    height: 555px;
 }
 .overlay-form-item-heading {
-  padding-top: 20px;
-  padding-left: 20px;
-  font-size: 11pt;
+    padding-top: 20px;
+    padding-left: 20px;
+    font-size: 11pt;
 }
 .overlay-form-item {
-  padding-top: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 .overlay-form-item-description {
-  color: #999999;
-  font-size: small;
+    color: #999999;
+    font-size: small;
 }
 .italics {
-  font-style: italic;
+    font-style: italic;
 }
 #project-path-warning-icon {
-  position: relative;
-  padding-top: 3px;
-  padding-left: 3px;
-  padding-right: 3px;
+    position: relative;
+    padding-top: 3px;
+    padding-left: 3px;
+    padding-right: 3px;
 }
 #project-path-border {
-  border: 1px solid;
-  border-color: #999999;
-  display: inline-block;
-  width: 225px;
-  max-width: 225px;
-  white-space: nowrap;
-  padding-top: 2px;
+    border: 1px solid;
+    border-color: #999999;
+    display: inline-block;
+    width: 225px;
+    max-width: 225px;
+    white-space: nowrap;
+    padding-top: 2px;
 }
 .project-creation-warning-icon {
-  background: url(../img/icons/normal/warning.svg) no-repeat;
-  background-position: 308px 2px;
-  background-color: white;
+    background: url(../img/icons/normal/warning.svg) no-repeat;
+    background-position: 308px 2px;
+    background-color: white;
 }
 .error-message {
-  color: #ff0000;
-  font-size: small;
+    color: #ff0000;
+    font-size: small;
 }
 .project-input-field {
-  width: 330px;
+    width: 330px;
 }
 .project-path-label {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 200px;
-  white-space: nowrap;
-  text-align: left;
-  font-size: 10pt;
-  display: inline-block;
-  padding-top: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    white-space: nowrap;
+    text-align: left;
+    font-size: 10pt;
+    display: inline-block;
+    padding-top: 4px;
 }
 .new-project-choose-button {
-  background-color: #1ba1c7;
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-size: 11pt;
-  height: 30px;
-  width: 100px;
-  float: right;
+    background-color: #1ba1c7;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 11pt;
+    height: 30px;
+    width: 100px;
+    float: right;
 }
 .new-project-choose-button:hover {
-  background-color: #134590;
+    background-color: #134590;
 }
 .required {
-  color: #ff5122;
+    color: #ff5122;
 }
 .required-input {
-  border-color: #ff5122;
-  border-width: 3px;
+    border-color: #ff5122;
+    border-width: 3px;
 }
 .server-log-overlay {
-  background-color: #1f2326;
-  color: white;
-  position: fixed;
-  top: 0px;
-  left: 75px;
-  z-index: 12;
-  width: 375px;
-  height: 600px;
+    background-color: #1f2326;
+    color: white;
+    position: fixed;
+    top: 0px;
+    left: 75px;
+    z-index: 12;
+    width: 375px;
+    height: 600px;
 }
 .server-log-textarea {
-  width: 330px;
-  height: 490px;
-  background-color: black;
-  color: white;
-  border: none;
-  resize: none;
+    width: 330px;
+    height: 490px;
+    background-color: black;
+    color: white;
+    border: none;
+    resize: none;
 }
 .action-button {
-  background-color: #21aa48;
-  color: white;
-  border: none;
-  cursor: pointer;
-  padding-top: 7px;
-  padding-bottom: 7px;
-  padding-left: 12px;
-  padding-right: 12px;
-  float: right;
-  font-size: 11pt;
+    background-color: #21aa48;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 12px;
+    padding-right: 12px;
+    float: right;
+    font-size: 11pt;
 }
 .action-button:hover {
-  background-color: #007e20;
+    background-color: #007e20;
 }
 .cancel-button {
-  background-color: #383c41;
-  color: white;
-  border: none;
-  cursor: pointer;
-  padding-top: 7px;
-  padding-bottom: 7px;
-  padding-left: 12px;
-  padding-right: 12px;
-  float: left;
-  font-size: 11pt;
+    background-color: #383c41;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 12px;
+    padding-right: 12px;
+    float: left;
+    font-size: 11pt;
 }
 .cancel-button:hover {
-  background-color: #555a5d;
+    background-color: #555a5d;
 }
 .dotted-hr {
-  border: 0px;
-  border-bottom: 1px dashed #616569;
-  height: 0px;
-  padding: 0px 0px 0px 0px;
+    border: 0px;
+    border-bottom: 1px dashed #616569;
+    height: 0px;
+    padding: 0px 0px 0px 0px;
 }
 .create-open-separator-spacer {
-  padding-left: 15px;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  padding-right: 15px;
+    padding-left: 15px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 15px;
 }
 .flyout-top-button {
-  padding-top: 20px;
-  padding-bottom: 12px;
-  padding-left: 15px;
-  cursor: pointer;
-  font-size: 11pt;
+    padding-top: 20px;
+    padding-bottom: 12px;
+    padding-left: 15px;
+    cursor: pointer;
+    font-size: 11pt;
 }
 .flyout-button {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  padding-left: 15px;
-  cursor: pointer;
-  font-size: 11pt;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 15px;
+    cursor: pointer;
+    font-size: 11pt;
 }
 .open-project-button {
-  padding-top: 12px;
-  padding-bottom: 20px;
-  padding-left: 15px;
-  cursor: pointer;
-  font-size: 11pt;
+    padding-top: 12px;
+    padding-bottom: 20px;
+    padding-left: 15px;
+    cursor: pointer;
+    font-size: 11pt;
 }
 .flyout-top-button:hover {
-  color: #40afd4;
+    color: #40afd4;
 }
 .flyout-button:hover {
-  color: #40afd4;
+    color: #40afd4;
 }
 .open-project-button:hover {
-  color: #40afd4;
+    color: #40afd4;
 }
 .update-overlay {
-  background-color: #1f2326;
-  color: white;
-  position: fixed;
-  top: 0px;
-  left: 75px;
-  z-index: 13;
-  width: 375px;
-  height: 150px;
+    background-color: #1f2326;
+    color: white;
+    position: fixed;
+    top: 0px;
+    left: 75px;
+    z-index: 13;
+    width: 375px;
+    height: 150px;
 }
 .settings-overlay {
-  background-color: #1f2326;
-  color: white;
-  position: fixed;
-  top: 0px;
-  left: 75px;
-  z-index: 12;
-  width: 375px;
-  height: 305px;
+    background-color: #1f2326;
+    color: white;
+    position: fixed;
+    top: 0px;
+    left: 75px;
+    z-index: 12;
+    width: 375px;
+    height: 305px;
 }
 .settings-ip-label {
-  color: #999999;
-  padding-right: 10px;
+    color: #999999;
+    padding-right: 10px;
 }
 .settings-port-number-input {
-  width: 60px;
+    width: 60px;
 }
 .settings-port-error {
-  height: 225px;
+    height: 225px;
 }
 .checkbox:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 .checkbox-label {
-  color: white;
-  padding-left: 10px;
+    color: white;
+    padding-left: 10px;
 }
 .widget-border {
-  border-bottom: 1px solid #dfe2e2;
-  background-color: #e8e9e9;
-  padding: 0px 20px 0px 0px;
+    border-bottom: 1px solid #dfe2e2;
+    background-color: #e8e9e9;
+    padding: 0px 20px 0px 0px;
 }
 .widget-offline {
-  width: 5px;
+    width: 5px;
 }
 .widget-online {
-  background-color: #2ba94d;
+    background-color: #2ba94d;
 }
 .project-details-column {
-  width: 210px;
-  padding-top: 20px;
-  padding-left: 10px;
+    width: 210px;
+    padding-top: 20px;
+    padding-left: 10px;
 }
 .project-indicator {
-  width: 46px;
-  text-align: center;
-  padding-top: 20px;
+    width: 46px;
+    text-align: center;
+    padding-top: 20px;
 }
 .project-icon-column {
-  padding-left: 15px;
-  padding-top: 20px;
+    padding-left: 15px;
+    padding-top: 20px;
 }
 .project-folder-column {
-  padding-left: 15px;
-  padding-bottom: 20px;
+    padding-left: 15px;
+    padding-bottom: 20px;
 }
 .project-name {
-  color: #2d3033;
-  font-size: 14pt;
-  font-weight: 600;
-  max-height: 50px;
-  max-width: 210px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    color: #2d3033;
+    font-size: 14pt;
+    font-weight: 600;
+    max-height: 50px;
+    max-width: 210px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .project-version {
-  color: #2d3033;
-  font-size: 12pt;
-  font-weight: 200;
-  max-height: 25px;
-  max-width: 210px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    color: #2d3033;
+    font-size: 12pt;
+    font-weight: 200;
+    max-height: 25px;
+    max-width: 210px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .delete-button {
-  border: 0px none;
-  width: 64px;
-  height: 64px;
-  background-color: #ff3200;
-  cursor: pointer;
+    border: 0px none;
+    width: 64px;
+    height: 64px;
+    background-color: #ff3200;
+    cursor: pointer;
 }
 .delete-button:hover {
-  background-color: #dd310b;
-  cursor: pointer;
+    background-color: #dd310b;
+    cursor: pointer;
 }
 .delete-holder {
-  background-color: #ff3200;
-  cursor: pointer;
+    background-color: #ff3200;
+    cursor: pointer;
 }
 .delete-holder:hover {
-  background-color: #dd310b;
-  cursor: pointer;
+    background-color: #dd310b;
+    cursor: pointer;
 }
 .topcoat-checkbox:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 .localPath {
-  max-width: 335px;
-  font-size: 10pt;
-  color: #999999;
+    max-width: 335px;
+    font-size: 10pt;
+    color: #999999;
 }
 .projDir {
-  max-width: 335px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  text-align: left;
-  font-size: 10pt;
+    max-width: 335px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+    font-size: 10pt;
 }
 .projectDirLink {
-  color: #27a1c5;
+    color: #27a1c5;
 }
 a.projectDirLink:hover {
-  color: #17478e;
-  cursor: pointer;
+    color: #17478e;
+    cursor: pointer;
 }
 .hr-icon {
-  width: inherit;
-  opacity: 0.0;
-  padding-top: 6px;
-  padding-bottom: 6px;
+    width: inherit;
+    opacity: 0.0;
+    padding-top: 6px;
+    padding-bottom: 6px;
 }
 .stop-icon {
-  opacity: 0.0;
+    opacity: 0.0;
 }
 .stop-icon-active {
-  cursor: pointer;
+    cursor: pointer;
 }
 .start-icon {
-  padding-top: 10px;
-  cursor: pointer;
+    padding-top: 10px;
+    cursor: pointer;
 }
 .text-input {
-  height: 24px;
-  font-size: 16px;
+    height: 24px;
+    font-size: 16px;
 }
