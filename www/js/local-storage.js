@@ -40,7 +40,6 @@ function getProjects() {
     if (localStorage.projects) {
 
         var projects = JSON.parse(localStorage.projects);
-        var index = projects.length;
 
         $.each(projects, function(idx, project) {
             var projDir = project.projDir;
@@ -116,6 +115,7 @@ function getProjectConfig(id, projDir, i) {
 }
 
 function parseConfigForRendering(data, id, projDir, i) {
+    console.log("parseConfigForRendering");
     var iconPath = projDir + buildPathBasedOnOS("/www/");
 
     $.xmlDoc = $.parseXML(data);
@@ -132,10 +132,6 @@ function parseConfigForRendering(data, id, projDir, i) {
     iconPath += projectIcon;
 
     addProjectWidget(id, projectName, projectVersion, iconPath, projDir);
-
-    if (i == 0) {
-        setActiveWidget(id, projDir);
-    }
 }
 
 function removeProjectById(currentId) {
