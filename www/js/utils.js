@@ -57,8 +57,24 @@ function getDebugFlag() {
 }
 
 function setDebugFlag(debugMode) {
-    global.debugMode = debugMode;
-    console.log('setDebugFlag: ' + debugMode);
+    var pathToPackageJSON = buildPathBasedOnOS("/www/package.json");
+
+    if (debugMode === 'undefinded') {
+        fs.readFile(pathToPackageJSON, {encoding:'utf8'}, function(err, data) {
+            if (err) {
+                // set debugMode default to false;
+                global.debugMode = false;
+            } else {
+                global.debugMode = data.window.devTools;
+            }
+            console.log('setDebugFlag: ' + global.debugMode);
+        });
+    } else {
+        global.debugMode = debugMode;
+        console.log('setDebugFlag: ' + global.debugMode);
+    }
+
+
 }
 
 function openIssueTracker() {
