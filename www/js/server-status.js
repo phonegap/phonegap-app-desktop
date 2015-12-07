@@ -19,10 +19,13 @@ function toggleServerStatus(projDir) {
             global.pgServer.listen({ port: localStorage.portNumber })
             .on("complete", function(data) {
 
+                /*
+                console.log(getDebugFlag());
                 if (getDebugFlag()) {
-                    data.addresses = ['192.168.0.1', '10.0.1.4', '172.168.0.1', '127.0.0.1', '192.168.1.100'];
+                    data.addresses = ['192.168.0.1', '10.0.1.4', '172.168.0.1'];//, '127.0.0.1', '192.168.1.100', '192.168.0.1', '10.0.1.4', '172.168.0.1', '127.0.0.1', '192.168.1.100'];
                 }
-
+                */
+                
                 var ipAddressesFound = data.addresses.length;
 
                 global.server = data.server;
@@ -31,6 +34,7 @@ function toggleServerStatus(projDir) {
                 if (ipAddressesFound > 1) {
                     multipleServersOnlineState(data);
                 } else {
+                    $("#status-field").css("top", "550px");
                     serverOnlineState(data, "Server is running on http://" + data.addresses[0] + ":" + data.port);
                 }
 
@@ -80,19 +84,38 @@ function multipleServersOnlineState(data) {
     // data.addresses to access all IP addresses found
     var ipAddressesFound = data.addresses.length;
     var ipAddresses = "";
+    var ipListHeight = 30;
 
     for (var address of data.addresses) {
+        ipAddresses += "<div style='height: 20px; padding-top: 2px; padding-bottom: 2px;'>"
         ipAddresses += "http://";
         ipAddresses += address;
         ipAddresses += ":";
         ipAddresses += data.port;
-        ipAddresses += "<br/>";
+        ipAddresses += "</div>";
     }
 
-    // set the server status bar
-    serverOnlineState(data, "Server is running on multiple IP addresses:");
+    if (ipAddressesFound > 5) {
+        ipListHeight = ipListHeight + (24 * 5);
+    } else {
+        ipListHeight = ipListHeight + (24 * ipAddressesFound);
+    }
+
+    console.log(ipListHeight);
+
+    var ipListTop = 600 - ipListHeight;
+    console.log(ipListTop);
+
+    var statusFieldTop = ipListTop - 50;
+    console.log(statusFieldTop);
 
     $("#ip-list").html(ipAddresses);
+    $("#ip-list").css("height", ipListHeight);
+    $("#ip-list").css("top", ipListTop);
+    $("#ip-list").css("overlfow", "scroll");
     $("#ip-list").show();
 
+    // set the server status bar
+    $("#status-field").css("top", statusFieldTop);
+    serverOnlineState(data, "Server is running on multiple IP addresses:");
 }
