@@ -68,20 +68,19 @@
     color: white;
     background-color: #999999;
     position: absolute;
-    top: 550px;
     left: 75px;
 }
 .ip-list {
     width: 100%;
-    height: auto;
+    height: 0px;
     padding-top: 15px;
     padding-left: 15px;
     padding-bottom: 15px;
     color: white;
     background-color: #0c6d29;
     position: absolute;
-    top: 400px;
     left: 75px;
+    max-height: 150px;
 }
 .dropzone {
     width: 100%;
