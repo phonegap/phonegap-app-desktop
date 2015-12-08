@@ -88,7 +88,7 @@
             $("#overlay-bg").hide();
             $("#notification-bar").hide();
             $("#port-number-error").hide();
-            $("#ip-list").hide();
+            $("#ip-holder").hide();
 
             $("#body").on("drop", handleDrop);
             $("#body").on("dragover", handleDragOver);
@@ -461,12 +461,9 @@
             <input type="hidden" id="projectDirectory">
         </div>
 
-        <div class="status-field" id="status-field">
-            <label id="server-status-label">Server is offline</label>
-        </div>
+        <div class="status-field" id="status-field"><label id="server-status-label">Server is offline</label></div>
 
-        <div class="ip-list" id="ip-list">
-        </div>
+        <div class="ip-holder" id="ip-holder"><div class="ip-list" id="ip-list"></div></div>
 
     </body>
 </html>
