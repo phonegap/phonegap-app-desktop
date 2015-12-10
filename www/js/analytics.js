@@ -11,6 +11,20 @@ function trackAppOpened() {
     }
 }
 
+function trackNumIPsFound(count) {
+    if(getSendUsageFlag()) {
+        var numIPsFound = {
+            userId: getUserId(),
+            platform: determineOperatingSystem(),
+            debug: getDebugFlag(),
+            version: getVersion(),
+            quantity: count
+        };
+
+        global.client.addEvent("numIPsFound", numIPsFound);
+    }
+}
+
 function trackProjectsLoaded(count) {
     if(getSendUsageFlag()) {
         var projectsLoaded = {
