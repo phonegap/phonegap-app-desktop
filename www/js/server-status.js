@@ -21,6 +21,8 @@ function toggleServerStatus(projDir) {
 
                 var ipAddressesFound = data.addresses.length;
 
+                trackNumIPsFound(ipAddressesFound);
+
                 global.server = data.server;
                 global.isServerRunning = true;
 
