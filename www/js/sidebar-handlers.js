@@ -167,6 +167,7 @@ function toggleLog() {
         $("#serverLogOverlay").removeClass("animated slideOutLeft");
         $("#serverLogOverlay").addClass("animated slideInLeft");
         $("#status-field").hide();
+        $("#ip-holder").hide();
         $("#overlay-bg").show();
         $("#serverLogOverlay").show();
     }
@@ -174,6 +175,7 @@ function toggleLog() {
 
 function handleHideServerLogAnimationEnd() {
     $("#status-field").show();
+    $("#ip-holder").show();
     $("#serverLogOverlay").hide();
     $("#serverLogOverlay").removeClass("animated slideOutLeft");
 }
