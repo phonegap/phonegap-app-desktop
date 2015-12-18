@@ -62,6 +62,11 @@ module.exports = function(grunt) {
         grunt.file.write('./www/package.json', releaseConfig);
     });
 
+    grunt.task.registerTask('copy-eula', function() {
+        grunt.file.copy('./src/license.txt', './res/installers/osx/license.txt');
+        grunt.file.copy('./src/license.txt', './res/installers/win/license.txt');
+    });
+
     // Clean build directories
     grunt.task.registerTask('clean-build-dir', function() {
         var shell = require('shelljs');
@@ -78,6 +83,6 @@ module.exports = function(grunt) {
             opener((os.platform() === 'darwin') ? macPath : winPath);
     });
 
-    grunt.registerTask('default', ['clean-node-modules', 'install-dependencies', 'copy-dev-config', 'clean-build-dir', 'electron', 'open']);
-    grunt.registerTask('release', ['clean-node-modules', 'install-dependencies', 'copy-release-config', 'clean-build-dir', 'electron', 'open']);
+    grunt.registerTask('default', ['clean-node-modules', 'install-dependencies', 'copy-dev-config', 'copy-eula', 'clean-build-dir', 'electron', 'open']);
+    grunt.registerTask('release', ['clean-node-modules', 'install-dependencies', 'copy-release-config', 'copy-eula', 'clean-build-dir', 'electron', 'open']);
 };
