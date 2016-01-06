@@ -62,8 +62,10 @@ function setServerOnline(projDir) {
 }
 
 function setServerOffline() {
-    global.server.close();
-    global.isServerRunning = false;
+    global.server.close(function() {
+        global.isServerRunning = false;
+        console.log("server closed");
+    });
 }
 
 function setServerOfflineThenOnline(projDir) {
