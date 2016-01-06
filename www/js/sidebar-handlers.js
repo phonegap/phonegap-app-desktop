@@ -181,7 +181,6 @@ function handleHideServerLogAnimationEnd() {
 }
 
 function overlayBackgroundHandler(evt) {
-    console.log("clicked!!");
     $("#overlay-bg").hide();
     hideOverlays();
 }
