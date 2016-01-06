@@ -1,9 +1,13 @@
 function toggleServerStatus(projDir) {
     if (global.isServerRunning) {
         // if server is currently running, stop it before opening a new server instance
-        setServerOffline();
+        setServerOfflineThenOnline(projDir);
+    } else {
+        setServerOnline(projDir);
     }
+}
 
+function setServerOnline(projDir) {
     if (projDir.length > 0) {
         localStorage.projDir = projDir;
     } else {
@@ -60,6 +64,13 @@ function toggleServerStatus(projDir) {
 function setServerOffline() {
     global.server.close();
     global.isServerRunning = false;
+}
+
+function setServerOfflineThenOnline(projDir) {
+    global.server.close(function() {
+        global.isServerRunning = false;
+        setServerOnline(projDir);
+    });
 }
 
 function serverOfflineState() {
