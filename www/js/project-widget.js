@@ -118,6 +118,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
         if ($("#stop-icon_" + id.toString()).hasClass("stop-icon-active")) {
             if (global.isServerRunning) {
                 // turn off the server
+                global.stopClicked = true;
                 setServerOffline();
                 serverOfflineState();
                 widgetSeverOfflineState(id);
