@@ -48,6 +48,11 @@ function setServerOnline(projDir) {
                 $("#status-field").css("background-color", "rgb(153,153,153)");
                 widgetSeverOfflineState(global.activeWidget.projectId);
 
+                if(e.message.indexOf('EADDRINUSE') > -1 && global.stopClicked == true) {
+                    global.stopClicked = false;
+                    toggleServerStatus(projDir);
+                }
+
             })
             .on("log", function(status, url) {
                 $("#serverLog").append(status + " " + url + "\n");
