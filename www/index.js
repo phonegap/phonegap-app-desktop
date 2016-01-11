@@ -10,6 +10,7 @@ require('crash-reporter').start();
 // be closed automatically when the javascript object is GCed.
 var mainWindow = null;
 var debugMode = null;
+var autoUpdater = require('auto-updater');
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
@@ -48,6 +49,24 @@ app.on('ready', function() {
     });
 
     mainWindow.webContents.on('did-finish-load', function() {
+
+        autoUpdater.on('error', function(e) {
+            mainWindow.webContents.executeJavaScript('console.log("error: '+ e.message +' ");');
+        })
+        .on('checking-for-update', function(e) {
+            mainWindow.webContents.executeJavaScript('console.log("checking-for-update");');
+        })
+        .on('update-available', function(e) {
+            mainWindow.webContents.executeJavaScript('console.log("update-available");');
+        })
+        .on('update-not-available', function(e) {
+            mainWindow.webContents.executeJavaScript('console.log("update-not-available");');
+        });
+
+        autoUpdater.setFeedUrl('https://raw.githubusercontent.com/phonegap/phonegap-app-desktop/0.2.2/update.json?version=' + app.getVersion());
+        autoUpdater.checkForUpdates();
+
+/** Manual update notificaiton ** 
         var request = require('request');
         request({
                 method: 'GET',
@@ -56,6 +75,7 @@ app.on('ready', function() {
             },
             function (error, response, body) {
                 if (!error && response.statusCode == 200) {
+
                     // get the PG version on github
                     var remoteVersion = body.version;
                     mainWindow.webContents.executeJavaScript('console.log("remote version: '+ remoteVersion +' ");');
@@ -86,7 +106,7 @@ app.on('ready', function() {
                 }
             }
         );
-
+*/
         mainWindow.webContents.executeJavaScript('console.log("current version: '+ app.getVersion() +' ");');
         mainWindow.webContents.executeJavaScript('console.log("debugMode: '+ debugMode +' ");');
         mainWindow.webContents.executeJavaScript('setDebugFlag('+ debugMode +');');
