@@ -46,6 +46,13 @@ module.exports = function(grunt) {
         });
     });
 
+    // OSX code signing
+    grunt.task.registerTask('code-sign-osx', function() {
+        var shell = require('shelljs');
+        shell.exec("codesign --deep --force --verbose --sign 'Mac Developer: Herman Wong (M6QFED29S9)' build/PhoneGap-darwin-x64/PhoneGap.app");
+        shell.exec("codesign --force --verbose --sign 'Mac Developer: Herman Wong (M6QFED29S9)' build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/Electron");
+    });
+
     // Clean node dependencies
     grunt.task.registerTask('clean-node-modules', function() {
         var shell = require('shelljs');
@@ -83,6 +90,6 @@ module.exports = function(grunt) {
             opener((os.platform() === 'darwin') ? macPath : winPath);
     });
 
-    grunt.registerTask('default', ['clean-node-modules', 'install-dependencies', 'copy-dev-config', 'copy-eula', 'clean-build-dir', 'electron', 'open']);
-    grunt.registerTask('release', ['clean-node-modules', 'install-dependencies', 'copy-release-config', 'copy-eula', 'clean-build-dir', 'electron', 'open']);
+    grunt.registerTask('default', ['clean-node-modules', 'install-dependencies', 'copy-dev-config', 'copy-eula', 'clean-build-dir', 'electron', 'code-sign-osx', 'open']);
+    grunt.registerTask('release', ['clean-node-modules', 'install-dependencies', 'copy-release-config', 'copy-eula', 'clean-build-dir', 'electron', 'code-sign-osx', 'open']);
 };
