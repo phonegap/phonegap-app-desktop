@@ -16,7 +16,7 @@ function checkForUpdates(updater) {
     });
 
     // TODO: remove hardcoded version before we go into production
-    var feedUrl = 'http://localhost:8080?version=' + '0.2.0';//app.getVersion();
+    var feedUrl = 'http://localhost:8080?platform=' + determineOperatingSystem() + '&version=' + '0.2.0';//app.getVersion();
     console.log(feedUrl);
 
     updater.setFeedUrl(feedUrl);
