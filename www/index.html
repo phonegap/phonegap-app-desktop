@@ -13,6 +13,7 @@
 
             var remote = require('remote');
             var dialog = remote.require('dialog');
+            var autoUpdater = remote.require('auto-updater');
 
             // load dependencies module
             var fs = require("fs");
@@ -42,6 +43,7 @@
         <script type="text/javascript" src="js/settings-handlers.js"></script>
         <script type="text/javascript" src="js/utils.js"></script>
         <script type="text/javascript" src="js/analytics.js"></script>
+        <script type="text/javascript" src="js/auto-updater.js"></script>
 
         <script type="text/javascript" src="js/keen.3.1.0.min.js"></script>
 
@@ -287,6 +289,8 @@
             trackAppOpened();
             gaAppLoaded();
             getProjects();
+
+            checkForUpdates(autoUpdater);
 
         });
 
