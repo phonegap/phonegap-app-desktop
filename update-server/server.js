@@ -27,15 +27,16 @@ http.createServer(function(request, response) {
                 var updateJSON = null;
 
                 if (platform === 'darwin') {
-                    downloadUrl = body.packages.mac;
+                    downloadUrl = body.packages.mac.url;
                 }
                 if (platform === 'win32') {
-                    downloadUrl = body.packages.win;
+                    downloadUrl = body.packages.win.url;
                 }
 
                 if (downloadUrl) {
-                    console.log('downloadUrl: ' + downloadUrl);
-                    updateJSON = JSON.stringify({ url: downloadUrl});
+                    updateJSON = JSON.stringify({url: downloadUrl});
+                    console.log('updateJSON: ' + updateJSON);
+
                     response.statusCode = 200;
                     response.statusMessage = 'Update Available';
                     response.end(updateJSON);
