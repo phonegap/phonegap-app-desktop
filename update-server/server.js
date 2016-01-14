@@ -4,7 +4,9 @@ var url = require('url');
 const PORT = 8080;
 
 http.createServer(function(request, response) {
-    var clientVersion = url.parse(request.url, true).query.version;
+    var queryData = url.parse(request.url, true).query
+    var clientVersion = queryData.version;
+    var platform = queryData.platform;
     var req = require('request');
     var jsonUrl = 'https://raw.githubusercontent.com/phonegap/phonegap-app-desktop/master/package.json';
 
@@ -16,13 +18,34 @@ http.createServer(function(request, response) {
     req(options, function(error, res, body) {
         if(!error && res.statusCode === 200) {
             console.log('serverVersion: ' + body.version + ' clientVersion: ' + clientVersion);
+            console.log('platform: ' + platform);
+
             if (body.version > clientVersion) {
                 console.log('update available');
-                // TODO: updateJSON needs to be generated based on desktop platform (win32 or darwin)
-                var updateJSON = JSON.stringify({ url: "https://github.com/phonegap/phonegap-app-desktop/releases/download/0.2.1/PhoneGap-Desktop-Beta-0.2.1-mac.zip"});
-                response.statusCode = 200;
-                response.statusMessage = 'Update Available';
-                response.end(updateJSON);
+
+                var downloadUrl = null;
+                var updateJSON = null;
+
+                if (platform === 'darwin') {
+                    downloadUrl = body.packages.mac;
+                }
+                if (platform === 'win32') {
+                    downloadUrl = body.packages.win;
+                }
+
+                if (downloadUrl) {
+                    console.log('downloadUrl: ' + downloadUrl);
+                    updateJSON = JSON.stringify({ url: downloadUrl});
+                    response.statusCode = 200;
+                    response.statusMessage = 'Update Available';
+                    response.end(updateJSON);
+                } else {
+                    console.log('no downloadUrl - return no update');
+                    response.statusCode = 204;
+                    response.statusMessage = 'No Content';
+                    response.end();
+                }
+
             } else {
                 console.log('no udpate');
                 response.statusCode = 204;
