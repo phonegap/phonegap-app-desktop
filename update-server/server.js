@@ -37,7 +37,7 @@ http.createServer(function(request, response) {
                     updateJSON = JSON.stringify({url: downloadUrl});
                     console.log('updateJSON: ' + updateJSON);
 
-                    response.statusCode = 200;
+                    response.writeHead(200, {'Accept':'application/zip'});
                     response.statusMessage = 'Update Available';
                     response.end(updateJSON);
                 } else {
