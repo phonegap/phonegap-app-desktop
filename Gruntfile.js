@@ -50,7 +50,11 @@ module.exports = function(grunt) {
     grunt.task.registerTask('code-sign-osx', function() {
         var shell = require('shelljs');
         shell.exec("codesign --deep --force --verbose --sign 'Mac Developer: Herman Wong (M6QFED29S9)' build/PhoneGap-darwin-x64/PhoneGap.app");
+        shell.exec("codesign --verify -vvvv build/PhoneGap-darwin-x64/PhoneGap.app");
+        shell.exec("spctl -a -vvvv build/PhoneGap-darwin-x64/PhoneGap.app");
         shell.exec("codesign --force --verbose --sign 'Mac Developer: Herman Wong (M6QFED29S9)' build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/Electron");
+        shell.exec("codesign --verify -vvvv build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/Electron");
+        shell.exec("spctl -a -vvvv build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/Electron");
     });
 
     // Clean node dependencies
