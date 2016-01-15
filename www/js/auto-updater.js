@@ -2,16 +2,20 @@ function checkForUpdates(updater) {
 
     var app = remote.require('app');
 
-    updater.on('error', function(e) {
-        console.log('error: ' + e.message);
+    updater.on('error', function(err, msg) {
+        console.log(msg);
     })
-    .on('checking-for-update', function(e) {
+    .on('checking-for-update', function(err, msg) {
         console.log("checking-for-update");
     })
-    .on('update-available', function(e) {
+    .on('update-available', function(err) {
         console.log("update-available");
     })
-    .on('update-not-available', function(e) {
+    .on('update-downloaded', function(err) {
+        console.log('update-downloaded');
+        updater.quitAndInstall();
+    })
+    .on('update-not-available', function(err) {
         console.log("update-not-available");
     });
 
