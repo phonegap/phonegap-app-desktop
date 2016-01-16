@@ -49,12 +49,11 @@ module.exports = function(grunt) {
     // OSX code signing
     grunt.task.registerTask('code-sign-osx', function() {
         var shell = require('shelljs');
-        shell.exec("codesign --deep --force --verbose --sign 'Mac Developer: Herman Wong (M6QFED29S9)' build/PhoneGap-darwin-x64/PhoneGap.app");
-        shell.exec("codesign --verify --verbose build/PhoneGap-darwin-x64/PhoneGap.app");
-        shell.exec("spctl -a --verbose build/PhoneGap-darwin-x64/PhoneGap.app");
-        shell.exec("codesign --force --verbose --sign 'Mac Developer: Herman Wong (M6QFED29S9)' build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/Electron");
-        shell.exec("codesign --verify --verbose build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/Electron");
-        shell.exec("spctl -a --verbose build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/Electron");
+        shell.exec("codesign --verbose --deep --force --sign 'Mac Developer: Herman Wong (M6QFED29S9)' build/PhoneGap-darwin-x64/PhoneGap.app");
+        shell.exec("codesign --verbose --verify build/PhoneGap-darwin-x64/PhoneGap.app");
+        shell.exec("codesign -vv -d build/PhoneGap-darwin-x64/PhoneGap.app");
+        shell.exec("codesign --verbose --force --sign 'Mac Developer: Herman Wong (M6QFED29S9)' build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/Electron");
+        shell.exec("codesign --verbose --verify build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/Electron");
     });
 
     // Clean node dependencies
