@@ -17,10 +17,11 @@ http.createServer(function(request, response) {
 
     req(options, function(error, res, body) {
         if(!error && res.statusCode === 200) {
-            console.log('serverVersion: ' + body.version + ' clientVersion: ' + clientVersion);
+            var serverVersion = body.version;
+            console.log('serverVersion: ' + serverVersion + ' clientVersion: ' + clientVersion);
             console.log('platform: ' + platform);
 
-            if (body.version > clientVersion) {
+            if (serverVersion > clientVersion) {
                 console.log('update available');
 
                 var downloadUrl = null;
