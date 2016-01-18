@@ -19,8 +19,7 @@ function checkForUpdates(updater) {
         console.log("update-not-available");
     });
 
-    // TODO: remove hardcoded version before we go into production
-    var feedUrl = 'http://localhost:8080?platform=' + determineOperatingSystem() + '&version=' + '0.2.0';//app.getVersion();
+    var feedUrl = 'http://localhost:8080?platform=' + determineOperatingSystem() + '&version=' + app.getVersion();
     console.log(feedUrl);
 
     updater.setFeedUrl(feedUrl);
