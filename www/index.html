@@ -257,26 +257,6 @@
                 }
             });
 
-            $("#updateLater").click(function() {
-                overlayBackgroundHandler();
-            });
-
-            $("#updateNow").click(function() {
-                var text = $("#updateNow").text();
-                if (text == "Restart") {
-                    restartApp();
-                } else {
-                    if (determineOperatingSystem() == 'darwin') {
-                        updateApp();
-                    } else {
-                        gui.Shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/releases");
-                        $("#updateOverlay").hide();
-                    }
-                }
-
-                overlayBackgroundHandler();
-            });
-
             initSettings();
 
             hideProjectPathError();
@@ -329,10 +309,6 @@
         <aside id="updateOverlay" class="update-overlay">
             <div class="overlay-form-item-heading" id="updateOverlayTitle"></div>
             <div class="overlay-form-item settings-ip-label" id="updateOverlayPrompt"></div>
-            <div class="overlay-form-item">
-                <button id="updateLater" class="cancel-button">Cancel</button>
-                <button id="updateNow" class="action-button">Update</button>
-            </div>
         </aside>
 
         <aside id="settingsOverlay" class="settings-overlay">
