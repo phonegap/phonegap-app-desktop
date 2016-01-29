@@ -26,10 +26,39 @@ module.exports = function(grunt) {
                     asar: true
                 }
             }
+        },
+        'compress': {
+            osxPackage: {
+                options: {
+                    archive: './installers/osx64/test-mac.zip',
+                    mode: 'zip'
+                },
+                files: [
+                    {
+                        cwd: './build/PhoneGap-darwin-x64/',
+                        expand: true,
+                        src: ['PhoneGap.app/**/*']
+                    }
+                ]
+            },
+            winPackage: {
+                options: {
+                    archive: './installers/win32/test-win.zip',
+                    mode: 'zip'
+                },
+                files: [
+                    {
+                        cwd: './build/PhoneGap-win32-ia32/',
+                        expand: true,
+                        src: ['**/*']
+                    }
+                ]
+            }
         }
     });
 
     // Load the grunt plugins.
+    grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
@@ -56,36 +85,52 @@ module.exports = function(grunt) {
         shell.exec("codesign --verbose --verify build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/Electron");
     });
 
+    // Clean build directories
+    grunt.task.registerTask('clean-build-dir', function() {
+        var shell = require('shelljs');
+        shell.rm('-rf', './build');
+    });
+
+    // Clean releases directories
+    grunt.task.registerTask('clean-installers-dir', function() {
+        var shell = require('shelljs');
+        shell.rm('-rf', './installers');
+    });
+
     // Clean node dependencies
     grunt.task.registerTask('clean-node-modules', function() {
         var shell = require('shelljs');
         shell.rm('-rf', './www/node_modules');
     });
 
+    // start the local server for update checker
     grunt.task.registerTask('start-localhost', function() {
         var shell = require('shelljs');
         shell.exec('node ./update-server/server.js');
     });
 
+    // create the OSX DMG installer
+    grunt.task.registerTask('osx-installer', function() {
+        var shell = require('shelljs');
+        shell.exec('bash ./res/installers/osx/package-pgd.sh');
+    });
+
+    // copy package.json to www folder
     grunt.task.registerTask('copy-dev-config', function() {
         grunt.file.copy('./src/config/package.json', './www/package.json');
     });
 
+    // disable the dev console before copying the package.json to www folder
     grunt.task.registerTask('copy-release-config', function() {
         var config = grunt.file.read('./src/config/package.json');
         var releaseConfig = config.replace('"devTools" : true', '"devTools" : false');
         grunt.file.write('./www/package.json', releaseConfig);
     });
 
+    // copy the EULA into the installer folders
     grunt.task.registerTask('copy-eula', function() {
         grunt.file.copy('./src/license.txt', './res/installers/osx/license.txt');
         grunt.file.copy('./src/license.txt', './res/installers/win/license.txt');
-    });
-
-    // Clean build directories
-    grunt.task.registerTask('clean-build-dir', function() {
-        var shell = require('shelljs');
-        shell.rm('-rf', './build');
     });
 
     // Open the built app
@@ -98,6 +143,38 @@ module.exports = function(grunt) {
             opener((os.platform() === 'darwin') ? macPath : winPath);
     });
 
-    grunt.registerTask('default', ['clean-node-modules', 'install-dependencies', 'copy-dev-config', 'copy-eula', 'clean-build-dir', 'electron', 'code-sign-osx', 'open', 'start-localhost']);
-    grunt.registerTask('release', ['clean-node-modules', 'install-dependencies', 'copy-release-config', 'copy-eula', 'clean-build-dir', 'electron', 'code-sign-osx', 'open']);
+    // default - runs the dev build
+    grunt.registerTask(
+        'default',
+        [
+            'clean-node-modules',
+            'install-dependencies',
+            'copy-dev-config',
+            'copy-eula',
+            'clean-build-dir',
+            'electron',
+            'code-sign-osx',
+            'open',
+            'start-localhost'
+        ]
+    );
+
+    // production build task
+    grunt.registerTask(
+        'release',
+        [
+            'clean-node-modules',
+            'clean-installers-dir',
+            'install-dependencies',
+            'copy-release-config',
+            'copy-eula',
+            'clean-build-dir',
+            'electron',
+            'code-sign-osx',
+            'compress',
+            'osx-installer',
+            'open',
+            'start-localhost'
+        ]
+    );
 };
