@@ -171,9 +171,6 @@ function setActiveWidget(id, projDir) {
     // set a watch on the config.xml of the active project
     setConfigWatcher(id, projDir);
 
-    // turn on the server
-    toggleServerStatus(projDir);
-
     // reset the previous active widget
     if (previousActiveWidget) {
         $("#" + previousActiveWidget.widgetId).css("background-color", "#e8e9e9");
