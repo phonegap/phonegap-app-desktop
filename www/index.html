@@ -133,8 +133,8 @@
             $("#cancelNewProject").click(overlayBackgroundHandler);
 
             $("#openProject").click(function(e) {
+                global.createChosen = false;
                 getProjectPath();
-                //openProject(e);
             });
 
             $("#saveSettings").click(saveSettings);
