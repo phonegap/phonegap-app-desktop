@@ -40,6 +40,7 @@ function getProjects() {
     if (localStorage.projects) {
 
         var projects = JSON.parse(localStorage.projects);
+        var index = 0;
 
         $.each(projects, function(idx, project) {
             var projDir = project.projDir;
@@ -47,7 +48,11 @@ function getProjects() {
 
             fs.exists(projDir, function(exists) {
                 if (exists) {
+                    if (index === 0) {
+                        global.firstProjectDir = projDir;
+                    }
                     getProjectConfig(id, projDir, idx);
+                    index++;
                 } else {
                     // project folder not found...store the IDs to be removed from localStorage
                     missingId(id);
@@ -56,6 +61,7 @@ function getProjects() {
         });
 
         setTimeout(removeMissingProjects, 1000);
+
     }
 }
 
@@ -132,6 +138,10 @@ function parseConfigForRendering(data, id, projDir, i) {
     iconPath += projectIcon;
 
     addProjectWidget(id, projectName, projectVersion, iconPath, projDir);
+
+    if (global.firstProjectDir === projDir) {
+        toggleServerStatus(projDir);
+    }
 }
 
 function removeProjectById(currentId) {
@@ -157,6 +167,7 @@ function removeProjectById(currentId) {
      // set new active widget if there are still projects, otherwise disable the remove button
     if (index > 0) {
         setActiveWidget(projects[0].id, projects[0].projDir);
+        toggleServerStatus(projects[0].projDir);
     } else {
         disableMinusButton();
         $("#status-field").hide();
