@@ -270,7 +270,10 @@
             gaAppLoaded();
             getProjects();
 
-            checkForUpdates(autoUpdater);
+            // auto-update on Mac OSX
+            if (determineOperatingSystem() === 'darwin') {
+                checkForUpdates(autoUpdater);
+            }
 
         });
 
