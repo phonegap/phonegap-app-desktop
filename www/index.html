@@ -99,7 +99,10 @@
 
             $("#overlay-bg").click(overlayBackgroundHandler);
 
-            $("#addNewProject").click(createProject);
+            $("#addNewProject").click(function(e) {
+                global.createChosen = false;
+                createProject(e);
+            });
 
             $("#chooseNewProjectPath").click(function(e) {
                 getProjectPath();
