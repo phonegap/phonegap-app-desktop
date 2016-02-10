@@ -18,6 +18,7 @@ http.createServer(function(request, response) {
     req(options, function(error, res, body) {
         if(!error && res.statusCode === 200) {
             var serverVersion = body.version;
+            //serverVersion = '0.2.2';
             console.log('serverVersion: ' + serverVersion + ' clientVersion: ' + clientVersion);
             console.log('platform: ' + platform);
 
@@ -36,6 +37,10 @@ http.createServer(function(request, response) {
 
                 if (downloadUrl) {
                     updateJSON = JSON.stringify({url: downloadUrl});
+                    // test update zip (OSX)
+                    //updateJSON = JSON.stringify({url: 'https://github.com/phonegap/phonegap-app-desktop/blob/0.2.2/update-server/test/PhoneGap-test-0.2.2-mac.zip?raw=true'});
+                    // test update zip (Win32)
+                    //updateJSON = JSON.stringify({url: 'https://github.com/phonegap/phonegap-app-desktop/blob/0.2.2/update-server/test/PhoneGap-test-0.2.2-win.zip?raw=true'});
                     console.log('updateJSON: ' + updateJSON);
 
                     response.writeHead(200, {'Accept':'application/zip'});
