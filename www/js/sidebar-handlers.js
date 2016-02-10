@@ -12,6 +12,7 @@ function animateAddNewProjectOverlayEntry() {
 }
 
 function hideAddNewProjectOverlay(evt) {
+    global.createChosen = false;
     $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
     $("#plus-holder").removeClass("sidebar-button-active");
     $("#newProjectOverlay").removeClass("animated slideInDown");
@@ -181,6 +182,7 @@ function handleHideServerLogAnimationEnd() {
 }
 
 function overlayBackgroundHandler(evt) {
+    global.createChosen = false;
     $("#overlay-bg").hide();
     hideOverlays();
 }
