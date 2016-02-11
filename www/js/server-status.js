@@ -37,7 +37,10 @@ function setServerOnline(projDir) {
                     serverOnlineState(data, "Server is running on http://" + data.addresses[0] + ":" + data.port);
                 }
 
-                widgetServerOnlineState(global.activeWidget.projectId);
+                // check for global.activeWidget; on initial load of app this is not set
+                if (global.activeWidget) {
+                    widgetServerOnlineState(global.activeWidget.projectId);
+                }
 
                 $("#log").prop("disabled", false);
             })
@@ -46,7 +49,7 @@ function setServerOnline(projDir) {
                 $("#server-status-label").text(e.message);
 
                 $("#status-field").css("background-color", "rgb(153,153,153)");
-                widgetSeverOfflineState(global.activeWidget.projectId);
+                widgetServerOfflineState(global.activeWidget.projectId, global.activeWidget.widgetId);
             })
             .on("log", function(status, url) {
                 $("#serverLog").append(status + " " + url + "\n");
