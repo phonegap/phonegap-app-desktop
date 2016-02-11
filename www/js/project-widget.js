@@ -121,7 +121,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
                 global.stopClicked = true;
                 setServerOffline();
                 serverOfflineState();
-                widgetSeverOfflineState(id);
+                widgetServerOfflineState(id, widgetId);
                 global.activeWidget = null;
             }
         }
@@ -141,7 +141,7 @@ function widgetServerOnlineState(id) {
     }
 }
 
-function widgetSeverOfflineState(id) {
+function widgetServerOfflineState(id, widgetId) {
     // update view to reflect that server is stopped
     $("#widgetStatus_" + id.toString()).removeClass("widget-online");
     $("#widgetStatusBottom_" + id.toString()).removeClass("widget-online");
@@ -149,7 +149,7 @@ function widgetSeverOfflineState(id) {
     $("#start-icon_" + id.toString()).attr("src", "img/icons/normal/start.svg");
     $("#stop-icon_" + id.toString()).removeClass("stop-icon-active");
     $("#hr-icon_" + id.toString()).css("opacity", 0.0);
-    $("#" + global.activeWidget.widgetId).css("background-color", "#e8e9e9");
+    $("#" + widgetId).css("background-color", "#e8e9e9");
 }
 
 function setActiveWidget(id, projDir) {
@@ -173,8 +173,8 @@ function setActiveWidget(id, projDir) {
 
     // reset the previous active widget
     if (previousActiveWidget) {
-        $("#" + previousActiveWidget.widgetId).css("background-color", "#e8e9e9");
-        widgetSeverOfflineState(previousActiveWidget.projectId);
+        //$("#" + previousActiveWidget.widgetId).css("background-color", "#e8e9e9");
+        widgetServerOfflineState(previousActiveWidget.projectId, previousActiveWidget.widgetId);
     }
 }
 
