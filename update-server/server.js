@@ -1,7 +1,7 @@
 var http = require('http');
 var url = require('url');
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 http.createServer(function(request, response) {
     var queryData = url.parse(request.url, true).query
