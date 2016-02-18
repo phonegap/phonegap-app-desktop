@@ -3,6 +3,10 @@ const PORT = process.env.PORT || 8080;
 var express = require('express');
 var app = express();
 
+app.get('/', function(req, res) {
+    res.status(200).send('hello');
+});
+
 app.get('/desktop', function (req, res) {
     var queryData = req.query; //url.parse(req.url, true).query;
     var clientVersion = queryData.version;
