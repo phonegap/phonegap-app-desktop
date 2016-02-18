@@ -1,13 +1,16 @@
-var http = require('http');
-var url = require('url');
+//var http = require('http');
+//var url = require('url');
 
 const PORT = process.env.PORT || 8080;
 
-http.createServer(function(request, response) {
-    var queryData = url.parse(request.url, true).query
+var express = require('express');
+var url = require('url');
+var app = express();
+
+app.get('/desktop', function (req, res) {
+    var queryData = url.parse(req.url, true).query;
     var clientVersion = queryData.version;
     var platform = queryData.platform;
-    var req = require('request');
     var jsonUrl = 'https://raw.githubusercontent.com/phonegap/phonegap-app-desktop/master/package.json';
 
     var options = {
@@ -43,25 +46,26 @@ http.createServer(function(request, response) {
                     //updateJSON = JSON.stringify({url: 'https://github.com/phonegap/phonegap-app-desktop/blob/0.2.2/update-server/test/PhoneGap-test-0.2.2-win.zip?raw=true'});
                     console.log('updateJSON: ' + updateJSON);
 
-                    response.writeHead(200, {'Accept':'application/zip'});
-                    response.statusMessage = 'Update Available';
-                    response.end(updateJSON);
+                    res.writeHead(200, {'Accept':'application/zip'});
+                    res.statusMessage = 'Update Available';
+                    res.end(updateJSON);
                 } else {
                     console.log('no downloadUrl - return no update');
-                    response.statusCode = 204;
-                    response.statusMessage = 'No Content';
-                    response.end();
+                    res.statusCode = 204;
+                    res.statusMessage = 'No Content';
+                    res.end();
                 }
 
             } else {
                 console.log('no udpate');
-                response.statusCode = 204;
-                response.statusMessage = 'No Content';
-                response.end();
+                res.statusCode = 204;
+                res.statusMessage = 'No Content';
+                res.end();
             }
         }
     });
+});
 
-}).listen(PORT, function() {
-    console.log('server started on: http://localhost:' + PORT);
+app.listen(PORT, function () {
+    console.log('server started on port: ' + PORT);
 });
