@@ -65,6 +65,10 @@ app.get('/desktop', function (req, res) {
     });
 });
 
+app.get('/health', function(req, res) {
+    res.status(200).send('ok');
+});
+
 app.listen(PORT, function () {
     console.log('server started on port: ' + PORT);
 });
