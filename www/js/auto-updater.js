@@ -25,7 +25,7 @@ function checkForUpdates(updater) {
         console.log("update-not-available");
     });
 
-    var feedUrl = 'http://localhost:8080?platform=' + determineOperatingSystem() + '&version=' + app.getVersion();
+    var feedUrl = 'http://localhost:8080/desktop/?platform=' + determineOperatingSystem() + '&version=' + app.getVersion();
     //var feedUrl = 'http://update.api.phonegap.com:8080?platform=' + determineOperatingSystem() + '&version=' + app.getVersion();
     console.log(feedUrl);
 
