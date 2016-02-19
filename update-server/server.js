@@ -19,7 +19,8 @@ app.get('/desktop', function (req, res) {
         json: true
     };
 
-    console.log(queryData);
+    var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+    console.log(fullUrl);
 
     request(options, function(error, response, body) {
         if(!error && response.statusCode === 200) {
@@ -49,30 +50,34 @@ app.get('/desktop', function (req, res) {
                     //updateJSON = JSON.stringify({url: 'https://github.com/phonegap/phonegap-app-desktop/blob/0.2.2/update-server/test/PhoneGap-test-0.2.2-win.zip?raw=true'});
                     console.log('updateJSON: ' + updateJSON);
 
-                    response.writeHead(200, {'Accept':'application/zip'});
-                    response.statusMessage = 'Update Available';
-                    response.end(updateJSON);
+                    res.writeHead(200, {'Accept':'application/zip'});
+                    res.statusMessage = 'Update Available';
+                    res.end(updateJSON);
                 } else {
                     console.log('no downloadUrl - return no update');
-                    response.statusCode = 204;
-                    response.statusMessage = 'No Content';
-                    response.end();
+                    res.statusCode = 204;
+                    res.statusMessage = 'No Content';
+                    res.end();
                 }
 
             } else {
                 console.log('no udpate');
-                response.statusCode = 204;
-                response.statusMessage = 'No Content';
-                response.end();
+                res.statusCode = 204;
+                res.statusMessage = 'No Content';
+                res.end();
             }
         }
     });
 });
 
+<<<<<<< 29979808e786192d6d9eed1117ef2afc2f862c75
 app.get('/health', function(req, res) {
     res.status(200).send('ok');
 });
 
 app.listen(PORT, function () {
+=======
+app.listen(PORT, 'localhost', function () {
+>>>>>>> [#541] use the correct response context when returning a response
     console.log('server started on port: ' + PORT);
 });
