@@ -3,12 +3,14 @@ const PORT = process.env.PORT || 8080;
 var express = require('express');
 var app = express();
 
+/*
 app.get('/', function(req, res) {
     res.status(200).send('hello');
 });
+*/
 
-app.get('/desktop', function (req, res) {
-    var queryData = req.query; //url.parse(req.url, true).query;
+app.get('/', function (req, res) {
+    var queryData = req.query;
     var clientVersion = queryData.version;
     var platform = queryData.platform;
     var jsonUrl = 'https://raw.githubusercontent.com/phonegap/phonegap-app-desktop/master/package.json';
@@ -70,14 +72,10 @@ app.get('/desktop', function (req, res) {
     });
 });
 
-<<<<<<< 29979808e786192d6d9eed1117ef2afc2f862c75
 app.get('/health', function(req, res) {
     res.status(200).send('ok');
 });
 
 app.listen(PORT, function () {
-=======
-app.listen(PORT, 'localhost', function () {
->>>>>>> [#541] use the correct response context when returning a response
     console.log('server started on port: ' + PORT);
 });
