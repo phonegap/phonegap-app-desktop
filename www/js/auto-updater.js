@@ -26,6 +26,7 @@ function checkForUpdates(updater) {
     });
 
     var feedUrl = 'http://localhost:8080?platform=' + determineOperatingSystem() + '&version=' + app.getVersion();
+    //var feedUrl = 'http://update.api.phonegap.com:8080?platform=' + determineOperatingSystem() + '&version=' + app.getVersion();
     console.log(feedUrl);
 
     updater.setFeedUrl(feedUrl);
