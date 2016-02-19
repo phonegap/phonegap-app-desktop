@@ -54,16 +54,6 @@ module.exports = function(grunt) {
                     }
                 ]
             }
-        },
-        'express': {
-            options: {
-                port: process.env.PORT || 8080
-            },
-            dev: {
-                options: {
-                    script: './update-server/server.js'
-                }
-            }
         }
     });
 
@@ -73,7 +63,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-electron');
-    grunt.loadNpmTasks('grunt-express-server');
 
     // Register the task to install dependencies.
     grunt.task.registerTask('install-dependencies', function() {
@@ -116,8 +105,8 @@ module.exports = function(grunt) {
 
     // start the local server for update checker
     grunt.task.registerTask('start-localhost', function() {
-        //var shell = require('shelljs');
-        //shell.exec('node ./update-server/server.js');
+        var shell = require('shelljs');
+        shell.exec('node ./update-server/server.js');
     });
 
     // create the OSX DMG installer
@@ -165,8 +154,8 @@ module.exports = function(grunt) {
             'clean-build-dir',
             'electron',
             'code-sign-osx',
-            'express:dev',
-            'open'
+            'open',
+            'start-localhost'
         ]
     );
 
