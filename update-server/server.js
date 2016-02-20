@@ -56,7 +56,7 @@ app.get('/desktop', function (req, res) {
                 }
 
             } else {
-                console.log('no udpate');
+                console.log('no update');
                 res.statusCode = 204;
                 res.statusMessage = 'No Content';
                 res.end();
@@ -117,7 +117,7 @@ app.get('/desktop/:branch', function (req, res) {
                 }
 
             } else {
-                console.log('no udpate');
+                console.log('no update');
                 res.statusCode = 204;
                 res.statusMessage = 'No Content';
                 res.end();
