@@ -1,4 +1,8 @@
 module.exports = function(grunt) {
+    var VERSION = '0.2.2';
+    var osxArchive = './installers/osx64/PhoneGap-Desktop-Beta-' + VERSION + '-mac.zip';
+    var winArchive = './installers/win32/PhoneGap-Desktop-Beta-' + VERSION + '-win.zip';
+
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         'electron': {
@@ -30,7 +34,7 @@ module.exports = function(grunt) {
         'compress': {
             osxPackage: {
                 options: {
-                    archive: './installers/osx64/test-mac.zip',
+                    archive: osxArchive,
                     mode: 'zip'
                 },
                 files: [
@@ -43,7 +47,7 @@ module.exports = function(grunt) {
             },
             winPackage: {
                 options: {
-                    archive: './installers/win32/test-win.zip',
+                    archive: winArchive,
                     mode: 'zip'
                 },
                 files: [
@@ -173,8 +177,7 @@ module.exports = function(grunt) {
             'code-sign-osx',
             'compress',
             'osx-installer',
-            'open',
-            'start-localhost'
+            'open'
         ]
     );
 };
