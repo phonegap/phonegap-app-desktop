@@ -8,6 +8,8 @@ npm-debug.log
 # Project
 build/
 www/node_modules/
+installers/osx64/*.zip
+installers/win32/*.zip
 res/installers/osx/license.txt
 res/installers/win/license.txt
 
