@@ -113,13 +113,8 @@ function multipleServersOnlineState(data) {
         ipListHeight = ipListHeight + (24 * ipAddressesFound);
     }
 
-    console.log(ipListHeight);
-
     var ipListTop = 600 - ipListHeight;
-    console.log(ipListTop);
-
     var statusFieldTop = ipListTop - 50;
-    console.log(statusFieldTop);
 
     $("#ip-list").append(ipAddresses);
     $("#ip-list").css("height", ipListHeight);
