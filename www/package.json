@@ -11,7 +11,7 @@
       "opener": "1.4.1",
       "node-jsxml": "0.6.0",
       "node-uuid": "1.4.3",
-      "phonegap" : "https://github.com/phonegap/phonegap-cli.git#desktop-browser",
+      "phonegap" : "5.5.2",
       "request" : "2.65.0"
   },
   "licenses": [{
