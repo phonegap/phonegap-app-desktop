@@ -16,7 +16,7 @@ function toggleServerStatus(projDir) {
         if (exists) {
             process.chdir(projDir);
 
-            global.pgServer.listen({ port: localStorage.portNumber })
+            global.pgServer.listen({ browser: true, phonegap: require('phonegap'), port: localStorage.portNumber })
             .on("complete", function(data) {
 
                 var ipAddressesFound = data.addresses.length;
