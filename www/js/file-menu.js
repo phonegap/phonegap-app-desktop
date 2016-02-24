@@ -20,6 +20,7 @@ function getMenuTemplate() {
                 },
                 {
                     label: 'Quit PhoneGap',
+                    accelerator: 'Command+Q',
                     click: function() {
                         quitApp();
                     }
@@ -31,12 +32,14 @@ function getMenuTemplate() {
             submenu: [
                 {
                     label: 'Create new project',
+                    accelerator: 'CmdOrCtrl+N',
                     click: function() {
                         $("#createProject").trigger('click');
                     }
                 },
                 {
                     label: 'Add existing project',
+                    accelerator: 'CmdOrCtrl+O',
                     click: function() {
                         $("#openProject").trigger('click');
                     }
