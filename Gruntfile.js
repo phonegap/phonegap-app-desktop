@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-    var VERSION = '0.2.2';
+    var VERSION = '0.2.3';
     var osxArchive = './installers/osx64/PhoneGap-Desktop-Beta-' + VERSION + '-mac.zip';
     var winArchive = './installers/win32/PhoneGap-Desktop-Beta-' + VERSION + '-win.zip';
 
@@ -11,7 +11,7 @@ module.exports = function(grunt) {
                     name: 'PhoneGap',
                     dir: './www',
                     out: './build',
-                    version: '0.36.8',
+                    version: '0.35.6',
                     platform: 'darwin',
                     arch: 'x64',
                     icon: './www/img/app-icons/icon.icns',
@@ -23,7 +23,7 @@ module.exports = function(grunt) {
                     name: 'PhoneGap',
                     dir: './www',
                     out: './build',
-                    version: '0.36.8',
+                    version: '0.35.6',
                     platform: 'win32',
                     arch: 'ia32',
                     icon: './www/img/app-icons/icon.ico',
