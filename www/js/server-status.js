@@ -116,7 +116,7 @@ function multipleServersOnlineState(data) {
     var ipListTop = 600 - ipListHeight;
     var statusFieldTop = ipListTop - 50;
 
-    $("#ip-list").append(ipAddresses);
+    $("#ip-list").html(ipAddresses);
     $("#ip-list").css("height", ipListHeight);
 
     $("#ip-holder").css("top", ipListTop);
