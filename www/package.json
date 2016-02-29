@@ -6,12 +6,12 @@
       "devTools" : true
   },
   "dependencies" : {
-      "connect-phonegap": "0.20.2",
+      "connect-phonegap": "/Users/spindori/Documents/PhoneGap/connect-phonegap",
       "gaze": "0.5.1",
       "opener": "1.4.1",
       "node-jsxml": "0.6.0",
       "node-uuid": "1.4.3",
-      "phonegap" : "5.5.2",
+      "phonegap" : "https://github.com/phonegap/phonegap-cli.git#desktop-browser",
       "request" : "2.65.0"
   },
   "licenses": [{
