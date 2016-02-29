@@ -20,7 +20,7 @@ function setServerOnline(projDir) {
         if (exists) {
             process.chdir(projDir);
 
-            global.phonegap.serve({ browser: true, phonegap: require('phonegap'), port: localStorage.portNumber }, function(e, data) {
+            global.phonegap.serve({ browser: true, isDesktop: true, phonegap: require('phonegap'), port: localStorage.portNumber }, function(e, data) {
                 var ipAddressesFound = data.addresses.length;
 
                 trackNumIPsFound(ipAddressesFound);
