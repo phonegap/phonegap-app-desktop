@@ -15,7 +15,7 @@ module.exports = function(grunt) {
                     platform: 'darwin',
                     arch: 'x64',
                     icon: './www/img/app-icons/icon.icns',
-                    asar: true
+                    asar: false
                 }
             },
             winBuild: {

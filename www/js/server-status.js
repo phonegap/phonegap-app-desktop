@@ -20,7 +20,7 @@ function setServerOnline(projDir) {
         if (exists) {
             process.chdir(projDir);
 
-            global.pgServer.listen({ browser: true, phonegap: require('phonegap'), port: localStorage.portNumber })
+            global.pgServer.listen({ browser: true, isDesktop: true, phonegap: require('phonegap'), port: localStorage.portNumber })
             .on("complete", function(data) {
 
                 var ipAddressesFound = data.addresses.length;
