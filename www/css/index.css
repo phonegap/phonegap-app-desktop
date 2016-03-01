@@ -183,8 +183,9 @@
 }
 .project-creation-warning-icon {
     background: url(../img/icons/normal/warning.svg) no-repeat;
-    background-position: 308px 2px;
+    background-position: 306px 1px;
     background-color: white;
+    background-size: 16px 16px;
 }
 .error-message {
     color: #ff0000;
