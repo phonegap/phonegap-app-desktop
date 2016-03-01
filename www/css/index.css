@@ -192,6 +192,7 @@
 }
 .project-input-field {
     width: 330px;
+    font-family: 'Source Sans';
 }
 .project-path-label {
     overflow: hidden;
@@ -202,6 +203,7 @@
     font-size: 10pt;
     display: inline-block;
     padding-top: 4px;
+    font-family: 'Source Sans';
 }
 .new-project-choose-button {
     background-color: #1ba1c7;
@@ -212,6 +214,7 @@
     height: 30px;
     width: 100px;
     float: right;
+    font-family: 'Source Sans';
 }
 .new-project-choose-button:hover {
     background-color: #134590;
@@ -240,6 +243,7 @@
     color: white;
     border: none;
     resize: none;
+    font-family: 'Source Sans';
 }
 .action-button {
     background-color: #21aa48;
@@ -252,6 +256,7 @@
     padding-right: 12px;
     float: right;
     font-size: 11pt;
+    font-family: 'Source Sans';
 }
 .action-button:hover {
     background-color: #007e20;
@@ -267,6 +272,7 @@
     padding-right: 12px;
     float: left;
     font-size: 11pt;
+    font-family: 'Source Sans';
 }
 .cancel-button:hover {
     background-color: #555a5d;
@@ -339,6 +345,7 @@
 }
 .settings-port-number-input {
     width: 60px;
+    font-family: 'Source Sans';
 }
 .settings-port-error {
     height: 225px;
