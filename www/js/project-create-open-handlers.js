@@ -94,6 +94,16 @@ function selectDirectory(e) {
                             // assume that no www/config.xml means a project doesn't exist in selected local path
                             hideProjectPathError();
                             resetProjectCreationFormHeight();
+                            console.log(isProjectPathEmpty + " " + isProjectNameEmpty);
+
+                            if (isProjectPathEmpty) {
+                                displayProjectPathError();
+                            }
+
+                            if (isProjectNameEmpty) {
+                                displayProjectNameError();
+                            }
+
                             adjustProjectCreationFormHeight(isProjectPathEmpty, isProjectNameEmpty);
                             $("#newProjectOverlay").removeClass("new-project-overlay-project-path-error");
                         } else {
