@@ -6,7 +6,7 @@
             @font-face{font-family:"Source Sans";src:url(../font/SourceSansPro-Light.otf);font-weight:200}
             @font-face{font-family:"Source Sans";src:url(../font/SourceSansPro-Semibold.otf);font-weight:600}
         </style>
-        
+
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <link rel='stylesheet' type='text/css' href='css/animate.css'>
         <link rel="stylesheet" type="text/css" href="css/topcoat-desktop-light-custom.min.css">
@@ -121,12 +121,14 @@
                 var projectName = $("#projectName").val().trim();
 
                 var isProjectPathEmpty = isProjectPathFieldEmpty(projectPath);
+                var isProjectNameEmpty = isEmptyField(projectName);
 
                 if (projectName.length > 0) {
 
                     if (isProjectPathEmpty) {
                         // error with project path
                         displayProjectPathError();
+                        adjustProjectCreationFormHeight(isProjectPathEmpty, isProjectNameEmpty);
                     } else {
                         var project = projectPath + "/" + projectName;
                         folderExistsInFileSystem(project);
