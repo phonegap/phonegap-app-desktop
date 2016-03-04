@@ -1,4 +1,8 @@
 function trackAppOpened() {
+
+    console.log('usage flag: ' + getSendUsageFlag());
+    console.log('debug flag: ' + getDebugFlag());
+
     if(getSendUsageFlag()) {
         var appOpened = {
             userId: getUserId(),
