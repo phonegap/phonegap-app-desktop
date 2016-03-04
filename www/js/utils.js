@@ -59,7 +59,10 @@ function getDebugFlag() {
 function setDebugFlag(debugMode) {
     var pathToPackageJSON = buildPathBasedOnOS("/www/package.json");
 
-    if (debugMode === 'undefinded') {
+    if (debugMode) {
+        global.debugMode = debugMode;
+        console.log('setDebugFlag - debug passed in: ' + global.debugMode);
+    } else {
         fs.readFile(pathToPackageJSON, {encoding:'utf8'}, function(err, data) {
             if (err) {
                 // set debugMode default to false;
@@ -67,14 +70,10 @@ function setDebugFlag(debugMode) {
             } else {
                 global.debugMode = data.window.devTools;
             }
-            console.log('setDebugFlag: ' + global.debugMode);
+            console.log('setDebugFlag - get debug from JSON: ' + global.debugMode);
         });
-    } else {
-        global.debugMode = debugMode;
-        console.log('setDebugFlag: ' + global.debugMode);
     }
-
-
+    trackAppOpened();
 }
 
 function openIssueTracker() {
