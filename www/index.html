@@ -141,24 +141,12 @@
             });
 
             $("#createProject").click(function() {
-                global.createChosen = true;
                 displayTemplateOverlay();
             });
 
             $("#backNewProject").click(function() {
                 global.backTemplateClicked = true;
                 hideProjectDetailsOverlay();
-            });
-
-            $("#cancelTemplate").click(overlayBackgroundHandler);
-
-            $("#createProject").click(function() {
-                displayTemplateOverlay();
-            });
-
-            $("#backNewProject").click(function() {
-                global.backTemplateClicked = true;
-                hideAddNewProjectOverlay();
                 displayTemplateOverlay();
             });
 
@@ -444,7 +432,7 @@
             </div>
         </aside>
 
-        <aside id="templateOverlay" class="template-overlay">
+        <aside id="templateOverlay" class="template-overlay
             <div class="overlay-form-item"><span class="overlay-wizard-text">STEP 1 OF 2 |</span> SELECT A TEMPLATE</div>
             <div class="overlay-form-item">
                 <hr class="dotted-hr" />
