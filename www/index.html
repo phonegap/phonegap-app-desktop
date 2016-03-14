@@ -93,7 +93,8 @@
 
             $("#updateOverlay").hide();
             $("#projectDirectory").hide();
-            $("#newProjectOverlay").hide();
+            $("#templateOverlay").hide();
+            $("#projectDetailsOverlay").hide();
             $("#createOpenProjectOverlay").hide();
             $("#settingsOverlay").hide();
             $("#serverLogOverlay").hide();
@@ -185,7 +186,7 @@
             });
 
             $("#plus-holder").click(function() {
-                if ($("#createOpenProjectOverlay").is(":visible") || $("#newProjectOverlay").is(":visible")) {
+                if ($("#createOpenProjectOverlay").is(":visible") || $("#projectDetailsOverlay").is(":visible")) {
                     overlayBackgroundHandler();
                     if (global.createChosen) {
                         global.createChosen = false;
@@ -221,11 +222,11 @@
             });
 
             $("#plus-holder").on("mouseout", function() {
-                if (!$("#createOpenProjectOverlay").is(":visible") && !$("#newProjectOverlay").is(":visible")) {
+                if (!$("#createOpenProjectOverlay").is(":visible") && !$("#projectDetailsOverlay").is(":visible")) {
                     imgSwapper('plus-icon', 'img/icons/normal/plus.svg');
                 }
 
-                if ($("#createOpenProjectOverlay").is(":visible") || $("#newProjectOverlay").is(":visible")) {
+                if ($("#createOpenProjectOverlay").is(":visible") || $("#projectDetailsOverlay").is(":visible")) {
                     imgSwapper('plus-icon', 'img/icons/active/plus-active.svg');
                 }
             });
