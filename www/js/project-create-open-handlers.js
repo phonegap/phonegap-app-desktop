@@ -192,7 +192,6 @@ function create(projectName, projectId, projDir) {
         }
     });
     */
-
 }
 
 function updateConfig(projectName, projectId, projDir) {
