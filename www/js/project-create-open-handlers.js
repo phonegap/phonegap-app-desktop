@@ -105,7 +105,7 @@ function selectDirectory(e) {
                             }
 
                             adjustProjectCreationFormHeight(isProjectPathEmpty, isProjectNameEmpty);
-                            $("#newProjectOverlay").removeClass("new-project-overlay-project-path-error");
+                            $("#projectDetailsOverlay").removeClass("project-details-overlay-project-path-error");
                         } else {
                             // www/config.xml exists in selected local path, assume that there is an existing project in the local path
                             displayPhoneGapProjectInFolderError();
@@ -158,7 +158,7 @@ function create(projectName, projectId, projDir) {
               updateConfig(projectName, projectId, projDir);
 
               $("#overlay-bg").hide();
-              hideAddNewProjectOverlay();
+              hideProjectDetailsOverlay();
           });
 }
 
@@ -300,10 +300,10 @@ function folderExistsInFileSystem(projDir) {
     fs.exists(folder, function(exists) {
         if (exists) {
             displayDuplicateProjectNameError();
-            $("#newProjectOverlay").addClass("new-project-overlay-duplicate-project-name-error");
+            $("#projectDetailsOverlay").addClass("project-details-overlay-duplicate-project-name-error");
         } else {
             hideDuplicateProjectNameError();
-            $("#newProjectOverlay").removeClass("new-project-overlay-duplicate-project-name-error");
+            $("#projectDetailsOverlay").removeClass("project-details-overlay-duplicate-project-name-error");
         }
     });
 }
