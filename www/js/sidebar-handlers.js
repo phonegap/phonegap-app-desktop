@@ -85,7 +85,7 @@ function hideProjectDetailsOverlay(evt) {
 function handlehideProjectDetailsOverlayAnimationEnd() {
     $("#projectDetailsOverlay").off("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handlehideProjectDetailsOverlayAnimationEnd);
     $("#projectDetailsOverlay").hide();
-    
+
     if (!global.backTemplateClicked) {
         $("#projectDetailsOverlay").removeClass("animated slideOutUp");
         $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
