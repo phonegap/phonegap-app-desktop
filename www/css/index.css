@@ -132,22 +132,22 @@
     height: 485px;
 }
 .new-project-overlay-duplicate-project-name-error {
-    height: 520px;
+    height: 565px;
 }
 .new-project-overlay-project-name-or-project-id-error {
-    height: 480px;
-}
-.new-project-overlay-project-name-and-project-id-error {
-    height: 515px;
-}
-.new-project-overlay-project-path-and-other-error {
     height: 525px;
 }
+.new-project-overlay-project-name-and-project-id-error {
+    height: 560px;
+}
+.new-project-overlay-project-path-and-other-error {
+    height: 570px;
+}
 .new-project-overlay-project-path-error {
-    height: 495px;
+    height: 540px;
 }
 .new-project-overlay-all-errors {
-    height: 555px;
+    height: 600px;
 }
 .overlay-form-item-heading {
     padding-top: 20px;
