@@ -150,6 +150,18 @@
                 hideProjectDetailsOverlay();
             });
 
+            $("#cancelTemplate").click(overlayBackgroundHandler);
+
+            $("#createProject").click(function() {
+                displayTemplateOverlay();
+            });
+
+            $("#backNewProject").click(function() {
+                global.backTemplateClicked = true;
+                hideAddNewProjectOverlay();
+                displayTemplateOverlay();
+            });
+
             $("#cancelNewProject").click(overlayBackgroundHandler);
 
             $("#openProject").click(function(e) {
