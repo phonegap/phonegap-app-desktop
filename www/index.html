@@ -140,7 +140,6 @@
             });
 
             $("#nextTemplate").click(function() {
-                global.createChosen = true;
                 global.nextTemplateClicked = true;
                 global.backTemplateClicked = false;
                 displayProjectDetailsOverlay();
@@ -149,6 +148,7 @@
             $("#cancelTemplate").click(overlayBackgroundHandler);
 
             $("#createProject").click(function() {
+                global.createChosen = true;
                 displayTemplateOverlay();
             });
 
