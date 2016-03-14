@@ -86,11 +86,14 @@
         global.newAppPath = null;
         global.stopClicked = false;
         global.firstProjectDir = null;
+        global.nextTemplateClicked = false;
+        global.backTemplateClicked = false;
 
         $(document).ready(function() {
 
             $("#updateOverlay").hide();
             $("#projectDirectory").hide();
+            $("#templateOverlay").hide();
             $("#newProjectOverlay").hide();
             $("#createOpenProjectOverlay").hide();
             $("#settingsOverlay").hide();
@@ -137,9 +140,23 @@
                 }
             });
 
-            $("#createProject").click(function() {
+            $("#nextTemplate").click(function() {
                 global.createChosen = true;
+                global.nextTemplateClicked = true;
+                global.backTemplateClicked = false;
                 displayAddNewProjectOverlay();
+            });
+
+            $("#cancelTemplate").click(overlayBackgroundHandler);
+
+            $("#createProject").click(function() {
+                displayTemplateOverlay();
+            });
+
+            $("#backNewProject").click(function() {
+                global.backTemplateClicked = true;
+                hideAddNewProjectOverlay();
+                displayTemplateOverlay();
             });
 
             $("#cancelNewProject").click(overlayBackgroundHandler);
@@ -377,6 +394,10 @@
         </aside>
 
         <aside id="newProjectOverlay" class="new-project-overlay">
+            <div class="overlay-form-item"><span class="overlay-wizard-text">STEP 2 OF 2 |</span> PROJECT DETAILS</div>
+            <div class="overlay-form-item">
+                <hr class="dotted-hr" />
+            </div>
             <div class="overlay-form-item-heading" id="new-project-path-label">Local path:</div>
             <div class="overlay-form-item">
                 <span id="project-path-border">
@@ -408,7 +429,27 @@
             </div>
             <div class="overlay-form-item">
                 <button id="cancelNewProject" class="cancel-button">Cancel</button>
-                <button id="addNewProject" class="action-button">Create project</button>
+                <div style="width: 178px; float: right;">
+                    <button id="backNewProject" class="cancel-button">Back</button>
+                    <button id="addNewProject" class="action-button">Create project</button>
+                </div>
+            </div>
+        </aside>
+
+        <aside id="templateOverlay" class="new-project-overlay">
+            <div class="overlay-form-item"><span class="overlay-wizard-text">STEP 1 OF 2 |</span> SELECT A TEMPLATE</div>
+            <div class="overlay-form-item">
+                <hr class="dotted-hr" />
+            </div>
+            <div class="overlay-form-item">
+                <div id="templateList">template list</div>
+            </div>
+            <div class="overlay-form-item">
+                <hr class="dotted-hr" />
+            </div>
+            <div class="overlay-form-item">
+                <button id="cancelTemplate" class="cancel-button">Cancel</button>
+                <button id="nextTemplate" class="action-button">Next</button>
             </div>
         </aside>
 

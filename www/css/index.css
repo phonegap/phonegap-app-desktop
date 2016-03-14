@@ -133,7 +133,7 @@
     left: 75px;
     z-index: 12;
     width: 375px;
-    height: 440px;
+    height: 485px;
 }
 .new-project-overlay-duplicate-project-name-error {
     height: 520px;
@@ -166,6 +166,9 @@
 .overlay-form-item-description {
     color: #999999;
     font-size: small;
+}
+.overlay-wizard-text {
+    color: #999999;
 }
 .italics {
     font-style: italic;

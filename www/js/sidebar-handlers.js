@@ -1,36 +1,80 @@
+// -- template overlay
+function displayTemplateOverlay(evt) {
+    if (!global.backTemplateClicked) {
+        hideAddCreateProjectOverlay();
+    }
+
+    animateTemplateOverlayEntry();
+}
+
+function animateTemplateOverlayEntry() {
+    $("#plus-icon").attr("src", "img/icons/active/plus-active.svg");
+    $("#plus-holder").addClass("sidebar-button-active");
+    $("#templateOverlay").addClass("animated slideInDown");
+    $("#templateOverlay").show();
+    $("#overlay-bg").show();
+}
+
+function hideTemplateOverlay(evt) {
+    $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
+    $("#plus-holder").removeClass("sidebar-button-active");
+    $("#templateOverlay").removeClass("animated slideInDown");
+    $("#templateOverlay").addClass("animated slideOutUp");
+    $("#templateOverlay").on("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handleHideTemplateOverlayAnimationEnd);
+}
+
+function handleHideTemplateOverlayAnimationEnd() {
+    $("#templateOverlay").off("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handleHideTemplateOverlayAnimationEnd);
+    $("#templateOverlay").hide();
+    $("#templateOverlay").removeClass("animated slideOutUp");
+    $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
+}
+
+// -- new project overlay
 function displayAddNewProjectOverlay(evt) {
-    hideAddCreateProjectOverlay();
-    animateAddNewProjectOverlayEntry();
+    hideTemplateOverlay();
+    if(global.nextTemplateClicked) {
+        global.nextTemplateClicked = false;
+        animateAddNewProjectOverlayEntry();
+    }
 }
 
 function animateAddNewProjectOverlayEntry() {
     $("#plus-icon").attr("src", "img/icons/active/plus-active.svg");
     $("#plus-holder").addClass("sidebar-button-active");
-    $("#newProjectOverlay").addClass("animated slideInDown");
+    $("#newProjectOverlay").addClass("animated slideInRight");
     $("#newProjectOverlay").show();
     $("#overlay-bg").show();
 }
 
 function hideAddNewProjectOverlay(evt) {
-    global.createChosen = false;
-    $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
-    $("#plus-holder").removeClass("sidebar-button-active");
-    $("#newProjectOverlay").removeClass("animated slideInDown");
-    $("#newProjectOverlay").addClass("animated slideOutUp");
+    $("#newProjectOverlay").removeClass("animated slideInRight");
+    $("#newProjectOverlay").addClass("animated slideOutRight");
+
+    if (!global.backTemplateClicked) {
+        global.createChosen = false;
+        $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
+        $("#plus-holder").removeClass("sidebar-button-active");
+    }
+
     $("#newProjectOverlay").on("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handleHideAddNewProjectOverlayAnimationEnd);
 }
 
 function handleHideAddNewProjectOverlayAnimationEnd() {
     $("#newProjectOverlay").off("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handleHideAddNewProjectOverlayAnimationEnd);
     $("#newProjectOverlay").hide();
-    $("#newProjectOverlay").removeClass("animated slideOutUp");
-    $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
-    resetProjectCreationForm();
-    hideProjectPathError();
-    hideProjectNameError();
-    hideProjectIdError();
+    $("#newProjectOverlay").removeClass("animated slideOutRight");
+
+    if (!global.backTemplateClicked) {
+        $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
+        resetProjectCreationForm();
+        hideProjectPathError();
+        hideProjectNameError();
+        hideProjectIdError();
+    }
 }
 
+// -- add new or open existing overlay
 function displayAddCreateProjectOverlay(evt) {
     $("#overlay-bg").show();
     $("#plus-holder").addClass("sidebar-button-active");
@@ -55,6 +99,7 @@ function handleHideAddCreateProjectOverlayAnimationEnd() {
     }
 }
 
+// -- remove project
 function toggleRemoveProjectView(evt) {
     overlayBackgroundHandler();
 
@@ -99,6 +144,7 @@ function handleFlipEnded() {
     $("#flip-container").removeClass("animated flip");
 }
 
+// -- settings overlay
 function toggleSettings() {
     if ($("#settingsOverlay").is(":visible")) {
         hidePortError();
@@ -129,6 +175,7 @@ function handleHideSettingsAnimationEnd() {
     $("#settingsOverlay").removeClass("animated slideOutLeft");
 }
 
+// -- help overlay
 function toggleHelp() {
     if ($("#helpOverlay").is(":visible")) {
         $("#helpOverlay").on("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handleHelpOverlayAnimationEnd);
@@ -154,6 +201,7 @@ function handleHelpOverlayAnimationEnd() {
     $("#helpOverlay").removeClass("animated slideOutLeft");
 }
 
+// -- server log overlay
 function toggleLog() {
     if ($("#serverLogOverlay").is(":visible")) {
         $("#serverLogOverlay").on("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handleHideServerLogAnimationEnd);
@@ -181,6 +229,7 @@ function handleHideServerLogAnimationEnd() {
     $("#serverLogOverlay").removeClass("animated slideOutLeft");
 }
 
+// -- general overlay handlers
 function overlayBackgroundHandler(evt) {
     global.createChosen = false;
     $("#overlay-bg").hide();
@@ -188,6 +237,10 @@ function overlayBackgroundHandler(evt) {
 }
 
 function hideOverlays() {
+    if ($("#templateOverlay").is(":visible")) {
+        hideTemplateOverlay();
+    }
+
     if ($("#createOpenProjectOverlay").is(":visible")) {
         hideAddCreateProjectOverlay();
     }
