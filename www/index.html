@@ -94,7 +94,7 @@
             $("#updateOverlay").hide();
             $("#projectDirectory").hide();
             $("#templateOverlay").hide();
-            $("#newProjectOverlay").hide();
+            $("#projectDetailsOverlay").hide();
             $("#createOpenProjectOverlay").hide();
             $("#settingsOverlay").hide();
             $("#serverLogOverlay").hide();
@@ -144,7 +144,7 @@
                 global.createChosen = true;
                 global.nextTemplateClicked = true;
                 global.backTemplateClicked = false;
-                displayAddNewProjectOverlay();
+                displayProjectDetailsOverlay();
             });
 
             $("#cancelTemplate").click(overlayBackgroundHandler);
@@ -155,7 +155,7 @@
 
             $("#backNewProject").click(function() {
                 global.backTemplateClicked = true;
-                hideAddNewProjectOverlay();
+                hideProjectDetailsOverlay();
                 displayTemplateOverlay();
             });
 
@@ -207,7 +207,7 @@
             });
 
             $("#plus-holder").click(function() {
-                if ($("#createOpenProjectOverlay").is(":visible") || $("#newProjectOverlay").is(":visible")) {
+                if ($("#createOpenProjectOverlay").is(":visible") || $("#projectDetailsOverlay").is(":visible")) {
                     overlayBackgroundHandler();
                     if (global.createChosen) {
                         global.createChosen = false;
@@ -243,11 +243,11 @@
             });
 
             $("#plus-holder").on("mouseout", function() {
-                if (!$("#createOpenProjectOverlay").is(":visible") && !$("#newProjectOverlay").is(":visible")) {
+                if (!$("#createOpenProjectOverlay").is(":visible") && !$("#projectDetailsOverlay").is(":visible")) {
                     imgSwapper('plus-icon', 'img/icons/normal/plus.svg');
                 }
 
-                if ($("#createOpenProjectOverlay").is(":visible") || $("#newProjectOverlay").is(":visible")) {
+                if ($("#createOpenProjectOverlay").is(":visible") || $("#projectDetailsOverlay").is(":visible")) {
                     imgSwapper('plus-icon', 'img/icons/active/plus-active.svg');
                 }
             });
@@ -393,31 +393,31 @@
             </div>
         </aside>
 
-        <aside id="newProjectOverlay" class="new-project-overlay">
+        <aside id="projectDetailsOverlay" class="project-details-overlay">
             <div class="overlay-form-item"><span class="overlay-wizard-text">STEP 2 OF 2 |</span> PROJECT DETAILS</div>
             <div class="overlay-form-item">
                 <hr class="dotted-hr" />
             </div>
-            <div class="overlay-form-item-heading" id="new-project-path-label">Local path:</div>
+            <div class="overlay-form-item-heading" id="project-details-path-label">Local path:</div>
             <div class="overlay-form-item">
                 <span id="project-path-border">
                     <img id="project-path-warning-icon" src="img/icons/normal/warning.svg" />
                     <div id="projectPath" class="overlay-form-item-description italics project-path-label">Please choose a local path</div>
                 </span>
-                <button id="chooseNewProjectPath" class="new-project-choose-button">Choose...</button>
+                <button id="chooseNewProjectPath" class="project-details-choose-button">Choose...</button>
             </div>
             <div class="overlay-form-item"></div>
             <div class="overlay-form-item overlay-form-item-description">This is where the project will be stored on your computer.</div>
             <div class="overlay-form-item overlay-form-item required" id="project-path-error-message">You must choose a local path where your project will be created.</div>
 
-            <div class="overlay-form-item-heading" id="new-project-name-label">Name:</div>
+            <div class="overlay-form-item-heading" id="project-details-name-label">Name:</div>
             <div class="overlay-form-item">
                 <input type="text" id="projectName" class="text-input project-input-field" />
             </div>
             <div class="overlay-form-item overlay-form-item-description">The display name for your app.</div>
             <div class="overlay-form-item overlay-form-item required" id="project-name-error-message">You must give your new project a name.</div>
 
-            <div class="overlay-form-item-heading" id="new-project-id-label">ID: <span class="overlay-form-item-description">(optional)</span></div>
+            <div class="overlay-form-item-heading" id="project-details-id-label">ID: <span class="overlay-form-item-description">(optional)</span></div>
             <div class="overlay-form-item">
                 <input type="text" id="project-id" class="text-input project-input-field" placeholder="com.phonegap.helloworld" />
             </div>
@@ -436,7 +436,7 @@
             </div>
         </aside>
 
-        <aside id="templateOverlay" class="new-project-overlay">
+        <aside id="templateOverlay" class="project-details-overlay">
             <div class="overlay-form-item"><span class="overlay-wizard-text">STEP 1 OF 2 |</span> SELECT A TEMPLATE</div>
             <div class="overlay-form-item">
                 <hr class="dotted-hr" />
