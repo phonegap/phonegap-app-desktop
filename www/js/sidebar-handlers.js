@@ -67,7 +67,6 @@ function animateProjectDetailsOverlayEntry() {
 
 function hideProjectDetailsOverlay(evt) {
     $("#projectDetailsOverlay").removeClass("animated slideInRight");
-    //$("#projectDetailsOverlay").addClass("animated slideOutRight");
 
     if (!global.backTemplateClicked) {
         global.createChosen = false;
