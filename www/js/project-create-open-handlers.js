@@ -145,8 +145,12 @@ function create(projectName, projectId, projDir) {
               // update the config.xml of the newly created project with the project name & project id entered by the user
               updateConfig(projectName, projectId, projDir);
               $("#overlay-bg").hide();
+<<<<<<< 56121e90cdeaaa79e81042a44fd6b1711ca15cc8
               hideAddNewProjectOverlay();
               this.removeListener("complete", arguments.callee);
+=======
+              hideProjectDetailsOverlay();
+>>>>>>> [#569] changed references to new project overlay to project details overlay
           });
 }
 
@@ -293,10 +297,10 @@ function folderExistsInFileSystem(projDir) {
     fs.exists(folder, function(exists) {
         if (exists) {
             displayDuplicateProjectNameError();
-            $("#newProjectOverlay").addClass("new-project-overlay-duplicate-project-name-error");
+            $("#projectDetailsOverlay").addClass("project-details-overlay-duplicate-project-name-error");
         } else {
             hideDuplicateProjectNameError();
-            $("#newProjectOverlay").removeClass("new-project-overlay-duplicate-project-name-error");
+            $("#projectDetailsOverlay").removeClass("project-details-overlay-duplicate-project-name-error");
         }
     });
 }
