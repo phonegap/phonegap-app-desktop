@@ -125,7 +125,7 @@
     width: 375px;
     height: 298px;
 }
-.new-project-overlay {
+.project-details-overlay {
     background-color: #1f2326;
     color: white;
     position: fixed;
@@ -135,22 +135,22 @@
     width: 375px;
     height: 485px;
 }
-.new-project-overlay-duplicate-project-name-error {
+.project-details-overlay-duplicate-project-name-error {
     height: 565px;
 }
-.new-project-overlay-project-name-or-project-id-error {
+.project-details-overlay-project-name-or-project-id-error {
     height: 525px;
 }
-.new-project-overlay-project-name-and-project-id-error {
+.project-details-overlay-project-name-and-project-id-error {
     height: 560px;
 }
-.new-project-overlay-project-path-and-other-error {
+.project-details-overlay-project-path-and-other-error {
     height: 570px;
 }
-.new-project-overlay-project-path-error {
+.project-details-overlay-project-path-error {
     height: 540px;
 }
-.new-project-overlay-all-errors {
+.project-details-overlay-all-errors {
     height: 600px;
 }
 .overlay-form-item-heading {
@@ -213,7 +213,7 @@
     padding-top: 4px;
     font-family: 'Source Sans';
 }
-.new-project-choose-button {
+.project-details-choose-button {
     background-color: #1ba1c7;
     color: white;
     border: none;
@@ -224,7 +224,7 @@
     float: right;
     font-family: 'Source Sans';
 }
-.new-project-choose-button:hover {
+.project-details-choose-button:hover {
     background-color: #134590;
 }
 .required {
