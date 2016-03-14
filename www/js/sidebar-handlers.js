@@ -27,10 +27,10 @@ function handleHideTemplateOverlayAnimationEnd() {
     $("#templateOverlay").off("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handleHideTemplateOverlayAnimationEnd);
     $("#templateOverlay").hide();
     $("#templateOverlay").removeClass("animated slideOutUp");
-    $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
+    //$("#plus-icon").attr("src", "img/icons/normal/plus.svg");
 }
 
-// -- new project overlay
+// -- project details overlay
 function displayProjectDetailsOverlay(evt) {
     hideTemplateOverlay();
     if(global.nextTemplateClicked) {
