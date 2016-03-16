@@ -170,6 +170,32 @@
 .overlay-wizard-text {
     color: #999999;
 }
+.template-overlay {
+    background-color: #1f2326;
+    color: white;
+    position: fixed;
+    top: 0px;
+    left: 75px;
+    z-index: 12;
+    width: 375px;
+    height: 465px;
+}
+.template-widget {
+    padding: 0px;
+    margin: 0px;
+}
+.template-list {
+    width: 100%;
+    height: 310px;
+    overlfow-x: hidden;
+    overflow-y: auto;
+}
+.template-list-item {
+    padding-top: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 5px;
+}
 .italics {
     font-style: italic;
 }
