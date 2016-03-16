@@ -50,6 +50,7 @@
         <script type="text/javascript" src="js/utils.js"></script>
         <script type="text/javascript" src="js/analytics.js"></script>
         <script type="text/javascript" src="js/auto-updater.js"></script>
+        <script type="text/javascript" src="js/templates.js"></script>
 
         <script type="text/javascript" src="js/keen.3.1.0.min.js"></script>
 
@@ -295,9 +296,9 @@
 
             initFileMenu();
 
-            //trackAppOpened();
             gaAppLoaded();
             getProjects();
+            getTemplates();
 
             // auto-update on Mac OSX
             if (determineOperatingSystem() === 'darwin') {
@@ -419,13 +420,13 @@
             </div>
         </aside>
 
-        <aside id="templateOverlay" class="project-details-overlay">
+        <aside id="templateOverlay" class="template-overlay">
             <div class="overlay-form-item"><span class="overlay-wizard-text">STEP 1 OF 2 |</span> SELECT A TEMPLATE</div>
             <div class="overlay-form-item">
                 <hr class="dotted-hr" />
             </div>
-            <div class="overlay-form-item">
-                <div id="templateList">template list</div>
+            <div class="overlay-form-item" style="overflow: hidden;">
+                <div id="templateList" class="template-list" style="overlfow-x: hidden; overflow-y: auto;"></div>
             </div>
             <div class="overlay-form-item">
                 <hr class="dotted-hr" />
