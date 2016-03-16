@@ -18,7 +18,7 @@ function templateWidget(name, description) {
 }
 
 function addTemplates(templates) {
-    $.each(templates, function(key, value) {
+        $.each(templates, function(key, value) {
         console.log(key);
         var templateDOM = templateWidget(key, value.description);
         $("#templateList").append(templateDOM);
