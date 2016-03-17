@@ -12,6 +12,8 @@ function createProject(e) {
     hideProjectNameError();
     resetProjectCreationFormHeight();
 
+    console.log("name: " + isProjectNameEmpty + " path: " + isProjectPathEmpty);
+
     if(!isProjectNameEmpty && !isProjectPathEmpty) {
         projDir = projectPath + buildPathBasedOnOS("/") + projectName;
         localStorage.projDir = projDir;
@@ -94,18 +96,9 @@ function selectDirectory(e) {
                             // assume that no www/config.xml means a project doesn't exist in selected local path
                             hideProjectPathError();
                             resetProjectCreationFormHeight();
-                            console.log(isProjectPathEmpty + " " + isProjectNameEmpty);
 
-                            if (isProjectPathEmpty) {
-                                displayProjectPathError();
-                            }
-
-                            if (isProjectNameEmpty) {
-                                displayProjectNameError();
-                            }
-
-                            adjustProjectCreationFormHeight(isProjectPathEmpty, isProjectNameEmpty);
                             $("#projectDetailsOverlay").removeClass("project-details-overlay-project-path-error");
+                            $("#projectDetailsOverlay").removeClass("project-details-overlay-project-name-or-project-id-error");
                         } else {
                             // www/config.xml exists in selected local path, assume that there is an existing project in the local path
                             displayPhoneGapProjectInFolderError();
