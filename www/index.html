@@ -199,6 +199,7 @@
             });
 
             $("#plus-holder").click(function() {
+                resetTemplateSelected();
                 if ($("#createOpenProjectOverlay").is(":visible") || $("#projectDetailsOverlay").is(":visible")) {
                     overlayBackgroundHandler();
                     if (global.createChosen) {
