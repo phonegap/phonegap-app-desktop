@@ -70,10 +70,9 @@ function setServerOnline(projDir) {
             console.log(errMsg);
             $("#log").prop("disabled", true);
         }
+
     });
 }
-
-
 
 function setServerOffline() {
     global.server.closeServer(function() {
