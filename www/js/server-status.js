@@ -20,9 +20,7 @@ function setServerOnline(projDir) {
         if (exists) {
             process.chdir(projDir);
 
-            global.pgServer.listen({ port: localStorage.portNumber })
-            .on("complete", function(data) {
-
+            global.pgServer.serve({ port: localStorage.portNumber }, function(e, data) {
                 var ipAddressesFound = data.addresses.length;
 
                 trackNumIPsFound(ipAddressesFound);
@@ -57,9 +55,9 @@ function setServerOnline(projDir) {
         } else {
             var errMsg = "an existing project doesn't exist in this folder";
             console.log(errMsg);
-            $("#server-status").prop("checked", false);
             $("#log").prop("disabled", true);
         }
+
     });
 }
 
