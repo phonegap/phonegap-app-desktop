@@ -89,6 +89,7 @@
         global.firstProjectDir = null;
         global.nextTemplateClicked = false;
         global.backTemplateClicked = false;
+        global.selectedTemplate = "hello-world";
 
         $(document).ready(function() {
 
@@ -208,6 +209,7 @@
             });
 
             $("#plus-holder").click(function() {
+                resetTemplateSelected();
                 if ($("#createOpenProjectOverlay").is(":visible") || $("#projectDetailsOverlay").is(":visible")) {
                     overlayBackgroundHandler();
                     if (global.createChosen) {
