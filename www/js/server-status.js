@@ -23,9 +23,7 @@ function setServerOnline(projDir) {
             // need to change this for browser platform because of Cordova Issue: CB-5687
             process.env.PWD = projDir;
 
-            global.pgServer.listen({ browser: true, isDesktop: true, phonegap: require('phonegap'), port: localStorage.portNumber })
-            .on("complete", function(data) {
-
+            global.pgServer.listen({ browser: true, isDesktop: true, phonegap: require('phonegap'), port: localStorage.portNumber }, function(e, data) {
                 var ipAddressesFound = data.addresses.length;
 
                 trackNumIPsFound(ipAddressesFound);
@@ -69,9 +67,9 @@ function setServerOnline(projDir) {
         } else {
             var errMsg = "an existing project doesn't exist in this folder";
             console.log(errMsg);
-            $("#server-status").prop("checked", false);
             $("#log").prop("disabled", true);
         }
+
     });
 }
 
