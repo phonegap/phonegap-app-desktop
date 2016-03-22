@@ -18,8 +18,8 @@ function templateWidget(name, description) {
 }
 
 function addTemplates(templates) {
-
     $.each(templates, function(key, value) {
+        console.log(key);
         var templateDOM = templateWidget(key, value.description);
         $("#templateList").append(templateDOM);
     });
@@ -28,8 +28,11 @@ function addTemplates(templates) {
     $("#templateList").append(snotify);
 
     $("input[name='selectedTemplate']").change(function() {
-        // Do something interesting here
-        alert(this.value);
+        global.selectedTemplate = this.value;
     });
+}
 
+function resetTemplateSelected() {
+    $('input[name="selectedTemplate"][value="hello-world"]').prop('checked', true);
+    global.selectedTemplate = "hello-world";
 }
