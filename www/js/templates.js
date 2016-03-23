@@ -28,6 +28,7 @@ function addTemplates(templates) {
     $("#templateList").append(snotify);
 
     $("input[name='selectedTemplate']").change(function() {
+        console.log("selected value: " + this.value);
         global.selectedTemplate = this.value;
     });
 }
