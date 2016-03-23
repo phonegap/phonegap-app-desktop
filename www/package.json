@@ -6,7 +6,7 @@
       "devTools" : true
   },
   "dependencies" : {
-      "connect-phonegap": "/Users/spindori/Documents/PhoneGap/connect-phonegap",
+      "connect-phonegap": "https://github.com/phonegap/connect-phonegap.git#websockets",
       "gaze": "0.5.1",
       "opener": "1.4.1",
       "node-jsxml": "0.6.0",
