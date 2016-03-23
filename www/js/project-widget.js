@@ -99,11 +99,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
 
     $("#start-icon_" + id.toString()).on("click", function() {
         setActiveWidget(id, projectDir);
-        if (global.isServerRunning) {
-            widgetServerOnlineState(id);
-        } else {
-            toggleServerStatus(projectDir);
-        }
+        toggleServerStatus(projectDir);
     });
 
     $("#stop-icon_" + id.toString()).on("mouseover", function() {
