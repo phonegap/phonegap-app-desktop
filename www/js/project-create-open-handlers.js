@@ -58,12 +58,10 @@ function createProject(e) {
 
 function selectProjectPath(e) {
     global.createClicked = true;
-    //$("#projectDirectory").trigger("click");
     selectDirectory(e);
 }
 
 function openProject(e) {
-    //$("#projectDirectory").trigger("click");
     selectDirectory(e);
 }
 
@@ -131,27 +129,66 @@ function selectDirectory(e) {
 
 function create(projectName, projectId, projDir) {
     var options = {};
-       options.path = projDir;
-       options.version = global.pgVersion;
+    options.path = projDir;
+    //options.version = global.pgVersion;
+    options.name = projectName;
+    options.id = projectId;
+    options.template = global.selectedTemplate;
+    options.verbose = true;
 
-       global.pgServer.create(options)
-          .on("error", function(e) {
-              console.log(e.message);
-              displayErrorMessage(e.message);
-              this.removeListener("error", arguments.callee);
-          })
-          .on("complete", function(data) {
-              console.log("created project at:" + data.path);
-              // update the config.xml of the newly created project with the project name & project id entered by the user
-              updateConfig(projectName, projectId, projDir);
-              $("#overlay-bg").hide();
-<<<<<<< 56121e90cdeaaa79e81042a44fd6b1711ca15cc8
-              hideAddNewProjectOverlay();
-              this.removeListener("complete", arguments.callee);
-=======
-              hideProjectDetailsOverlay();
->>>>>>> [#569] changed references to new project overlay to project details overlay
-          });
+    console.log("options: " + JSON.stringify(options));
+
+
+    global.phonegap.create(options, function(e) {
+        console.log("created project at:" + options.path);
+        console.log(e);
+
+        // update the config.xml of the newly created project with the project name & project id entered by the user
+        updateConfig(projectName, projectId, projDir);
+
+        $("#overlay-bg").hide();
+        hideProjectDetailsOverlay();
+    })
+    .on("log", function() { console.log.apply(this, arguments); })
+    .on("error", function() { console.log.apply(this, arguments); })
+    .on("raw", function(data) {
+        //console.log.apply(this, arguments);
+        console.log(data);
+    });
+
+    /*
+    .on("progress", function(state) {
+        if (state.percentage) {
+            console.log("downloaded: " + state.percentage + "%");
+        }
+    })
+    .on("error", function(e) {
+        console.log(e.message);
+        displayErrorMessage(e.message);
+    });
+    */
+
+    /*
+    var shell = require("shelljs");
+    shell.exec('phonegap create "' + options.path + '" --template "' + options.template + '" --id "' + options.id + '" --name "' + options.name + '"', function(code, stdout, stderr) {
+    //phonegap.create doesn't work with shell.exec
+    //shell.exec('phonegap.create(' + options + ')', function(code, stdout, stderr) {
+        console.log("code: " + code);
+        console.log("output: " + stdout);
+        if (code === 0) {
+            console.log("created project at:" + options.path);
+            // update the config.xml of the newly created project with the project name & project id entered by the user
+            updateConfig(projectName, projectId, projDir);
+            $("#overlay-bg").hide();
+            hideProjectDetailsOverlay();
+        } else {
+            if (stderr !== undefined) {
+                console.log(stderr);
+                displayErrorMessage(stderr);
+            }
+        }
+    });
+    */
 }
 
 function updateConfig(projectName, projectId, projDir) {
@@ -163,8 +200,8 @@ function updateConfig(projectName, projectId, projDir) {
         if(err) {
             fs.readFile(oldPathToConfigFile, {encoding: 'utf8'}, function(err, oldPathData) {
                 if (err) {
-                    console.log("old: " + oldPathToConfigFile);
-                    console.log("new: " + newPathToConfigFile);
+                    //console.log("old: " + oldPathToConfigFile);
+                    //console.log("new: " + newPathToConfigFile);
                     displayMissingConfigFileNotification();
                 } else {
                     $.xmlDoc = $.parseXML(oldPathData);
