@@ -143,7 +143,6 @@
 
             $("#nextTemplate").click(function() {
                 global.nextTemplateClicked = true;
-                global.backTemplateClicked = false;
                 displayProjectDetailsOverlay();
             });
 
@@ -157,7 +156,6 @@
             $("#backNewProject").click(function() {
                 global.backTemplateClicked = true;
                 hideProjectDetailsOverlay();
-                displayTemplateOverlay();
             });
 
             $("#cancelNewProject").click(overlayBackgroundHandler);
