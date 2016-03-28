@@ -1,5 +1,6 @@
 // -- template overlay
 function displayTemplateOverlay(evt) {
+
     if (!global.backTemplateClicked) {
         hideAddCreateProjectOverlay();
     }
@@ -10,7 +11,15 @@ function displayTemplateOverlay(evt) {
 function animateTemplateOverlayEntry() {
     $("#plus-icon").attr("src", "img/icons/active/plus-active.svg");
     $("#plus-holder").addClass("sidebar-button-active");
-    $("#templateOverlay").addClass("animated slideInDown");
+
+    if (global.backTemplateClicked) {
+        console.log("back");
+        global.backTemplateClicked = false;
+        $("#templateOverlay").addClass("animated slideInLeft");
+    } else {
+        $("#templateOverlay").addClass("animated slideInDown");
+    }
+
     $("#templateOverlay").show();
     $("#overlay-bg").show();
 }
@@ -18,25 +27,34 @@ function animateTemplateOverlayEntry() {
 function hideTemplateOverlay(evt) {
     $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
     $("#plus-holder").removeClass("sidebar-button-active");
-    $("#templateOverlay").removeClass("animated slideInDown");
-    $("#templateOverlay").addClass("animated slideOutUp");
+    $("#templateOverlay").removeClass("animated slideInDown slideInLeft");
+
+    if(global.nextTemplateClicked) {
+        $("#templateOverlay").addClass("animated slideOutLeft");
+    } else {
+        $("#templateOverlay").addClass("animated slideOutUp");
+    }
+
     $("#templateOverlay").on("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handleHideTemplateOverlayAnimationEnd);
 }
 
 function handleHideTemplateOverlayAnimationEnd() {
     $("#templateOverlay").off("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handleHideTemplateOverlayAnimationEnd);
     $("#templateOverlay").hide();
-    $("#templateOverlay").removeClass("animated slideOutUp");
-    //$("#plus-icon").attr("src", "img/icons/normal/plus.svg");
+
+    if(global.nextTemplateClicked) {
+        global.nextTemplateClicked = false;
+        $("#templateOverlay").removeClass("animated slideOutLeft");
+    } else {
+        $("#templateOverlay").removeClass("animated slideOutUp");
+    }
+
 }
 
 // -- project details overlay
 function displayProjectDetailsOverlay(evt) {
     hideTemplateOverlay();
-    if(global.nextTemplateClicked) {
-        global.nextTemplateClicked = false;
-        animateProjectDetailsOverlayEntry();
-    }
+    animateProjectDetailsOverlayEntry();
 }
 
 function animateProjectDetailsOverlayEntry() {
@@ -49,12 +67,15 @@ function animateProjectDetailsOverlayEntry() {
 
 function hideProjectDetailsOverlay(evt) {
     $("#projectDetailsOverlay").removeClass("animated slideInRight");
-    $("#projectDetailsOverlay").addClass("animated slideOutRight");
+    //$("#projectDetailsOverlay").addClass("animated slideOutRight");
 
     if (!global.backTemplateClicked) {
         global.createChosen = false;
+        $("#projectDetailsOverlay").addClass("animated slideOutUp");
         $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
         $("#plus-holder").removeClass("sidebar-button-active");
+    } else {
+        $("#projectDetailsOverlay").addClass("animated slideOutRight");
     }
 
     $("#projectDetailsOverlay").on("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handlehideProjectDetailsOverlayAnimationEnd);
@@ -63,14 +84,17 @@ function hideProjectDetailsOverlay(evt) {
 function handlehideProjectDetailsOverlayAnimationEnd() {
     $("#projectDetailsOverlay").off("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handlehideProjectDetailsOverlayAnimationEnd);
     $("#projectDetailsOverlay").hide();
-    $("#projectDetailsOverlay").removeClass("animated slideOutRight");
 
     if (!global.backTemplateClicked) {
+        $("#projectDetailsOverlay").removeClass("animated slideOutUp");
         $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
         resetProjectCreationForm();
         hideProjectPathError();
         hideProjectNameError();
         hideProjectIdError();
+    } else {
+        $("#projectDetailsOverlay").removeClass("animated slideOutRight");
+        displayTemplateOverlay();
     }
 }
 
