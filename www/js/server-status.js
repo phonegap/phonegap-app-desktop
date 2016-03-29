@@ -20,6 +20,9 @@ function setServerOnline(projDir) {
         if (exists) {
             process.chdir(projDir);
 
+            // need to change this for browser platform because of Cordova Issue: CB-5687
+            process.env.PWD = projDir;
+
             global.phonegap.serve({ browser: true, isDesktop: true, phonegap: require('phonegap'), port: localStorage.portNumber }, function(e, data) {
                 var ipAddressesFound = data.addresses.length;
 
