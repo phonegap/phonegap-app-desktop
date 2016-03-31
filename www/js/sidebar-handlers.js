@@ -76,6 +76,8 @@ function hideProjectDetailsOverlay(evt) {
         $("#plus-holder").removeClass("sidebar-button-active");
     } else {
         $("#projectDetailsOverlay").addClass("animated slideOutRight");
+        $("#templateOverlay").show();
+        $("#templateOverlay").addClass("animated slideInLeft");
     }
 
     $("#projectDetailsOverlay").on("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handlehideProjectDetailsOverlayAnimationEnd);
@@ -94,7 +96,9 @@ function handlehideProjectDetailsOverlayAnimationEnd() {
         hideProjectIdError();
     } else {
         $("#projectDetailsOverlay").removeClass("animated slideOutRight");
-        displayTemplateOverlay();
+        $("#templateOverlay").removeClass("animated slideInLeft");
+        $("#templateOverlay").on("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handleHideTemplateOverlayAnimationEnd);
+        global.backTemplateClicked = false;
     }
 }
 
