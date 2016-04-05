@@ -87,9 +87,18 @@ function serverOfflineState() {
 }
 
 function serverOnlineState(data, label) {
+    var serverIP = data.address + ":" + data.port;
+    var ipAddressLink = "Server is running on ";
+    ipAddressLink += "<a class='ip-link' onclick='openIPLink(\"" + serverIP + "\");'>";
+    ipAddressLink += "http://" + serverIP;
+    ipAddressLink += "</a>";
+
     $("#status-field").show();
     $("#status-field").css("background-color", "rgb(43,169,77)");
-    $("#server-status-label").text(label);
+
+    //$("#server-status-label").text(label);
+    $("#server-status-label").html(ipAddressLink);
+
     $("#settings-ip").text(data.address + ":");
 }
 
@@ -100,11 +109,11 @@ function multipleServersOnlineState(data) {
     var ipListHeight = 30;
 
     for (var address of data.addresses) {
-        ipAddresses += "<div style='height: 20px; padding-top: 2px; padding-bottom: 2px;'>"
-        ipAddresses += "http://";
-        ipAddresses += address;
-        ipAddresses += ":";
-        ipAddresses += data.port;
+        var serverIP = address + ":" + data.port;
+        ipAddresses += "<div style='height: 20px; padding-top: 2px; padding-bottom: 2px;'>";
+        ipAddresses += "<a class='ip-link' onclick='openIPLink(\"" + serverIP + "\");'>";
+        ipAddresses += "http://" + serverIP;
+        ipAddresses += "</a>";
         ipAddresses += "</div>";
     }
 

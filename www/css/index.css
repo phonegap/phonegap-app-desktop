@@ -83,6 +83,10 @@
     max-height: 150px;
     position: fixed;
 }
+.ip-link:hover {
+    text-decoration:underline;
+    cursor: hand;
+}
 .dropzone {
     width: 100%;
     height: 550px;

@@ -76,8 +76,8 @@ function setDebugFlag(debugMode) {
     trackAppOpened();
 }
 
-function openIssueTracker() {
-    shell.openExternal('https://github.com/phonegap/phonegap-app-desktop/issues?state=open');
+function openIPLink(serverIP) {
+    shell.openExternal("http://" + serverIP);
 }
 
 function openTutorials() {
