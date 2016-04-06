@@ -77,7 +77,7 @@ function setDebugFlag(debugMode) {
 }
 
 function openIPLink(serverIP) {
-    shell.openExternal("http://" + serverIP);
+    shell.openExternal("http://" + serverIP.toString());
 }
 
 function openTutorials() {
