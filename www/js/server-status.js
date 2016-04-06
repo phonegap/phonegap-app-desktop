@@ -47,7 +47,7 @@ function setServerOnline(projDir) {
             })
             .on("error", function(e) {
                 console.log(e.message);
-                $("#server-status-label").text(e.message);
+                $("#server-status-label").html(e.message);
 
                 $("#status-field").css("background-color", "rgb(153,153,153)");
                 widgetServerOfflineState(global.activeWidget.projectId, global.activeWidget.widgetId);
@@ -80,12 +80,12 @@ function setServerOfflineThenOnline(projDir) {
 
 function serverOfflineState() {
     $("#status-field").css("background-color", "rgb(153,153,153)");
-    $("#server-status-label").text("Server is offline");
+    $("#server-status-label").html("Server is offline");
     $("#status-field").show();
 }
 
 function serverOnlineState(data, label) {
-    var serverIP = data.address + ":" + data.port;
+    var serverIP = data.address.toString() + ":" + data.port.toString();
     var ipAddressLink = "Server is running on ";
     ipAddressLink += "<a class='ip-link' onclick='openIPLink(\"" + serverIP + "\");'>";
     ipAddressLink += "http://" + serverIP;
@@ -107,7 +107,7 @@ function multipleServersOnlineState(data) {
     var ipListHeight = 30;
 
     for (var address of data.addresses) {
-        var serverIP = address + ":" + data.port;
+        var serverIP = address.toString() + ":" + data.port.toString();
         ipAddresses += "<div style='height: 20px; padding-top: 2px; padding-bottom: 2px;'>";
         ipAddresses += "<a class='ip-link' onclick='openIPLink(\"" + serverIP + "\");'>";
         ipAddresses += "http://" + serverIP;
