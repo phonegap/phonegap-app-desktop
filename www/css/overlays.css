@@ -51,7 +51,11 @@
 
 .topcoat-overlay-bg-grey {
 	position:absolute;
+<<<<<<< 5e07e242e0ba868113b2072d460141740ee9b2b7
     top: 0px;
+=======
+	top: 0px;
+>>>>>>> [#575] stubbed in the loading overlay
 	left: 75px;
 	width: 550px;
 	height:100%;
