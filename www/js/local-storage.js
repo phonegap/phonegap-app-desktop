@@ -61,6 +61,7 @@ function getProjects() {
         });
 
         setTimeout(removeMissingProjects, 1000);
+        setTimeout(hideLoader, 1100);
 
     }
 }
