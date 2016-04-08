@@ -51,11 +51,3 @@ modified:
   width: 38px;
   height: 38px;
 }
-.loader-text {
-    position: absolute;
-    top: 230px;
-    left: 115px;
-    color: #27a1c5;
-    text-align: center;
-    font-weight: bold;
-}
