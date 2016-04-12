@@ -31,6 +31,11 @@ function addProject(projName, projVersion, iconPath, projDir) {
         localStorage.projects = JSON.stringify(myProjects);
     }
 
+    if (global.isServerRunning) {
+        // if server is currently running, stop it before opening a new server instance
+        setServerOfflineThenOnline(projDir);
+    }
+
     // render newly added project to GUI & set it as the active widget
     addProjectWidget(id, projName, projVersion, iconPath, projDir);
     setActiveWidget(id, projDir);
