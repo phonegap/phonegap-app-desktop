@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-    var VERSION = '0.2.3';
+    var VERSION = '0.3.0';
     var osxArchive = './installers/osx64/PhoneGap-Desktop-Beta-' + VERSION + '-mac.zip';
     var winArchive = './installers/win32/PhoneGap-Desktop-Beta-' + VERSION + '-win.zip';
 
@@ -158,7 +158,8 @@ module.exports = function(grunt) {
             'clean-build-dir',
             'electron',
             'code-sign-osx',
-            'open'
+            'open'//,
+            //'start-localhost'
         ]
     );
 
