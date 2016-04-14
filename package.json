@@ -41,10 +41,17 @@
     ],
     "packages": {
         "mac": {
+<<<<<<< 4e1f4f3885690a919fdd3b825aee36563059a670
             "url": "https://github.com/phonegap/phonegap-app-desktop/releases/download/0.3.1/PhoneGap-Desktop-Beta-0.3.1-mac.zip"
         },
         "win": {
             "url": "https://github.com/phonegap/phonegap-app-desktop/releases/download/0.3.1/PhoneGap-Desktop-Beta-0.3.1-win.zip"
+=======
+            "url": "https://github.com/phonegap/phonegap-app-desktop/releases/download/0.3.0/PhoneGap-Desktop-Beta-0.3.0-mac.zip"
+        },
+        "win": {
+            "url": "https://github.com/phonegap/phonegap-app-desktop/releases/download/0.3.0/PhoneGap-Desktop-Beta-0.3.0-win.zip"
+>>>>>>> [#587] updated PhoneGap Desktop VERSION to 0.3.0
         }
     },
     "licenses": [{
