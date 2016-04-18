@@ -142,7 +142,12 @@
 
             $("#createProject").click(function() {
                 global.createChosen = true;
-                displayAddNewProjectOverlay();
+                displayTemplateOverlay();
+            });
+
+            $("#backNewProject").click(function() {
+                global.backTemplateClicked = true;
+                hideProjectDetailsOverlay();
             });
 
             $("#cancelNewProject").click(overlayBackgroundHandler);
