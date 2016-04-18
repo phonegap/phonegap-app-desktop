@@ -74,7 +74,7 @@
         <script type="text/javascript" src="js/ga/gaTracking.js"></script>
 
         <script type='text/javascript'>
-        
+
         global.phonegap = require("phonegap");
         global.pgVersion = "6.0.5";
         global.createClicked = false;
@@ -157,10 +157,6 @@
             $("#backNewProject").click(function() {
                 global.backTemplateClicked = true;
                 hideProjectDetailsOverlay();
-<<<<<<< f1c664117e7de69548c2e853bf1134c90388662d
-=======
-                displayTemplateOverlay();
->>>>>>> [#569] changed references to new project overlay to project details overlay
             });
 
             $("#cancelNewProject").click(overlayBackgroundHandler);
@@ -204,10 +200,7 @@
             });
 
             $("#plus-holder").click(function() {
-<<<<<<< f1c664117e7de69548c2e853bf1134c90388662d
                 resetTemplateSelected();
-=======
->>>>>>> [#569] changed references to new project overlay to project details overlay
                 if ($("#createOpenProjectOverlay").is(":visible") || $("#projectDetailsOverlay").is(":visible")) {
                     overlayBackgroundHandler();
                     if (global.createChosen) {
@@ -435,11 +428,7 @@
             </div>
         </aside>
 
-<<<<<<< f1c664117e7de69548c2e853bf1134c90388662d
         <aside id="templateOverlay" class="template-overlay">
-=======
-        <aside id="templateOverlay" class="project-details-overlay">
->>>>>>> [#569] changed references to new project overlay to project details overlay
             <div class="overlay-form-item"><span class="overlay-wizard-text">STEP 1 OF 2 |</span> SELECT A TEMPLATE</div>
             <div class="overlay-form-item">
                 <hr class="dotted-hr" />
