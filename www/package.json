@@ -3,7 +3,7 @@
   "version" : "0.3.1",
   "main"    : "index.js",
   "window"  : {
-      "devTools" : false
+      "devTools" : true
   },
   "dependencies" : {
       "gaze": "0.5.1",
