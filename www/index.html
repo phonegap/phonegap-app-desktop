@@ -306,6 +306,7 @@
                 checkForUpdates(autoUpdater);
             }
 
+            var hideLoaderTimeout = setTimeout(hideLoader, 2000);
         });
 
         function getProjectPath(e) {

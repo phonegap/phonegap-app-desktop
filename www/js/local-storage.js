@@ -65,9 +65,8 @@ function getProjects() {
             });
         });
 
-        setTimeout(removeMissingProjects, 1000);
-        setTimeout(hideLoader, 1100);
-
+        var removeMissingProjectsTimeout = setTimeout(removeMissingProjects, 1000);
+        //var hideLoaderTimeout = setTimeout(hideLoader, 1100);
     }
 }
 
@@ -101,7 +100,6 @@ function removeMissingProjects() {
     if (index > 0) {
         setActiveWidget(projects[0].id, projects[0].projDir);
     }
-
 }
 
 function getProjectConfig(id, projDir, i) {
