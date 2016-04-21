@@ -3,7 +3,7 @@ if test -e ./installers/osx64; then
     echo "osx64 directory already exists"
 else
     echo "creating osx64 directory"
-    mkdir ./installers/osx64
+    mkdir -p ./installers/osx64
 fi
 
 test -f ./installers/osx64/PhoneGapDesktop.dmg && rm ./installers/osx64/PhoneGapDesktop.dmg
