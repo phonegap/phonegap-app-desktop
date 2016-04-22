@@ -53,7 +53,16 @@ function setServerOnline(projDir) {
                 widgetServerOfflineState(global.activeWidget.projectId, global.activeWidget.widgetId);
             })
             .on("log", function(status, url) {
-                $("#serverLog").append(status + " " + url + "\n");
+                //$("#serverLog").append(status + " " + url + "\n");
+                var serverLog = $("#serverLog");
+                var args = Array.prototype.slice.call(arguments);
+                var message = args.join(' ');
+                if (serverLog.val() !== undefined) {
+                    serverLog.val(serverLog.val() + message + "\n");
+                } else {
+                    serverLog.val(message + "\n");
+                }
+
             });
         } else {
             var errMsg = "an existing project doesn't exist in this folder";
