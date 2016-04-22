@@ -7,6 +7,18 @@ function toggleServerStatus(projDir) {
     }
 }
 
+var onLogCallback = function appendToServerLog(status, url) {
+    //$("#serverLog").append(status + " " + url + "\n");
+    var serverLog = $("#serverLog");
+    var args = Array.prototype.slice.call(arguments);
+    var message = args.join(' ');
+    if (serverLog.val() !== undefined) {
+        serverLog.val(serverLog.val() + message + "\n");
+    } else {
+        serverLog.val(message + "\n");
+    }
+}
+
 function setServerOnline(projDir) {
     if (projDir.length > 0) {
         localStorage.projDir = projDir;
@@ -54,18 +66,7 @@ function setServerOnline(projDir) {
                 $("#status-field").css("background-color", "rgb(153,153,153)");
                 widgetServerOfflineState(global.activeWidget.projectId, global.activeWidget.widgetId);
             })
-            .on("log", function(status, url) {
-                //$("#serverLog").append(status + " " + url + "\n");
-                var serverLog = $("#serverLog");
-                var args = Array.prototype.slice.call(arguments);
-                var message = args.join(' ');
-                if (serverLog.val() !== undefined) {
-                    serverLog.val(serverLog.val() + message + "\n");
-                } else {
-                    serverLog.val(message + "\n");
-                }
-
-            });
+            .on("log", onLogCallback);
         } else {
             var errMsg = "an existing project doesn't exist in this folder";
             console.log(errMsg);
@@ -75,9 +76,12 @@ function setServerOnline(projDir) {
     });
 }
 
+
+
 function setServerOffline() {
     global.server.closeServer(function() {
         global.isServerRunning = false;
+        global.phonegap.removeListener("log", onLogCallback);
         console.log("server closed");
     });
 }
@@ -85,6 +89,7 @@ function setServerOffline() {
 function setServerOfflineThenOnline(projDir) {
     global.server.closeServer(function() {
         global.isServerRunning = false;
+        global.phonegap.removeListener("log", onLogCallback);
         setServerOnline(projDir);
     });
 }
