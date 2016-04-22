@@ -173,6 +173,13 @@
 
             $("#closeServerLog").click(toggleLog);
 
+            $("#clearServerLog").click(function() {
+                //console.log($("#serverLog").val());
+                var serverLog = $("#serverLog");
+                serverLog.val("");
+                serverLog.val(serverLog.val());
+            });
+
             $("#about").click(function() {
                 aboutContent();
                 toggleHelp();
@@ -379,10 +386,11 @@
         <aside id="serverLogOverlay" class="server-log-overlay">
             <div class="overlay-form-item">Server Log</div>
             <div class="overlay-form-item">
-                <textarea id="serverLog" readonly class="server-log-textarea"></textarea>
+                <textarea id="serverLog" name="serverLog" readonly class="server-log-textarea"></textarea>
             </div>
             <div class="overlay-form-item">
-                <button id="closeServerLog" class="cancel-button" style="float: right;">Close</button>
+                <button id="closeServerLog" class="cancel-button" style="float: left;">Close</button>
+                <button id="clearServerLog" class="action-button" style="float: right;">Clear</button>
             </div>
         </aside>
 
