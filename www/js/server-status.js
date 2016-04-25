@@ -148,5 +148,10 @@ function multipleServersOnlineState(data) {
     serverOnlineState(data, "Server is running on multiple IP addresses:");
 
     $("#drop_zone").css("height", statusFieldTop);
+}
 
+function multipleServersOfflineState() {
+    $("#ip-holder").hide();
+    $("#drop_zone").css("height", "550px");
+    $("#status-field").css("top", "550px");
 }
