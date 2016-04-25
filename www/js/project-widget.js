@@ -116,6 +116,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
                 // turn off the server
                 global.stopClicked = true;
                 setServerOffline();
+                multipleServersOfflineState();
                 serverOfflineState();
                 widgetServerOfflineState(id, widgetId);
                 global.activeWidget = null;
