@@ -135,27 +135,23 @@ function create(projectName, projectId, projDir) {
        options.version = global.pgVersion;
 
        global.pgServer.create(options)
-          .on("progress", function(state) {
-              if (state.percentage) {
-                  console.log("downloaded: " + state.percentage + "%");
-              }
-          })
           .on("error", function(e) {
               console.log(e.message);
               displayErrorMessage(e.message);
+              this.removeListener("error", arguments.callee);
           })
           .on("complete", function(data) {
               console.log("created project at:" + data.path);
-
               // update the config.xml of the newly created project with the project name & project id entered by the user
               updateConfig(projectName, projectId, projDir);
-
               $("#overlay-bg").hide();
               hideAddNewProjectOverlay();
+              this.removeListener("complete", arguments.callee);
           });
 }
 
 function updateConfig(projectName, projectId, projDir) {
+    console.log("updateConfig");
     var oldPathToConfigFile = projDir + buildPathBasedOnOS("/www/config.xml");
     var newPathToConfigFile = projDir + buildPathBasedOnOS("/config.xml");
 
@@ -168,11 +164,13 @@ function updateConfig(projectName, projectId, projDir) {
                     displayMissingConfigFileNotification();
                 } else {
                     $.xmlDoc = $.parseXML(oldPathData);
+                    console.log("updateConfigOnProjectCreation - oldPathData");
                     updateConfigOnProjectCreation($.xmlDoc, projectName, projectId, oldPathToConfigFile, projDir);
                 }
             });
         } else {
             $.xmlDoc = $.parseXML(newPathData);
+            console.log("updateConfigOnProjectCreation - newPathData");
             updateConfigOnProjectCreation($.xmlDoc, projectName, projectId, newPathToConfigFile, projDir);
         }
     });
@@ -204,6 +202,8 @@ function updateConfigOnProjectCreation(configXML, projectName, projectId, pathTo
             // throw err
         } else {
             // check if the project exists in PG-GUI's localstorage before adding
+            console.log("projDir: " + projDir);
+            console.log(projectExistsInLocalStorage(projDir));
             if(!projectExistsInLocalStorage(projDir)) {
                 addProject(projectName, projVersion, iconPath, projDir);
             } else {
