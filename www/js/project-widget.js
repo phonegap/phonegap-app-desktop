@@ -119,7 +119,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
                 multipleServersOfflineState();
                 serverOfflineState();
                 widgetServerOfflineState(id, widgetId);
-                global.activeWidget = null;
+                //global.activeWidget = null;
             }
         }
     });
