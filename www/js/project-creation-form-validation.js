@@ -1,10 +1,13 @@
 function displayPhoneGapProjectInFolderError() {
     $("#newProjectOverlay").addClass("new-project-overlay-project-path-error");
     $("#project-path-error-message").text("The chosen folder already contains a PhoneGap project. Please select a different folder.");
-    displayProjectPathError();
+    $("#new-project-path-label").addClass("required");
+    $("#project-path-warning-icon").show();
+    $("#project-path-error-message").show();
 }
 
 function displayProjectPathError() {
+    $("#project-path-error-message").text("You must choose a local path where your project will be created.");
     $("#new-project-path-label").addClass("required");
     $("#project-path-warning-icon").show();
     $("#project-path-error-message").show();
