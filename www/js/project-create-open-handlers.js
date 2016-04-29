@@ -175,6 +175,7 @@ function create(projectName, projectId, projDir) {
     //shell.exec('phonegap.create(' + options + ')', function(code, stdout, stderr) {
         console.log("code: " + code);
         console.log("output: " + stdout);
+
         if (code === 0) {
             console.log("created project at:" + options.path);
             // update the config.xml of the newly created project with the project name & project id entered by the user

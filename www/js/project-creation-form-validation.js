@@ -8,7 +8,7 @@ function displayPhoneGapProjectInFolderError() {
 
 function displayProjectPathError() {
     $("#project-path-error-message").text("You must choose a local path where your project will be created.");
-    $("#new-project-path-label").addClass("required");
+    $("#project-details-path-label").addClass("required");
     $("#project-path-warning-icon").show();
     $("#project-path-error-message").show();
 }
