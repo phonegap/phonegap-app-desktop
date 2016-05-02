@@ -152,8 +152,8 @@ module.exports = function(grunt) {
         'default',
         [
             'clean-node-modules',
-            'install-dependencies',
             'copy-dev-config',
+            'install-dependencies',
             'copy-eula',
             'clean-build-dir',
             'electron',
@@ -169,8 +169,8 @@ module.exports = function(grunt) {
         [
             'clean-node-modules',
             'clean-installers-dir',
-            'install-dependencies',
             'copy-release-config',
+            'install-dependencies',
             'copy-eula',
             'clean-build-dir',
             'electron',
