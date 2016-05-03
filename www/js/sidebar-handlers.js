@@ -167,16 +167,17 @@ function toggleLog() {
         $("#log-holder").addClass("sidebar-button-active");
         $("#serverLogOverlay").removeClass("animated slideOutLeft");
         $("#serverLogOverlay").addClass("animated slideInLeft");
-        $("#status-field").hide();
-        $("#ip-holder").hide();
         $("#overlay-bg").show();
         $("#serverLogOverlay").show();
     }
 }
 
 function handleHideServerLogAnimationEnd() {
-    $("#status-field").show();
-    $("#ip-holder").show();
+
+    if (global.isServerRunning) {
+        $("#ip-holder").show();
+    }
+
     $("#serverLogOverlay").hide();
     $("#serverLogOverlay").removeClass("animated slideOutLeft");
 }
