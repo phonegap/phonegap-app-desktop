@@ -16,6 +16,7 @@ global.firstProjectDir = null;
 global.selectedTemplate = "hello-world";
 
 $(document).ready(function() {
+
     $("#updateOverlay").hide();
     $("#projectDirectory").hide();
     $("#templateOverlay").hide();
@@ -242,7 +243,7 @@ $(document).ready(function() {
 
     // auto-update on Mac OSX
     if (determineOperatingSystem() === 'darwin') {
-        checkForUpdates();
+        checkForUpdates(autoUpdater);
     }
 
     var hideLoaderTimeout = setTimeout(hideLoader, 2000);
