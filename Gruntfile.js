@@ -180,4 +180,7 @@ module.exports = function(grunt) {
             'open'
         ]
     );
+
+    grunt.registerTask('debugMac',['clean-build-dir','electron:osxBuild','open']);
+    grunt.registerTask('debugWin',['clean-build-dir','electron:winBuild','open']);
 };
