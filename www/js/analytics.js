@@ -1,3 +1,16 @@
+
+ga_storage._setAccount('UA-94271-31'); //Replace with your own
+ga_storage._trackPageview('/index.html');
+
+global.client = new Keen({
+    projectId: "546d2e572481967ede7222b9",       // String (required)
+    writeKey: "84948a28890f632d6fe87abc758380d985a3a0a4f67168d0d23d63c167641f7f32a53e81bb027466b0041d163646bec625a2be3c587fe9a5831308f93c4584ab73a577b5e65fea588d2a02fc409e8be8e6ecaa223717c274e4cc8b0e080388278d91a908a259117ca6f0176c4258f2db", // String (required for sending data)
+    readKey: "f8f1a1c93f38c292c7187da662697ad2c8ee1864835104e1f9549ebda75ab71a9d4fec047eac78aa1610f75059ee320bbfaa1370e1e877a49377d8f68a63eba62909ab013c8a429ffb7bd0e36fdb12bd66dd95f6f12472ec818d117d90a901585ea8b276f6a5c6c06f9653f9452354a3",   // String (required for querying data)
+    protocol: "https",                  // String (optional: https | http | auto)
+    host: "api.keen.io/3.0",            // String (optional)
+    requestType: "jsonp"                // String (optional: jsonp, xhr, beacon)
+});
+
 function trackAppOpened() {
 
     console.log('usage flag: ' + getSendUsageFlag());
