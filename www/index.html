@@ -16,333 +16,6 @@
         <link rel="stylesheet" type="text/css" href="css/flipper.css">
         <link rel="stylesheet" type="text/css" href="css/loader.css">
 
-        <script type="text/javascript">
-
-            var remote = require('remote');
-            var dialog = remote.require('dialog');
-            var autoUpdater = remote.require('auto-updater');
-
-            // load dependencies module
-            var fs = require("fs");
-            var gaze = require("gaze");
-            var jsxml= require("node-jsxml");
-            var opener = require("opener");
-            var path = require("path");
-            var shell = require('shell');
-            var uuid = require("node-uuid");
-
-            var Namespace = jsxml.Namespace,
-                QName = jsxml.QName,
-                XML = jsxml.XML,
-                XMLList = jsxml.XMLList;
-        </script>
-
-        <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
-        <script type="text/javascript" src="js/error-notification.js"></script>
-        <script type="text/javascript" src="js/file-menu.js"></script>
-        <script type="text/javascript" src="js/sidebar-handlers.js"></script>
-        <script type="text/javascript" src="js/server-status.js"></script>
-        <script type="text/javascript" src="js/drag-n-drop-handlers.js"></script>
-        <script type="text/javascript" src="js/project-create-open-handlers.js"></script>
-        <script type="text/javascript" src="js/project-creation-form-validation.js"></script>
-        <script type="text/javascript" src="js/project-widget.js"></script>
-        <script type="text/javascript" src="js/local-storage.js"></script>
-        <script type="text/javascript" src="js/settings-handlers.js"></script>
-        <script type="text/javascript" src="js/utils.js"></script>
-        <script type="text/javascript" src="js/analytics.js"></script>
-        <script type="text/javascript" src="js/auto-updater.js"></script>
-        <script type="text/javascript" src="js/templates.js"></script>
-
-        <script type="text/javascript" src="js/keen.3.1.0.min.js"></script>
-
-        <script type="text/javascript">
-          global.client = new Keen({
-            projectId: "546d2e572481967ede7222b9",       // String (required)
-            writeKey: "84948a28890f632d6fe87abc758380d985a3a0a4f67168d0d23d63c167641f7f32a53e81bb027466b0041d163646bec625a2be3c587fe9a5831308f93c4584ab73a577b5e65fea588d2a02fc409e8be8e6ecaa223717c274e4cc8b0e080388278d91a908a259117ca6f0176c4258f2db", // String (required for sending data)
-            readKey: "f8f1a1c93f38c292c7187da662697ad2c8ee1864835104e1f9549ebda75ab71a9d4fec047eac78aa1610f75059ee320bbfaa1370e1e877a49377d8f68a63eba62909ab013c8a429ffb7bd0e36fdb12bd66dd95f6f12472ec818d117d90a901585ea8b276f6a5c6c06f9653f9452354a3",   // String (required for querying data)
-            protocol: "https",                  // String (optional: https | http | auto)
-            host: "api.keen.io/3.0",            // String (optional)
-            requestType: "jsonp"                // String (optional: jsonp, xhr, beacon)
-          });
-        </script>
-
-        <script type="text/javascript" src="js/ga/GALocalStorage.js"></script>
-        <script type="text/javascript">
-            ga_storage._setAccount('UA-94271-31'); //Replace with your own
-            ga_storage._trackPageview('/index.html');
-        </script>
-        <script type="text/javascript" src="js/ga/gaTracking.js"></script>
-
-        <script type='text/javascript'>
-
-        global.phonegap = require("phonegap");
-        global.pgVersion = "6.0.5";
-        global.createClicked = false;
-        global.server = null;
-        global.isServerRunning = false;
-        global.allowRemoveNotification = "false";
-        global.createChosen = false;
-        global.missing = new Array();
-        global.manifest = null;
-        global.newAppPath = null;
-        global.stopClicked = false;
-        global.firstProjectDir = null;
-        global.nextTemplateClicked = false;
-        global.backTemplateClicked = false;
-        global.selectedTemplate = "hello-world";
-
-        $(document).ready(function() {
-
-            $("#updateOverlay").hide();
-            $("#projectDirectory").hide();
-            $("#templateOverlay").hide();
-            $("#projectDetailsOverlay").hide();
-            $("#createOpenProjectOverlay").hide();
-            $("#settingsOverlay").hide();
-            $("#serverLogOverlay").hide();
-            $("#helpOverlay").hide();
-            $("#overlay-bg").hide();
-            $("#notification-bar").hide();
-            $("#port-number-error").hide();
-            $("#ip-holder").hide();
-
-            $("#body").on("drop", handleDrop);
-            $("#body").on("dragover", handleDragOver);
-
-            $("#overlay-bg").click(overlayBackgroundHandler);
-
-            $("#addNewProject").click(function(e) {
-                global.createChosen = false;
-                createProject(e);
-            });
-
-            $("#chooseNewProjectPath").click(function(e) {
-                getProjectPath();
-                //selectProjectPath(e);
-            });
-
-            $("#projectName").blur(function() {
-
-                var projectPath = $("#projectPath").text().trim();
-                var projectName = $("#projectName").val().trim();
-
-                var isProjectPathEmpty = isProjectPathFieldEmpty(projectPath);
-                var isProjectNameEmpty = isEmptyField(projectName);
-
-                if (projectName.length > 0) {
-
-                    if (isProjectPathEmpty) {
-                        // error with project path
-                        displayProjectPathError();
-                        adjustProjectCreationFormHeight(isProjectPathEmpty, isProjectNameEmpty);
-                    } else {
-                        var project = projectPath + "/" + projectName;
-                        folderExistsInFileSystem(project);
-                    }
-                }
-            });
-
-            $("#nextTemplate").click(function() {
-                global.nextTemplateClicked = true;
-                displayProjectDetailsOverlay();
-            });
-
-            $("#cancelTemplate").click(overlayBackgroundHandler);
-
-            $("#createProject").click(function() {
-                global.createChosen = true;
-                displayTemplateOverlay();
-            });
-
-            $("#backNewProject").click(function() {
-                global.backTemplateClicked = true;
-                hideProjectDetailsOverlay();
-            });
-
-            $("#cancelNewProject").click(overlayBackgroundHandler);
-
-            $("#openProject").click(function(e) {
-                global.createChosen = false;
-                getProjectPath();
-            });
-
-            $("#saveSettings").click(saveSettings);
-            $("#cancelSettings").click(cancelSettings);
-
-            $("#portNumber").blur(settingsFormValidatePortNumber);
-
-            $("#closeServerLog").click(toggleLog);
-
-            $("#clearServerLog").click(function() {
-                //console.log($("#serverLog").val());
-                var serverLog = $("#serverLog");
-                serverLog.val("");
-                serverLog.val(serverLog.val());
-            });
-
-            $("#about").click(function() {
-                aboutContent();
-                toggleHelp();
-            });
-
-            //tutorials & reportIssue
-            $("#tutorials").click(function() {
-                openTutorials();
-                toggleHelp();
-            });
-
-            $("#reportIssue").click(function() {
-                openIssueTracker();
-                toggleHelp();
-            });
-
-            $("#termsOfUse").click(function() {
-                openTermsOfUse();
-                toggleHelp();
-            });
-
-            $("#privacyPolicy").click(function() {
-                openPrivacyPolicy();
-                toggleHelp();
-            });
-
-            $("#plus-holder").click(function() {
-                resetTemplateSelected();
-                if ($("#createOpenProjectOverlay").is(":visible") || $("#projectDetailsOverlay").is(":visible")) {
-                    overlayBackgroundHandler();
-                    if (global.createChosen) {
-                        global.createChosen = false;
-                    }
-                } else {
-                    resetMinusButtonState();
-                    hideOverlays();
-                    displayAddCreateProjectOverlay();
-                }
-            });
-
-            $("#minus-holder").click(function() {
-                if(!$("#minus-holder").hasClass("sidebar-button-holder-inactive")) {
-                    toggleRemoveProjectView();
-                }
-            });
-
-            $("#settings-holder").click(function() {
-                if (!$("#settingsOverlay").is(":visible")) {
-                    resetMinusButtonState();
-                }
-                toggleSettings();
-            });
-
-            $("#log-holder").click(function() {
-                resetMinusButtonState();
-                toggleLog();
-            });
-
-            $("#help-holder").click(function() {
-                resetMinusButtonState();
-                toggleHelp();
-            });
-
-            $("#plus-holder").on("mouseout", function() {
-                if (!$("#createOpenProjectOverlay").is(":visible") && !$("#projectDetailsOverlay").is(":visible")) {
-                    imgSwapper('plus-icon', 'img/icons/normal/plus.svg');
-                }
-
-                if ($("#createOpenProjectOverlay").is(":visible") || $("#projectDetailsOverlay").is(":visible")) {
-                    imgSwapper('plus-icon', 'img/icons/active/plus-active.svg');
-                }
-            });
-
-            $("#minus-holder").on("mouseover", function() {
-                if(!$("#minus-holder").hasClass("sidebar-button-holder-inactive")) {
-                   imgSwapper('minus-icon', 'img/icons/hover/minus-hover.svg');
-                }
-
-                if($("#minus-holder").hasClass("sidebar-button-active")) {
-                   imgSwapper('minus-icon', 'img/icons/active/minus-active.svg');
-                }
-            });
-
-            $("#minus-holder").on("mouseout", function() {
-                if(!$("#minus-holder").hasClass("sidebar-button-holder-inactive")) {
-                    if (!$(".flip-container").hasClass("flip")) {
-                        imgSwapper('minus-icon', 'img/icons/normal/minus.svg');
-                    }
-
-                    if ($(".flip-container").hasClass("flip")) {
-                        imgSwapper('minus-icon', 'img/icons/active/minus-active.svg');
-                    }
-                }
-
-                if($("#minus-holder").hasClass("sidebar-button-active")) {
-                   imgSwapper('minus-icon', 'img/icons/active/minus-active.svg');
-                }
-            });
-
-            $("#settings-holder").on("mouseout", function() {
-                if (!$("#settingsOverlay").is(":visible")) {
-                    imgSwapper('settings-icon', 'img/icons/normal/settings.svg');
-                } else {
-                    imgSwapper('settings-icon', 'img/icons/active/settings-active.svg');
-                }
-            });
-
-            $("#help-holder").on("mouseout", function() {
-                if (!$("#helpOverlay").is(":visible")) {
-                    imgSwapper('help-icon', 'img/icons/normal/help.svg');
-                } else {
-                    imgSwapper('help-icon', 'img/icons/hover/help-hover.svg');
-                }
-            });
-
-            initSettings();
-
-            hideProjectPathError();
-            hideProjectNameError();
-            hideProjectIdError();
-            disableMinusButton();
-
-            initFileMenu();
-
-            gaAppLoaded();
-            getProjects();
-            getTemplates();
-
-            // auto-update on Mac OSX
-            if (determineOperatingSystem() === 'darwin') {
-                checkForUpdates(autoUpdater);
-            }
-
-            var hideLoaderTimeout = setTimeout(hideLoader, 2000);
-        });
-
-        function getProjectPath(e) {
-            var path = dialog.showOpenDialog({properties: ['openDirectory']});
-            if ($.isArray(path)) {
-                if (path.length > 0) {
-                    path = path[0];
-                    $('#projectDirectory').val(path);
-                    console.log(path);
-
-                    if (global.createChosen) {
-                        selectProjectPath(e);
-                    } else {
-                        openProject(e);
-                    }
-
-                } else {
-                    console.log("path array was empty");
-                }
-            } else {
-                console.log("path returned was not array");
-            }
-        }
-
-        function imgSwapper(img, src) {
-            $("#" + img).attr("src", src);
-        }
-
-        </script>
     </head>
     <body style="overflow-x: hidden; overflow-y: hidden;" id="body">
 
@@ -519,6 +192,31 @@
         <div class="status-field" id="status-field"><div id="server-status-label">Server is offline</div></div>
 
         <div class="ip-holder" id="ip-holder"><div class="ip-list" id="ip-list"></div></div>
+
+        <script type="text/javascript" src="js/requireStuff.js"></script>
+
+        <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+
+        <script type="text/javascript" src="js/keen.3.1.0.min.js"></script>
+        <script type="text/javascript" src="js/error-notification.js"></script>
+        <script type="text/javascript" src="js/file-menu.js"></script>
+        <script type="text/javascript" src="js/sidebar-handlers.js"></script>
+        <script type="text/javascript" src="js/server-status.js"></script>
+        <script type="text/javascript" src="js/drag-n-drop-handlers.js"></script>
+        <script type="text/javascript" src="js/project-create-open-handlers.js"></script>
+        <script type="text/javascript" src="js/project-creation-form-validation.js"></script>
+        <script type="text/javascript" src="js/project-widget.js"></script>
+        <script type="text/javascript" src="js/local-storage.js"></script>
+        <script type="text/javascript" src="js/settings-handlers.js"></script>
+        <script type="text/javascript" src="js/utils.js"></script>
+
+        <script type="text/javascript" src="js/auto-updater.js"></script>
+
+        <script type="text/javascript" src="js/ga/GALocalStorage.js"></script>
+        <script type="text/javascript" src="js/ga/gaTracking.js"></script>
+
+        <script type="text/javascript" src="js/analytics.js"></script>
+        <script type='text/javascript' src="main.js"></script>
 
     </body>
 </html>
