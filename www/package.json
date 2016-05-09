@@ -1,12 +1,12 @@
 {
   "name"    : "PhoneGap",
-  "version" : "0.3.1",
+  "version" : "0.3.2",
   "main"    : "index.js",
   "window"  : {
       "devTools" : false
   },
   "dependencies" : {
-      "connect-phonegap": "0.20.6",
+      "connect-phonegap": "0.21.1",
       "gaze": "0.5.1",
       "opener": "1.4.1",
       "node-jsxml": "0.6.0",
