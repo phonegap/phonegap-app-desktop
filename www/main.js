@@ -2,7 +2,7 @@ var autoUpdater = require('electron').remote.autoUpdater;
 var dialog = require('electron').remote.dialog;
 
 global.phonegap = require("phonegap");
-global.pgVersion = "6.0.5";
+global.pgVersion = "6.1.0";
 global.createClicked = false;
 global.server = null;
 global.isServerRunning = false;
@@ -65,9 +65,21 @@ $(document).ready(function() {
         }
     });
 
+    $("#nextTemplate").click(function() {
+        global.nextTemplateClicked = true;
+        displayProjectDetailsOverlay();
+    });
+
+    $("#cancelTemplate").click(overlayBackgroundHandler);
+
     $("#createProject").click(function() {
         global.createChosen = true;
-        displayAddNewProjectOverlay();
+        displayTemplateOverlay();
+    });
+
+    $("#backNewProject").click(function() {
+        global.backTemplateClicked = true;
+        hideProjectDetailsOverlay();
     });
 
     $("#cancelNewProject").click(overlayBackgroundHandler);
@@ -210,6 +222,7 @@ $(document).ready(function() {
     //trackAppOpened();
     gaAppLoaded();
     getProjects();
+    getTemplates();
 
     // auto-update on Mac OSX
     if (determineOperatingSystem() === 'darwin') {
