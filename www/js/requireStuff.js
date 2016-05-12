@@ -1,7 +1,5 @@
 var remote = require('remote');
 
-
-
 // load dependencies module
 var fs = require("fs");
 var gaze = require("gaze");
