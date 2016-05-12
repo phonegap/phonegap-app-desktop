@@ -1,7 +1,7 @@
 var autoUpdater = remote.require('auto-updater');
 var dialog = remote.require('dialog');
 
-global.pgServer = require("connect-phonegap");
+global.phonegap = require("phonegap");
 global.pgVersion = "6.0.5";
 global.createClicked = false;
 global.server = null;
@@ -18,7 +18,8 @@ $(document).ready(function() {
 
     $("#updateOverlay").hide();
     $("#projectDirectory").hide();
-    $("#newProjectOverlay").hide();
+    $("#templateOverlay").hide();
+    $("#projectDetailsOverlay").hide();
     $("#createOpenProjectOverlay").hide();
     $("#settingsOverlay").hide();
     $("#serverLogOverlay").hide();
