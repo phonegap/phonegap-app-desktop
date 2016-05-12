@@ -1,6 +1,6 @@
 function checkForUpdates(updater) {
 
-    var app = remote.require('app');
+    var app = require('electron').remote.app;
 
     updater.on('error', function(err, msg) {
         $('#updateOverlay').hide();
@@ -31,6 +31,6 @@ function checkForUpdates(updater) {
     var feedUrl = 'http://update.api.phonegap.com/desktop/?platform=' + determineOperatingSystem() + '&version=' + app.getVersion();
     console.log(feedUrl);
 
-    updater.setFeedUrl(feedUrl);
+    updater.setFeedURL(feedUrl);
     updater.checkForUpdates();
 }
