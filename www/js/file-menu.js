@@ -1,9 +1,9 @@
 function initFileMenu() {
-    var Menu = remote.require('menu');
-    var MenuItem = remote.require('menu-item');
+    var Menu = require('electron').remote.Menu;
+    var MenuItem = require('electron').remote.MenuItem;
     var template = getMenuTemplate();
 
-    menu = Menu.buildFromTemplate(template);
+    var menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);
 }
 

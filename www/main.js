@@ -1,5 +1,5 @@
-var autoUpdater = remote.require('auto-updater');
-var dialog = remote.require('dialog');
+var autoUpdater = require('electron').remote.autoUpdater;
+var dialog = require('electron').remote.dialog;
 
 global.pgServer = require("connect-phonegap");
 global.pgVersion = "6.0.5";
