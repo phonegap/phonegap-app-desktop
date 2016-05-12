@@ -52,7 +52,7 @@ function buildPathBasedOnOS(existingPath) {
 }
 
 function getVersion() {
-    var app = remote.require('app');
+    var app = require('electron').remote.app;//remote.require('app');
     return app.getVersion();
 }
 

@@ -1,4 +1,4 @@
-var remote = require('remote');
+var remote = require('electron').remote;
 
 // load dependencies module
 var fs = require("fs");
@@ -6,7 +6,7 @@ var gaze = require("gaze");
 var jsxml= require("node-jsxml");
 var opener = require("opener");
 var path = require("path");
-var shell = require('shell');
+var shell = require('electron').shell;
 var uuid = require("node-uuid");
 
 var Namespace = jsxml.Namespace,
