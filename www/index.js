@@ -20,19 +20,19 @@ function createWindow () {
     // and load the index.html of the app.
     mainWindow.loadURL('file://' + __dirname + '/index.html');
 
-    var fs = require('fs');
-    var pathToPackageJSONFile = __dirname + "/package.json";
+    var fs = require('fs')
+    var pathToPackageJSONFile = __dirname + "/package.json"
     fs.readFile(pathToPackageJSONFile, 'utf8', function(err, data) {
         if (err) {
-            mainWindow.webContents.executeJavaScript('console.log("not found");');
+            mainWindow.webContents.executeJavaScript('console.log("not found");')
         } else {
-            mainWindow.webContents.executeJavaScript('console.log("found");');
-            var obj = JSON.parse(data);
-            debugMode = obj.window.devTools;
+            mainWindow.webContents.executeJavaScript('console.log("found");')
+            var obj = JSON.parse(data)
+            debugMode = obj.window.devTools
 
             if (debugMode) {
                 // Open the devtools.
-                mainWindow.openDevTools();
+                mainWindow.openDevTools()
             }
         }
     });
@@ -41,7 +41,7 @@ function createWindow () {
 
         // manual update notification on Windows
         if (process.platform === 'win32') {
-            var request = require('request');
+            var request = require('request')
             request({
                     method: 'GET',
                     uri: 'https://raw.githubusercontent.com/phonegap/phonegap-app-desktop/master/package.json',
@@ -52,13 +52,13 @@ function createWindow () {
 
                         // get the PG version on github
                         var remoteVersion = body.version;
-                        mainWindow.webContents.executeJavaScript('console.log("remote version: '+ remoteVersion +' ");');
+                        mainWindow.webContents.executeJavaScript('console.log("remote version: '+ remoteVersion +' ");')
 
                         // check local version against PG version on github to see if update is available
                         if (remoteVersion > app.getVersion()) {
                             var updateDialog = electron.dialog;
-                            var buttons = ['Update Now', 'Cancel']
-                            var msg = "PhoneGap Desktop version " + remoteVersion + " is now available. Would you like to update?"
+                            var buttons = ['Update Now', 'Cancel'];
+                            var msg = "PhoneGap Desktop version " + remoteVersion + " is now available. Would you like to update?";
                             // prompt user to update their version
                             updateDialog.showMessageBox(
                                 mainWindow,
@@ -72,22 +72,20 @@ function createWindow () {
                                 function (buttonIndex) {
                                     if (buttonIndex == 0) {
                                         var shell = require('electron').shell
-                                        shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/releases");
+                                        shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/releases")
                                     }
                                 }
                             )
                         }
-                    } else {
-                        mainWindow.webContents.executeJavaScript('console.log("request error: '+ error +' ");');
                     }
                 }
             )
         }
 
         mainWindow.webContents.executeJavaScript('console.log("platform: '+ process.platform +' ");');
-        mainWindow.webContents.executeJavaScript('console.log("current version: '+ app.getVersion() +' ");');
-        mainWindow.webContents.executeJavaScript('console.log("debugMode: '+ debugMode +' ");');
-        mainWindow.webContents.executeJavaScript('setDebugFlag('+ debugMode +');');
+        mainWindow.webContents.executeJavaScript('console.log("current version: '+ app.getVersion() +' ");')
+        mainWindow.webContents.executeJavaScript('console.log("debugMode: '+ debugMode +' ");')
+        mainWindow.webContents.executeJavaScript('setDebugFlag('+ debugMode +');')
     });
 
     // Emitted when the window is closed.
