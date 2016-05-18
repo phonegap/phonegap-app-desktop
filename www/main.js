@@ -97,6 +97,13 @@ $(document).ready(function() {
 
     $("#closeServerLog").click(toggleLog);
 
+    $("#clearServerLog").click(function() {
+        //console.log($("#serverLog").val());
+        var serverLog = $("#serverLog");
+        serverLog.val("");
+        serverLog.val(serverLog.val());
+     });
+
     $("#about").click(function() {
         aboutContent();
         toggleHelp();
