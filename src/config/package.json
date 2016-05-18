@@ -6,12 +6,12 @@
       "devTools" : true
   },
   "dependencies" : {
-      "connect-phonegap": "0.21.1",
+      "connect-phonegap": "0.21.4",
       "gaze": "0.5.1",
       "opener": "1.4.1",
       "node-jsxml": "0.6.0",
       "node-uuid": "1.4.3",
-      "phonegap" : "6.0.5",
+      "phonegap" : "6.2.4",
       "request" : "2.65.0"
   },
   "licenses": [{
