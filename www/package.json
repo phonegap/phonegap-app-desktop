@@ -1,9 +1,9 @@
 {
   "name"    : "PhoneGap",
-  "version" : "0.3.2",
+  "version" : "0.3.3",
   "main"    : "index.js",
   "window"  : {
-      "devTools" : true
+      "devTools" : false
   },
   "dependencies" : {
       "connect-phonegap": "0.21.5",
