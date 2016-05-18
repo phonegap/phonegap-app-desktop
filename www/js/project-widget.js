@@ -21,10 +21,10 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     // project icon
     widgetDOM += "<div class='column project-icon-column'>";
 
-	widgetDOM += "<div class='flip-container'>";
-	widgetDOM += "<div class='flipper'>";
+    widgetDOM += "<div class='flip-container'>";
+    widgetDOM += "<div class='flipper'>";
 
-	widgetDOM += "<div class='front'>";
+    widgetDOM += "<div class='front'>";
     widgetDOM += "<img id='" + projectIconId + "' height='64' width='64' src='" + projectIcon + "' />";
     widgetDOM += "</div>";  // front content
 
@@ -34,8 +34,8 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     widgetDOM += "</button>";
     widgetDOM += "</div>";  // back content
 
-	widgetDOM += "</div>";  // flipper
-	widgetDOM += "</div>";  // flip-container
+    widgetDOM += "</div>";  // flipper
+    widgetDOM += "</div>";  // flip-container
 
     widgetDOM += "</div>";
 
