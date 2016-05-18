@@ -2,7 +2,7 @@ var autoUpdater = remote.require('auto-updater');
 var dialog = remote.require('dialog');
 
 global.pgServer = require("connect-phonegap");
-global.pgVersion = "6.0.5";
+global.pgVersion = "6.2.4";
 global.createClicked = false;
 global.server = null;
 global.isServerRunning = false;
