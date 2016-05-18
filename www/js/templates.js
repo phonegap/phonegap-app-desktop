@@ -24,9 +24,6 @@ function addTemplates(templates) {
         $("#templateList").append(templateDOM);
     });
 
-    var snotify = templateWidget("Snotify", "A full example app with words to add to the description.");
-    $("#templateList").append(snotify);
-
     $("input[name='selectedTemplate']").change(function() {
         console.log("selected value: " + this.value);
         global.selectedTemplate = this.value;
