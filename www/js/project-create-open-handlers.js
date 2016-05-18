@@ -138,41 +138,11 @@ function create(projectName, projectId, projDir) {
 
     console.log("options: " + JSON.stringify(options));
 
-
-    global.phonegap.create(options, function(e) {
-        console.log("created project at:" + options.path);
-        console.log(e);
-
-        // update the config.xml of the newly created project with the project name & project id entered by the user
-        updateConfig(projectName, projectId, projDir);
-
-        $("#overlay-bg").hide();
-        hideProjectDetailsOverlay();
-    })
-    .on("log", function() { console.log.apply(this, arguments); })
-    .on("error", function() { console.log.apply(this, arguments); })
-    .on("raw", function(data) {
-        //console.log.apply(this, arguments);
-        console.log(data);
-    });
-
-    /*
-    .on("progress", function(state) {
-        if (state.percentage) {
-            console.log("downloaded: " + state.percentage + "%");
-        }
-    })
-    .on("error", function(e) {
-        console.log(e.message);
-        displayErrorMessage(e.message);
-    });
-    */
-
-    /*
+    /**/
+    // phonegap create works when used with shell.exec
     var shell = require("shelljs");
     shell.exec('phonegap create "' + options.path + '" --template "' + options.template + '" --id "' + options.id + '" --name "' + options.name + '"', function(code, stdout, stderr) {
-    //phonegap.create doesn't work with shell.exec
-    //shell.exec('phonegap.create(' + options + ')', function(code, stdout, stderr) {
+
         console.log("code: " + code);
         console.log("output: " + stdout);
 
@@ -188,6 +158,26 @@ function create(projectName, projectId, projDir) {
                 displayErrorMessage(stderr);
             }
         }
+    });
+    /**/
+
+    /*
+    // phonegap.create doesn't work - TODO: try to find out why this API call fails
+    global.phonegap.create(options, function(e) {
+        console.log("created project at:" + options.path);
+        console.log(e);
+
+        // update the config.xml of the newly created project with the project name & project id entered by the user
+        updateConfig(projectName, projectId, projDir);
+
+        $("#overlay-bg").hide();
+        hideProjectDetailsOverlay();
+    })
+    .on("log", function() { console.log.apply(this, arguments); })
+    .on("error", function() { console.log.apply(this, arguments); })
+    .on("raw", function(data) {
+        //console.log.apply(this, arguments);
+        console.log(data);
     });
     */
 }
