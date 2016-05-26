@@ -179,8 +179,8 @@ function create(projectName, projectId, projDir) {
         }
     });
     child.on('error', function(e) {
-        console.log(e);
-        displayErrorMessage(e);
+       console.log(e);
+       displayErrorMessage(e);
     });
 }
 
