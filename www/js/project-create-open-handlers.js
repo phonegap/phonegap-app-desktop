@@ -138,27 +138,63 @@ function create(projectName, projectId, projDir) {
 
     console.log("options: " + JSON.stringify(options));
 
-    /**/
-    // phonegap create works when used with shell.exec
-    var shell = require("shelljs");
-    shell.exec('phonegap create "' + options.path + '" --template "' + options.template + '" --id "' + options.id + '" --name "' + options.name + '"', function(code, stdout, stderr) {
 
-        console.log("code: " + code);
-        console.log("output: " + stdout);
+    var child = require('child_process');
+    var path = require('path');
 
-        if (code === 0) {
-            console.log("created project at:" + options.path);
-            // update the config.xml of the newly created project with the project name & project id entered by the user
-            updateConfig(projectName, projectId, projDir);
-            $("#overlay-bg").hide();
-            hideProjectDetailsOverlay();
-        } else {
-            if (stderr !== undefined) {
-                console.log(stderr);
-                displayErrorMessage(stderr);
-            }
-        }
-    });
+    // Define the node executable path
+    var node = path.resolve(process.resourcesPath, '..', 'Frameworks',
+                           'PhoneGap Helper.app', 'Contents', 'MacOS', 'PhoneGap Helper');
+
+    // Define the command
+    var command = node;
+
+    // Define command arguments
+    var args = [];
+    args.push(path.join(__dirname, 'node_modules/phonegap/bin/', 'phonegap.js'));
+    args.push('create "' + options.path + '" --template "' + options.template + '" --id "' + options.id + '" --name "' + options.name + '"');
+
+    // Define options
+    var opts = [];
+    opts.env = process.env;
+    opts.env.ELECTRON_RUN_AS_NODE = 1;
+    opts.env.ELECTRON_NO_ATTACH_CONSOLE = 1;
+
+    var cmd = child.spawn(command, args, opts);
+   cmd.stdout.on('data', function(data) {
+     console.log('stdout:', data.toString());
+   });
+   cmd.stderr.on('data', function(data) {
+     console.log('stderr:', data.toString());
+   });
+   cmd.on('close', function(code) {
+     console.log('child process exited with code:', code);
+   });
+   cmd.on('error', function(e) {
+     console.log('child process error:', e);
+   });
+    // shell.exec(basePath + 'phonegap.js create "' + options.path + '" --template "' + options.template + '" --id "' + options.id + '" --name "' + options.name + '"', {
+    //   env: {
+    //     ATOM_SHELL_INTERNAL_RUN_AS_NODE: 1
+    //   }
+    // }, function(code, stdout, stderr) {
+    //
+    //     console.log("code: " + code);
+    //     console.log("output: " + stdout);
+    //
+    //     if (code === 0) {
+    //         console.log("created project at:" + options.path);
+    //         // update the config.xml of the newly created project with the project name & project id entered by the user
+    //         updateConfig(projectName, projectId, projDir);
+    //         $("#overlay-bg").hide();
+    //         hideProjectDetailsOverlay();
+    //     } else {
+    //         if (stderr !== undefined) {
+    //             console.log(stderr);
+    //             displayErrorMessage(stderr);
+    //         }
+    //     }
+    // });
     /**/
 
     /*
