@@ -6,9 +6,9 @@
       "devTools" : true
   },
   "dependencies" : {
-      "connect-phonegap": "0.21.5",
+      "connect-phonegap": "0.21.7",
       "gaze": "0.5.1",
-      "phonegap": "6.1.0",
+      "phonegap": "6.2.6",
       "opener": "1.4.1",
       "node-jsxml": "0.6.0",
       "node-uuid": "1.4.3",
