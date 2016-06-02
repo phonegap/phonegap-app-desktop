@@ -11,7 +11,7 @@ module.exports = function(grunt) {
                     name: 'PhoneGap',
                     dir: './www',
                     out: './build',
-                    version: '1.0.1',
+                    version: '1.2.1',
                     platform: 'darwin',
                     arch: 'x64',
                     icon: './www/img/app-icons/icon.icns',
@@ -23,7 +23,7 @@ module.exports = function(grunt) {
                     name: 'PhoneGap',
                     dir: './www',
                     out: './build',
-                    version: '1.0.1',
+                    version: '1.2.1',
                     platform: 'win32',
                     arch: 'ia32',
                     icon: './www/img/app-icons/icon.ico',
@@ -85,8 +85,8 @@ module.exports = function(grunt) {
         shell.exec("codesign --verbose --deep --force --sign 'Mac Developer: Herman Wong (M6QFED29S9)' build/PhoneGap-darwin-x64/PhoneGap.app");
         shell.exec("codesign --verbose --verify build/PhoneGap-darwin-x64/PhoneGap.app");
         shell.exec("codesign -vv -d build/PhoneGap-darwin-x64/PhoneGap.app");
-        shell.exec("codesign --verbose --force --sign 'Mac Developer: Herman Wong (M6QFED29S9)' build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/Electron");
-        shell.exec("codesign --verbose --verify build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/Electron");
+        shell.exec("codesign --verbose --force --sign 'Mac Developer: Herman Wong (M6QFED29S9)' build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/PhoneGap");
+        shell.exec("codesign --verbose --verify build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/PhoneGap");
     });
 
     // Clean build directories
