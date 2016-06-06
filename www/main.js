@@ -1,8 +1,8 @@
-var autoUpdater = require('electron').remote.autoUpdater;
+//var autoUpdater = require('electron').remote.autoUpdater;
 var dialog = require('electron').remote.dialog;
 
 global.pgServer = require("connect-phonegap");
-global.pgVersion = "6.2.4";
+global.pgVersion = "6.2.6";
 global.createClicked = false;
 global.server = null;
 global.isServerRunning = false;
@@ -217,10 +217,12 @@ $(document).ready(function() {
     gaAppLoaded();
     getProjects();
 
+    /*
     // auto-update on Mac OSX
     if (determineOperatingSystem() === 'darwin') {
         checkForUpdates(autoUpdater);
     }
+    */
 
     var hideLoaderTimeout = setTimeout(hideLoader, 2000);
 });
