@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-    var VERSION = '0.3.4';
+    var VERSION = '0.3.2';
     var osxArchive = './installers/osx64/PhoneGap-Desktop-Beta-' + VERSION + '-mac.zip';
     var winArchive = './installers/win32/PhoneGap-Desktop-Beta-' + VERSION + '-win.zip';
 
