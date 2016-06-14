@@ -4,8 +4,9 @@ function checkForUpdates() {
     var jsonUrl = 'https://raw.githubusercontent.com/phonegap/phonegap-app-desktop/master/package.json';
 
     $.getJSON(jsonUrl).done(function(json) {
-        var clientVersion = app.getVersion();
+        var clientVersion = app.getVersion().toString();
         var serverVersion = JSON.stringify(json.version);
+        serverVersion = serverVersion.replace(/["']/g, "");
 
         console.log("server: " + serverVersion + " client: " + clientVersion);
 
