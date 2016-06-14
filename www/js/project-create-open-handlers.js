@@ -151,17 +151,25 @@ function create(projectName, projectId, projDir) {
 
     // Define command arguments
     var args = [];
-    // args.push(path.join(__dirname, 'node_modules/phonegap/bin/', 'phonegap.js'));
+    args.push(path.join(__dirname, 'node_modules/phonegap/bin/', 'phonegap.js'));
     // args.push('create "' + options.path + '" --template "' + options.template + '" --id "' + options.id + '" --name "' + options.name + '"');
 
-    command += ' ' + (path.join(__dirname, 'node_modules/phonegap/bin/', 'phonegap.js'));
-    command += ' ' + 'create "' + options.path + '" --template "' + options.template + '" --id "' + options.id + '" --name "' + options.name + '"';
+    args.push('create');
+    args.push(options.path);
+    args.push('--template');
+    args.push(options.template);
+    args.push('--id');
+    args.push(options.id);
+    args.push('--name');
+    args.push(options.name);
 
     // Define options
     var opts = [];
     opts.env = process.env;
     opts.env.ELECTRON_RUN_AS_NODE = 1;
     opts.env.ELECTRON_NO_ATTACH_CONSOLE = 1;
+
+    console.log('*** phonegap command: ', command);
 
     var cmd = child.spawn(command, args, opts);
    cmd.stdout.on('data', function(data) {
