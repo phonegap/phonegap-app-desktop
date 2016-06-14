@@ -151,8 +151,11 @@ function create(projectName, projectId, projDir) {
 
     // Define command arguments
     var args = [];
-    args.push(path.join(__dirname, 'node_modules/phonegap/bin/', 'phonegap.js'));
-    args.push('create "' + options.path + '" --template "' + options.template + '" --id "' + options.id + '" --name "' + options.name + '"');
+    // args.push(path.join(__dirname, 'node_modules/phonegap/bin/', 'phonegap.js'));
+    // args.push('create "' + options.path + '" --template "' + options.template + '" --id "' + options.id + '" --name "' + options.name + '"');
+
+    command += ' ' + (path.join(__dirname, 'node_modules/phonegap/bin/', 'phonegap.js'));
+    command += ' ' + 'create "' + options.path + '" --template "' + options.template + '" --id "' + options.id + '" --name "' + options.name + '"';
 
     // Define options
     var opts = [];
