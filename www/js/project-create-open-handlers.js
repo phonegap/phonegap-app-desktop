@@ -150,7 +150,6 @@ function create(projectName, projectId, projDir) {
 
     // Define command arguments
     var args = [];
-
     args.push(path.join(__dirname, 'node_modules', 'phonegap', 'bin', 'phonegap.js'));
     args.push('create');
     args.push(options.path);
