@@ -158,8 +158,8 @@ module.exports = function(grunt) {
             'clean-build-dir',
             'electron',
             'code-sign-osx',
-            'open',
-            'start-localhost'
+            'open'//,
+            //'start-localhost'
         ]
     );
 

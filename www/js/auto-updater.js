@@ -1,4 +1,4 @@
-function checkForUpdates(updater) {
+function checkForUpdates() {
 
     var app = require('electron').remote.app;
     var jsonUrl = 'https://raw.githubusercontent.com/phonegap/phonegap-app-desktop/master/package.json';
@@ -9,9 +9,7 @@ function checkForUpdates(updater) {
 
         console.log("server: " + serverVersion + " client: " + clientVersion);
 
-        // TODO: change to > before production
-        if (serverVersion < clientVersion) {
-            console.log("update-available");
+        if (serverVersion > clientVersion) {
             $('#updateOverlayTitle').text('Update Available');
             $('#updateOverlayPrompt').text('A newer version of PhoneGap Desktop was found. Would you like PhoneGap Desktop to download the update & restart?');
             $("#overlay-bg").show();
@@ -25,12 +23,12 @@ function checkForUpdates(updater) {
     });
 }
 
-function updateDesktopApp() {
+function updateDesktopApp(updater) {
     console.log("updateDesktopApp");
 
-    /*
+    var app = require('electron').remote.app;
+
     updater.on('error', function(err, msg) {
-        $('#updateOverlay').hide();
         console.log(msg);
         displayErrorMessage('PhoneDesktop could not update because of the following error:\n\n' + msg);
     })
@@ -39,19 +37,14 @@ function updateDesktopApp() {
     })
     .on('update-available', function(err) {
         console.log("update-available");
-        $('#updateOverlayTitle').text('Update Available');
-        $('#updateOverlayPrompt').text('A newer version of PhoneGap Desktop was found. PhoneGap Desktop will automatically download the update & restart.');
-        $('#updateOverlay').show();
     })
     .on('update-downloaded', function(err) {
         console.log('update-downloaded');
-        $('#updateOverlay').hide();
         updater.quitAndInstall();
     })
     .on('update-not-available', function(err) {
         console.log("update-not-available");
     });
-    */
 
     // optional branch param can be used for testing
     // http://localhost:8080/desktop/<branch>/?platform=' + determineOperatingSystem() + '&version=' + app.getVersion();
@@ -59,6 +52,6 @@ function updateDesktopApp() {
     var feedUrl = 'http://update.api.phonegap.com/desktop/?platform=' + determineOperatingSystem() + '&version=' + app.getVersion();
     console.log(feedUrl);
 
-    //updater.setFeedURL(feedUrl);
-    //updater.checkForUpdates();
+    updater.setFeedURL(feedUrl);
+    updater.checkForUpdates();
 }
