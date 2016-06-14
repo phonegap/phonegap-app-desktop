@@ -3,7 +3,7 @@ const electron = require('electron')
 const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
-const updater = require('electron-updater');
+//const updater = require('electron-updater');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -11,7 +11,6 @@ let mainWindow
 let debugMode
 
 function createWindow () {
-  // Create the browser window.
   // Create the browser window.
   if (process.platform != 'win32') {
       mainWindow = new BrowserWindow({width: 450, height: 622, resizable: false, title: 'PhoneGap', center: true})
@@ -103,6 +102,8 @@ function createWindow () {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', function() {
+    createWindow();
+    /*
     updater.on('ready', function() {
         createWindow();
     })
@@ -116,6 +117,7 @@ app.on('ready', function() {
         console.log(err);
     })
     updater.start();
+    */
 })
 
 // Quit when all windows are closed.

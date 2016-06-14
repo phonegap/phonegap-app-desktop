@@ -1,4 +1,4 @@
-//var autoUpdater = require('electron').remote.autoUpdater;
+var autoUpdater = require('electron').remote.autoUpdater;
 var dialog = require('electron').remote.dialog;
 
 global.pgServer = require("connect-phonegap");
@@ -204,6 +204,17 @@ $(document).ready(function() {
         }
     });
 
+    $("#updateLater").click(function() {
+        overlayBackgroundHandler();
+        $('#updateOverlay').hide();
+    });
+
+    $("#updateNow").click(function() {
+        overlayBackgroundHandler();
+        $('#updateOverlay').hide();
+        updateDesktopApp();
+    });
+
     initSettings();
 
     hideProjectPathError();
@@ -217,12 +228,10 @@ $(document).ready(function() {
     gaAppLoaded();
     getProjects();
 
-    /*
     // auto-update on Mac OSX
     if (determineOperatingSystem() === 'darwin') {
         checkForUpdates(autoUpdater);
     }
-    */
 
     var hideLoaderTimeout = setTimeout(hideLoader, 2000);
 });

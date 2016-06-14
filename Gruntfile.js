@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-    var VERSION = '0.3.2';
+    var VERSION = '0.3.4';
     var osxArchive = './installers/osx64/PhoneGap-Desktop-Beta-' + VERSION + '-mac.zip';
     var winArchive = './installers/win32/PhoneGap-Desktop-Beta-' + VERSION + '-win.zip';
 
@@ -85,8 +85,8 @@ module.exports = function(grunt) {
         shell.exec("codesign --verbose --deep --force --sign 'Mac Developer: Herman Wong (M6QFED29S9)' build/PhoneGap-darwin-x64/PhoneGap.app");
         shell.exec("codesign --verbose --verify build/PhoneGap-darwin-x64/PhoneGap.app");
         shell.exec("codesign -vv -d build/PhoneGap-darwin-x64/PhoneGap.app");
-        shell.exec("codesign --verbose --force --sign 'Mac Developer: Herman Wong (M6QFED29S9)' build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/Electron");
-        shell.exec("codesign --verbose --verify build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/Electron");
+        shell.exec("codesign --verbose --force --sign 'Mac Developer: Herman Wong (M6QFED29S9)' build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/PhoneGap");
+        shell.exec("codesign --verbose --verify build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/PhoneGap");
     });
 
     // Clean build directories
@@ -159,7 +159,7 @@ module.exports = function(grunt) {
             'electron',
             'code-sign-osx',
             'open'//,
-            //'start-localhost'
+            'start-localhost'
         ]
     );
 

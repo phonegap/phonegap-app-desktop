@@ -210,6 +210,6 @@ function hideOverlays() {
     }
 
     if ($("#updateOverlay").is(":visible")) {
-        hideUpdateOverlay();
+        $('#updateOverlay').hide();
     }
 }
