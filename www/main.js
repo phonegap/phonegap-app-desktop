@@ -218,6 +218,17 @@ $(document).ready(function() {
         }
     });
 
+    $("#updateLater").click(function() {
+        overlayBackgroundHandler();
+        $('#updateOverlay').hide();
+    });
+
+    $("#updateNow").click(function() {
+        overlayBackgroundHandler();
+        $('#updateOverlay').hide();
+        updateDesktopApp(autoUpdater);
+    });
+
     initSettings();
 
     hideProjectPathError();
@@ -234,7 +245,7 @@ $(document).ready(function() {
 
     // auto-update on Mac OSX
     if (determineOperatingSystem() === 'darwin') {
-        checkForUpdates(autoUpdater);
+        checkForUpdates();
     }
 
     var hideLoaderTimeout = setTimeout(hideLoader, 2000);
