@@ -1,4 +1,4 @@
-//var autoUpdater = require('electron').remote.autoUpdater;
+var autoUpdater = require('electron').remote.autoUpdater;
 var dialog = require('electron').remote.dialog;
 
 global.phonegap = require("phonegap");
@@ -240,12 +240,10 @@ $(document).ready(function() {
     getProjects();
     getTemplates();
 
-    /*
     // auto-update on Mac OSX
     if (determineOperatingSystem() === 'darwin') {
         checkForUpdates();
     }
-    */
 
     var hideLoaderTimeout = setTimeout(hideLoader, 2000);
 });
