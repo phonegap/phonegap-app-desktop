@@ -29,8 +29,16 @@ function updateDesktopApp(updater) {
 
     var app = require('electron').remote.app;
 
+    overlayBackgroundHandler();
+    $('#updateOverlay').hide();
+
+    $('#loader-text').text('Update is in progress');
+    $('#loading-overlay').show();
+
     updater.on('error', function(err, msg) {
         console.log(msg);
+        $('#loading-overlay').hide();
+        $('#loader-text').text('');
         displayErrorMessage('PhoneDesktop could not update because of the following error:\n\n' + msg);
     })
     .on('checking-for-update', function(err, msg) {
@@ -45,6 +53,8 @@ function updateDesktopApp(updater) {
     })
     .on('update-not-available', function(err) {
         console.log("update-not-available");
+        $('#loading-overlay').hide();
+        $('#loader-text').text('');
     });
 
     // optional branch param can be used for testing
