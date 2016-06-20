@@ -15,7 +15,6 @@ global.stopClicked = false;
 global.firstProjectDir = null;
 
 $(document).ready(function() {
-
     $("#updateOverlay").hide();
     $("#projectDirectory").hide();
     $("#newProjectOverlay").hide();
@@ -210,8 +209,6 @@ $(document).ready(function() {
     });
 
     $("#updateNow").click(function() {
-        overlayBackgroundHandler();
-        $('#updateOverlay').hide();
         updateDesktopApp(autoUpdater);
     });
 
