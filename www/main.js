@@ -16,7 +16,6 @@ global.firstProjectDir = null;
 global.selectedTemplate = "hello-world";
 
 $(document).ready(function() {
-
     $("#updateOverlay").hide();
     $("#projectDirectory").hide();
     $("#templateOverlay").hide();
@@ -224,8 +223,6 @@ $(document).ready(function() {
     });
 
     $("#updateNow").click(function() {
-        overlayBackgroundHandler();
-        $('#updateOverlay').hide();
         updateDesktopApp(autoUpdater);
     });
 
