@@ -11,7 +11,6 @@ let debugMode
 
 function createWindow () {
   // Create the browser window.
-  // Create the browser window.
   if (process.platform != 'win32') {
       mainWindow = new BrowserWindow({width: 450, height: 622, resizable: false, title: 'PhoneGap', center: true})
   }  else {
@@ -28,12 +27,12 @@ function createWindow () {
           mainWindow.webContents.executeJavaScript('console.log("not found");')
       } else {
           mainWindow.webContents.executeJavaScript('console.log("found");')
-          var obj = JSON.parse(data)
-          debugMode = obj.window.devTools
+          var obj = JSON.parse(data);
+          debugMode = obj.window.devTools;
 
           if (debugMode) {
               // Open the devtools.
-              mainWindow.openDevTools()
+              mainWindow.openDevTools();
           }
       }
   });
