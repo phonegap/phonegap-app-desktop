@@ -1,6 +1,7 @@
 'use strict';
 
 var app = require('app');  // Module to control application life.
+
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
 
 // Report crashes to our server.
@@ -21,6 +22,7 @@ app.on('window-all-closed', function() {
 // This method will be called when Electron has done everything
 // initialization and ready for creating browser windows.
 app.on('ready', function() {
+    app.commandLine.appendSwitch('--enable-viewport-meta', 'true');
     // Create the browser window.
     if (process.platform != 'win32') {
         mainWindow = new BrowserWindow({width: 450, height: 622, resizable: false, title: 'PhoneGap', center: true});
