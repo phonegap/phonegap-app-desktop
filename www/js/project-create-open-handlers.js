@@ -138,8 +138,7 @@ function create(projectName, projectId, projDir) {
 
     console.log("options: " + JSON.stringify(options));
 
-
-    var child = require('child_process');
+    var spawn = require('child_process').spawn;
     var path = require('path');
 
     // Define the node executable path
@@ -151,9 +150,7 @@ function create(projectName, projectId, projDir) {
 
     // Define command arguments
     var args = [];
-    args.push(path.join(__dirname, 'node_modules/phonegap/bin/', 'phonegap.js'));
-    // args.push('create "' + options.path + '" --template "' + options.template + '" --id "' + options.id + '" --name "' + options.name + '"');
-
+    args.push(path.join(__dirname, 'node_modules', 'phonegap', 'bin', 'phonegap.js'));
     args.push('create');
     args.push(options.path);
     args.push('--template');
@@ -168,65 +165,23 @@ function create(projectName, projectId, projDir) {
     opts.env = process.env;
     opts.env.ELECTRON_RUN_AS_NODE = 1;
     opts.env.ELECTRON_NO_ATTACH_CONSOLE = 1;
+    opts.env.ELECTRON_HELPER_PATH = node;
 
-    console.log('*** phonegap command: ', command);
-
-    var cmd = child.spawn(command, args, opts);
-   cmd.stdout.on('data', function(data) {
-     console.log('stdout:', data.toString());
-   });
-   cmd.stderr.on('data', function(data) {
-     console.log('stderr:', data.toString());
-   });
-   cmd.on('close', function(code) {
-     console.log('child process exited with code:', code);
-   });
-   cmd.on('error', function(e) {
-     console.log('child process error:', e);
-   });
-    // shell.exec(basePath + 'phonegap.js create "' + options.path + '" --template "' + options.template + '" --id "' + options.id + '" --name "' + options.name + '"', {
-    //   env: {
-    //     ATOM_SHELL_INTERNAL_RUN_AS_NODE: 1
-    //   }
-    // }, function(code, stdout, stderr) {
-    //
-    //     console.log("code: " + code);
-    //     console.log("output: " + stdout);
-    //
-    //     if (code === 0) {
-    //         console.log("created project at:" + options.path);
-    //         // update the config.xml of the newly created project with the project name & project id entered by the user
-    //         updateConfig(projectName, projectId, projDir);
-    //         $("#overlay-bg").hide();
-    //         hideProjectDetailsOverlay();
-    //     } else {
-    //         if (stderr !== undefined) {
-    //             console.log(stderr);
-    //             displayErrorMessage(stderr);
-    //         }
-    //     }
-    // });
-    /**/
-
-    /*
-    // phonegap.create doesn't work - TODO: try to find out why this API call fails
-    global.phonegap.create(options, function(e) {
-        console.log("created project at:" + options.path);
-        console.log(e);
-
-        // update the config.xml of the newly created project with the project name & project id entered by the user
-        updateConfig(projectName, projectId, projDir);
-
-        $("#overlay-bg").hide();
-        hideProjectDetailsOverlay();
-    })
-    .on("log", function() { console.log.apply(this, arguments); })
-    .on("error", function() { console.log.apply(this, arguments); })
-    .on("raw", function(data) {
-        //console.log.apply(this, arguments);
-        console.log(data);
+    // spawn child process and include success/error callbacks
+    var child = spawn(command, args, opts);
+    child.on('close', function(code) {
+        if (code === 0) {
+            console.log("created project at:" + options.path);
+            // update the config.xml of the newly created project with the project name & project id entered by the user
+            updateConfig(projectName, projectId, projDir);
+            $("#overlay-bg").hide();
+            hideProjectDetailsOverlay();
+        }
     });
-    */
+    child.on('error', function(e) {
+        console.log(e);
+        displayErrorMessage(e);
+    });
 }
 
 function updateConfig(projectName, projectId, projDir) {
