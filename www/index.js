@@ -57,7 +57,7 @@ function createWindow () {
 
                       // check local version against PG version on github to see if update is available
                       if (remoteVersion > app.getVersion()) {
-                          var updateDialog = require('dialog')
+                          var updateDialog = electron.dialog;
                           var buttons = ['Update Now', 'Cancel']
                           var msg = "PhoneGap Desktop version " + remoteVersion + " is now available. Would you like to update?"
                           // prompt user to update their version
