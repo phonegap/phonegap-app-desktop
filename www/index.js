@@ -10,6 +10,7 @@ let mainWindow
 let debugMode
 
 function createWindow () {
+    app.commandLine.appendSwitch('--enable-viewport-meta', 'true');
     // Create the browser window.
     if (process.platform != 'win32') {
         mainWindow = new BrowserWindow({width: 450, height: 622, resizable: false, title: 'PhoneGap', center: true})
