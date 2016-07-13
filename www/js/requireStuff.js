@@ -1,4 +1,8 @@
 var remote = require('electron').remote;
+var webFrame = require('electron').webFrame;
+
+webFrame.setZoomFactor(1);
+webFrame.setZoomLevelLimits(1, 1);
 
 // load dependencies module
 var fs = require("fs");
