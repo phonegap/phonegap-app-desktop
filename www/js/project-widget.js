@@ -19,13 +19,14 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     widgetDOM += "</div>";
 
     // project icon
+    var altText = getProjectInitials(projectName);
     widgetDOM += "<div class='column project-icon-column'>";
 
     widgetDOM += "<div class='flip-container'>";
     widgetDOM += "<div class='flipper'>";
 
     widgetDOM += "<div class='front'>";
-    widgetDOM += "<img id='" + projectIconId + "' height='64' width='64' src='" + projectIcon + "' />";
+    widgetDOM += "<img id='" + projectIconId + "' alt='" + altText + "' height='64' width='64' src='" + projectIcon + "' />";
     widgetDOM += "</div>";  // front content
 
     widgetDOM += "<div class='back delete-holder' id=" + deleteId + ">";
@@ -69,6 +70,12 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     $("#drop_zone").append(widgetDOM);
     enableMinusButton();
     $("#guide-add").hide();
+
+    $("#" + projectIconId).on("error",function(){
+        var image = $("#" + projectIconId);
+        image.hide();
+        image.parent().addClass('noimage').text(image.attr('alt'));
+    });
 
     $("#" + deleteId).on("click", function(event) {
         var temp = $("#" + deleteId).attr("id").split("_");
@@ -123,6 +130,12 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
             }
         }
     });
+}
+
+function getProjectInitials(projName) {
+    return (projName).split(" ").map(function(elem) {
+        return elem.substr(0,1);
+    }).slice(0,2).join("");
 }
 
 function widgetServerOnlineState(id) {
