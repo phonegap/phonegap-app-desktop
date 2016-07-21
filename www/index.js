@@ -1,24 +1,24 @@
-const electron = require('electron')
+const electron = require('electron');
 // Module to control application life.
-const app = electron.app
+const app = electron.app;
 // Module to create native browser window.
-const BrowserWindow = electron.BrowserWindow
+const BrowserWindow = electron.BrowserWindow;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
-let debugMode
+let mainWindow;
+let debugMode;
 
 function createWindow () {
     // Create the browser window.
     if (process.platform != 'win32') {
-        mainWindow = new BrowserWindow({width: 450, height: 622, resizable: false, title: 'PhoneGap', center: true})
+        mainWindow = new BrowserWindow({width: 450, height: 622, resizable: false, title: 'PhoneGap', center: true});
     } else {
-        mainWindow = new BrowserWindow({width: 463, height: 656, resizable: false, title: 'PhoneGap', center: true})
+        mainWindow = new BrowserWindow({width: 463, height: 656, resizable: false, title: 'PhoneGap', center: true});
     }
 
     // and load the index.html of the app.
-    mainWindow.loadURL('file://' + __dirname + '/index.html')
+    mainWindow.loadURL('file://' + __dirname + '/index.html');
 
   var fs = require('fs')
   var pathToPackageJSONFile = __dirname + "/package.json"
@@ -41,7 +41,7 @@ function createWindow () {
 
         // manual update notification on Windows
         if (process.platform === 'win32') {
-            var request = require('request')
+            var request = require('request');
             request({
                     method: 'GET',
                     uri: 'https://raw.githubusercontent.com/phonegap/phonegap-app-desktop/master/package.json',
@@ -52,7 +52,7 @@ function createWindow () {
 
                         // get the PG version on github
                         var remoteVersion = body.version;
-                        mainWindow.webContents.executeJavaScript('console.log("remote version: '+ remoteVersion +' ");')
+                        mainWindow.webContents.executeJavaScript('console.log("remote version: '+ remoteVersion +' ");');
 
                         // check local version against PG version on github to see if update is available
                         if (remoteVersion > app.getVersion()) {
@@ -72,19 +72,22 @@ function createWindow () {
                                 function (buttonIndex) {
                                     if (buttonIndex == 0) {
                                         var shell = require('electron').shell
-                                        shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/releases")
+                                        shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/releases");
                                     }
                                 }
                             )
                         }
+                    } else {
+                        mainWindow.webContents.executeJavaScript('console.log("request error: '+ error +' ");');
                     }
                 }
             )
         }
 
-        mainWindow.webContents.executeJavaScript('console.log("current version: '+ app.getVersion() +' ");')
-        mainWindow.webContents.executeJavaScript('console.log("debugMode: '+ debugMode +' ");')
-        mainWindow.webContents.executeJavaScript('setDebugFlag('+ debugMode +');')
+        mainWindow.webContents.executeJavaScript('console.log("platform: '+ process.platform +' ");');
+        mainWindow.webContents.executeJavaScript('console.log("current version: '+ app.getVersion() +' ");');
+        mainWindow.webContents.executeJavaScript('console.log("debugMode: '+ debugMode +' ");');
+        mainWindow.webContents.executeJavaScript('setDebugFlag('+ debugMode +');');
     });
 
     // Emitted when the window is closed.
@@ -93,7 +96,7 @@ function createWindow () {
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
         mainWindow = null;
-        app.quit()
+        app.quit();
     })
 }
 
@@ -107,7 +110,7 @@ app.on('window-all-closed', function () {
     // On OS X it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd + Q
     if (process.platform !== 'darwin') {
-        app.quit()
+        app.quit();
     }
 })
 
@@ -115,6 +118,6 @@ app.on('activate', function () {
     // On OS X it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (mainWindow === null) {
-        createWindow()
+        createWindow();
     }
 })
