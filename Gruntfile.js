@@ -27,7 +27,7 @@ module.exports = function(grunt) {
                     platform: 'win32',
                     arch: 'ia32',
                     icon: './www/img/app-icons/icon.ico',
-                    asar: true
+                    asar: false
                 }
             }
         },
@@ -159,7 +159,7 @@ module.exports = function(grunt) {
             'electron',
             'code-sign-osx',
             'open'//,
-            'start-localhost'
+            //'start-localhost'
         ]
     );
 
