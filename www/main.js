@@ -2,7 +2,6 @@ var autoUpdater = require('electron').remote.autoUpdater;
 var dialog = require('electron').remote.dialog;
 
 global.phonegap = require("phonegap");
-global.pgVersion = "6.2.6";
 global.createClicked = false;
 global.server = null;
 global.isServerRunning = false;
