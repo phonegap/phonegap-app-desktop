@@ -130,7 +130,6 @@ function selectDirectory(e) {
 function create(projectName, projectId, projDir) {
     var options = {};
     options.path = projDir;
-    //options.version = global.pgVersion;
     options.name = projectName;
     options.id = projectId;
     options.template = global.selectedTemplate;
