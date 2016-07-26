@@ -27,7 +27,7 @@ module.exports = function(grunt) {
                     platform: 'win32',
                     arch: 'ia32',
                     icon: './www/img/app-icons/icon.ico',
-                    asar: false
+                    asar: true
                 }
             }
         },
