@@ -159,7 +159,7 @@ module.exports = function(grunt) {
             'electron',
             'code-sign-osx',
             'open'//,
-            'start-localhost'
+            //'start-localhost'
         ]
     );
 
