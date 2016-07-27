@@ -23,7 +23,22 @@ function setServerOnline(projDir) {
             // need to change this for browser platform because of Cordova Issue: CB-5687
             process.env.PWD = projDir;
 
-            global.pgServer.listen({ browser: true, isDesktop: true, phonegap: require('phonegap'), port: localStorage.portNumber })
+            // many of these options are needed because we bypass the CLI when serving
+            // we may be able to remove most of them once we start using the CLI to serve
+            var serveOptions = {
+                browser: true,
+                console: true,
+                deploy: true,
+                homepage: true,
+                isDesktop: true,
+                phonegap: require('phonegap'),
+                port: localStorage.portNumber,
+                proxy: true,
+                push: true,
+                refresh: true
+            };
+
+            global.pgServer.listen(serveOptions)
             .on("complete", function(data) {
 
                 var ipAddressesFound = data.addresses.length;
