@@ -1,7 +1,7 @@
 {
     "name": "PhoneGap",
     "description": "PhoneGap",
-    "version": "0.3.4",
+    "version": "0.3.5",
     "homepage": "http://github.com/phonegap/phonegap-app-desktop",
     "repository": {
         "type": "git",
@@ -41,10 +41,10 @@
     ],
     "packages": {
         "mac": {
-            "url": "https://github.com/phonegap/phonegap-app-desktop/releases/download/0.3.4/PhoneGap-Desktop-Beta-0.3.4-mac.zip"
+            "url": "https://github.com/phonegap/phonegap-app-desktop/releases/download/0.3.5/PhoneGap-Desktop-Beta-0.3.5-mac.zip"
         },
         "win": {
-            "url": "https://github.com/phonegap/phonegap-app-desktop/releases/download/0.3.4/PhoneGap-Desktop-Beta-0.3.4-win.zip"
+            "url": "https://github.com/phonegap/phonegap-app-desktop/releases/download/0.3.5/PhoneGap-Desktop-Beta-0.3.5-win.zip"
         }
     },
     "licenses": [{
