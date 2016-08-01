@@ -15,7 +15,7 @@
         "grunt": "grunt"
     },
     "dependencies": {
-        "express": "4.13.4"
+        "express": "4.14.0"
     },
     "devDependencies": {
         "grunt": "1.0.1",
@@ -26,7 +26,7 @@
         "grunt-contrib-watch": "1.0.0",
         "grunt-electron": "4.0.0",
         "opener": "1.4.1",
-        "shelljs": "0.7.0"
+        "shelljs": "0.7.3"
     },
     "contributors": [
         {
