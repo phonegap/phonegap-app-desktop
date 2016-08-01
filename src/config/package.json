@@ -7,7 +7,7 @@
   },
   "dependencies" : {
       "connect-phonegap": "0.22.0",
-      "gaze": "0.5.1",
+      "gaze": "1.1.0",
       "opener": "1.4.1",
       "node-jsxml": "0.6.0",
       "node-uuid": "1.4.3",
