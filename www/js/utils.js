@@ -1,7 +1,3 @@
-function hideLoader() {
-    $("#loading-overlay").hide();
-}
-
 function isEmptyField(value) {
     var isEmpty = true;
 
