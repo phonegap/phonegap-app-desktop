@@ -6,12 +6,13 @@
       "devTools" : true
   },
   "dependencies" : {
+      "chokidar":"1.6.0",
       "connect-phonegap": "0.22.0",
       "gaze": "1.1.0",
       "opener": "1.4.1",
       "node-jsxml": "0.6.0",
       "node-uuid": "1.4.3",
-      "phonegap" : "6.3.0",
+      "phonegap" : "https://github.com/phonegap/phonegap-cli.git#595-desktop-support",
       "request" : "2.65.0"
   },
   "licenses": [{
