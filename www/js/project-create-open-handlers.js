@@ -171,15 +171,43 @@ function create(projectName, projectId, projDir) {
     child.on('close', function(code) {
         if (code === 0) {
             console.log("created project at:" + options.path);
+            /*
             // update the config.xml of the newly created project with the project name & project id entered by the user
             updateConfig(projectName, projectId, projDir);
             $("#overlay-bg").hide();
             hideProjectDetailsOverlay();
+            */
         }
     });
     child.on('error', function(e) {
        console.log(e);
        displayErrorMessage(e);
+    });
+    setProjectCreateWatcher(projectName, projectId, projDir);
+}
+
+function createHandler(projectName, projectId, projDir) {
+    // update the config.xml of the newly created project with the project name & project id entered by the user
+    updateConfig(projectName, projectId, projDir);
+    $("#overlay-bg").hide();
+    hideProjectDetailsOverlay();
+}
+
+function setProjectCreateWatcher(projectName, projectId, projDir) {
+    console.log(projDir);
+
+    var chokidar = require("chokidar");
+    var watcher = chokidar.watch(projDir, {
+        ignored: /[\/\\]\./,
+        persistent: true
+    });
+
+    // Declare the listeners of the watcher
+    watcher.on('add', function(path) {
+        console.log('File', path, 'has been added');
+        // assume project is created properly once a single file has been added, remove all the watchers
+        watcher.close();
+        createHandler(projectName, projectId, projDir);
     });
 }
 
