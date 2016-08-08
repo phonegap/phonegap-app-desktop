@@ -148,7 +148,7 @@ function widgetServerOnlineState(id) {
         $("#stop-icon_" + id.toString()).css("opacity", 1.0);
         $("#stop-icon_" + id.toString()).addClass("stop-icon-active");
         $("#" + global.activeWidget.widgetId).css("background-color", "#f0f0f0");
-    }
+    }    
 }
 
 function widgetServerOfflineState(id, widgetId) {
@@ -176,8 +176,19 @@ function setActiveWidget(id, projDir) {
 
     // update GUI to display details of the active widget
     $("#" + activeWidget.widgetId).css("background-color", "#f0f0f0");
+    
+    // Auto-Scroll to the newly created project
+    var scrollAmt = $("#drop_zone")[0].scrollTop + $("#" + activeWidget.widgetId).position().top;
+    if (scrollAmt>$("#drop_zone")[0].scrollHeight)
+        scrollAmt = $("#" + activeWidget.widgetId).position().top+160
+    $("#drop_zone").animate({scrollTop:scrollAmt},800)
+   
+    // If loader was still showing, hide it
+    $("#overlay-bg").hide();
+    hideLoader();    
+        
     widgetServerOnlineState(activeWidget.projectId);
-
+    
     // set a watch on the config.xml of the active project
     setConfigWatcher(id, projDir);
 
@@ -185,7 +196,7 @@ function setActiveWidget(id, projDir) {
     if (previousActiveWidget) {
         //$("#" + previousActiveWidget.widgetId).css("background-color", "#e8e9e9");
         widgetServerOfflineState(previousActiveWidget.projectId, previousActiveWidget.widgetId);
-    }
+    }    
 }
 
 function setConfigWatcher(id, projDir) {

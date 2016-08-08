@@ -11,7 +11,7 @@ module.exports = function(grunt) {
                     name: 'PhoneGap',
                     dir: './www',
                     out: './build',
-                    version: '1.2.1',
+                    version: '1.3.0',
                     platform: 'darwin',
                     arch: 'x64',
                     icon: './www/img/app-icons/icon.icns',
@@ -23,7 +23,7 @@ module.exports = function(grunt) {
                     name: 'PhoneGap',
                     dir: './www',
                     out: './build',
-                    version: '1.2.1',
+                    version: '1.3.0',
                     platform: 'win32',
                     arch: 'ia32',
                     icon: './www/img/app-icons/icon.ico',
@@ -82,10 +82,11 @@ module.exports = function(grunt) {
     // OSX code signing
     grunt.task.registerTask('code-sign-osx', function() {
         var shell = require('shelljs');
-        shell.exec("codesign --verbose --deep --force --sign 'Mac Developer: Herman Wong (M6QFED29S9)' build/PhoneGap-darwin-x64/PhoneGap.app");
+        var signConfig = grunt.file.readJSON("sign-config.json")
+        shell.exec("codesign --verbose --deep --force --sign " + "'"+signConfig.certName+"'" + " build/PhoneGap-darwin-x64/PhoneGap.app");
         shell.exec("codesign --verbose --verify build/PhoneGap-darwin-x64/PhoneGap.app");
         shell.exec("codesign -vv -d build/PhoneGap-darwin-x64/PhoneGap.app");
-        shell.exec("codesign --verbose --force --sign 'Mac Developer: Herman Wong (M6QFED29S9)' build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/PhoneGap");
+        shell.exec("codesign --verbose --force --sign " + "'"+signConfig.certName+"'" + " build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/PhoneGap");
         shell.exec("codesign --verbose --verify build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/PhoneGap");
     });
 

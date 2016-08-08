@@ -79,12 +79,14 @@ function hideProjectDetailsOverlay(evt) {
         $("#templateOverlay").addClass("animated slideInLeft");
     }
 
-    $("#projectDetailsOverlay").on("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handlehideProjectDetailsOverlayAnimationEnd);
+    $("#projectDetailsOverlay").on("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handlehideProjectDetailsOverlayAnimationEnd);    
+    
 }
 
 function handlehideProjectDetailsOverlayAnimationEnd() {
     $("#projectDetailsOverlay").off("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handlehideProjectDetailsOverlayAnimationEnd);
-    $("#projectDetailsOverlay").hide();
+    // Call util method to serve the newly created project once the overlay is hidden to avoid janky UI
+    $("#projectDetailsOverlay").hide(serveNewProject());
 
     if (!global.backTemplateClicked) {
         $("#projectDetailsOverlay").removeClass("animated slideOutUp");
@@ -92,13 +94,13 @@ function handlehideProjectDetailsOverlayAnimationEnd() {
         resetProjectCreationForm();
         hideProjectPathError();
         hideProjectNameError();
-        hideProjectIdError();
+        hideProjectIdError();        
     } else {
         $("#projectDetailsOverlay").removeClass("animated slideOutRight");
         $("#templateOverlay").removeClass("animated slideInLeft");
         $("#templateOverlay").on("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handleHideTemplateOverlayAnimationEnd);
         global.backTemplateClicked = false;
-    }
+    }        
 }
 
 // -- add new or open existing overlay
