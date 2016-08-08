@@ -42,6 +42,7 @@
     font-weight: bolder;
     font-size:32px;
     color:#ccc;
+    text-transform: uppercase;
 }
 
 .front.noimage {
