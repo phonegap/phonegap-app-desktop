@@ -114,14 +114,13 @@ function selectDirectory(e) {
         }
     } else {
         if (projectDir.length > 0) {
-            // open existing project workflow
-            checkIfProjectConfigExists(projectDir);
             $("#overlay-bg").hide();
             hideAddCreateProjectOverlay();
-            $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
-            trackProjectOpened();
-            toggleServerStatus(projectDir);
-        }
+            $("#plus-icon").attr("src", "img/icons/normal/plus.svg");        
+             
+            // open existing project workflow
+            checkIfProjectConfigExists(projectDir);               
+        }            
     }
 
     $("#projectDirectory").val("");
@@ -134,18 +133,12 @@ function create(projectName, projectId, projDir) {
     options.id = projectId;
     options.template = global.selectedTemplate;
     options.verbose = true;
-
-    console.log("options: " + JSON.stringify(options));
-
+    
     var spawn = require('child_process').spawn;
     var path = require('path');
 
-    // Define the node executable path
-    var node = path.resolve(process.resourcesPath, '..', 'Frameworks',
-                           'PhoneGap Helper.app', 'Contents', 'MacOS', 'PhoneGap Helper');
-
-    // Define the command
-    var command = node;
+    // Use the node executable path for the command to invoke  
+    var node = process.execPath; 
 
     // Define command arguments
     var args = [];
@@ -167,30 +160,27 @@ function create(projectName, projectId, projDir) {
     opts.env.ELECTRON_HELPER_PATH = node;
 
     // spawn child process and include success/error callbacks
-    var child = spawn(command, args, opts);
+    var child = spawn(node, args, opts);    
+    showLoader(true);
+    var watcher = setProjectCreateWatcher(projectName, projectId, projDir);
+
     child.on('close', function(code) {
         if (code === 0) {
-            console.log("created project at:" + options.path);
-            /*
-            // update the config.xml of the newly created project with the project name & project id entered by the user
-            updateConfig(projectName, projectId, projDir);
-            $("#overlay-bg").hide();
-            hideProjectDetailsOverlay();
-            */
+            d = new Date();
+            console.log("Created project at: "+ options.path + " end time " + d.toUTCString());                        
+        }
+        else {
+            // Close the watcher since the folder add was likely not run
+            watcher.close();
+            hideLoader();            
+            displayErrorMessage("Project create failed with code " + code);            
         }
     });
     child.on('error', function(e) {
        console.log(e);
        displayErrorMessage(e);
     });
-    setProjectCreateWatcher(projectName, projectId, projDir);
-}
-
-function createHandler(projectName, projectId, projDir) {
-    // update the config.xml of the newly created project with the project name & project id entered by the user
-    updateConfig(projectName, projectId, projDir);
-    $("#overlay-bg").hide();
-    hideProjectDetailsOverlay();
+    
 }
 
 function setProjectCreateWatcher(projectName, projectId, projDir) {
@@ -199,42 +189,46 @@ function setProjectCreateWatcher(projectName, projectId, projDir) {
     var chokidar = require("chokidar");
     var watcher = chokidar.watch(projDir, {
         ignored: /[\/\\]\./,
-        persistent: true
+        persistent: true,
+        awaitWriteFinish: {
+            stabilityThreshold: 2000,
+            pollInterval: 100
+        },
     });
 
     // Declare the listeners of the watcher
     watcher.on('add', function(path) {
-        console.log('File', path, 'has been added');
-        // assume project is created properly once a single file has been added, remove all the watchers
-        watcher.close();
-        createHandler(projectName, projectId, projDir);
+        // Ensure the config.xml gets added to avoid timing issues reading/updating it after
+        if (path==projDir+"/config.xml" || projDir+"www/config.xml") { 
+            console.log('config.xml file added at ' + path);        
+            watcher.close();       
+            createHandler(projectName, projectId, projDir);
+        }
     });
+    return watcher;
+}
+
+function createHandler(projectName, projectId, projDir) {
+    // update the config.xml of the newly created project with the project name & project id entered by the user
+    updateConfig(projectName, projectId, projDir);
+    global.projDir = projDir;
+    hideProjectDetailsOverlay();
 }
 
 function updateConfig(projectName, projectId, projDir) {
     console.log("updateConfig");
-    var oldPathToConfigFile = projDir + buildPathBasedOnOS("/www/config.xml");
     var newPathToConfigFile = projDir + buildPathBasedOnOS("/config.xml");
 
     fs.readFile(newPathToConfigFile, {encoding: 'utf8'}, function(err, newPathData) {
         if(err) {
-            fs.readFile(oldPathToConfigFile, {encoding: 'utf8'}, function(err, oldPathData) {
-                if (err) {
-                    //console.log("old: " + oldPathToConfigFile);
-                    //console.log("new: " + newPathToConfigFile);
-                    displayMissingConfigFileNotification();
-                } else {
-                    $.xmlDoc = $.parseXML(oldPathData);
-                    console.log("updateConfigOnProjectCreation - oldPathData");
-                    updateConfigOnProjectCreation($.xmlDoc, projectName, projectId, oldPathToConfigFile, projDir);
-                }
-            });
+            console.log("Error reading config file at " + newPathToConfigFile);
+            displayMissingConfigFileNotification();            
         } else {
             $.xmlDoc = $.parseXML(newPathData);
             console.log("updateConfigOnProjectCreation - newPathData");
             updateConfigOnProjectCreation($.xmlDoc, projectName, projectId, newPathToConfigFile, projDir);
-        }
-    });
+        }                    
+    });    
 }
 
 function updateConfigOnProjectCreation(configXML, projectName, projectId, pathToConfigFile, projDir) {
@@ -263,26 +257,27 @@ function updateConfigOnProjectCreation(configXML, projectName, projectId, pathTo
             // throw err
         } else {
             // check if the project exists in PG-GUI's localstorage before adding
-            console.log("projDir: " + projDir);
-            console.log(projectExistsInLocalStorage(projDir));
+            //console.log("projDir: " + projDir);
+            //console.log(projectExistsInLocalStorage(projDir));
             if(!projectExistsInLocalStorage(projDir)) {
                 addProject(projectName, projVersion, iconPath, projDir);
             } else {
-                displayProjectExistsNotification();
+                 displayProjectExistsNotification();
             }
-        }
+        }        
     });
 }
 
 function checkIfProjectConfigExists(projDir) {
     var oldPathToConfigFile = projDir + buildPathBasedOnOS("/www/config.xml");
-    var newPathToConfigFile = projDir + buildPathBasedOnOS("/config.xml");
+    var newPathToConfigFile = projDir + buildPathBasedOnOS("/config.xml");    
 
     fs.readFile(newPathToConfigFile, 'utf8', function(err, data) {
-        if (err) {
+        if (err) {            
             fs.readFile(oldPathToConfigFile, 'utf8', function(err, data) {
                 if(err) {
                     displayMissingConfigFileNotification();
+                    
                 } else {
                     console.log("oldPathToConfigFile found");
                     parseProjectConfig(data, projDir);
@@ -292,11 +287,10 @@ function checkIfProjectConfigExists(projDir) {
             console.log("newPathToConfigFile found");
             parseProjectConfig(data, projDir);
         }
-    });
+    });    
 }
 
 function parseProjectConfig(data, projDir) {
-
     var iconPath = projDir + buildPathBasedOnOS("/www/");
 
     $.xmlDoc = $.parseXML(data);
@@ -314,10 +308,13 @@ function parseProjectConfig(data, projDir) {
 
     // check if the project exists in PG-GUI's localstorage before adding
     if(!projectExistsInLocalStorage(projDir)) {
+        // We're going to add it, take care of UI stuff
         addProject(projectName, projectVersion, iconPath, projDir);
+        //toggleServerStatus(projDir);                
+        trackProjectOpened();        
     } else {
         displayProjectExistsNotification();
-    }
+    }                
 }
 
 function displayMissingConfigFileNotification() {

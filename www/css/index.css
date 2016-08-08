@@ -69,6 +69,7 @@
     background-color: #999999;
     position: absolute;
     left: 75px;
+    bottom: 0px;
 }
 .ip-list {
     overflow-x: hidden;
