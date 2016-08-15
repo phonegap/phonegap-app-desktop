@@ -12,6 +12,7 @@ function handleDrop(evt) {
     for (var i = 0; i < length; i++) {
         var entry = evt.originalEvent.dataTransfer.items[i].webkitGetAsEntry();
         if (entry) {
+            trackDragAndDrop();
             if (entry.isFile) {
                 console.log("file");
                 // if user drags a file, put them into the normal add / open project workflow
