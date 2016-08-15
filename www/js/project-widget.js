@@ -148,7 +148,7 @@ function widgetServerOnlineState(id) {
         $("#stop-icon_" + id.toString()).css("opacity", 1.0);
         $("#stop-icon_" + id.toString()).addClass("stop-icon-active");
         $("#" + global.activeWidget.widgetId).css("background-color", "#f0f0f0");
-    }    
+    }
 }
 
 function widgetServerOfflineState(id, widgetId) {
@@ -176,19 +176,19 @@ function setActiveWidget(id, projDir) {
 
     // update GUI to display details of the active widget
     $("#" + activeWidget.widgetId).css("background-color", "#f0f0f0");
-    
+
     // Auto-Scroll to the newly created project
     var scrollAmt = $("#drop_zone")[0].scrollTop + $("#" + activeWidget.widgetId).position().top;
     if (scrollAmt>$("#drop_zone")[0].scrollHeight)
         scrollAmt = $("#" + activeWidget.widgetId).position().top+160
     $("#drop_zone").animate({scrollTop:scrollAmt},800)
-   
+
     // If loader was still showing, hide it
     $("#overlay-bg").hide();
-    hideLoader();    
-        
+    hideLoader();
+
     widgetServerOnlineState(activeWidget.projectId);
-    
+
     // set a watch on the config.xml of the active project
     setConfigWatcher(id, projDir);
 
@@ -196,7 +196,7 @@ function setActiveWidget(id, projDir) {
     if (previousActiveWidget) {
         //$("#" + previousActiveWidget.widgetId).css("background-color", "#e8e9e9");
         widgetServerOfflineState(previousActiveWidget.projectId, previousActiveWidget.widgetId);
-    }    
+    }
 }
 
 function setConfigWatcher(id, projDir) {
@@ -221,46 +221,60 @@ function setConfigWatcher(id, projDir) {
 }
 
 function setWatcher(filePath, projDir, id) {
-    gaze("config.xml", function (err, watcher) {
 
-        this.on("error", function(e) {
-            console.log(e.message);
-        });
+    console.log("setWatcher(" + filePath + ", " + projDir + ", " + id + ");");
 
-        this.on("changed", function(filepath) {
-            // reload the updated values from config.xml & update the GUI
-            fs.readFile(filePath, {encoding:'utf8'}, function(err, data) {
-                if (err) {
-                    console.log(err.message);
-                    displayErrorMessage(err.message);
-                }
+    var chokidar = require("chokidar");
 
-                var iconPath = projDir + buildPathBasedOnOS("/www/");
-                var projectDetailsId = "project-details_" + id.toString();
-                var projectIconId = "projectIconId_" + id.toString();
-                var projectNameLabel = "projectNameLabel_" + id.toString();
-                var projectVersionLabel = "projectVersionLabel_" + id.toString();
-
-                $.xmlDoc = $.parseXML(data);
-                $.xml = $($.xmlDoc);
-
-                // get the project name
-                var projectName = $.xml.find("name").text();
-                updateProjectNameInLocalStorage(id, projectName);
-
-                // get the project version
-                var projectVersion = $.xml.find("widget").attr("version");
-
-                // get the app icon
-                var projectIcon = $.xml.find("icon").attr("src");
-                iconPath += projectIcon;
-
-                $("#" + projectNameLabel).text(projectName);
-                $("#" + projectVersionLabel).text("v" + projectVersion);
-                $("#" + projectIconId).attr("src", iconPath);
-            });
-        });
+    var watcher = chokidar.watch(projDir, {
+        ignored: /[\/\\]\./,
+        persistent: true,
+        awaitWriteFinish: {
+            stabilityThreshold: 2000,
+            pollInterval: 100
+        },
     });
+
+    // Declare the listeners of the watcher
+    watcher.on('change', function(filePath) {
+        // Ensure the config.xml gets added to avoid timing issues reading/updating it after
+        console.log('config.xml file changed at ' + filePath);
+        watcher.close();
+
+        // reload the updated values from config.xml & update the GUI
+        fs.readFile(filePath, {encoding:'utf8'}, function(err, data) {
+            if (err) {
+                console.log(err.message);
+                displayErrorMessage(err.message);
+            }
+
+            var iconPath = projDir + buildPathBasedOnOS("/www/");
+            var projectDetailsId = "project-details_" + id.toString();
+            var projectIconId = "projectIconId_" + id.toString();
+            var projectNameLabel = "projectNameLabel_" + id.toString();
+            var projectVersionLabel = "projectVersionLabel_" + id.toString();
+
+            $.xmlDoc = $.parseXML(data);
+            $.xml = $($.xmlDoc);
+
+            // get the project name
+            var projectName = $.xml.find("name").text();
+            updateProjectNameInLocalStorage(id, projectName);
+
+            // get the project version
+            var projectVersion = $.xml.find("widget").attr("version");
+
+            // get the app icon
+            var projectIcon = $.xml.find("icon").attr("src");
+            iconPath += projectIcon;
+
+            $("#" + projectNameLabel).text(projectName);
+            $("#" + projectVersionLabel).text("v" + projectVersion);
+            $("#" + projectIconId).attr("src", iconPath);
+        });
+
+    });
+    return watcher;
 }
 
 function removeProjectWidget(idToDelete) {
