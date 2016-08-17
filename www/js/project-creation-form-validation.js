@@ -97,6 +97,7 @@ function resetProjectCreationForm() {
     $("#projectDirectory").val("");
     $("#projectPath").addClass("overlay-form-item-description");
     $("#projectPath").addClass("italics");
-    $("#projectPath").text("Please choose a local path");
+    //$("#projectPath").text("Please choose a local path");
+    $("#projectPath").text(getLastSelectedProjectPath());
     resetProjectCreationFormHeight();
 }

@@ -13,6 +13,18 @@ function getUserId() {
     return id;
 }
 
+function getLastSelectedProjectPath() {
+    var projectPath = "Please choose a local path";
+    if (localStorage.projectPath) {
+        projectPath = localStorage.projectPath;
+    }
+    return projectPath;
+}
+
+function setLastSelectedProjectPath(projectPath) {
+    localStorage.projectPath = projectPath;
+}
+
 function addProject(projName, projVersion, iconPath, projDir) {
     var id = generateId();
     var projectObj = {};
@@ -40,7 +52,7 @@ function addProject(projName, projVersion, iconPath, projDir) {
 
     // render newly added project to GUI & set it as the active widget
     addProjectWidget(id, projName, projVersion, iconPath, projDir);
-    setActiveWidget(id, projDir);    
+    setActiveWidget(id, projDir);
 }
 
 function getProjects() {

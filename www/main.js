@@ -227,6 +227,7 @@ $(document).ready(function() {
     });
 
     initSettings();
+    $("#projectPath").text(getLastSelectedProjectPath());
 
     hideProjectPathError();
     hideProjectNameError();
