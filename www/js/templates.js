@@ -12,7 +12,7 @@ function templateWidget(name, description) {
         str += "<div class='template-list-item'><input type='radio' name='selectedTemplate' value='" + name + "'> " + name + "</div>";
     }
 
-    str += "<div class='template-list-item overlay-form-item-description'>" + description + "</div>";
+    str += "<div class='template-list-item-description overlay-form-item-description'>" + description + "</div>";
     str +="</div>";
     return str;
 }
