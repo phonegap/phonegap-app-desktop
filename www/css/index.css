@@ -193,13 +193,13 @@
 }
 .template-list-item {
     padding-top: 5px;
-    padding-left: 20px;
+    padding-left: 0px;
     padding-right: 20px;
     padding-bottom: 5px;
 }
 .template-list-item-description {
     padding-top: 5px;
-    padding-left: 20px;
+    padding-left: 0px;
     padding-right: 20px;
     padding-bottom: 5px;
     margin-left: 20px;
