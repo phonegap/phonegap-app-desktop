@@ -138,7 +138,13 @@ function create(projectName, projectId, projDir) {
     var path = require('path');
 
     // Use the node executable path for the command to invoke
-    var node = process.execPath;
+    var node;
+    if (process.platform == 'win32') {
+        node = path.join(__dirname, 'bin', 'node.exe');
+    }
+    else {
+        node = path.join(__dirname, 'bin', 'node');
+    }
 
     // Define command arguments
     var args = [];
@@ -155,23 +161,20 @@ function create(projectName, projectId, projDir) {
     // Define options
     var opts = [];
     opts.env = process.env;
-    opts.env.ELECTRON_RUN_AS_NODE = 1;
-    opts.env.ELECTRON_NO_ATTACH_CONSOLE = 1;
-    opts.env.ELECTRON_HELPER_PATH = node;
 
     // spawn child process and include success/error callbacks
     var child = spawn(node, args, opts);
     showLoader(true);
-    var watcher = setProjectCreateWatcher(projectName, projectId, projDir);
 
     child.on('close', function(code) {
         if (code === 0) {
             d = new Date();
+            hideLoader();
             console.log("Created project at: "+ options.path + " end time " + d.toUTCString());
+            createHandler(projectName, projectId, options.path);
+            setLastSelectedProjectPath(options.path);
         }
         else {
-            // Close the watcher since the folder add was likely not run
-            watcher.close();
             hideLoader();
             displayErrorMessage("Project create failed with code " + code);
         }
@@ -181,33 +184,6 @@ function create(projectName, projectId, projDir) {
        displayErrorMessage(e);
     });
 
-}
-
-function setProjectCreateWatcher(projectName, projectId, projDir) {
-    console.log(projDir);
-
-    var chokidar = require("chokidar");
-    var watcher = chokidar.watch(projDir, {
-        ignored: /[\/\\]\./,
-        persistent: true,
-        awaitWriteFinish: {
-            stabilityThreshold: 2000,
-            pollInterval: 100
-        },
-    });
-
-    // Declare the listeners of the watcher
-    watcher.on('add', function(path) {
-        // Ensure the config.xml gets added to avoid timing issues reading/updating it after
-        if (path==projDir+"/config.xml" || projDir+"www/config.xml") {
-            console.log('config.xml file added at ' + path);
-            watcher.close();
-            createHandler(projectName, projectId, projDir);
-            console.log(projDir);
-            setLastSelectedProjectPath(projDir);
-        }
-    });
-    return watcher;
 }
 
 function createHandler(projectName, projectId, projDir) {

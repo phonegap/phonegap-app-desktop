@@ -15,6 +15,8 @@ global.firstProjectDir = null;
 global.selectedTemplate = "hello-world";
 
 $(document).ready(function() {
+    // add node binary to PATH
+    process.env.PATH += ':' + path.join(__dirname, 'bin');
 
     $("#updateOverlay").hide();
     $("#projectDirectory").hide();
