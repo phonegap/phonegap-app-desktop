@@ -131,8 +131,9 @@ function create(projectName, projectId, projDir) {
     options.path = projDir;
     options.name = projectName;
     options.id = projectId;
-    options.template = global.selectedTemplate;
     options.verbose = true;
+
+    var npmKey = $('input:checked[name="selectedTemplate"]').attr('data-key');
 
     var spawn = require('child_process').spawn;
     var path = require('path');
@@ -146,7 +147,7 @@ function create(projectName, projectId, projDir) {
     args.push('create');
     args.push(options.path);
     args.push('--template');
-    args.push(options.template);
+    args.push(npmKey);
     args.push('--id');
     args.push(options.id);
     args.push('--name');
@@ -180,7 +181,6 @@ function create(projectName, projectId, projDir) {
        console.log(e);
        displayErrorMessage(e);
     });
-
 }
 
 function setProjectCreateWatcher(projectName, projectId, projDir) {
