@@ -7,7 +7,6 @@
   },
   "dependencies" : {
       "chokidar":"1.6.0",
-      "connect-phonegap": "0.22.0",
       "opener": "1.4.1",
       "node-jsxml": "0.6.0",
       "node-uuid": "1.4.3",
