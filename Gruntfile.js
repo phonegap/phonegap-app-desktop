@@ -73,6 +73,17 @@ module.exports = function(grunt) {
         var exec = require('child_process').exec,
         callback = this.async();
 
+        exec('node src/js/download-node.js', function(e, stdout, stderr) {
+            if (e) {
+                console.log(stderr);
+                console.log('Check BUNDLED_NODE_VERSION');
+                process.exit(1);
+            }
+            else {
+                console.log(stdout);
+            }
+        });
+
         exec('npm install --production', { cwd: './www' }, function(e, stdout, stderr) {
             console.log(stdout);
             callback();
