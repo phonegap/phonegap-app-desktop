@@ -12,7 +12,6 @@ global.manifest = null;
 global.newAppPath = null;
 global.stopClicked = false;
 global.firstProjectDir = null;
-global.selectedTemplate = "hello-world";
 
 $(document).ready(function() {
     // add node binary to PATH
