@@ -112,7 +112,7 @@
     position: fixed;
     top: 0px;
     left: 75px;
-    z-index: 12;
+    z-index: 5;
     width: 375px;
     height: 120px;
 }

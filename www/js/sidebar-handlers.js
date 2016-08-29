@@ -1,11 +1,9 @@
 // -- template overlay
 function displayTemplateOverlay(evt) {
-
-    if (!global.backTemplateClicked) {
-        hideAddCreateProjectOverlay();
+    if (!global.backTemplateClicked) {        
+        animateTemplateOverlayEntry();
+        hideAddCreateProjectOverlay();                
     }
-
-    animateTemplateOverlayEntry();
 }
 
 function animateTemplateOverlayEntry() {
@@ -21,7 +19,8 @@ function animateTemplateOverlayEntry() {
     }
 
     $("#templateOverlay").show();
-    $("#overlay-bg").show();
+    $("#overlay-bg").show();    
+        
 }
 
 function hideTemplateOverlay(evt) {
@@ -113,16 +112,21 @@ function displayAddCreateProjectOverlay(evt) {
 }
 
 function hideAddCreateProjectOverlay(evt) {
+    $("#templateOverlay").off("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend");
     $("#createOpenProjectOverlay").removeClass("animated slideInLeft");
-    $("#createOpenProjectOverlay").addClass("animated slideOutLeft");
+        
+    if ($("#templateOverlay").css('display') == 'none')
+        $("#createOpenProjectOverlay").addClass("animatedFast slideOutLeft");
+    else $("#createOpenProjectOverlay").addClass("animatedFast fadeOut");
+    
     $("#createOpenProjectOverlay").on("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handleHideAddCreateProjectOverlayAnimationEnd);
     $("#plus-holder").removeClass("sidebar-button-active");
 }
 
 function handleHideAddCreateProjectOverlayAnimationEnd() {
-    $("#createOpenProjectOverlay").off("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend");
+    $("#createOpenProjectOverlay").off("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend");    
     $("#createOpenProjectOverlay").hide();
-    $("#createOpenProjectOverlay").removeClass("animated slideOutLeft");
+    $("#createOpenProjectOverlay").removeClass("animatedFast fadeOut slideOutLeft");
     if (!global.createChosen) {
         $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
     }
