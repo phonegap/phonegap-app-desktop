@@ -69,6 +69,12 @@ function selectDirectory(e) {
     var projectDir = $("#projectDirectory").val().trim();
     var projectName = $("#projectName").val().trim();
 
+    // If this came from drag-n-drop the project directory name will be 
+    // passed in there so use it
+    if (e != null) {
+        projectDir = e;
+    }
+    
     var isProjectPathEmpty = isProjectPathFieldEmpty(projectDir);
     var isProjectNameEmpty = isEmptyField(projectName);
 
@@ -162,88 +168,64 @@ function create(projectName, projectId, projDir) {
     var opts = [];
     opts.env = process.env;
 
+    var start = new Date();
+    console.log("CREATE *STARTED* AT: "+ start.toUTCString()); 
+    
     // spawn child process and include success/error callbacks
     var child = spawn(node, args, opts);
     showLoader(true);
 
     child.on('close', function(code) {
+        
         if (code === 0) {
-            d = new Date();
             hideLoader();
-            console.log("Created project at: "+ options.path + " end time " + d.toUTCString());
+            var complete = new Date();        
+            var diff = complete - start;                       
+            var seconds_diff = diff / 1000;
+            var seconds_between = Math.abs(seconds_diff);
+            console.log("CREATE *COMPLETED* AT " + complete.toUTCString() + ". TOTAL TIME: "+seconds_between + " seconds.");        
             createHandler(projectName, projectId, options.path);
             setLastSelectedProjectPath(options.path);
         }
         else {
             hideLoader();
-            displayErrorMessage("Project create failed with code " + code);
+            displayErrorMessage("Project create failed with code " + code);            
         }
+
     });
     child.on('error', function(e) {
-       console.log(e);
-       displayErrorMessage(e);
+       console.log(data.toString('utf8'));
+       displayErrorMessage(e.toString);
     });
-
 }
 
 function createHandler(projectName, projectId, projDir) {
-    // update the config.xml of the newly created project with the project name & project id entered by the user
-    updateConfig(projectName, projectId, projDir);
+    // Removed updateConfig in favor of new readConfig since the config.xml file was already updated by the CLI
+    // updateConfig(projectName, projectId, projDir);
+    readConfig(projectName, projectId, projDir);
     global.projDir = projDir;
     hideProjectDetailsOverlay();
 }
 
-function updateConfig(projectName, projectId, projDir) {
-    console.log("updateConfig");
+// Read the config.xml of the newly created project to get the version etc and invoke addProject
+function readConfig(projName, projId, projDir) {
     var newPathToConfigFile = projDir + buildPathBasedOnOS("/config.xml");
-
+    
     fs.readFile(newPathToConfigFile, {encoding: 'utf8'}, function(err, newPathData) {
         if(err) {
             console.log("Error reading config file at " + newPathToConfigFile);
-            displayMissingConfigFileNotification();
-        } else {
-            $.xmlDoc = $.parseXML(newPathData);
-            console.log("updateConfigOnProjectCreation - newPathData");
-            updateConfigOnProjectCreation($.xmlDoc, projectName, projectId, newPathToConfigFile, projDir);
-        }
-    });
-}
-
-function updateConfigOnProjectCreation(configXML, projectName, projectId, pathToConfigFile, projDir) {
-    var iconPath = projDir + buildPathBasedOnOS("/www/");
-    var serializer = new XMLSerializer();
-    var contents = serializer.serializeToString(configXML);
-    var xml = new XML(contents);
-    $.xml = $(configXML);
-
-    // update project name
-    xml.child("name").setValue(projectName);
-
-    // update project id
-    xml.attribute("id").setValue(projectId);
-
-    // get the project version
-    var projVersion = xml.attribute("version").getValue();
-
-    // get the app icon
-    var projectIcon = $.xml.find("icon").attr("src");
-    iconPath += projectIcon;
-
-    // write the user entered project name & project id to the config.xml file
-    fs.writeFile(pathToConfigFile, xml, function (err) {
-        if (err) {
-            // throw err
-        } else {
-            // check if the project exists in PG-GUI's localstorage before adding
-            //console.log("projDir: " + projDir);
-            //console.log(projectExistsInLocalStorage(projDir));
-            if(!projectExistsInLocalStorage(projDir)) {
-                addProject(projectName, projVersion, iconPath, projDir);
-            } else {
-                 displayProjectExistsNotification();
-            }
-        }
-    });
+            displayMissingConfigFileNotification();            
+        } else {            
+            console.log("updateConfigOnProjectCreation - newPathData");            
+            xmlDoc = $.parseXML(newPathData);
+            $xml = $(xmlDoc);
+            var projVersion = $xml.find("widget").attr("version")            
+            var projIcon = $xml.find( "icon" ).attr("src");;
+            var iconPath = projDir + buildPathBasedOnOS("/www/");
+            iconPath += projIcon;        
+            addProject(projName, projVersion, iconPath, projDir);           
+        }                    
+    });    
 }
 
 function checkIfProjectConfigExists(projDir) {

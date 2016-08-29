@@ -22,6 +22,13 @@
   animation-fill-mode: both;
 }
 
+.animatedFast {
+  -webkit-animation-duration: .3s;
+  animation-duration: .3s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
 .animatedNotification {
   -webkit-animation-duration: 2s;
   animation-duration: 2s;

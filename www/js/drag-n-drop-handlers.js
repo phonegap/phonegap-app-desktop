@@ -3,7 +3,6 @@ function handleDragOver(evt) {
     evt.preventDefault();
     evt.originalEvent.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
 }
-
 function handleDrop(evt) {
     evt.stopPropagation();
     evt.preventDefault();
@@ -11,18 +10,19 @@ function handleDrop(evt) {
     var length = evt.originalEvent.dataTransfer.items.length;
     for (var i = 0; i < length; i++) {
         var entry = evt.originalEvent.dataTransfer.items[i].webkitGetAsEntry();
+        var path = evt.originalEvent.dataTransfer.files[i].path;
         if (entry) {
             trackDragAndDrop();
             if (entry.isFile) {
-                console.log("file");
-                // if user drags a file, put them into the normal add / open project workflow
-                displayAddCreateProjectOverlay();
+                // If they drop a file in and not a folder, show a message telling them to add the folder. 
+                // Could consider trying to use parent folder of the file they dragged in, in the future. 
+                displayErrorMessage("Please drag in an existing PhoneGap project folder to add it to your project list. ");
             } else if (entry.isDirectory) {
-                console.log("folder: " + entry.fullPath);
-                // prompt user into normal add / open project workflow - we may want to consider automatically adding the folder as a project but we would
-                // need to add logic to determine if the folder contains a valid project. (validProject) ? openExisting : createNew
-                displayAddCreateProjectOverlay();
-            }
+                // Trigger the open project workflow, which will look for the existence of the config.xml etc
+                // and add the project if found 
+                global.createClicked = false;
+                openProject(path);
+            }            
         }
     }
 }
