@@ -140,7 +140,6 @@ function getProjectConfig(id, projDir, i) {
 
 function parseConfigForRendering(data, id, projDir, i) {
     console.log("parseConfigForRendering");
-    var iconPath = projDir + buildPathBasedOnOS("/www/");
 
     $.xmlDoc = $.parseXML(data);
     $.xml = $($.xmlDoc);
@@ -152,8 +151,7 @@ function parseConfigForRendering(data, id, projDir, i) {
     var projectVersion = $.xml.find("widget").attr("version");
 
     // get the app icon
-    var projectIcon = $.xml.find("icon").attr("src");
-    iconPath += projectIcon;
+    var iconPath = path.join(projDir, findIconPath($.xml.find("icon")));
 
     addProjectWidget(id, projectName, projectVersion, iconPath, projDir);
 
