@@ -229,6 +229,7 @@ $(document).ready(function() {
 
     initSettings();
     $("#projectPath").text(getLastSelectedProjectPath());
+    $(".tooltiptext").text(getLastSelectedProjectPath());
 
     hideProjectPathError();
     hideProjectNameError();
@@ -256,6 +257,7 @@ function getProjectPath(e) {
         if (path.length > 0) {
             path = path[0];
             $('#projectDirectory').val(path);
+            $(".tooltiptext").text(path);  
             console.log(path);
 
             if (global.createChosen) {
