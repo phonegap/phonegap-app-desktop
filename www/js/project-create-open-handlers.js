@@ -221,9 +221,7 @@ function readConfig(projName, projId, projDir) {
             xmlDoc = $.parseXML(newPathData);
             $xml = $(xmlDoc);
             var projVersion = $xml.find("widget").attr("version")            
-            var projIcon = $xml.find( "icon" ).attr("src");;
-            var iconPath = projDir + buildPathBasedOnOS("/www/");
-            iconPath += projIcon;        
+            var iconPath = path.join(projDir, findIconPath($.xml.find("icon")));
             addProject(projName, projVersion, iconPath, projDir);           
         }                    
     });    
@@ -252,8 +250,6 @@ function checkIfProjectConfigExists(projDir) {
 }
 
 function parseProjectConfig(data, projDir) {
-    var iconPath = projDir + buildPathBasedOnOS("/www/");
-
     $.xmlDoc = $.parseXML(data);
     $.xml = $($.xmlDoc);
 
@@ -264,8 +260,7 @@ function parseProjectConfig(data, projDir) {
     var projectVersion = $.xml.find("widget").attr("version");
 
     // get the app icon
-    var projectIcon = $.xml.find("icon").attr("src");
-    iconPath += projectIcon;
+    var iconPath = path.join(projDir, findIconPath($.xml.find("icon")));
 
     // check if the project exists in PG-GUI's localstorage before adding
     if(!projectExistsInLocalStorage(projDir)) {
