@@ -1,5 +1,6 @@
 function createProject(e) {
     var projectPath = $("#projectPath").text().trim();
+    
     var projectName = $("#projectName").val().trim();
     var projectId = $("#project-id").val().trim() || $("#project-id").attr("placeholder").trim();
 
@@ -85,6 +86,7 @@ function selectDirectory(e) {
         $("#projectPath").removeClass("italics");
         hideProjectPathError();
         $("#projectPath").text(projectDir);
+        $(".tooltiptext").text(projectDir);
         $("#projectName").focus();
 
         if(!projectExistsInLocalStorage(projectDir)) {
@@ -186,6 +188,7 @@ function create(projectName, projectId, projDir) {
             var seconds_between = Math.abs(seconds_diff);
             console.log("CREATE *COMPLETED* AT " + complete.toUTCString() + ". TOTAL TIME: "+seconds_between + " seconds.");        
             createHandler(projectName, projectId, options.path);
+            console.log("Save last selected project path of " + options.path);
             setLastSelectedProjectPath(options.path);
         }
         else {

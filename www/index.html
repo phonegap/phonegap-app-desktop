@@ -76,12 +76,15 @@
                 <hr class="dotted-hr" />
             </div>
             <div class="overlay-form-item-heading" id="project-details-path-label">Local path:</div>
-            <div class="overlay-form-item">
-                <span id="project-path-border">
+            <div class="overlay-form-item">                
+                <span id="project-path-border" class="tooltip">
+                    <span class="tooltiptext"></span>                                        
                     <img id="project-path-warning-icon" src="img/icons/normal/warning.svg" />
-                    <div id="projectPath" class="overlay-form-item-description italics project-path-label"></div>
+                    <div id="projectPath" class="overlay-form-item-description italics project-path-label">
+                    </div>
                 </span>
-                <button id="chooseNewProjectPath" class="project-details-choose-button">Choose...</button>
+               
+                <button id="chooseNewProjectPath" class="project-details-choose-button">Choose ...</button>
             </div>
             <div class="overlay-form-item"></div>
             <div class="overlay-form-item overlay-form-item-description">This is where the project will be stored on your computer.</div>
