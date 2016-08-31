@@ -1,6 +1,17 @@
 #app {
     background-color: #dfe2e2;
 }
+/** Force scroll bars for scrollable areas (template list) */
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+    background-color: #323232;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 .03px rgba(255,255,255,.5);
+}
 .container {
     width: 450px;
     height: 100%;
@@ -190,6 +201,7 @@
     height: 330px;
     overflow-x: hidden;
     overflow-y: auto;
+    /*overflow-y: scroll;*/
 }
 .template-list-item {
     padding-top: 5px;

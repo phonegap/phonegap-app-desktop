@@ -55,9 +55,9 @@ modified:
   position: absolute;
   top: 260px;
   left: 162px;
-  border-top: 5px solid rgba(0, 0, 0, 0.6);
-  border-right: 5px solid rgba(0, 0, 0, 0.6);
-  border-bottom: 5px solid rgba(0, 0, 0, 0.6);
+  border-top: 5px solid rgba(0, 0, 0, 0.2);
+  border-right: 5px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 5px solid rgba(0, 0, 0, 0.2);
   border-left: 5px solid #ffffff;  
   -webkit-transform: translateZ(0);
   -ms-transform: translateZ(0);
@@ -68,8 +68,9 @@ modified:
 .loaderText {
   display: none;
   position: absolute;
-  top: 300px;
+  top: 310px;
   left: 130px;
-  font-weight: bold;
-  opacity: 1.0;
+  /*font-weight: bold;*/
+  opacity: 1.0;  
+  color: white;
 }
