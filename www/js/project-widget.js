@@ -105,8 +105,10 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     });
 
     $("#start-icon_" + id.toString()).on("click", function() {
-        setActiveWidget(id, projectDir);
-        toggleServerStatus(projectDir);
+        if (global.activeWidget.projectId != id) {
+            setActiveWidget(id, projectDir);
+            toggleServerStatus(projectDir);
+        }
     });
 
     $("#stop-icon_" + id.toString()).on("mouseover", function() {
@@ -163,6 +165,9 @@ function widgetServerOfflineState(id, widgetId) {
 }
 
 function setActiveWidget(id, projDir) {
+    if (global.activeWidget){
+        global.activeWidget.watcher.close();
+    }
 
     var previousActiveWidget = global.activeWidget;
 
@@ -269,6 +274,8 @@ function setWatcher(filePath, projDir, id) {
         });
 
     });
+
+    global.activeWidget.watcher = watcher;
     return watcher;
 }
 
