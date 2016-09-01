@@ -248,7 +248,6 @@ function setWatcher(filePath, projDir, id) {
                 displayErrorMessage(err.message);
             }
 
-            var iconPath = projDir + buildPathBasedOnOS("/www/");
             var projectDetailsId = "project-details_" + id.toString();
             var projectIconId = "projectIconId_" + id.toString();
             var projectNameLabel = "projectNameLabel_" + id.toString();
@@ -265,8 +264,7 @@ function setWatcher(filePath, projDir, id) {
             var projectVersion = $.xml.find("widget").attr("version");
 
             // get the app icon
-            var projectIcon = $.xml.find("icon").attr("src");
-            iconPath += projectIcon;
+            var iconPath = path.join(projDir, findIconPath($.xml.find("icon")));
 
             $("#" + projectNameLabel).text(projectName);
             $("#" + projectVersionLabel).text("v" + projectVersion);

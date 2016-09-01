@@ -83,6 +83,18 @@ function setDebugFlag(debugMode) {
     trackAppOpened();
 }
 
+function findIconPath(icons) {
+    var icon = '';
+    icons.each(function()  {
+        if ($(this).attr("height") > 64 && ($(this).attr("height") == $(this).attr("width"))) {
+            icon = $(this).attr("src");
+            return false;
+        }
+    });
+
+    return icon;
+}
+
 function openIPLink(serverIP) {
     shell.openExternal("http://" + serverIP.toString());
 }
