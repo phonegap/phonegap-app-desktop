@@ -105,7 +105,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     });
 
     $("#start-icon_" + id.toString()).on("click", function() {
-        if (global.activeWidget.projectId != id) {
+        if (!global.isServerRunning || global.activeWidget.projectId != id) {
             setActiveWidget(id, projectDir);
             toggleServerStatus(projectDir);
         }
