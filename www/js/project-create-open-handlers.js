@@ -224,7 +224,7 @@ function readConfig(projName, projId, projDir) {
             xmlDoc = $.parseXML(newPathData);
             $xml = $(xmlDoc);
             var projVersion = $xml.find("widget").attr("version")            
-            var iconPath = path.join(projDir, findIconPath($.xml.find("icon")));
+            var iconPath = path.join(projDir, findIconPath($xml.find("icon")));
             addProject(projName, projVersion, iconPath, projDir);           
         }                    
     });    
