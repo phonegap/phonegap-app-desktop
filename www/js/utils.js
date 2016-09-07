@@ -20,14 +20,6 @@ function isProjectPathFieldEmpty(value) {
 
     return isEmpty;
 }
-
-function serveNewProject() {
-    if (global.isServerRunning) {
-        // if server is currently running, stop it before opening a new server instance
-        setServerOfflineThenOnline(global.projDir);
-    }
-}
-
 function sortByProperty(property) {
     'use strict';
     return function (a, b) {

@@ -44,13 +44,12 @@ function addProject(projName, projVersion, iconPath, projDir) {
         myProjects.push(projectObj);
         localStorage.projects = JSON.stringify(myProjects);
     }
-
-    // This has been moved to new method serveNewProject() in util.js to avoid janky UI. It's now called
-    // upon the hide of the project details overlay
-    // if (global.isServerRunning) {
-    //     // if server is currently running, stop it before opening a new server instance
-    //     setServerOfflineThenOnline(projDir);
-    // }
+   
+    // Store the project folder so we can access it when we toggle the server status for the newly added project.
+    // The toggle will happen when the overlay animation ends to avoid janky UI (see the sidebar-handlers.js)
+    // rather than here like it used to. 
+    global.projDir = projDir;       
+   
 
     // render newly added project to GUI & set it as the active widget
     addProjectWidget(id, projName, projVersion, iconPath, projDir);
@@ -158,6 +157,7 @@ function parseConfigForRendering(data, id, projDir, i) {
     addProjectWidget(id, projectName, projectVersion, iconPath, projDir);
 
     if (global.firstProjectDir === projDir) {
+        console.log("Toggling!")
         toggleServerStatus(projDir);
     }
 }
@@ -190,6 +190,9 @@ function removeProjectById(currentId) {
         disableMinusButton();
         $("#status-field").hide();
         $("#guide-add").show();
+        if (global.isServerRunning) {
+            setServerOffline();
+        }        
         serverOfflineState();
     }
 

@@ -67,12 +67,14 @@ function openProject(e) {
 }
 
 function selectDirectory(e) {
+    global.projDir = undefined; // reset it for new value
+
     var projectDir = $("#projectDirectory").val().trim();
-    var projectName = $("#projectName").val().trim();
+    var projectName = $("#projectName").val().trim();    
 
     // If this came from drag-n-drop the project directory name will be 
     // passed in there so use it
-    if (e != null) {
+    if (global.isDragDrop && e != null) {
         projectDir = e;
     }
     
@@ -122,9 +124,12 @@ function selectDirectory(e) {
         }
     } else {
         if (projectDir.length > 0) {
-            $("#overlay-bg").hide();
-            hideAddCreateProjectOverlay();
-            $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
+            // Drag drop workflow doesn't need these lines' 
+            if (!global.isDragDrop) {
+                $("#overlay-bg").hide();
+                hideAddCreateProjectOverlay();
+                $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
+            }
 
             // open existing project workflow
             checkIfProjectConfigExists(projectDir);
@@ -207,7 +212,6 @@ function createHandler(projectName, projectId, projDir) {
     // Removed updateConfig in favor of new readConfig since the config.xml file was already updated by the CLI
     // updateConfig(projectName, projectId, projDir);
     readConfig(projectName, projectId, projDir);
-    global.projDir = projDir;
     hideProjectDetailsOverlay();
 }
 
