@@ -21,7 +21,8 @@ function handleDrop(evt) {
                 // Trigger the open project workflow, which will look for the existence of the config.xml etc
                 // and add the project if found 
                 global.createClicked = false;
-                openProject(path);
+                global.isDragDrop = true;
+                openProject(path);                
             }            
         }
     }

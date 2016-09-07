@@ -191,6 +191,12 @@ function setActiveWidget(id, projDir) {
     // If loader was still showing, hide it
     $("#overlay-bg").hide();
     hideLoader();
+    
+    // Start the server on the newly added project if we got here by drag-n-drop since the UI animation handler 
+    // wouldn't have run in that case    
+    if (global.isDragDrop) {
+        toggleServerStatus(projDir);
+    }
 
     widgetServerOnlineState(activeWidget.projectId);
 

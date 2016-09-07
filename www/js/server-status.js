@@ -1,4 +1,5 @@
 function toggleServerStatus(projDir) {
+   console.log("TOGGLE SERVER - is server running? " + global.isServerRunning)
     if (global.isServerRunning) {
         // if server is currently running, stop it before opening a new server instance
         setServerOfflineThenOnline(projDir);
@@ -20,12 +21,11 @@ var onLogCallback = function appendToServerLog(status, url) {
 }
 
 function setServerOnline(projDir) {
-    if (projDir.length > 0) {
+    console.log("Serving project - " + projDir)
+    if (projDir != undefined && projDir.length > 0) {
         localStorage.projDir = projDir;
     } else {
-        if (projDir.length <= 0) {
-            projDir = localStorage.projDir;
-        }
+        projDir = localStorage.projDir;        
     }
 
     fs.exists(projDir + buildPathBasedOnOS("/www"), function(exists) {
@@ -37,7 +37,6 @@ function setServerOnline(projDir) {
 
             global.phonegap.serve({ browser: true, isDesktop: true, phonegap: require('phonegap'), port: localStorage.portNumber }, function(e, data) {
                 var ipAddressesFound = data.addresses.length;
-
                 trackNumIPsFound(ipAddressesFound);
 
                 global.server = data.server;
