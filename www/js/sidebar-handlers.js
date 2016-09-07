@@ -11,7 +11,6 @@ function animateTemplateOverlayEntry() {
     $("#plus-holder").addClass("sidebar-button-active");
 
     if (global.backTemplateClicked) {
-        console.log("back");
         global.backTemplateClicked = false;
         $("#templateOverlay").addClass("animated slideInLeft");
     } else {
@@ -84,8 +83,12 @@ function hideProjectDetailsOverlay(evt) {
 
 function handlehideProjectDetailsOverlayAnimationEnd() {
     $("#projectDetailsOverlay").off("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handlehideProjectDetailsOverlayAnimationEnd);
-    // Call util method to serve the newly created project once the overlay is hidden to avoid janky UI
-    $("#projectDetailsOverlay").hide(serveNewProject());
+    // Toggle the server status afterthe overlay is hidden to avoid janky UI, but only if we definitely added one
+    // and didn't just cancel out
+    if (global.projDir != undefined) {        
+        $("#projectDetailsOverlay").hide(toggleServerStatus(global.projDir));
+    } else $("#projectDetailsOverlay").hide();
+
 
     if (!global.backTemplateClicked) {
         $("#projectDetailsOverlay").removeClass("animated slideOutUp");
@@ -125,7 +128,13 @@ function hideAddCreateProjectOverlay(evt) {
 
 function handleHideAddCreateProjectOverlayAnimationEnd() {
     $("#createOpenProjectOverlay").off("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend");    
-    $("#createOpenProjectOverlay").hide();
+    //$("#createOpenProjectOverlay").hide();
+    // Toggle the server status afterthe overlay is hidden to avoid janky UI, but only if we definitely added one
+    // and didn't just cancel out 
+    if (global.projDir != undefined) {        
+        $("#createOpenProjectOverlay").hide(toggleServerStatus(global.projDir));
+    } else $("#createOpenProjectOverlay").hide();
+
     $("#createOpenProjectOverlay").removeClass("animatedFast fadeOut slideOutLeft");
     if (!global.createChosen) {
         $("#plus-icon").attr("src", "img/icons/normal/plus.svg");

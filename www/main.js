@@ -141,6 +141,11 @@ $(document).ready(function() {
             hideOverlays();
             displayAddCreateProjectOverlay();
         }
+        // reset these values since we're creating or opening
+        // a new project
+        global.isDragDrop = false; 
+        global.projDir = undefined; 
+        
     });
 
     $("#minus-holder").click(function() {
