@@ -1,6 +1,6 @@
 function createProject(e) {
     var projectPath = $("#projectPath").text().trim();
-    
+
     var projectName = $("#projectName").val().trim();
     var projectId = $("#project-id").val().trim() || $("#project-id").attr("placeholder").trim();
 
@@ -70,14 +70,14 @@ function selectDirectory(e) {
     global.projDir = undefined; // reset it for new value
 
     var projectDir = $("#projectDirectory").val().trim();
-    var projectName = $("#projectName").val().trim();    
+    var projectName = $("#projectName").val().trim();
 
-    // If this came from drag-n-drop the project directory name will be 
+    // If this came from drag-n-drop the project directory name will be
     // passed in there so use it
     if (global.isDragDrop && e != null) {
         projectDir = e;
     }
-    
+
     var isProjectPathEmpty = isProjectPathFieldEmpty(projectDir);
     var isProjectNameEmpty = isEmptyField(projectName);
 
@@ -124,7 +124,7 @@ function selectDirectory(e) {
         }
     } else {
         if (projectDir.length > 0) {
-            // Drag drop workflow doesn't need these lines' 
+            // Drag drop workflow doesn't need these lines'
             if (!global.isDragDrop) {
                 $("#overlay-bg").hide();
                 hideAddCreateProjectOverlay();
@@ -177,28 +177,28 @@ function create(projectName, projectId, projDir) {
     opts.env = process.env;
 
     var start = new Date();
-    console.log("CREATE *STARTED* AT: "+ start.toUTCString()); 
-    
+    console.log("CREATE *STARTED* AT: "+ start.toUTCString());
+
     // spawn child process and include success/error callbacks
     var child = spawn(node, args, opts);
     showLoader(true);
 
     child.on('close', function(code) {
-        
+
         if (code === 0) {
             hideLoader();
-            var complete = new Date();        
-            var diff = complete - start;                       
+            var complete = new Date();
+            var diff = complete - start;
             var seconds_diff = diff / 1000;
             var seconds_between = Math.abs(seconds_diff);
-            console.log("CREATE *COMPLETED* AT " + complete.toUTCString() + ". TOTAL TIME: "+seconds_between + " seconds.");        
+            console.log("CREATE *COMPLETED* AT " + complete.toUTCString() + ". TOTAL TIME: "+seconds_between + " seconds.");
             createHandler(projectName, projectId, options.path);
             console.log("Save last selected project path of " + options.path);
             setLastSelectedProjectPath(options.path);
         }
         else {
             hideLoader();
-            displayErrorMessage("Project create failed with code " + code);            
+            displayErrorMessage("Project create failed with code " + code);
         }
 
     });
@@ -218,20 +218,20 @@ function createHandler(projectName, projectId, projDir) {
 // Read the config.xml of the newly created project to get the version etc and invoke addProject
 function readConfig(projName, projId, projDir) {
     var newPathToConfigFile = projDir + buildPathBasedOnOS("/config.xml");
-    
+
     fs.readFile(newPathToConfigFile, {encoding: 'utf8'}, function(err, newPathData) {
         if(err) {
             console.log("Error reading config file at " + newPathToConfigFile);
-            displayMissingConfigFileNotification();            
-        } else {            
-            console.log("updateConfigOnProjectCreation - newPathData");            
+            displayMissingConfigFileNotification();
+        } else {
+            console.log("updateConfigOnProjectCreation - newPathData");
             xmlDoc = $.parseXML(newPathData);
             $xml = $(xmlDoc);
-            var projVersion = $xml.find("widget").attr("version")            
+            var projVersion = $xml.find("widget").attr("version")
             var iconPath = path.join(projDir, findIconPath($xml.find("icon")));
-            addProject(projName, projVersion, iconPath, projDir);           
-        }                    
-    });    
+            addProject(projName, projVersion, iconPath, projDir);
+        }
+    });
 }
 
 function checkIfProjectConfigExists(projDir) {

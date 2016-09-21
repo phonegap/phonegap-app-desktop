@@ -191,9 +191,9 @@ function setActiveWidget(id, projDir) {
     // If loader was still showing, hide it
     $("#overlay-bg").hide();
     hideLoader();
-    
-    // Start the server on the newly added project if we got here by drag-n-drop since the UI animation handler 
-    // wouldn't have run in that case    
+
+    // Start the server on the newly added project if we got here by drag-n-drop since the UI animation handler
+    // wouldn't have run in that case
     if (global.isDragDrop) {
         toggleServerStatus(projDir);
     }
@@ -236,17 +236,17 @@ function setWatcher(filePath, projDir, id) {
     console.log("setWatcher(" + filePath + ", " + projDir + ", " + id + ");");
 
     var chokidar = require("chokidar");
-    
+
     var watcher = chokidar.watch(filePath, {
         ignored: /[\/\\]\./,
-        persistent: true        
+        persistent: true
     });
 
     // Declare the listeners of the watcher
     watcher.on('change', function(filePath) {
         // Ensure the config.xml gets added to avoid timing issues reading/updating it after
         console.log('config.xml file changed at ' + filePath);
-     
+
         // reload the updated values from config.xml & update the GUI
         fs.readFile(filePath, {encoding:'utf8'}, function(err, data) {
             if (err) {

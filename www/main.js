@@ -14,6 +14,7 @@ global.stopClicked = false;
 global.firstProjectDir = null;
 
 $(document).ready(function() {
+
     // add node binary to PATH
     process.env.PATH += ':' + path.join(__dirname, 'bin');
 
@@ -141,11 +142,11 @@ $(document).ready(function() {
             hideOverlays();
             displayAddCreateProjectOverlay();
         }
+
         // reset these values since we're creating or opening
         // a new project
-        global.isDragDrop = false; 
-        global.projDir = undefined; 
-        
+        global.isDragDrop = false;
+        global.projDir = undefined;
     });
 
     $("#minus-holder").click(function() {
@@ -233,6 +234,7 @@ $(document).ready(function() {
     });
 
     initSettings();
+
     $("#projectPath").text(getLastSelectedProjectPath());
     $(".tooltiptext").text(getLastSelectedProjectPath());
 
@@ -262,7 +264,7 @@ function getProjectPath(e) {
         if (path.length > 0) {
             path = path[0];
             $('#projectDirectory').val(path);
-            $(".tooltiptext").text(path);  
+            $(".tooltiptext").text(path);
             console.log(path);
 
             if (global.createChosen) {

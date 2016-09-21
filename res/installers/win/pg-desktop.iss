@@ -12,6 +12,7 @@ SolidCompression=yes
 OutputDir="\\vmware-host\Shared Folders\phonegap-app-desktop\installers\win32"
 LicenseFile=license.txt
 OutputBaseFilename=PhoneGapSetup-win32
+SignTool=pg-desktop-self-sign /d $qPhoneGap Desktop$q /du $qhttp://phonegap.com$q $f
 
 [Files]
 Source: "\\vmware-host\Shared Folders\phonegap-app-desktop\build\PhoneGap-win32-ia32\PhoneGap.exe"; DestDir: "{app}"
