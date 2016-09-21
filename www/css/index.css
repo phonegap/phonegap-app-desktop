@@ -381,7 +381,7 @@
     left: 75px;
     z-index: 13;
     width: 375px;
-    height: 125px;
+    height: 195px;
 }
 .settings-overlay {
     background-color: #1f2326;
@@ -541,9 +541,9 @@ a.projectDirLink:hover {
     padding: 3px;
     font-family: 'Source Sans';
     font-size: 10pt;
-    max-width: 280px;    
+    max-width: 280px;
     word-break: break-all;
-    white-space: pre-wrap;    
+    white-space: pre-wrap;
 
     /* Position the tooltip */
     position: absolute;

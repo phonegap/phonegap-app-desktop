@@ -24,6 +24,7 @@
         <div id="loading-overlay" class="loading-overlay">
             <div id="loading-overlay-sidebar" class="loading-overlay-sidebar"></div>
             <div id="loading-overlay-content" class="loading-overlay-content">
+                <div id="loader-text" class="loader-text"></div>
                 <div class="loader"></div>
                 <p class="loaderText"></p>
             </div>
@@ -34,6 +35,13 @@
         <aside id="updateOverlay" class="update-overlay">
             <div class="overlay-form-item-heading" id="updateOverlayTitle"></div>
             <div class="overlay-form-item settings-ip-label" id="updateOverlayPrompt"></div>
+            <div class="overlay-form-item">
+                <hr class="dotted-hr" />
+            </div>
+            <div class="overlay-form-item">
+                <button id="updateLater" class="cancel-button">Update Later</button>
+                <button id="updateNow" class="action-button">Update Now</button>
+            </div>
         </aside>
 
         <aside id="settingsOverlay" class="settings-overlay">
@@ -76,14 +84,14 @@
                 <hr class="dotted-hr" />
             </div>
             <div class="overlay-form-item-heading" id="project-details-path-label">Local path:</div>
-            <div class="overlay-form-item">                
+            <div class="overlay-form-item">
                 <span id="project-path-border" class="tooltip">
-                    <span class="tooltiptext"></span>                                        
+                    <span class="tooltiptext"></span>
                     <img id="project-path-warning-icon" src="img/icons/normal/warning.svg" />
                     <div id="projectPath" class="overlay-form-item-description italics project-path-label">
                     </div>
                 </span>
-               
+
                 <button id="chooseNewProjectPath" class="project-details-choose-button">Choose ...</button>
             </div>
             <div class="overlay-form-item"></div>
@@ -202,7 +210,9 @@
         <script type="text/javascript" src="js/requireStuff.js"></script>
 
         <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+
         <script type="text/javascript" src="http://localhost:35729/livereload.js"></script>
+
         <script type="text/javascript" src="js/keen.3.1.0.min.js"></script>
         <script type="text/javascript" src="js/error-notification.js"></script>
         <script type="text/javascript" src="js/file-menu.js"></script>
@@ -218,10 +228,8 @@
         <script type="text/javascript" src="js/loader.js"></script>
         <script type="text/javascript" src="js/auto-updater.js"></script>
         <script type="text/javascript" src="js/templates.js"></script>
-
         <script type="text/javascript" src="js/ga/GALocalStorage.js"></script>
         <script type="text/javascript" src="js/ga/gaTracking.js"></script>
-
         <script type="text/javascript" src="js/analytics.js"></script>
         <script type='text/javascript' src="main.js"></script>
 

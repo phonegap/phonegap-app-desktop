@@ -36,7 +36,7 @@ function createWindow () {
             }
         }
     });
-    
+
     mainWindow.webContents.on('did-finish-load', function() {
 
         // manual update notification on Windows
