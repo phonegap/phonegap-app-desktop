@@ -25,7 +25,7 @@ function setServerOnline(projDir) {
     if (projDir != undefined && projDir.length > 0) {
         localStorage.projDir = projDir;
     } else {
-        projDir = localStorage.projDir;        
+        projDir = localStorage.projDir;
     }
 
     fs.exists(projDir + buildPathBasedOnOS("/www"), function(exists) {
