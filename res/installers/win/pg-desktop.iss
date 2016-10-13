@@ -27,6 +27,14 @@ Source: "\\vmware-host\Shared Folders\phonegap-app-desktop\build\PhoneGap-win32-
 [Icons]
 Name: "{group}\Adobe\PhoneGap\PhoneGap Desktop"; Filename: "{app}\PhoneGap.exe"
 
+[Run]
+Filename: "{app}\resources\app.asar.unpacked\bin\node.exe"; Parameters: """{app}\resources\app.asar.unpacked\bin\downloadPG.js"""; StatusMsg: "Installing PhoneGap CLI..."; Flags: runhidden
+
+[UninstallDelete]
+Type: files; Name: "{app}\*"
+Type: filesandordirs; Name: "{app}"
+Type: filesandordirs; Name: "C:\ProgramData\Adobe\PhoneGap"
+
 [Code]
 // Utility functions for Inno Setup
 //   used to add/remove programs from the windows firewall rules

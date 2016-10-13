@@ -1,0 +1,23 @@
+#!/bin/sh
+basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+
+case `uname` in
+    *CYGWIN*) basedir=`cygpath -w "$basedir"`;;
+esac
+
+# get path of npm module based on OS
+if [ -x "/c/ProgramData/Adobe/PhoneGap" ]; then
+  npmPath="/c/ProgramData/Adobe/PhoneGap/npm"
+else
+  npmPath="$basedir/../node_modules/npm"
+fi
+
+# make the call to npm module
+if [ -x "$basedir/node" ]; then
+  "$basedir/node"  "$npmPath/bin/npm-cli.js" "$@"
+  ret=$?
+else
+  node  "$npmPath/bin/npm-cli.js" "$@"
+  ret=$?
+fi
+exit $ret
