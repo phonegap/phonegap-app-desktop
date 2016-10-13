@@ -154,7 +154,7 @@ function create(projectName, projectId, projDir) {
     // Use the node executable path for the command to invoke
     var node;
     if (process.platform == 'win32') {
-        node = path.join(__dirname, 'bin', 'node.exe');
+        node = path.join(__dirname, 'bin', 'node.exe').replace('app.asar', 'app.asar.unpacked');
     }
     else {
         node = path.join(__dirname, 'bin', 'node');
@@ -162,7 +162,7 @@ function create(projectName, projectId, projDir) {
 
     // Define command arguments
     var args = [];
-    args.push(path.join(__dirname, 'node_modules', 'phonegap', 'bin', 'phonegap.js'));
+    args.push(path.join(__dirname, 'node_modules', 'phonegap', 'bin', 'phonegap.js').replace('app.asar', 'app.asar.unpacked'));
     args.push('create');
     args.push(options.path);
     args.push('--template');
@@ -203,8 +203,8 @@ function create(projectName, projectId, projDir) {
 
     });
     child.on('error', function(e) {
-       console.log(data.toString('utf8'));
-       displayErrorMessage(e.toString);
+       console.log(e.toString('utf8'));
+       displayErrorMessage(e.toString('utf8'));
     });
 }
 
