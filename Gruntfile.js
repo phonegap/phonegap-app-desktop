@@ -3,6 +3,8 @@ module.exports = function(grunt) {
     var osxArchive = './installers/osx64/PhoneGap-Desktop-Beta-' + VERSION + '-mac.zip';
     var winArchive = './installers/win32/PhoneGap-Desktop-Beta-' + VERSION + '-win.zip';
 
+    var isRelease = false;
+
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         'electron': {
@@ -27,7 +29,7 @@ module.exports = function(grunt) {
                     platform: 'win32',
                     arch: 'ia32',
                     icon: './www/img/app-icons/icon.ico',
-                    asar: false
+                    asar: { unpackDir:'{bin,node_modules/adm-zip,node_modules/adm-zip/**}' }
                 }
             }
         },
@@ -70,24 +72,21 @@ module.exports = function(grunt) {
 
     // Register the task to install dependencies.
     grunt.task.registerTask('install-dependencies', function() {
-        var exec = require('child_process').exec,
-        callback = this.async();
+        var execSync = require('child_process').execSync;
 
-        exec('node src/js/download-node.js', function(e, stdout, stderr) {
-            if (e) {
-                console.log(stderr);
-                console.log('Check BUNDLED_NODE_VERSION');
-                process.exit(1);
-            }
-            else {
-                console.log(stdout);
-            }
-        });
+        execSync('node src/js/download-node.js');
 
-        exec('npm install --production', { cwd: './www' }, function(e, stdout, stderr) {
-            console.log(stdout);
-            callback();
-        });
+        var npmInstall = 'npm install';
+        if (isRelease) {
+            npmInstall += ' --production';
+        }
+
+        execSync(npmInstall, { cwd: './www' });
+
+        // npm/phonegap workarounds are for Windows, Mac can install normally
+        if (process.platform == 'darwin' && isRelease) {
+            execSync('npm install npm@3.10.3 phonegap@6.3.1', { cwd: './www' });
+        }
     });
 
     // OSX code signing
@@ -113,10 +112,25 @@ module.exports = function(grunt) {
         shell.rm('-rf', './installers');
     });
 
+    // Clean node binary
+    grunt.task.registerTask('clean-node-binary', function() {
+        var shell = require('shelljs');
+
+        var nodePath = './www/bin/node';
+        if (process.platform == 'win32') {
+            nodePath += '.exe';
+        }
+        shell.rm('-rf', nodePath);
+    });
+
     // Clean node dependencies
     grunt.task.registerTask('clean-node-modules', function() {
         var shell = require('shelljs');
         shell.rm('-rf', './www/node_modules');
+    });
+
+    grunt.task.registerTask('set-release-flag', function() {
+        isRelease = true;
     });
 
     // start the local server for update checker
@@ -163,6 +177,7 @@ module.exports = function(grunt) {
     grunt.registerTask(
         'default',
         [
+            'clean-node-binary',
             'clean-node-modules',
             'copy-dev-config',
             'install-dependencies',
@@ -179,9 +194,11 @@ module.exports = function(grunt) {
     grunt.registerTask(
         'release',
         [
+            'clean-node-binary',
             'clean-node-modules',
             'clean-installers-dir',
             'copy-release-config',
+            'set-release-flag',
             'install-dependencies',
             'copy-eula',
             'clean-build-dir',
