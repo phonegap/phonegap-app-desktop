@@ -1,7 +1,8 @@
 var autoUpdater = require('electron').remote.autoUpdater;
 var dialog = require('electron').remote.dialog;
+var path = require('path');
 
-global.phonegap = require("phonegap");
+global.phonegap = require(path.join(__dirname, 'node_modules/phonegap/lib/main.js').replace('app.asar', 'app.asar.unpacked'));
 global.createClicked = false;
 global.server = null;
 global.isServerRunning = false;
@@ -16,7 +17,11 @@ global.firstProjectDir = null;
 $(document).ready(function() {
 
     // add node binary to PATH
-    process.env.PATH += ':' + path.join(__dirname, 'bin');
+    if (process.platform == 'darwin') {
+        process.env.PATH += ':' + path.join(__dirname, 'bin');
+    } else {
+        process.env.PATH += ';' + path.join(__dirname, 'bin').replace('app.asar', 'app.asar.unpacked');
+    }
 
     $("#updateOverlay").hide();
     $("#projectDirectory").hide();
