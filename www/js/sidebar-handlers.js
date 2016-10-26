@@ -1,36 +1,111 @@
-function displayAddNewProjectOverlay(evt) {
-    hideAddCreateProjectOverlay();
-    animateAddNewProjectOverlayEntry();
+// -- template overlay
+function displayTemplateOverlay(evt) {
+    if (!global.backTemplateClicked) {        
+        animateTemplateOverlayEntry();
+        hideAddCreateProjectOverlay();                
+    }
 }
 
-function animateAddNewProjectOverlayEntry() {
+function animateTemplateOverlayEntry() {
     $("#plus-icon").attr("src", "img/icons/active/plus-active.svg");
     $("#plus-holder").addClass("sidebar-button-active");
-    $("#newProjectOverlay").addClass("animated slideInDown");
-    $("#newProjectOverlay").show();
+
+    if (global.backTemplateClicked) {
+        global.backTemplateClicked = false;
+        $("#templateOverlay").addClass("animated slideInLeft");
+    } else {
+        $("#templateOverlay").addClass("animated slideInDown");
+    }
+
+    $("#templateOverlay").show();
+    $("#overlay-bg").show();    
+        
+}
+
+function hideTemplateOverlay(evt) {
+    $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
+    $("#plus-holder").removeClass("sidebar-button-active");
+    $("#templateOverlay").removeClass("animated slideInDown slideInLeft");
+
+    if(global.nextTemplateClicked) {
+        $("#templateOverlay").addClass("animated slideOutLeft");
+    } else {
+        $("#templateOverlay").addClass("animated slideOutUp");
+    }
+
+    $("#templateOverlay").on("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handleHideTemplateOverlayAnimationEnd);
+}
+
+function handleHideTemplateOverlayAnimationEnd() {
+    $("#templateOverlay").off("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handleHideTemplateOverlayAnimationEnd);
+    $("#templateOverlay").hide();
+
+    if(global.nextTemplateClicked) {
+        global.nextTemplateClicked = false;
+        $("#templateOverlay").removeClass("animated slideOutLeft");
+    } else {
+        $("#templateOverlay").removeClass("animated slideOutUp");
+    }
+
+}
+
+// -- project details overlay
+function displayProjectDetailsOverlay(evt) {
+    hideTemplateOverlay();
+    animateProjectDetailsOverlayEntry();
+}
+
+function animateProjectDetailsOverlayEntry() {
+    $("#plus-icon").attr("src", "img/icons/active/plus-active.svg");
+    $("#plus-holder").addClass("sidebar-button-active");
+    $("#projectDetailsOverlay").addClass("animated slideInRight");
+    $("#projectDetailsOverlay").show();
     $("#overlay-bg").show();
 }
 
-function hideAddNewProjectOverlay(evt) {
-    global.createChosen = false;
-    $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
-    $("#plus-holder").removeClass("sidebar-button-active");
-    $("#newProjectOverlay").removeClass("animated slideInDown");
-    $("#newProjectOverlay").addClass("animated slideOutUp");
-    $("#newProjectOverlay").on("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handleHideAddNewProjectOverlayAnimationEnd);
+function hideProjectDetailsOverlay(evt) {
+    $("#projectDetailsOverlay").removeClass("animated slideInRight");
+
+    if (!global.backTemplateClicked) {
+        global.createChosen = false;
+        $("#projectDetailsOverlay").addClass("animated slideOutUp");
+        $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
+        $("#plus-holder").removeClass("sidebar-button-active");
+    } else {
+        $("#projectDetailsOverlay").addClass("animated slideOutRight");
+        $("#templateOverlay").show();
+        $("#templateOverlay").addClass("animated slideInLeft");
+    }
+
+    $("#projectDetailsOverlay").on("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handlehideProjectDetailsOverlayAnimationEnd);    
+    
 }
 
-function handleHideAddNewProjectOverlayAnimationEnd() {
-    $("#newProjectOverlay").off("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handleHideAddNewProjectOverlayAnimationEnd);
-    $("#newProjectOverlay").hide();
-    $("#newProjectOverlay").removeClass("animated slideOutUp");
-    $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
-    resetProjectCreationForm();
-    hideProjectPathError();
-    hideProjectNameError();
-    hideProjectIdError();
+function handlehideProjectDetailsOverlayAnimationEnd() {
+    $("#projectDetailsOverlay").off("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handlehideProjectDetailsOverlayAnimationEnd);
+    // Toggle the server status afterthe overlay is hidden to avoid janky UI, but only if we definitely added one
+    // and didn't just cancel out
+    if (global.projDir != undefined) {        
+        $("#projectDetailsOverlay").hide(toggleServerStatus(global.projDir));
+    } else $("#projectDetailsOverlay").hide();
+
+
+    if (!global.backTemplateClicked) {
+        $("#projectDetailsOverlay").removeClass("animated slideOutUp");
+        $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
+        resetProjectCreationForm();
+        hideProjectPathError();
+        hideProjectNameError();
+        hideProjectIdError();        
+    } else {
+        $("#projectDetailsOverlay").removeClass("animated slideOutRight");
+        $("#templateOverlay").removeClass("animated slideInLeft");
+        $("#templateOverlay").on("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handleHideTemplateOverlayAnimationEnd);
+        global.backTemplateClicked = false;
+    }        
 }
 
+// -- add new or open existing overlay
 function displayAddCreateProjectOverlay(evt) {
     $("#overlay-bg").show();
     $("#plus-holder").addClass("sidebar-button-active");
@@ -40,21 +115,33 @@ function displayAddCreateProjectOverlay(evt) {
 }
 
 function hideAddCreateProjectOverlay(evt) {
+    $("#templateOverlay").off("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend");
     $("#createOpenProjectOverlay").removeClass("animated slideInLeft");
-    $("#createOpenProjectOverlay").addClass("animated slideOutLeft");
+        
+    if ($("#templateOverlay").css('display') == 'none')
+        $("#createOpenProjectOverlay").addClass("animatedFast slideOutLeft");
+    else $("#createOpenProjectOverlay").addClass("animatedFast fadeOut");
+    
     $("#createOpenProjectOverlay").on("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handleHideAddCreateProjectOverlayAnimationEnd);
     $("#plus-holder").removeClass("sidebar-button-active");
 }
 
 function handleHideAddCreateProjectOverlayAnimationEnd() {
-    $("#createOpenProjectOverlay").off("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend");
-    $("#createOpenProjectOverlay").hide();
-    $("#createOpenProjectOverlay").removeClass("animated slideOutLeft");
+    $("#createOpenProjectOverlay").off("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend");    
+    //$("#createOpenProjectOverlay").hide();
+    // Toggle the server status afterthe overlay is hidden to avoid janky UI, but only if we definitely added one
+    // and didn't just cancel out 
+    if (global.projDir != undefined) {        
+        $("#createOpenProjectOverlay").hide(toggleServerStatus(global.projDir));
+    } else $("#createOpenProjectOverlay").hide();
+
+    $("#createOpenProjectOverlay").removeClass("animatedFast fadeOut slideOutLeft");
     if (!global.createChosen) {
         $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
     }
 }
 
+// -- remove project
 function toggleRemoveProjectView(evt) {
     overlayBackgroundHandler();
 
@@ -99,6 +186,7 @@ function handleFlipEnded() {
     $("#flip-container").removeClass("animated flip");
 }
 
+// -- settings overlay
 function toggleSettings() {
     if ($("#settingsOverlay").is(":visible")) {
         hidePortError();
@@ -129,6 +217,7 @@ function handleHideSettingsAnimationEnd() {
     $("#settingsOverlay").removeClass("animated slideOutLeft");
 }
 
+// -- help overlay
 function toggleHelp() {
     if ($("#helpOverlay").is(":visible")) {
         $("#helpOverlay").on("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handleHelpOverlayAnimationEnd);
@@ -154,6 +243,7 @@ function handleHelpOverlayAnimationEnd() {
     $("#helpOverlay").removeClass("animated slideOutLeft");
 }
 
+// -- server log overlay
 function toggleLog() {
     if ($("#serverLogOverlay").is(":visible")) {
         $("#serverLogOverlay").on("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handleHideServerLogAnimationEnd);
@@ -182,6 +272,7 @@ function handleHideServerLogAnimationEnd() {
     $("#serverLogOverlay").removeClass("animated slideOutLeft");
 }
 
+// -- general overlay handlers
 function overlayBackgroundHandler(evt) {
     global.createChosen = false;
     $("#overlay-bg").hide();
@@ -189,6 +280,10 @@ function overlayBackgroundHandler(evt) {
 }
 
 function hideOverlays() {
+    if ($("#templateOverlay").is(":visible")) {
+        hideTemplateOverlay();
+    }
+
     if ($("#createOpenProjectOverlay").is(":visible")) {
         hideAddCreateProjectOverlay();
     }
@@ -197,8 +292,8 @@ function hideOverlays() {
         toggleSettings();
     }
 
-    if ($("#newProjectOverlay").is(":visible")) {
-        hideAddNewProjectOverlay();
+    if ($("#projectDetailsOverlay").is(":visible")) {
+        hideProjectDetailsOverlay();
     }
 
     if ($("#serverLogOverlay").is(":visible")) {

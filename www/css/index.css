@@ -1,6 +1,17 @@
 #app {
     background-color: #dfe2e2;
 }
+/** Force scroll bars for scrollable areas (template list) */
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+    background-color: #323232;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 .03px rgba(255,255,255,.5);
+}
 .container {
     width: 450px;
     height: 100%;
@@ -69,6 +80,7 @@
     background-color: #999999;
     position: absolute;
     left: 75px;
+    bottom: 0px;
 }
 .ip-list {
     overflow-x: hidden;
@@ -111,7 +123,7 @@
     position: fixed;
     top: 0px;
     left: 75px;
-    z-index: 12;
+    z-index: 5;
     width: 375px;
     height: 120px;
 }
@@ -125,7 +137,7 @@
     width: 375px;
     height: 298px;
 }
-.new-project-overlay {
+.project-details-overlay {
     background-color: #1f2326;
     color: white;
     position: fixed;
@@ -133,25 +145,25 @@
     left: 75px;
     z-index: 12;
     width: 375px;
-    height: 440px;
+    height: 485px;
 }
-.new-project-overlay-duplicate-project-name-error {
-    height: 520px;
+.project-details-overlay-duplicate-project-name-error {
+    height: 565px;
 }
-.new-project-overlay-project-name-or-project-id-error {
-    height: 480px;
-}
-.new-project-overlay-project-name-and-project-id-error {
-    height: 515px;
-}
-.new-project-overlay-project-path-and-other-error {
+.project-details-overlay-project-name-or-project-id-error {
     height: 525px;
 }
-.new-project-overlay-project-path-error {
-    height: 495px;
+.project-details-overlay-project-name-and-project-id-error {
+    height: 560px;
 }
-.new-project-overlay-all-errors {
-    height: 555px;
+.project-details-overlay-project-path-and-other-error {
+    height: 570px;
+}
+.project-details-overlay-project-path-error {
+    height: 540px;
+}
+.project-details-overlay-all-errors {
+    height: 600px;
 }
 .overlay-form-item-heading {
     padding-top: 20px;
@@ -166,6 +178,43 @@
 .overlay-form-item-description {
     color: #999999;
     font-size: small;
+}
+.overlay-wizard-text {
+    color: #999999;
+}
+.template-overlay {
+    background-color: #1f2326;
+    color: white;
+    position: fixed;
+    top: 0px;
+    left: 75px;
+    z-index: 12;
+    width: 375px;
+    height: 485px;
+}
+.template-widget {
+    padding: 0px;
+    margin: 0px;
+}
+.template-list {
+    width: 100%;
+    height: 330px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    /*overflow-y: scroll;*/
+}
+.template-list-item {
+    padding-top: 5px;
+    padding-left: 0px;
+    padding-right: 20px;
+    padding-bottom: 5px;
+}
+.template-list-item-description {
+    padding-top: 5px;
+    padding-left: 0px;
+    padding-right: 20px;
+    padding-bottom: 5px;
+    margin-left: 20px;
 }
 .italics {
     font-style: italic;
@@ -210,18 +259,18 @@
     padding-top: 4px;
     font-family: 'Source Sans';
 }
-.new-project-choose-button {
+.project-details-choose-button {
     background-color: #1ba1c7;
     color: white;
     border: none;
     cursor: pointer;
     font-size: 11pt;
-    height: 30px;
+    height: 26px;
     width: 100px;
     float: right;
     font-family: 'Source Sans';
 }
-.new-project-choose-button:hover {
+.project-details-choose-button:hover {
     background-color: #134590;
 }
 .required {
@@ -482,4 +531,26 @@ a.projectDirLink:hover {
     -webkit-user-select: none;
     user-select: none;
     cursor: default;
+}
+.tooltip .tooltiptext {
+    display: inline-block;
+    visibility: hidden;
+    background-color: #dfe2e2;
+    color: #000;
+    border-radius: 3px;
+    padding: 3px;
+    font-family: 'Source Sans';
+    font-size: 10pt;
+    max-width: 280px;
+    word-break: break-all;
+    white-space: pre-wrap;
+
+    /* Position the tooltip */
+    position: absolute;
+    margin-top: -8px;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
 }

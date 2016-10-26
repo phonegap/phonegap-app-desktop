@@ -1,8 +1,8 @@
 var autoUpdater = require('electron').remote.autoUpdater;
 var dialog = require('electron').remote.dialog;
+var path = require('path');
 
-global.pgServer = require("connect-phonegap");
-global.pgVersion = "6.2.6";
+global.phonegap = require(path.join(__dirname, 'node_modules/phonegap/lib/main.js').replace('app.asar', 'app.asar.unpacked'));
 global.createClicked = false;
 global.server = null;
 global.isServerRunning = false;
@@ -15,9 +15,18 @@ global.stopClicked = false;
 global.firstProjectDir = null;
 
 $(document).ready(function() {
+
+    // add node binary to PATH
+    if (process.platform == 'darwin') {
+        process.env.PATH += ':' + path.join(__dirname, 'bin');
+    } else {
+        process.env.PATH += ';' + path.join(__dirname, 'bin').replace('app.asar', 'app.asar.unpacked');
+    }
+
     $("#updateOverlay").hide();
     $("#projectDirectory").hide();
-    $("#newProjectOverlay").hide();
+    $("#templateOverlay").hide();
+    $("#projectDetailsOverlay").hide();
     $("#createOpenProjectOverlay").hide();
     $("#settingsOverlay").hide();
     $("#serverLogOverlay").hide();
@@ -63,9 +72,21 @@ $(document).ready(function() {
         }
     });
 
+    $("#nextTemplate").click(function() {
+        global.nextTemplateClicked = true;
+        displayProjectDetailsOverlay();
+    });
+
+    $("#cancelTemplate").click(overlayBackgroundHandler);
+
     $("#createProject").click(function() {
         global.createChosen = true;
-        displayAddNewProjectOverlay();
+        displayTemplateOverlay();
+    });
+
+    $("#backNewProject").click(function() {
+        global.backTemplateClicked = true;
+        hideProjectDetailsOverlay();
     });
 
     $("#cancelNewProject").click(overlayBackgroundHandler);
@@ -126,6 +147,11 @@ $(document).ready(function() {
             hideOverlays();
             displayAddCreateProjectOverlay();
         }
+
+        // reset these values since we're creating or opening
+        // a new project
+        global.isDragDrop = false;
+        global.projDir = undefined;
     });
 
     $("#minus-holder").click(function() {
@@ -214,6 +240,9 @@ $(document).ready(function() {
 
     initSettings();
 
+    $("#projectPath").text(getLastSelectedProjectPath());
+    $(".tooltiptext").text(getLastSelectedProjectPath());
+
     hideProjectPathError();
     hideProjectNameError();
     hideProjectIdError();
@@ -224,10 +253,11 @@ $(document).ready(function() {
     //trackAppOpened();
     gaAppLoaded();
     getProjects();
+    getTemplates();
 
     // auto-update on Mac OSX
     if (determineOperatingSystem() === 'darwin') {
-        checkForUpdates();
+        checkForUpdates(autoUpdater);
     }
 
     var hideLoaderTimeout = setTimeout(hideLoader, 2000);
@@ -239,6 +269,7 @@ function getProjectPath(e) {
         if (path.length > 0) {
             path = path[0];
             $('#projectDirectory').val(path);
+            $(".tooltiptext").text(path);
             console.log(path);
 
             if (global.createChosen) {

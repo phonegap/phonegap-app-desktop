@@ -1,4 +1,5 @@
 function toggleServerStatus(projDir) {
+   console.log("TOGGLE SERVER - is server running? " + global.isServerRunning)
     if (global.isServerRunning) {
         // if server is currently running, stop it before opening a new server instance
         setServerOfflineThenOnline(projDir);
@@ -7,13 +8,24 @@ function toggleServerStatus(projDir) {
     }
 }
 
+var onLogCallback = function appendToServerLog(status, url) {
+    //$("#serverLog").append(status + " " + url + "\n");
+    var serverLog = $("#serverLog");
+    var args = Array.prototype.slice.call(arguments);
+    var message = args.join(' ');
+    if (serverLog.val() !== undefined) {
+        serverLog.val(serverLog.val() + message + "\n");
+    } else {
+        serverLog.val(message + "\n");
+    }
+}
+
 function setServerOnline(projDir) {
-    if (projDir.length > 0) {
+    console.log("Serving project - " + projDir)
+    if (projDir != undefined && projDir.length > 0) {
         localStorage.projDir = projDir;
     } else {
-        if (projDir.length <= 0) {
-            projDir = localStorage.projDir;
-        }
+        projDir = localStorage.projDir;
     }
 
     fs.exists(projDir + buildPathBasedOnOS("/www"), function(exists) {
@@ -23,26 +35,8 @@ function setServerOnline(projDir) {
             // need to change this for browser platform because of Cordova Issue: CB-5687
             process.env.PWD = projDir;
 
-            // many of these options are needed because we bypass the CLI when serving
-            // we may be able to remove most of them once we start using the CLI to serve
-            var serveOptions = {
-                browser: true,
-                console: true,
-                deploy: true,
-                homepage: true,
-                isDesktop: true,
-                phonegap: require('phonegap'),
-                port: localStorage.portNumber,
-                proxy: true,
-                push: true,
-                refresh: true
-            };
-
-            global.pgServer.listen(serveOptions)
-            .on("complete", function(data) {
-
+            global.phonegap.serve({ browser: true, isDesktop: true, port: localStorage.portNumber }, function(e, data) {
                 var ipAddressesFound = data.addresses.length;
-
                 trackNumIPsFound(ipAddressesFound);
 
                 global.server = data.server;
@@ -69,22 +63,10 @@ function setServerOnline(projDir) {
                 $("#status-field").css("background-color", "rgb(153,153,153)");
                 widgetServerOfflineState(global.activeWidget.projectId, global.activeWidget.widgetId);
             })
-            .on("log", function(status, url) {
-                //$("#serverLog").append(status + " " + url + "\n");
-                var serverLog = $("#serverLog");
-                var args = Array.prototype.slice.call(arguments);
-                var message = args.join(' ');
-                if (serverLog.val() !== undefined) {
-                    serverLog.val(serverLog.val() + message + "\n");
-                } else {
-                    serverLog.val(message + "\n");
-                }
-
-            });
+            .on("log", onLogCallback);
         } else {
             var errMsg = "an existing project doesn't exist in this folder";
             console.log(errMsg);
-            $("#server-status").prop("checked", false);
             $("#log").prop("disabled", true);
         }
     });
@@ -93,6 +75,7 @@ function setServerOnline(projDir) {
 function setServerOffline() {
     global.server.closeServer(function() {
         global.isServerRunning = false;
+        global.phonegap.removeListener("log", onLogCallback);
         console.log("server closed");
     });
 }
@@ -100,6 +83,7 @@ function setServerOffline() {
 function setServerOfflineThenOnline(projDir) {
     global.server.closeServer(function() {
         global.isServerRunning = false;
+        global.phonegap.removeListener("log", onLogCallback);
         setServerOnline(projDir);
     });
 }
