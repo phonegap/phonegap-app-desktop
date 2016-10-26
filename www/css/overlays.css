@@ -9,7 +9,7 @@
 
 .loading-overlay-content {
 	position:absolute;
-    top: 0px;
+	top: 0px;
 	left: 75px;
 	width: 375px;
 	height:100%;
@@ -25,6 +25,26 @@
 	opacity: 0.75;
 	background-color:rgb(204,204,204);
 }
+
+.loading-overlay-content.dark {
+	position:absolute;
+	top: 0px;
+	left: 75px;
+	width: 375px;
+	height:100%;
+	background-color: rgba(0, 0, 0, 0.85);	
+}
+
+.loading-overlay-sidebar.dark {
+	position:absolute;
+	top: 0px;
+	left: 0px;
+	width: 75px;
+	height:100%;
+	opacity: 0.75;
+	background-color: rgba(0, 0, 0, 0.85);
+}
+
 
 .topcoat-overlay-large {
 	padding:0;
@@ -57,7 +77,8 @@
 	height:100%;
 	background-color:rgb(204,204,204);
 	z-index:5;
-	opacity: 0.75;
+	/*opacity: 0.75;*/
+	opacity: 0.0;
 }
 
 .topcoat-overlay-bottom {

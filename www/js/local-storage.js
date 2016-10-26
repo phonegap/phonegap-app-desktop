@@ -13,6 +13,20 @@ function getUserId() {
     return id;
 }
 
+function getLastSelectedProjectPath() {
+    var projectPath = "Please choose a local path";
+    if (localStorage.projectPath) {
+        projectPath = localStorage.projectPath;
+    }
+    return projectPath;
+}
+
+function setLastSelectedProjectPath(projectPath) {
+    // Set to the parent of the last created project
+    projectPath = projectPath.substring(0,projectPath.lastIndexOf('/'));
+    localStorage.projectPath = projectPath;
+}
+
 function addProject(projName, projVersion, iconPath, projDir) {
     var id = generateId();
     var projectObj = {};
@@ -30,11 +44,12 @@ function addProject(projName, projVersion, iconPath, projDir) {
         myProjects.push(projectObj);
         localStorage.projects = JSON.stringify(myProjects);
     }
-
-    if (global.isServerRunning) {
-        // if server is currently running, stop it before opening a new server instance
-        setServerOfflineThenOnline(projDir);
-    }
+   
+    // Store the project folder so we can access it when we toggle the server status for the newly added project.
+    // The toggle will happen when the overlay animation ends to avoid janky UI (see the sidebar-handlers.js)
+    // rather than here like it used to. 
+    global.projDir = projDir;       
+   
 
     // render newly added project to GUI & set it as the active widget
     addProjectWidget(id, projName, projVersion, iconPath, projDir);
@@ -126,7 +141,6 @@ function getProjectConfig(id, projDir, i) {
 
 function parseConfigForRendering(data, id, projDir, i) {
     console.log("parseConfigForRendering");
-    var iconPath = projDir + buildPathBasedOnOS("/www/");
 
     $.xmlDoc = $.parseXML(data);
     $.xml = $($.xmlDoc);
@@ -138,12 +152,12 @@ function parseConfigForRendering(data, id, projDir, i) {
     var projectVersion = $.xml.find("widget").attr("version");
 
     // get the app icon
-    var projectIcon = $.xml.find("icon").attr("src");
-    iconPath += projectIcon;
+    var iconPath = path.join(projDir, findIconPath($.xml.find("icon")));
 
     addProjectWidget(id, projectName, projectVersion, iconPath, projDir);
 
     if (global.firstProjectDir === projDir) {
+        console.log("Toggling!")
         toggleServerStatus(projDir);
     }
 }
@@ -176,6 +190,9 @@ function removeProjectById(currentId) {
         disableMinusButton();
         $("#status-field").hide();
         $("#guide-add").show();
+        if (global.isServerRunning) {
+            setServerOffline();
+        }        
         serverOfflineState();
     }
 

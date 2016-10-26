@@ -26,6 +26,7 @@
             <div id="loading-overlay-content" class="loading-overlay-content">
                 <div id="loader-text" class="loader-text"></div>
                 <div class="loader"></div>
+                <p class="loaderText"></p>
             </div>
         </div>
 
@@ -77,27 +78,34 @@
             </div>
         </aside>
 
-        <aside id="newProjectOverlay" class="new-project-overlay">
-            <div class="overlay-form-item-heading" id="new-project-path-label">Local path:</div>
+        <aside id="projectDetailsOverlay" class="project-details-overlay">
+            <div class="overlay-form-item"><span class="overlay-wizard-text">STEP 2 OF 2 &nbsp;&nbsp;|</span>&nbsp;&nbsp; PROJECT DETAILS</div>
             <div class="overlay-form-item">
-                <span id="project-path-border">
+                <hr class="dotted-hr" />
+            </div>
+            <div class="overlay-form-item-heading" id="project-details-path-label">Local path:</div>
+            <div class="overlay-form-item">
+                <span id="project-path-border" class="tooltip">
+                    <span class="tooltiptext"></span>
                     <img id="project-path-warning-icon" src="img/icons/normal/warning.svg" />
-                    <div id="projectPath" class="overlay-form-item-description italics project-path-label">Please choose a local path</div>
+                    <div id="projectPath" class="overlay-form-item-description italics project-path-label">
+                    </div>
                 </span>
-                <button id="chooseNewProjectPath" class="new-project-choose-button">Choose...</button>
+
+                <button id="chooseNewProjectPath" class="project-details-choose-button">Choose ...</button>
             </div>
             <div class="overlay-form-item"></div>
             <div class="overlay-form-item overlay-form-item-description">This is where the project will be stored on your computer.</div>
             <div class="overlay-form-item overlay-form-item required" id="project-path-error-message">You must choose a local path where your project will be created.</div>
 
-            <div class="overlay-form-item-heading" id="new-project-name-label">Name:</div>
+            <div class="overlay-form-item-heading" id="project-details-name-label">Name:</div>
             <div class="overlay-form-item">
                 <input type="text" id="projectName" class="text-input project-input-field" />
             </div>
             <div class="overlay-form-item overlay-form-item-description">The display name for your app.</div>
             <div class="overlay-form-item overlay-form-item required" id="project-name-error-message">You must give your new project a name.</div>
 
-            <div class="overlay-form-item-heading" id="new-project-id-label">ID: <span class="overlay-form-item-description">(optional)</span></div>
+            <div class="overlay-form-item-heading" id="project-details-id-label">ID: <span class="overlay-form-item-description">(optional)</span></div>
             <div class="overlay-form-item">
                 <input type="text" id="project-id" class="text-input project-input-field" placeholder="com.phonegap.helloworld" />
             </div>
@@ -109,7 +117,27 @@
             </div>
             <div class="overlay-form-item">
                 <button id="cancelNewProject" class="cancel-button">Cancel</button>
-                <button id="addNewProject" class="action-button">Create project</button>
+                <div style="width: 178px; float: right;">
+                    <button id="backNewProject" class="cancel-button">Back</button>
+                    <button id="addNewProject" class="action-button">Create project</button>
+                </div>
+            </div>
+        </aside>
+
+        <aside id="templateOverlay" class="template-overlay">
+            <div class="overlay-form-item"><span class="overlay-wizard-text">STEP 1 OF 2 &nbsp;&nbsp;|</span>&nbsp;&nbsp; SELECT A TEMPLATE</div>
+            <div class="overlay-form-item">
+                <hr class="dotted-hr" />
+            </div>
+            <div class="overlay-form-item" style="overflow: hidden;">
+                <div id="templateList" class="template-list"></div>
+            </div>
+            <div class="overlay-form-item">
+                <hr class="dotted-hr" />
+            </div>
+            <div class="overlay-form-item">
+                <button id="cancelTemplate" class="cancel-button">Cancel</button>
+                <button id="nextTemplate" class="action-button">Next</button>
             </div>
         </aside>
 
@@ -183,7 +211,8 @@
 
         <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
 
-        <script type="text/javascript" src="js/auto-updater.js"></script>
+        <script type="text/javascript" src="http://localhost:35729/livereload.js"></script>
+
         <script type="text/javascript" src="js/keen.3.1.0.min.js"></script>
         <script type="text/javascript" src="js/error-notification.js"></script>
         <script type="text/javascript" src="js/file-menu.js"></script>
@@ -196,10 +225,11 @@
         <script type="text/javascript" src="js/local-storage.js"></script>
         <script type="text/javascript" src="js/settings-handlers.js"></script>
         <script type="text/javascript" src="js/utils.js"></script>
-
+        <script type="text/javascript" src="js/loader.js"></script>
+        <script type="text/javascript" src="js/auto-updater.js"></script>
+        <script type="text/javascript" src="js/templates.js"></script>
         <script type="text/javascript" src="js/ga/GALocalStorage.js"></script>
         <script type="text/javascript" src="js/ga/gaTracking.js"></script>
-
         <script type="text/javascript" src="js/analytics.js"></script>
         <script type='text/javascript' src="main.js"></script>
 

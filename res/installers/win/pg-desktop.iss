@@ -3,7 +3,7 @@ AppPublisher=Adobe Inc.
 AppPublisherURL=https://www.adobe.com/
 AppName=PhoneGap Desktop
 AppId=com.adobe.phonegap.desktop
-AppVersion=0.3.5
+AppVersion=0.4.0
 DefaultDirName={pf}\Adobe\PhoneGap\PhoneGap Desktop
 DefaultGroupName=Adobe\PhoneGap
 UninstallDisplayIcon={app}\PhoneGap.exe
@@ -27,6 +27,14 @@ Source: "\\vmware-host\Shared Folders\phonegap-app-desktop\build\PhoneGap-win32-
 
 [Icons]
 Name: "{group}\Adobe\PhoneGap\PhoneGap Desktop"; Filename: "{app}\PhoneGap.exe"
+
+[Run]
+Filename: "{app}\resources\app.asar.unpacked\bin\node.exe"; Parameters: """{app}\resources\app.asar.unpacked\bin\downloadPG.js"""; StatusMsg: "Installing PhoneGap CLI..."; Flags: runhidden
+
+[UninstallDelete]
+Type: files; Name: "{app}\*"
+Type: filesandordirs; Name: "{app}"
+Type: filesandordirs; Name: "C:\ProgramData\Adobe\PhoneGap"
 
 [Code]
 // Utility functions for Inno Setup

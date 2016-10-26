@@ -6,7 +6,6 @@ webFrame.setZoomLevelLimits(1, 1);
 
 // load dependencies module
 var fs = require("fs");
-var gaze = require("gaze");
 var jsxml= require("node-jsxml");
 var opener = require("opener");
 var path = require("path");

@@ -94,3 +94,16 @@ function trackProjectRemoved() {
         global.client.addEvent("projectRemoved", projectRemoved);
     }
 }
+
+function trackDragAndDrop() {
+    if(getSendUsageFlag()) {
+        var dragAndDrop = {
+            userId: getUserId(),
+            platform: determineOperatingSystem(),
+            debug: getDebugFlag(),
+            version: getVersion()
+        };
+
+        global.client.addEvent("dragAndDrop", dragAndDrop);
+    }
+}
