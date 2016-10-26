@@ -19,13 +19,14 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     widgetDOM += "</div>";
 
     // project icon
+    var altText = getProjectInitials(projectName);
     widgetDOM += "<div class='column project-icon-column'>";
 
     widgetDOM += "<div class='flip-container'>";
     widgetDOM += "<div class='flipper'>";
 
     widgetDOM += "<div class='front'>";
-    widgetDOM += "<img id='" + projectIconId + "' height='64' width='64' src='" + projectIcon + "' />";
+    widgetDOM += "<img id='" + projectIconId + "' alt='" + altText + "' height='64' width='64' src='" + projectIcon + "' />";
     widgetDOM += "</div>";  // front content
 
     widgetDOM += "<div class='back delete-holder' id=" + deleteId + ">";
@@ -70,6 +71,12 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     enableMinusButton();
     $("#guide-add").hide();
 
+    $("#" + projectIconId).on("error",function(){
+        var image = $("#" + projectIconId);
+        image.hide();
+        image.parent().addClass('noimage').text(image.attr('alt'));
+    });
+
     $("#" + deleteId).on("click", function(event) {
         var temp = $("#" + deleteId).attr("id").split("_");
         var clickedId = temp[1];
@@ -98,8 +105,10 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     });
 
     $("#start-icon_" + id.toString()).on("click", function() {
-        setActiveWidget(id, projectDir);
-        toggleServerStatus(projectDir);
+        if (!global.isServerRunning || global.activeWidget.projectId != id) {
+            setActiveWidget(id, projectDir);
+            toggleServerStatus(projectDir);
+        }
     });
 
     $("#stop-icon_" + id.toString()).on("mouseover", function() {
@@ -123,6 +132,12 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
             }
         }
     });
+}
+
+function getProjectInitials(projName) {
+    return (projName).split(" ").map(function(elem) {
+        return elem.substr(0,1);
+    }).slice(0,2).join("");
 }
 
 function widgetServerOnlineState(id) {
@@ -150,6 +165,9 @@ function widgetServerOfflineState(id, widgetId) {
 }
 
 function setActiveWidget(id, projDir) {
+    if (global.activeWidget){
+        global.activeWidget.watcher.close();
+    }
 
     var previousActiveWidget = global.activeWidget;
 
@@ -163,6 +181,23 @@ function setActiveWidget(id, projDir) {
 
     // update GUI to display details of the active widget
     $("#" + activeWidget.widgetId).css("background-color", "#f0f0f0");
+
+    // Auto-Scroll to the newly created project
+    var scrollAmt = $("#drop_zone")[0].scrollTop + $("#" + activeWidget.widgetId).position().top;
+    if (scrollAmt>$("#drop_zone")[0].scrollHeight)
+        scrollAmt = $("#" + activeWidget.widgetId).position().top+160
+    $("#drop_zone").animate({scrollTop:scrollAmt},800)
+
+    // If loader was still showing, hide it
+    $("#overlay-bg").hide();
+    hideLoader();
+
+    // Start the server on the newly added project if we got here by drag-n-drop since the UI animation handler
+    // wouldn't have run in that case
+    if (global.isDragDrop) {
+        toggleServerStatus(projDir);
+    }
+
     widgetServerOnlineState(activeWidget.projectId);
 
     // set a watch on the config.xml of the active project
@@ -197,46 +232,55 @@ function setConfigWatcher(id, projDir) {
 }
 
 function setWatcher(filePath, projDir, id) {
-    gaze("config.xml", function (err, watcher) {
 
-        this.on("error", function(e) {
-            console.log(e.message);
-        });
+    console.log("setWatcher(" + filePath + ", " + projDir + ", " + id + ");");
 
-        this.on("changed", function(filepath) {
-            // reload the updated values from config.xml & update the GUI
-            fs.readFile(filePath, {encoding:'utf8'}, function(err, data) {
-                if (err) {
-                    console.log(err.message);
-                    displayErrorMessage(err.message);
-                }
+    var chokidar = require("chokidar");
 
-                var iconPath = projDir + buildPathBasedOnOS("/www/");
-                var projectDetailsId = "project-details_" + id.toString();
-                var projectIconId = "projectIconId_" + id.toString();
-                var projectNameLabel = "projectNameLabel_" + id.toString();
-                var projectVersionLabel = "projectVersionLabel_" + id.toString();
-
-                $.xmlDoc = $.parseXML(data);
-                $.xml = $($.xmlDoc);
-
-                // get the project name
-                var projectName = $.xml.find("name").text();
-                updateProjectNameInLocalStorage(id, projectName);
-
-                // get the project version
-                var projectVersion = $.xml.find("widget").attr("version");
-
-                // get the app icon
-                var projectIcon = $.xml.find("icon").attr("src");
-                iconPath += projectIcon;
-
-                $("#" + projectNameLabel).text(projectName);
-                $("#" + projectVersionLabel).text("v" + projectVersion);
-                $("#" + projectIconId).attr("src", iconPath);
-            });
-        });
+    var watcher = chokidar.watch(filePath, {
+        ignored: /[\/\\]\./,
+        persistent: true
     });
+
+    // Declare the listeners of the watcher
+    watcher.on('change', function(filePath) {
+        // Ensure the config.xml gets added to avoid timing issues reading/updating it after
+        console.log('config.xml file changed at ' + filePath);
+
+        // reload the updated values from config.xml & update the GUI
+        fs.readFile(filePath, {encoding:'utf8'}, function(err, data) {
+            if (err) {
+                console.log(err.message);
+                displayErrorMessage(err.message);
+            }
+
+            var projectDetailsId = "project-details_" + id.toString();
+            var projectIconId = "projectIconId_" + id.toString();
+            var projectNameLabel = "projectNameLabel_" + id.toString();
+            var projectVersionLabel = "projectVersionLabel_" + id.toString();
+
+            $.xmlDoc = $.parseXML(data);
+            $.xml = $($.xmlDoc);
+
+            // get the project name
+            var projectName = $.xml.find("name").text();
+            updateProjectNameInLocalStorage(id, projectName);
+
+            // get the project version
+            var projectVersion = $.xml.find("widget").attr("version");
+
+            // get the app icon
+            var iconPath = path.join(projDir, findIconPath($.xml.find("icon")));
+
+            $("#" + projectNameLabel).text(projectName);
+            $("#" + projectVersionLabel).text("v" + projectVersion);
+            $("#" + projectIconId).attr("src", iconPath);
+        });
+
+    });
+
+    global.activeWidget.watcher = watcher;
+    return watcher;
 }
 
 function removeProjectWidget(idToDelete) {

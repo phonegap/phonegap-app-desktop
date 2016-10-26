@@ -1,7 +1,9 @@
 module.exports = function(grunt) {
-    var VERSION = '0.3.5';
+    var VERSION = '0.4.0';
     var osxArchive = './installers/osx64/PhoneGap-Desktop-Beta-' + VERSION + '-mac.zip';
     var winArchive = './installers/win32/PhoneGap-Desktop-Beta-' + VERSION + '-win.zip';
+
+    var isRelease = false;
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -11,7 +13,7 @@ module.exports = function(grunt) {
                     name: 'PhoneGap',
                     dir: './www',
                     out: './build',
-                    version: '1.0.1',
+                    version: '1.3.0',
                     platform: 'darwin',
                     arch: 'x64',
                     icon: './www/img/app-icons/icon.icns',
@@ -23,11 +25,11 @@ module.exports = function(grunt) {
                     name: 'PhoneGap',
                     dir: './www',
                     out: './build',
-                    version: '1.0.1',
+                    version: '1.3.0',
                     platform: 'win32',
                     arch: 'ia32',
                     icon: './www/img/app-icons/icon.ico',
-                    asar: true
+                    asar: { unpackDir:'{bin,node_modules/adm-zip,node_modules/adm-zip/**}' }
                 }
             }
         },
@@ -70,22 +72,31 @@ module.exports = function(grunt) {
 
     // Register the task to install dependencies.
     grunt.task.registerTask('install-dependencies', function() {
-        var exec = require('child_process').exec,
-        callback = this.async();
+        var execSync = require('child_process').execSync;
 
-        exec('npm install --production', { cwd: './www' }, function(e, stdout, stderr) {
-            console.log(stdout);
-            callback();
-        });
+        execSync('node src/js/download-node.js');
+
+        var npmInstall = 'npm install';
+        if (isRelease) {
+            npmInstall += ' --production';
+        }
+
+        execSync(npmInstall, { cwd: './www' });
+
+        // npm/phonegap workarounds are for Windows, Mac can install normally
+        if (process.platform == 'darwin' && isRelease) {
+            execSync('npm install npm@3.10.3 phonegap@6.3.1', { cwd: './www' });
+        }
     });
 
     // OSX code signing
     grunt.task.registerTask('code-sign-osx', function() {
         var shell = require('shelljs');
-        shell.exec("codesign --verbose --deep --force --sign 'Mac Developer: Herman Wong (M6QFED29S9)' build/PhoneGap-darwin-x64/PhoneGap.app");
+        var signConfig = grunt.file.readJSON("sign-config.json")
+        shell.exec("codesign --verbose --deep --force --sign " + "'"+signConfig.certName+"'" + " build/PhoneGap-darwin-x64/PhoneGap.app");
         shell.exec("codesign --verbose --verify build/PhoneGap-darwin-x64/PhoneGap.app");
         shell.exec("codesign -vv -d build/PhoneGap-darwin-x64/PhoneGap.app");
-        shell.exec("codesign --verbose --force --sign 'Mac Developer: Herman Wong (M6QFED29S9)' build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/PhoneGap");
+        shell.exec("codesign --verbose --force --sign " + "'"+signConfig.certName+"'" + " build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/PhoneGap");
         shell.exec("codesign --verbose --verify build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/PhoneGap");
     });
 
@@ -101,10 +112,25 @@ module.exports = function(grunt) {
         shell.rm('-rf', './installers');
     });
 
+    // Clean node binary
+    grunt.task.registerTask('clean-node-binary', function() {
+        var shell = require('shelljs');
+
+        var nodePath = './www/bin/node';
+        if (process.platform == 'win32') {
+            nodePath += '.exe';
+        }
+        shell.rm('-rf', nodePath);
+    });
+
     // Clean node dependencies
     grunt.task.registerTask('clean-node-modules', function() {
         var shell = require('shelljs');
         shell.rm('-rf', './www/node_modules');
+    });
+
+    grunt.task.registerTask('set-release-flag', function() {
+        isRelease = true;
     });
 
     // start the local server for update checker
@@ -151,6 +177,7 @@ module.exports = function(grunt) {
     grunt.registerTask(
         'default',
         [
+            'clean-node-binary',
             'clean-node-modules',
             'copy-dev-config',
             'install-dependencies',
@@ -167,9 +194,11 @@ module.exports = function(grunt) {
     grunt.registerTask(
         'release',
         [
+            'clean-node-binary',
             'clean-node-modules',
             'clean-installers-dir',
             'copy-release-config',
+            'set-release-flag',
             'install-dependencies',
             'copy-eula',
             'clean-build-dir',

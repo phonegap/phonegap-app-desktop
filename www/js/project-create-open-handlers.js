@@ -1,5 +1,6 @@
 function createProject(e) {
     var projectPath = $("#projectPath").text().trim();
+
     var projectName = $("#projectName").val().trim();
     var projectId = $("#project-id").val().trim() || $("#project-id").attr("placeholder").trim();
 
@@ -58,18 +59,24 @@ function createProject(e) {
 
 function selectProjectPath(e) {
     global.createClicked = true;
-    //$("#projectDirectory").trigger("click");
     selectDirectory(e);
 }
 
 function openProject(e) {
-    //$("#projectDirectory").trigger("click");
     selectDirectory(e);
 }
 
 function selectDirectory(e) {
+    global.projDir = undefined; // reset it for new value
+
     var projectDir = $("#projectDirectory").val().trim();
     var projectName = $("#projectName").val().trim();
+
+    // If this came from drag-n-drop the project directory name will be
+    // passed in there so use it
+    if (global.isDragDrop && e != null) {
+        projectDir = e;
+    }
 
     var isProjectPathEmpty = isProjectPathFieldEmpty(projectDir);
     var isProjectNameEmpty = isEmptyField(projectName);
@@ -81,6 +88,7 @@ function selectDirectory(e) {
         $("#projectPath").removeClass("italics");
         hideProjectPathError();
         $("#projectPath").text(projectDir);
+        $(".tooltiptext").text(projectDir);
         $("#projectName").focus();
 
         if(!projectExistsInLocalStorage(projectDir)) {
@@ -116,13 +124,15 @@ function selectDirectory(e) {
         }
     } else {
         if (projectDir.length > 0) {
+            // Drag drop workflow doesn't need these lines'
+            if (!global.isDragDrop) {
+                $("#overlay-bg").hide();
+                hideAddCreateProjectOverlay();
+                $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
+            }
+
             // open existing project workflow
             checkIfProjectConfigExists(projectDir);
-            $("#overlay-bg").hide();
-            hideAddCreateProjectOverlay();
-            $("#plus-icon").attr("src", "img/icons/normal/plus.svg");
-            trackProjectOpened();
-            toggleServerStatus(projectDir);
         }
     }
 
@@ -131,84 +141,95 @@ function selectDirectory(e) {
 
 function create(projectName, projectId, projDir) {
     var options = {};
-       options.path = projDir;
-       options.version = global.pgVersion;
+    options.path = projDir;
+    options.name = projectName;
+    options.id = projectId;
+    options.verbose = true;
 
-       global.pgServer.create(options)
-          .on("error", function(e) {
-              console.log(e.message);
-              displayErrorMessage(e.message);
-              this.removeListener("error", arguments.callee);
-          })
-          .on("complete", function(data) {
-              console.log("created project at:" + data.path);
-              // update the config.xml of the newly created project with the project name & project id entered by the user
-              updateConfig(projectName, projectId, projDir);
-              $("#overlay-bg").hide();
-              hideAddNewProjectOverlay();
-              this.removeListener("complete", arguments.callee);
-          });
+    var npmKey = $('input:checked[name="selectedTemplate"]').attr('data-key');
+
+    var spawn = require('child_process').spawn;
+    var path = require('path');
+
+    // Use the node executable path for the command to invoke
+    var node;
+    if (process.platform == 'win32') {
+        node = path.join(__dirname, 'bin', 'node.exe').replace('app.asar', 'app.asar.unpacked');
+    }
+    else {
+        node = path.join(__dirname, 'bin', 'node');
+    }
+
+    // Define command arguments
+    var args = [];
+    args.push(path.join(__dirname, 'node_modules', 'phonegap', 'bin', 'phonegap.js').replace('app.asar', 'app.asar.unpacked'));
+    args.push('create');
+    args.push(options.path);
+    args.push('--template');
+    args.push(npmKey);
+    args.push('--id');
+    args.push(options.id);
+    args.push('--name');
+    args.push(options.name);
+
+    // Define options
+    var opts = [];
+    opts.env = process.env;
+
+    var start = new Date();
+    console.log("CREATE *STARTED* AT: "+ start.toUTCString());
+
+    // spawn child process and include success/error callbacks
+    var child = spawn(node, args, opts);
+    showLoader(true);
+
+    child.on('close', function(code) {
+
+        if (code === 0) {
+            hideLoader();
+            var complete = new Date();
+            var diff = complete - start;
+            var seconds_diff = diff / 1000;
+            var seconds_between = Math.abs(seconds_diff);
+            console.log("CREATE *COMPLETED* AT " + complete.toUTCString() + ". TOTAL TIME: "+seconds_between + " seconds.");
+            createHandler(projectName, projectId, options.path);
+            console.log("Save last selected project path of " + options.path);
+            setLastSelectedProjectPath(options.path);
+        }
+        else {
+            hideLoader();
+            displayErrorMessage("Project create failed with code " + code);
+        }
+
+    });
+    child.on('error', function(e) {
+       console.log(e.toString('utf8'));
+       displayErrorMessage(e.toString('utf8'));
+    });
 }
 
-function updateConfig(projectName, projectId, projDir) {
-    console.log("updateConfig");
-    var oldPathToConfigFile = projDir + buildPathBasedOnOS("/www/config.xml");
+function createHandler(projectName, projectId, projDir) {
+    // Removed updateConfig in favor of new readConfig since the config.xml file was already updated by the CLI
+    // updateConfig(projectName, projectId, projDir);
+    readConfig(projectName, projectId, projDir);
+    hideProjectDetailsOverlay();
+}
+
+// Read the config.xml of the newly created project to get the version etc and invoke addProject
+function readConfig(projName, projId, projDir) {
     var newPathToConfigFile = projDir + buildPathBasedOnOS("/config.xml");
 
     fs.readFile(newPathToConfigFile, {encoding: 'utf8'}, function(err, newPathData) {
         if(err) {
-            fs.readFile(oldPathToConfigFile, {encoding: 'utf8'}, function(err, oldPathData) {
-                if (err) {
-                    console.log("old: " + oldPathToConfigFile);
-                    console.log("new: " + newPathToConfigFile);
-                    displayMissingConfigFileNotification();
-                } else {
-                    $.xmlDoc = $.parseXML(oldPathData);
-                    console.log("updateConfigOnProjectCreation - oldPathData");
-                    updateConfigOnProjectCreation($.xmlDoc, projectName, projectId, oldPathToConfigFile, projDir);
-                }
-            });
+            console.log("Error reading config file at " + newPathToConfigFile);
+            displayMissingConfigFileNotification();
         } else {
-            $.xmlDoc = $.parseXML(newPathData);
             console.log("updateConfigOnProjectCreation - newPathData");
-            updateConfigOnProjectCreation($.xmlDoc, projectName, projectId, newPathToConfigFile, projDir);
-        }
-    });
-}
-
-function updateConfigOnProjectCreation(configXML, projectName, projectId, pathToConfigFile, projDir) {
-    var iconPath = projDir + buildPathBasedOnOS("/www/");
-    var serializer = new XMLSerializer();
-    var contents = serializer.serializeToString(configXML);
-    var xml = new XML(contents);
-    $.xml = $(configXML);
-
-    // update project name
-    xml.child("name").setValue(projectName);
-
-    // update project id
-    xml.attribute("id").setValue(projectId);
-
-    // get the project version
-    var projVersion = xml.attribute("version").getValue();
-
-    // get the app icon
-    var projectIcon = $.xml.find("icon").attr("src");
-    iconPath += projectIcon;
-
-    // write the user entered project name & project id to the config.xml file
-    fs.writeFile(pathToConfigFile, xml, function (err) {
-        if (err) {
-            // throw err
-        } else {
-            // check if the project exists in PG-GUI's localstorage before adding
-            console.log("projDir: " + projDir);
-            console.log(projectExistsInLocalStorage(projDir));
-            if(!projectExistsInLocalStorage(projDir)) {
-                addProject(projectName, projVersion, iconPath, projDir);
-            } else {
-                displayProjectExistsNotification();
-            }
+            xmlDoc = $.parseXML(newPathData);
+            $xml = $(xmlDoc);
+            var projVersion = $xml.find("widget").attr("version")
+            var iconPath = path.join(projDir, findIconPath($xml.find("icon")));
+            addProject(projName, projVersion, iconPath, projDir);
         }
     });
 }
@@ -222,6 +243,7 @@ function checkIfProjectConfigExists(projDir) {
             fs.readFile(oldPathToConfigFile, 'utf8', function(err, data) {
                 if(err) {
                     displayMissingConfigFileNotification();
+
                 } else {
                     console.log("oldPathToConfigFile found");
                     parseProjectConfig(data, projDir);
@@ -235,9 +257,6 @@ function checkIfProjectConfigExists(projDir) {
 }
 
 function parseProjectConfig(data, projDir) {
-
-    var iconPath = projDir + buildPathBasedOnOS("/www/");
-
     $.xmlDoc = $.parseXML(data);
     $.xml = $($.xmlDoc);
 
@@ -248,12 +267,14 @@ function parseProjectConfig(data, projDir) {
     var projectVersion = $.xml.find("widget").attr("version");
 
     // get the app icon
-    var projectIcon = $.xml.find("icon").attr("src");
-    iconPath += projectIcon;
+    var iconPath = path.join(projDir, findIconPath($.xml.find("icon")));
 
     // check if the project exists in PG-GUI's localstorage before adding
     if(!projectExistsInLocalStorage(projDir)) {
+        // We're going to add it, take care of UI stuff
         addProject(projectName, projectVersion, iconPath, projDir);
+        //toggleServerStatus(projDir);
+        trackProjectOpened();
     } else {
         displayProjectExistsNotification();
     }
@@ -293,10 +314,10 @@ function folderExistsInFileSystem(projDir) {
     fs.exists(folder, function(exists) {
         if (exists) {
             displayDuplicateProjectNameError();
-            $("#newProjectOverlay").addClass("new-project-overlay-duplicate-project-name-error");
+            $("#projectDetailsOverlay").addClass("project-details-overlay-duplicate-project-name-error");
         } else {
             hideDuplicateProjectNameError();
-            $("#newProjectOverlay").removeClass("new-project-overlay-duplicate-project-name-error");
+            $("#projectDetailsOverlay").removeClass("project-details-overlay-duplicate-project-name-error");
         }
     });
 }

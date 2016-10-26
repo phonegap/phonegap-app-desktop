@@ -1,18 +1,20 @@
 {
   "name"    : "PhoneGap",
-  "version" : "0.3.5",
+  "version" : "0.4.0",
   "main"    : "index.js",
   "window"  : {
-      "devTools" : false
+      "devTools" : true
   },
   "dependencies" : {
-      "connect-phonegap": "0.22.0",
-      "gaze": "0.5.1",
+      "adm-zip": "0.4.7",
+      "chokidar":"1.6.0",
       "opener": "1.4.1",
       "node-jsxml": "0.6.0",
       "node-uuid": "1.4.3",
-      "phonegap" : "6.3.0",
       "request" : "2.65.0"
+  },
+  "devDependencies" : {
+      "phonegap" : "6.3.1"
   },
   "licenses": [{
       "type":"ALv2",
