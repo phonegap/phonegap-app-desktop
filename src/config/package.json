@@ -14,7 +14,7 @@
       "request" : "2.65.0"
   },
   "devDependencies" : {
-      "phonegap" : "6.3.1"
+      "phonegap" : "6.3.4"
   },
   "licenses": [{
       "type":"ALv2",

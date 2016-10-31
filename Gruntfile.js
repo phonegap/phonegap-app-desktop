@@ -85,7 +85,7 @@ module.exports = function(grunt) {
 
         // npm/phonegap workarounds are for Windows, Mac can install normally
         if (process.platform == 'darwin' && isRelease) {
-            execSync('npm install npm@3.10.3 phonegap@6.3.1', { cwd: './www' });
+            execSync('npm install npm@3.10.3 phonegap@6.3.4', { cwd: './www' });
         }
     });
 
