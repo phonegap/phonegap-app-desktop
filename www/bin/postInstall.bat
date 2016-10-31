@@ -1,4 +1,6 @@
 ECHO OFF
 
-%~dp0\node.exe %~dp0\downloadPG.js 
+set path=%~dp0
+"%path%node.exe" "%path%downloadPG.js"
+
 exit /B
