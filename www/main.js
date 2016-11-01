@@ -23,6 +23,8 @@ $(document).ready(function() {
         process.env.PATH += ';' + path.join(__dirname, 'bin').replace('app.asar', 'app.asar.unpacked');
     }
 
+    $('img').attr('draggable', 'false');
+
     $("#updateOverlay").hide();
     $("#projectDirectory").hide();
     $("#templateOverlay").hide();
