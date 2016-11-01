@@ -1,6 +1,6 @@
 ## _System Configuration_
 
-### PhoneGap Desktop version / PhoneGap CLI version
+### PhoneGap Desktop version
 
 ### PhoneGap Mobile App version
 
