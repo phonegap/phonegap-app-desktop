@@ -1,9 +1,13 @@
-module.exports = function(grunt) {
-    var VERSION = '0.4.1';
-    var osxArchive = './installers/osx64/PhoneGap-Desktop-Beta-' + VERSION + '-mac.zip';
-    var winArchive = './installers/win32/PhoneGap-Desktop-Beta-' + VERSION + '-win.zip';
+var execSync = require('child_process').execSync;
+var shell = require('shelljs');
 
-    var isRelease = false;
+var APPVERSION = '0.4.1';
+var ELECTRONVERSION = '1.4.5';
+var isRelease = (process.argv[2] === 'release');
+
+module.exports = function(grunt) {
+    var osxArchive = './installers/osx64/PhoneGap-Desktop-Beta-' + APPVERSION + '-mac.zip';
+    var winArchive = './installers/win32/PhoneGap-Desktop-Beta-' + APPVERSION + '-win.zip';
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -13,7 +17,7 @@ module.exports = function(grunt) {
                     name: 'PhoneGap',
                     dir: './www',
                     out: './build',
-                    version: '1.4.5',
+                    version: ELECTRONVERSION,
                     platform: 'darwin',
                     arch: 'x64',
                     icon: './www/img/app-icons/icon.icns',
@@ -25,40 +29,12 @@ module.exports = function(grunt) {
                     name: 'PhoneGap',
                     dir: './www',
                     out: './build',
-                    version: '1.4.5',
+                    version: ELECTRONVERSION,
                     platform: 'win32',
                     arch: 'ia32',
                     icon: './www/img/app-icons/icon.ico',
                     asar: { unpackDir:'{bin,node_modules/adm-zip,node_modules/adm-zip/**}' }
                 }
-            }
-        },
-        'compress': {
-            osxPackage: {
-                options: {
-                    archive: osxArchive,
-                    mode: 'zip'
-                },
-                files: [
-                    {
-                        cwd: './build/PhoneGap-darwin-x64/',
-                        expand: true,
-                        src: ['PhoneGap.app/**/*']
-                    }
-                ]
-            },
-            winPackage: {
-                options: {
-                    archive: winArchive,
-                    mode: 'zip'
-                },
-                files: [
-                    {
-                        cwd: './build/PhoneGap-win32-ia32/',
-                        expand: true,
-                        src: ['**/*']
-                    }
-                ]
             }
         }
     });
@@ -72,8 +48,6 @@ module.exports = function(grunt) {
 
     // Register the task to install dependencies.
     grunt.task.registerTask('install-dependencies', function() {
-        var execSync = require('child_process').execSync;
-
         execSync('node src/js/download-node.js');
 
         var npmInstall = 'npm install';
@@ -84,77 +58,65 @@ module.exports = function(grunt) {
         execSync(npmInstall, { cwd: './www' });
 
         // npm/phonegap workarounds are for Windows, Mac can install normally
-        if (process.platform == 'darwin' && isRelease) {
-            execSync('npm install npm@3.10.3 phonegap@6.3.4', { cwd: './www' });
+        if (process.platform === 'darwin' && isRelease) {
+            var config = JSON.parse(grunt.file.read('./src/config/package.json'));
+            var pgVersion = config.devDependencies.phonegap;
+            execSync('npm install npm@3.10.3 phonegap@' + pgVersion, { cwd: './www' });
         }
     });
 
-    // OSX code signing
-    grunt.task.registerTask('code-sign-osx', function() {
-        var shell = require('shelljs');
-        var signConfig = grunt.file.readJSON("sign-config.json")
-        shell.exec("codesign --verbose --deep --force --sign " + "'"+signConfig.certName+"'" + " build/PhoneGap-darwin-x64/PhoneGap.app");
-        shell.exec("codesign --verbose --verify build/PhoneGap-darwin-x64/PhoneGap.app");
-        shell.exec("codesign -vv -d build/PhoneGap-darwin-x64/PhoneGap.app");
-        shell.exec("codesign --verbose --force --sign " + "'"+signConfig.certName+"'" + " build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/PhoneGap");
-        shell.exec("codesign --verbose --verify build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/PhoneGap");
-    });
-
-    // Clean build directories
-    grunt.task.registerTask('clean-build-dir', function() {
-        var shell = require('shelljs');
+    // Clean old files
+    grunt.task.registerTask('clean-old-files', function() {
+        // clean build directories
         shell.rm('-rf', './build');
-    });
 
-    // Clean releases directories
-    grunt.task.registerTask('clean-installers-dir', function() {
-        var shell = require('shelljs');
-        shell.rm('-rf', './installers');
-    });
+        // if we are using debugMac/debugWin commands, don't remove files
+        if (process.argv[2] && process.argv[2].includes('debug'))
+            return;
 
-    // Clean node binary
-    grunt.task.registerTask('clean-node-binary', function() {
-        var shell = require('shelljs');
-
+        // clean node binary
         var nodePath = './www/bin/node';
-        if (process.platform == 'win32') {
-            nodePath += '.exe';
-        }
-        shell.rm('-rf', nodePath);
-    });
+        shell.rm('-rf', (process.platform === 'darwin') ? nodePath : (nodePath + '.exe'));
 
-    // Clean node dependencies
-    grunt.task.registerTask('clean-node-modules', function() {
-        var shell = require('shelljs');
+        // clean node dependencies
         shell.rm('-rf', './www/node_modules');
-    });
 
-    grunt.task.registerTask('set-release-flag', function() {
-        isRelease = true;
+        // clean installers directory for release builds
+        if (isRelease) {
+            shell.rm('-rf', './installers');
+        }
     });
 
     // start the local server for update checker
     grunt.task.registerTask('start-localhost', function() {
-        var shell = require('shelljs');
         shell.exec('node ./update-server/server.js');
     });
 
     // create the OSX DMG installer
     grunt.task.registerTask('osx-installer', function() {
-        var shell = require('shelljs');
-        shell.exec('bash ./res/installers/osx/package-pgd.sh');
+        if (process.platform === 'darwin' && isRelease) {
+            // OSX code signing
+            var signConfig = grunt.file.readJSON("sign-config.json");
+            shell.exec("codesign --verbose --deep --force --sign " + "'"+signConfig.certName+"'" + " build/PhoneGap-darwin-x64/PhoneGap.app");
+            shell.exec("codesign --verbose --verify build/PhoneGap-darwin-x64/PhoneGap.app");
+            shell.exec("codesign -vv -d build/PhoneGap-darwin-x64/PhoneGap.app");
+            shell.exec("codesign --verbose --force --sign " + "'"+signConfig.certName+"'" + " build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/PhoneGap");
+            shell.exec("codesign --verbose --verify build/PhoneGap-darwin-x64/PhoneGap.app/Contents/MacOS/PhoneGap");
+
+            shell.exec('bash ./res/installers/osx/package-pgd.sh');
+        }
     });
 
-    // copy package.json to www folder
-    grunt.task.registerTask('copy-dev-config', function() {
-        grunt.file.copy('./src/config/package.json', './www/package.json');
-    });
-
-    // disable the dev console before copying the package.json to www folder
-    grunt.task.registerTask('copy-release-config', function() {
-        var config = grunt.file.read('./src/config/package.json');
-        var releaseConfig = config.replace('"devTools" : true', '"devTools" : false');
-        grunt.file.write('./www/package.json', releaseConfig);
+    grunt.task.registerTask('copy-package-json', function() {
+        if (isRelease) {
+            // disable the dev console before copying the package.json to www folder
+            var config = grunt.file.read('./src/config/package.json');
+            var releaseConfig = config.replace('"devTools" : true', '"devTools" : false');
+            grunt.file.write('./www/package.json', releaseConfig);
+        } else {
+            // copy package.json to www folder
+            grunt.file.copy('./src/config/package.json', './www/package.json');
+        }
     });
 
     // copy the EULA into the installer folders
@@ -165,26 +127,21 @@ module.exports = function(grunt) {
 
     // Open the built app
     grunt.task.registerTask('open', function() {
-        var os = require('os'),
-            fs = require('fs'),
-            opener = require('opener'),
-            macPath = 'build/PhoneGap-darwin-x64/PhoneGap.app',
-            winPath = 'build/PhoneGap-win32-ia32/PhoneGap.exe';
-            opener((os.platform() === 'darwin') ? macPath : winPath);
+        // disabling on Windows for now, will re-evaluate in the future
+        var opener = require('opener'),
+            macPath = 'build/PhoneGap-darwin-x64/PhoneGap.app';
+            opener(macPath);
     });
 
     // default - runs the dev build
     grunt.registerTask(
         'default',
         [
-            'clean-node-binary',
-            'clean-node-modules',
-            'copy-dev-config',
+            'clean-old-files',
+            'copy-package-json',
             'install-dependencies',
             'copy-eula',
-            'clean-build-dir',
-            'electron',
-            'code-sign-osx',
+            'electron:' + (process.platform === 'darwin' ? 'osxBuild' : 'winBuild'),
             'open'//,
             //'start-localhost'
         ]
@@ -194,22 +151,16 @@ module.exports = function(grunt) {
     grunt.registerTask(
         'release',
         [
-            'clean-node-binary',
-            'clean-node-modules',
-            'clean-installers-dir',
-            'copy-release-config',
-            'set-release-flag',
+            'clean-old-files',
+            'copy-package-json',
             'install-dependencies',
             'copy-eula',
-            'clean-build-dir',
-            'electron',
-            'code-sign-osx',
-            //'compress',
+            'electron:' + (process.platform === 'darwin' ? 'osxBuild' : 'winBuild'),
             'osx-installer',
             'open'
         ]
     );
 
-    grunt.registerTask('debugMac',['clean-build-dir','electron:osxBuild','open']);
-    grunt.registerTask('debugWin',['clean-build-dir','electron:winBuild','open']);
+    grunt.registerTask('debugMac',['clean-old-files','electron:osxBuild','open']);
+    grunt.registerTask('debugWin',['clean-old-files','electron:winBuild','open']);
 };
