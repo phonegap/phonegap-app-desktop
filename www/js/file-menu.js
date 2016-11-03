@@ -10,7 +10,7 @@ function initFileMenu() {
 function getMenuTemplate() {
     var template = [
         {
-            label: 'Electron',
+            label: 'PhoneGap',
             submenu: [
                 {
                     label: 'About PhoneGap',
