@@ -149,9 +149,31 @@ function toggleRemoveProjectView(evt) {
         $(".flip-container").addClass("animated flipped");
         $("#minus-holder").addClass("sidebar-button-active");
         $("#minus-icon").attr("src", "img/icons/active/minus-active.svg");
+
+        setServerOffline();
+        serverOfflineState();
+        multipleServersOfflineState();
+        widgetServerOfflineState(global.activeWidget.projectId, global.activeWidget.widgetId);
+
         global.allowRemoveNotification = "true";
     } else {
         resetMinusButtonState();
+
+        // begin serving project once user is done removing from list
+        var projects = JSON.parse(localStorage.projects);
+        var length = projects.length;
+
+        if (length > 0) {
+            if (global.activeWidget) {
+                // continue serving the previous active widget
+                setActiveWidget(global.activeWidget.projectId, localStorage.projDir);
+                toggleServerStatus(localStorage.projDir);
+            } else {
+                // if previous active widget was removed, serve first project in list
+                setActiveWidget(projects[0].id, projects[0].projDir);
+                toggleServerStatus(projects[0].projDir);
+            }
+        }
     }
 }
 

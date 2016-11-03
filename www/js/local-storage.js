@@ -182,11 +182,15 @@ function removeProjectById(currentId) {
 
     index = projects.length;
 
-     // set new active widget if there are still projects, otherwise disable the remove button
-    if (index > 0) {
-        setActiveWidget(projects[0].id, projects[0].projDir);
-        toggleServerStatus(projects[0].projDir);
-    } else {
+    // if remove active project, close watcher and reset global
+    if (global.activeWidget && currentId === global.activeWidget.projectId) {
+        global.activeWidget.watcher.close();
+        global.activeWidget = undefined;
+    }
+
+    // disable the remove button
+    // setting new active widget is handled once user is done removing projects
+    if (index === 0) {
         disableMinusButton();
         $("#status-field").hide();
         $("#guide-add").show();
