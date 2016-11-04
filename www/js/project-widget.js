@@ -71,6 +71,7 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     enableMinusButton();
     $("#guide-add").hide();
 
+    $("a").attr("draggable", "false");
     $("img").attr("draggable", "false");
 
     $("#" + projectIconId).on("error",function(){
