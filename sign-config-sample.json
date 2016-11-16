@@ -1,5 +1,0 @@
-// A sample config file for code signing this app. Copy to a file named sign-config.json locally 
-// and replace with your developer certificate information from the Mac Keychain 
-{
-  "certName": "Mac Developer: Your Name (DM2Q9XM67D)"
-}
