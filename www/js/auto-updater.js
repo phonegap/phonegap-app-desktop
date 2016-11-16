@@ -1,7 +1,7 @@
 function checkForUpdates() {
 
     var app = require('electron').remote.app;
-    var jsonUrl = 'https://raw.githubusercontent.com/phonegap/phonegap-app-desktop/master/package.json';
+    var jsonUrl = 'https://raw.githubusercontent.com/phonegap/phonegap-app-desktop/update-check/package.json';
 
     $.getJSON(jsonUrl).done(function(json) {
         var clientVersion = app.getVersion().toString();

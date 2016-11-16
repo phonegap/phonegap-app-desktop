@@ -44,7 +44,7 @@ function createWindow () {
             var request = require('request');
             request({
                     method: 'GET',
-                    uri: 'https://raw.githubusercontent.com/phonegap/phonegap-app-desktop/master/package.json',
+                    uri: 'https://raw.githubusercontent.com/phonegap/phonegap-app-desktop/update-check/package.json',
                     json: true
                 },
                 function (error, response, body) {

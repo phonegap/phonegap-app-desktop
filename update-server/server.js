@@ -12,7 +12,7 @@ app.get('/desktop/:branch?', function (req, res) {
     var clientVersion = queryData.version;
     var platform = queryData.platform;
     var request = require('request');
-    var branch = req.params.branch || 'master';
+    var branch = req.params.branch || 'update-check';
     var jsonUrl = 'https://raw.githubusercontent.com/phonegap/phonegap-app-desktop/' + branch + '/package.json';
 
     console.log('branch url: ' + jsonUrl);
