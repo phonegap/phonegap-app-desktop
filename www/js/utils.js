@@ -95,6 +95,10 @@ function openTutorials() {
     shell.openExternal("http://docs.phonegap.com/references/desktop-app/");
 }
 
+function openIssueTracker() {
+    shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/issues");
+}
+
 function openTermsOfUse() {
     shell.openExternal("http://www.adobe.com/legal/general-terms.html");
 }
