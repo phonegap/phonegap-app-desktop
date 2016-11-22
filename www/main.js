@@ -237,7 +237,13 @@ $(document).ready(function() {
     });
 
     $("#updateNow").click(function() {
-        updateDesktopApp(autoUpdater);
+        if (determineOperatingSystem() === 'darwin') {
+            // initiate the squirrel.mac auto-updater
+            updateDesktopApp(autoUpdater);
+        } else {
+            // other platforms just open the GitHub releases page
+            shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/releases");
+        }
     });
 
     initSettings();
@@ -257,10 +263,7 @@ $(document).ready(function() {
     getProjects();
     getTemplates();
 
-    // auto-update on Mac OSX
-    if (determineOperatingSystem() === 'darwin') {
-        checkForUpdates(autoUpdater);
-    }
+    checkForUpdates(autoUpdater);
 
     var hideLoaderTimeout = setTimeout(hideLoader, 2000);
 });

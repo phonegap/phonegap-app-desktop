@@ -8,6 +8,7 @@ function checkForUpdates() {
         var serverVersion = JSON.stringify(json.version);
         serverVersion = serverVersion.replace(/["']/g, "");
 
+        console.log("update URL: " + jsonUrl);
         console.log("server: " + serverVersion + " client: " + clientVersion);
 
         if (serverVersion > clientVersion) {

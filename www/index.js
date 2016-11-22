@@ -38,54 +38,7 @@ function createWindow () {
     });
 
     mainWindow.webContents.on('did-finish-load', function() {
-
-        // manual update notification on Windows
-        if (process.platform === 'win32') {
-            var request = require('request');
-            request({
-                    method: 'GET',
-                    uri: 'https://raw.githubusercontent.com/phonegap/phonegap-app-desktop/update-check/package.json',
-                    json: true
-                },
-                function (error, response, body) {
-                    if (!error && response.statusCode == 200) {
-
-                        // get the PG version on github
-                        var remoteVersion = body.version;
-                        mainWindow.webContents.executeJavaScript('console.log("remote version: '+ remoteVersion +' ");');
-
-                        // check local version against PG version on github to see if update is available
-                        if (remoteVersion > app.getVersion()) {
-                            var updateDialog = electron.dialog;
-                            var buttons = ['Update Now', 'Cancel'];
-                            var msg = "PhoneGap Desktop version " + remoteVersion + " is now available. Would you like to update?";
-                            // prompt user to update their version
-                            updateDialog.showMessageBox(
-                                mainWindow,
-                                {
-                                    type: 'question',
-                                    title: 'PhoneGap Update Notification',
-                                    buttons: buttons,
-                                    message: msg,
-                                    cancelId: 1
-                                },
-                                function (buttonIndex) {
-                                    if (buttonIndex == 0) {
-                                        var shell = require('electron').shell;
-                                        shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/releases");
-                                    }
-                                }
-                            )
-                        }
-                    } else {
-                        mainWindow.webContents.executeJavaScript('console.log("request error: '+ error +' ");');
-                    }
-                }
-            )
-        }
-
-        mainWindow.webContents.executeJavaScript('console.log("platform: '+ process.platform +' ");');
-        mainWindow.webContents.executeJavaScript('console.log("current version: '+ app.getVersion() +' ");');
+        // make sure the debug window is set properly
         mainWindow.webContents.executeJavaScript('console.log("debugMode: '+ debugMode +' ");');
         mainWindow.webContents.executeJavaScript('setDebugFlag('+ debugMode +');');
     });
