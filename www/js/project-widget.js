@@ -1,4 +1,4 @@
-function addProjectWidget(id, projectName, projectVersion, projectIcon, projectDir) {
+function addProjectWidget(id, projectName, projectVersion, projectIcon, projectDir, prevProjID, callbk) {
     var widgetId = "projectWidget_" + id.toString();
     var projectStatusId = "project-status_" + id.toString();
     var projectDetailsId = "project-details_" + id.toString();
@@ -67,7 +67,20 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
 
     widgetDOM += "</div>";  // close the widget
 
-    $("#drop_zone").append(widgetDOM);
+    // Need to insert the new project based on the sorted list and prevProjID passed in
+    // If there's not a previous project then add to the end
+    if (prevProjID==null || prevProjID==undefined || prevProjID==-1) {
+        $("#drop_zone").append(widgetDOM);
+    }    
+    // It needs to be added first in the list due to sort
+    else if (prevProjID==0) {
+        $("#drop_zone").prepend(widgetDOM);
+    }
+    else {
+        var str = "projectWidget_"+prevProjID;
+        $(widgetDOM).insertAfter($("#"+str));
+    }
+    
     enableMinusButton();
     $("#guide-add").hide();
 

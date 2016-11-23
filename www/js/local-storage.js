@@ -33,35 +33,54 @@ function addProject(projName, projVersion, iconPath, projDir) {
     projectObj.id = id;
     projectObj.projDir = projDir;
     projectObj.projName = projName;
-
+   
     if (localStorage.projects) {
         // retrieve exsiting projects to appending a new project
         var projects = JSON.parse(localStorage.projects);
         projects.push(projectObj);
+       
+        projects.sort(function(a, b) {
+            return a["projName"].toUpperCase().localeCompare(b["projName"].toUpperCase());
+        })       
         localStorage.projects = JSON.stringify(projects);
     } else {
         var myProjects = new Array();
         myProjects.push(projectObj);
         localStorage.projects = JSON.stringify(myProjects);
     }
-   
+    
+        
     // Store the project folder so we can access it when we toggle the server status for the newly added project.
     // The toggle will happen when the overlay animation ends to avoid janky UI (see the sidebar-handlers.js)
     // rather than here like it used to. 
     global.projDir = projDir;       
-   
 
     // render newly added project to GUI & set it as the active widget
-    addProjectWidget(id, projName, projVersion, iconPath, projDir);
+    // Have to pass in the previous item id so we can add it into the list at the right spot
+    // if there is one. Could get moved into the 1st location because of alpha but there are others so we need to insert it
+    // first in widget
+    var prevProjID = -1;
+    if (projects.indexOf(projectObj)>0) {
+        prevProjIndex = (projects.indexOf(projectObj)-1);
+        prevProjID = projects[prevProjIndex].id;     
+    }
+    else if (projects.indexOf(projectObj)>0 && projects.length>0)
+        prevProjID = 0;
+    
+    addProjectWidget(id, projName, projVersion, iconPath, projDir, prevProjID);
     setActiveWidget(id, projDir);
 }
 
 function getProjects() {
     if (localStorage.projects) {
 
-        var projects = JSON.parse(localStorage.projects);
+        var projects = JSON.parse(localStorage.projects);        
         var index = 0;
-
+        
+        projects.sort(function(a, b) {
+            return a["projName"].toUpperCase().localeCompare(b["projName"].toUpperCase());
+        })
+                   
         $.each(projects, function(idx, project) {
             var projDir = project.projDir;
             var id = project.id;
@@ -79,9 +98,7 @@ function getProjects() {
                 }
             });
         });
-
-        var removeMissingProjectsTimeout = setTimeout(removeMissingProjects, 1000);
-        //var hideLoaderTimeout = setTimeout(hideLoader, 1100);
+        
     }
 }
 
@@ -153,13 +170,14 @@ function parseConfigForRendering(data, id, projDir, i) {
 
     // get the app icon
     var iconPath = path.join(projDir, findIconPath($.xml.find("icon")));
+    
+    setTimeout(function() { addProjectWidget(id, projectName, projectVersion, iconPath, projDir); }, 0)
 
-    addProjectWidget(id, projectName, projectVersion, iconPath, projDir);
-
+    
     if (global.firstProjectDir === projDir) {
-        console.log("Toggling!")
         toggleServerStatus(projDir);
     }
+    var removeMissingProjectsTimeout = setTimeout(removeMissingProjects, 1000);
 }
 
 function removeProjectById(currentId) {
