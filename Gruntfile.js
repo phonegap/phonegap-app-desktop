@@ -1,7 +1,7 @@
 var execSync = require('child_process').execSync;
 var shell = require('shelljs');
 
-var APPVERSION = '0.4.1';
+var APPVERSION = '0.4.2';
 var ELECTRONVERSION = '1.4.5';
 var isRelease = (process.argv[2] === 'release');
 

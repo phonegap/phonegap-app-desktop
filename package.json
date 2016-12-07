@@ -1,7 +1,7 @@
 {
   "name": "PhoneGap",
   "description": "PhoneGap",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "homepage": "http://github.com/phonegap/phonegap-app-desktop",
   "repository": {
     "type": "git",
