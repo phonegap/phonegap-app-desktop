@@ -1,4 +1,4 @@
-function addProjectWidget(id, projectName, projectVersion, projectIcon, projectDir, prevProjID, callbk) {
+function addProjectWidget(id, projectName, projectVersion, projectIcon, projectDir, prevProjID) {
     var widgetId = "projectWidget_" + id.toString();
     var projectStatusId = "project-status_" + id.toString();
     var projectDetailsId = "project-details_" + id.toString();
