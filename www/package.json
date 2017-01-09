@@ -1,6 +1,6 @@
 {
   "name"    : "PhoneGap",
-  "version" : "0.4.2",
+  "version" : "0.4.3",
   "main"    : "index.js",
   "window"  : {
       "devTools" : false
@@ -14,7 +14,7 @@
       "request" : "2.65.0"
   },
   "devDependencies" : {
-      "phonegap" : "6.4.2"
+      "phonegap" : "6.3.4"
   },
   "licenses": [{
       "type":"ALv2",
