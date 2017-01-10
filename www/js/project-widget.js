@@ -121,6 +121,10 @@ function addProjectWidget(id, projectName, projectVersion, projectIcon, projectD
     });
 
     $("#start-icon_" + id.toString()).on("click", function() {
+        // if we are removing projects, disable the start button
+        if (global.isRemoving)
+            return;
+
         if (!global.isServerRunning || global.activeWidget.projectId != id) {
             setActiveWidget(id, projectDir);
             toggleServerStatus(projectDir);

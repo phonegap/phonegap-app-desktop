@@ -13,6 +13,7 @@ global.manifest = null;
 global.newAppPath = null;
 global.stopClicked = false;
 global.firstProjectDir = null;
+global.isRemoving = false;
 
 $(document).ready(function() {
 

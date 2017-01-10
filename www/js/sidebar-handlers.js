@@ -146,6 +146,8 @@ function toggleRemoveProjectView(evt) {
     overlayBackgroundHandler();
 
     if (!$(".flip-container").hasClass("flipped")) {
+        global.isRemoving = true;
+
         $(".flip-container").addClass("animated flipped");
         $("#minus-holder").addClass("sidebar-button-active");
         $("#minus-icon").attr("src", "img/icons/active/minus-active.svg");
@@ -158,6 +160,8 @@ function toggleRemoveProjectView(evt) {
         global.allowRemoveNotification = "true";
     } else {
         resetMinusButtonState();
+
+        global.isRemoving = false;
 
         // begin serving project once user is done removing from list
         var projects = JSON.parse(localStorage.projects);
