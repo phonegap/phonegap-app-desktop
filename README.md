@@ -6,8 +6,8 @@
 2. `cd` into the `www` folder and run `npm install` for the app dependencies
 3. `cd ..` back to the root and run `npm run reload` to start up the live reload server for live code updates
 4. Run `electron www` from the root folder  or `electron .` from the `www` folder
- 
-**NOTE:** Steps 1 & 2 only need to be done if you've never run a local build or when the dependencies are updated. 
+
+**NOTE:** Steps 1 & 2 only need to be done if you've never run a local build or when the dependencies are updated.
 
 ## Build Setup for OSX
 
@@ -36,7 +36,7 @@ brew install mono
 . ~/.bash_profile
 
 #install samba
-brew install samba
+brew install homebrew/boneyard/samba
 
 # install dev dependencies
 $ npm install
