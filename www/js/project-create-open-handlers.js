@@ -181,7 +181,7 @@ function create(projectName, projectId, projDir) {
 
     // spawn child process and include success/error callbacks
     var child = spawn(node, args, opts);
-    showLoader(true);
+    showLoader(true, 'Creating Project...');
 
     child.on('close', function(code) {
 

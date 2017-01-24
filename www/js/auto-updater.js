@@ -33,8 +33,9 @@ function updateDesktopApp(updater) {
     overlayBackgroundHandler();
     $('#updateOverlay').hide();
 
-    $('#loader-text').text('Update is in progress');
-    $('#loading-overlay').show();
+    //$('#loader-text').text('Update is in progress');
+    //$('#loading-overlay').show();
+    showLoader(true, 'Update is in progress');
 
     updater.on('error', function(err, msg) {
         console.log(msg);
