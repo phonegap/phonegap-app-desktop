@@ -44,8 +44,26 @@ $ npm install
 # Create a fork of the phonegap-app-desktop repository.
 # Clone your fork of the repository.
 # Navigate to project folder on your local machine.
-# Follow instructions in the Build section.
+# Follow instructions in the Build Commands section.
 ```
+
+## Build Setup for Windows
+```
+# install grunt cli
+$ npm install -g grunt-cli
+
+# install dev dependencies
+$ npm install
+
+# Create a fork of the phonegap-app-desktop repository.
+# Clone your fork of the repository.
+# Navigate to project folder on your local machine.
+# Follow instructions in the Build Commands section.
+```
+
+Once the build is complete, you will need to navigate to
+`/build/PhoneGap-win32-ia32/resources/app.asar.unpacked/bin` and follow the
+instructions in the Installation for Windows section.
 
 ## Build Commands
 
