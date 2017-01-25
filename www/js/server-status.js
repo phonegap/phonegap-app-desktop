@@ -57,11 +57,8 @@ function setServerOnline(projDir) {
                 $("#log").prop("disabled", false);
             })
             .on("error", function(e) {
-                console.log(e.message);
-                $("#server-status-label").html(e.message);
-
-                $("#status-field").css("background-color", "rgb(153,153,153)");
-                widgetServerOfflineState(global.activeWidget.projectId, global.activeWidget.widgetId);
+                console.log(e);
+                formatServerErrorMessages(e.message);
             })
             .on("log", onLogCallback);
         } else {
@@ -70,6 +67,44 @@ function setServerOnline(projDir) {
             $("#log").prop("disabled", true);
         }
     });
+}
+
+function formatServerErrorMessages(message) {
+    console.log(message);
+    var formattedMessage = checkMessageType(message);
+
+    $("#server-status-label").html(formattedMessage);
+
+    $("#status-field").css("background-color", "rgb(255,80,8)");
+    widgetServerOfflineState(global.activeWidget.projectId, global.activeWidget.widgetId);
+}
+
+function checkMessageType(message) {
+    var port = parsePortNumber(message);
+
+    if (message.includes('EACCES')) {
+        message = 'Permission denied on port ' + port + '.';
+    }
+    if (message.includes('EADDRINUSE')) {
+        message = 'Port ' + port + ' in use, can\'t serve project';
+    }
+    
+    return message;
+}
+
+function parsePortNumber(port) {
+    var index = port.indexOf(':');
+
+    if (index > 0) {
+        while (index >= 0) {
+            port = port.substr(index+1, port.length);
+            index = port.indexOf(':');
+        }
+    } else {
+        port = '';
+    }
+
+    return port;
 }
 
 function setServerOffline() {
