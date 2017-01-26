@@ -18,10 +18,12 @@ zip.extractAllTo(npmPath, true);
 console.log('Extraction complete!');
 
 // install phonegap-cli to app.asar.unpacked
+var pgVersion = 'REPLACE_ME';
+
 var args = [];
 args.push(path.join(npmPath, 'npm/bin/npm-cli.js'));
 args.push('install');
-args.push('phonegap');
+args.push('phonegap@' + pgVersion);
 
 var options = {
     cwd: path.join(__dirname, '..'),

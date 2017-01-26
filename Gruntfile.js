@@ -119,6 +119,20 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.task.registerTask('copy-win-downloadPG-version', function() {
+        // copy pinned phonegap version to Windows downloadPG.js
+        if (process.platform === 'win32') {
+            var filePath = './build/PhoneGap-win32-ia32/resources/app.asar.unpacked/bin/downloadPG.js';
+            var pgVersion = require('./src/config/package.json').devDependencies.phonegap;
+
+            var downloadPG = grunt.file.read(filePath);
+            var downloadPGpinned = downloadPG.replace('REPLACE_ME', pgVersion);
+            grunt.file.write(filePath, downloadPGpinned);
+        } else {
+            console.log('Skipping: Not on Windows');
+        }
+    });
+
     // copy the EULA into the installer folders
     grunt.task.registerTask('copy-eula', function() {
         grunt.file.copy('./src/license.txt', './res/installers/osx/license.txt');
@@ -142,6 +156,7 @@ module.exports = function(grunt) {
             'install-dependencies',
             'copy-eula',
             'electron:' + (process.platform === 'darwin' ? 'osxBuild' : 'winBuild'),
+            'copy-win-downloadPG-version',
             'open'//,
             //'start-localhost'
         ]
@@ -156,11 +171,12 @@ module.exports = function(grunt) {
             'install-dependencies',
             'copy-eula',
             'electron:' + (process.platform === 'darwin' ? 'osxBuild' : 'winBuild'),
+            'copy-win-downloadPG-version',
             'osx-installer',
             'open'
         ]
     );
 
     grunt.registerTask('debugMac',['clean-old-files','electron:osxBuild','open']);
-    grunt.registerTask('debugWin',['clean-old-files','electron:winBuild','open']);
+    grunt.registerTask('debugWin',['clean-old-files','electron:winBuild','copy-win-downloadPG-version','open']);
 };
