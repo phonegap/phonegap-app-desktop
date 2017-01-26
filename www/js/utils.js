@@ -107,6 +107,10 @@ function openPrivacyPolicy() {
     shell.openExternal("http://www.adobe.com/privacy.html");
 }
 
+function openFAQ() {
+    shell.openExternal("http://docs.phonegap.com/references/desktop-app/troubleshoot-faq/");
+}
+
 function aboutContent() {
     var year = new Date().getFullYear();
     alert("PhoneGap (v" + getVersion() + ")\nCopyright \u00A9 " + year + " Adobe Systems Incorporated.\nAll rights reserved.");

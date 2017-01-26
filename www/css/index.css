@@ -6,7 +6,7 @@
     -webkit-appearance: none;
     width: 7px;
     background-color: #000;
-    
+
 }
 ::-webkit-scrollbar-thumb {
     border-radius: 4px;
@@ -500,6 +500,15 @@
 }
 a.projectDirLink:hover {
     color: #17478e;
+    cursor: pointer;
+}
+.helpLink {
+    text-decoration: underline;
+    position: absolute;
+    left: 315px;
+    color: white;
+}
+a.helpLink:hover {
     cursor: pointer;
 }
 .hr-icon {

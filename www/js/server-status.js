@@ -58,6 +58,7 @@ function setServerOnline(projDir) {
             })
             .on("error", function(e) {
                 console.log(e);
+                $("#status-field").css("top", "550px");
                 formatServerErrorMessages(e.message);
             })
             .on("log", onLogCallback);
@@ -81,14 +82,15 @@ function formatServerErrorMessages(message) {
 
 function checkMessageType(message) {
     var port = parsePortNumber(message);
+    var helpLink = "<a href='#' class='helpLink' onclick='openFAQ();'>HELP</a>";
 
-    if (message.includes('EACCES')) {
-        message = 'Permission denied on port ' + port + '.';
+    if (message.includes("EACCES")) {
+        message = "Permission denied on port " + port + helpLink;
     }
-    if (message.includes('EADDRINUSE')) {
-        message = 'Port ' + port + ' in use, can\'t serve project';
+    if (message.includes("EADDRINUSE")) {
+        message = "Port " + port + " in use, can't serve project" + helpLink;
     }
-    
+
     return message;
 }
 
