@@ -1,0 +1,17 @@
+{
+  "name": "vue-electron-test",
+  "version": "0.0.0",
+  "description": "An electron-vue project",
+  "main": "./dist/main.js",
+  "dependencies": {
+    "framework7": "^1.5.3",
+    "framework7-icons": "^0.8.9",
+    "framework7-vue": "^0.8.3",
+    "vue": "^2.1.10",
+    "vue-electron": "^1.0.6",
+    "vue-resource": "^1.0.3",
+    "vuex": "^2.1.1"
+  },
+  "devDependencies": {},
+  "author": "Holly Schinsky <hollyschinsky@gmail.com>"
+}
