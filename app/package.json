@@ -12,6 +12,8 @@
     "vue-resource": "^1.0.3",
     "vuex": "^2.1.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "sass-loader": "^6.0.2"
+  },
   "author": "Holly Schinsky <hollyschinsky@gmail.com>"
 }

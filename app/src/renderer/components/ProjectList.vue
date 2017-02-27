@@ -1,6 +1,6 @@
 <template>
   <f7-page>    
-    <f7-navbar sliding>
+    <f7-navbar sliding navbar-fixed pull-to-refresh @ptr:refresh="onRefresh">
       <f7-nav-left>
         <f7-link icon="fa fa-bars" open-panel="left"></f7-link>
       </f7-nav-left>
@@ -8,34 +8,24 @@
         PhoneGap Desktop
       </f7-nav-center>
     </f7-navbar>
-    <f7-block inner>      
+    <f7-block inner>  
+
       <f7-card v-for="project in projects">
         <f7-card-header>      
-          <div class="col-10">Local Path:</div>
-          <div class="col-90"><a href="">{{project.path}}</a></div>
+          <span>Local Path: <a href="">{{ project.path }}</a></span>
         </f7-card-header>
         <f7-card-content>
           <div class="row">
-              <div class="col-33"><img :src="project.icon" width="64" height="64"/>          </div>
+              <div class="col-33"><img :src="project.icon" width="64" height="64"/></div>
               <div class="col-33"><div class="name"><h2>{{ project.name }}</h2></div></div>
-            <div class="col-33"><f7-chip :text="project.version" bg="bluegray" color="white"></div>
-              
+            <div class="col-33"><f7-chip :text="project.version" bg="bluegray" color="white"></f7-chip></div>              
           </div>
-<!--          
-          
-          
-          
-            <div class="col-33"><h4>Local Path:</h4></div>
-            <div class="col-33"><a href="">{{project.path}}</a></div>
-            <div class="col-33"></div>-->
-          
-      
-          <!--<img src="../img/pg-logo.png">-->
         </f7-card-content>
         <f7-card-footer>
-          <f7-link @click="start">Start</f7-link>
-          <f7-link @click="stop">Stop</f7-link>
-          <f7-link @click="remove">Remove</f7-link>          
+          <!--<f7-link @click="openBrowser">Open Dashboard</f7-link>-->
+          <f7-link @click="openBrowser">Start</f7-link>
+          <f7-link @click="stop">Stop</f7-link>          
+          <f7-link @click="removeProject">Remove</f7-link>          
         </f7-card-footer>
       </f7-card>
       <div style="height: 56px">&nbsp;</div>     
@@ -58,18 +48,39 @@ export default {
     }
   },
   methods: {
-    addProjects () {
+    openBrowser (event) {
+      var shell = require('electron').shell
+      // open links externally by default - will use for dashboard server to open in browser
+      // with iframe containing the served app
+      event.preventDefault()
+      // shell.openExternal('http://192.168.1.11:3001/')
+      shell.openExternal('file:///Users/hschinsk/vueElectron/dashboard/index.html')
+    },
+    createProjects () {
       this.projects = [{name: 'Star Track', version: 'v1.1.2', path: '~/my-phonegap-projects/star-track', icon: this.stIcon}, {name: 'Push Sample', version: 'v2.1.0', path: '~/my-phonegap-projects/push-demo', icon: this.pushIcon}, {name: 'Wikitude Demo', version: 'v0.1.2', path: '~/my-phonegap-projects/wikitude-demo', icon: this.arIcon}, {name: 'Blank', version: 'v1.0.1', path: '~/my-phonegap-projects/blank-demo', icon: this.pgIcon}, {name: 'Awesome Sauce', version: 'v1.1.2', path: '~/my-phonegap-projects/awesome-sauce', icon: this.pgIcon}]
       window.localStorage.setItem('projects', JSON.stringify(this.projects))
     },
     getProjects () {
       this.projects = JSON.parse(window.localStorage.getItem('projects'))
+    },
+    onRefresh (event, done) {
+      setTimeout(() => {
+        console.log('close in 2 seconds')
+        done()
+      }, 2000)
+    },
+    stop () {},
+    removeProject () {
+      this.projects.shift()
+    },
+    addProject () {
+      var proj = {name: 'Awesome Sauce', version: 'v1.1.2', path: '~/my-phonegap-projects/awesome-sauce', icon: this.pgIcon}
+      this.projects.push(proj)
     }
   },
   created () {
     this.projects = []
-    this.addProjects()
-    this.getProjects()
+    this.createProjects()
     console.log('Projs ' + this.projects)
   }
 }

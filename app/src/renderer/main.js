@@ -9,6 +9,7 @@ import Framework7ThemeColors from 'framework7/dist/css/framework7.material.color
 import 'framework7-icons/css/framework7-icons.css'
 import App from './App'
 import ProjectList from './components/ProjectList'
+// require('./file-menu')
 
 Vue.use(Electron)
 Vue.use(Resource)
@@ -19,7 +20,9 @@ Vue.config.debug = true
 /* eslint-disable no-new */
 const vm = new Vue({
   el: '#app',
-  data: {},
+  data: {
+    projects3: ['test123']
+  },
   framework7: {
     root: '#app',
     routes: routes,
