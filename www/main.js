@@ -1,6 +1,24 @@
-var autoUpdater = require('electron').remote.autoUpdater;
-var dialog = require('electron').remote.dialog;
+const {autoUpdater} = require('electron').remote.autoUpdater;
+const {dialog} = require('electron').remote.dialog;
+
 var path = require('path');
+
+const {app} = require('electron').remote;
+const {crashReporter} = require('electron').remote;
+
+crashReporter.start({
+    productName: 'PhoneGap Desktop',
+    companyName: 'Adobe',
+    submitURL: 'https://your-domain.com/url-to-submit',
+    uploadToServer: true
+});
+
+var ipc = require('electron').ipcRenderer;
+window.onerror = function(messageOrEvent, source, lineno, colno, error) {
+    var stack = error.stack.split('\n');
+    console.log(stack);
+    ipc.send('errorInWindow', messageOrEvent, source, lineno, colno, stack);
+};
 
 global.phonegap = require(path.join(__dirname, 'node_modules/phonegap/lib/main.js').replace('app.asar', 'app.asar.unpacked'));
 global.createClicked = false;
