@@ -16,6 +16,7 @@ global.firstProjectDir = null;
 global.isRemoving = false;
 
 $(document).ready(function() {
+    setDebugFlag();
 
     // add node binary to PATH
     if (process.platform == 'darwin') {

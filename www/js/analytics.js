@@ -1,3 +1,4 @@
+var request = require('request');
 
 ga_storage._setAccount('UA-94271-31'); //Replace with your own
 ga_storage._trackPageview('/index.html');
@@ -10,6 +11,33 @@ global.client = new Keen({
     host: "api.keen.io/3.0",            // String (optional)
     requestType: "jsonp"                // String (optional: jsonp, xhr, beacon)
 });
+
+function basicGELF() {
+    return {
+        "version": "1.1",
+        "host": "desktop",
+        "short_message": "",
+        "_userID": getUserId(),
+        "_platform": process.platform,
+        "_appVersion": getVersion(),
+        "_env": getDebugFlag() ? 1 : 0
+    };
+}
+
+function sendAnalytics(data) {
+    if (!data) return;
+
+    request.post({
+        url: 'https://metrics.phonegap.com/gelf',
+        form: JSON.stringify(data)
+    }, function(err, res, body) {
+        if (err) {
+            console.log('*** post error: ' + err);
+        } else {
+            console.log('*** post success: ' + body);
+        }
+    });
+}
 
 function trackAppOpened() {
 
@@ -24,6 +52,10 @@ function trackAppOpened() {
             version: getVersion()
         };
 
+        var json = basicGELF();
+        json.short_message = 'appOpened';
+
+        sendAnalytics(json);
         global.client.addEvent("appOpened", appOpened);
     }
 }
@@ -38,6 +70,11 @@ function trackNumIPsFound(count) {
             quantity: count
         };
 
+        var json = basicGELF();
+        json.short_message = 'numIPsFound';
+        json._quantity = count;
+
+        sendAnalytics(json);
         global.client.addEvent("numIPsFound", numIPsFound);
     }
 }
@@ -52,6 +89,11 @@ function trackProjectsLoaded(count) {
             quantity: count
         };
 
+        var json = basicGELF();
+        json.short_message = 'projectsLoaded';
+        json._quantity = count;
+
+        sendAnalytics(json);
         global.client.addEvent("projectsLoaded", projectsLoaded);
     }
 }
@@ -65,6 +107,10 @@ function trackProjectCreated() {
             version: getVersion()
         };
 
+        var json = basicGELF();
+        json.short_message = 'projectCreated';
+
+        sendAnalytics(json);
         global.client.addEvent("projectCreated", projectCreated);
     }
 }
@@ -78,6 +124,10 @@ function trackProjectOpened() {
             version: getVersion()
         };
 
+        var json = basicGELF();
+        json.short_message = 'projectOpened';
+
+        sendAnalytics(json);
         global.client.addEvent("projectOpened", projectOpened);
     }
 }
@@ -91,6 +141,10 @@ function trackProjectRemoved() {
             version: getVersion()
         };
 
+        var json = basicGELF();
+        json.short_message = 'projectRemoved';
+
+        sendAnalytics(json);
         global.client.addEvent("projectRemoved", projectRemoved);
     }
 }
@@ -104,6 +158,10 @@ function trackDragAndDrop() {
             version: getVersion()
         };
 
+        var json = basicGELF();
+        json.short_message = 'dragAndDrop';
+
+        sendAnalytics(json);
         global.client.addEvent("dragAndDrop", dragAndDrop);
     }
 }

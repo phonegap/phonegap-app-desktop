@@ -56,21 +56,21 @@ function getDebugFlag() {
 }
 
 function setDebugFlag(debugMode) {
-    var pathToPackageJSON = buildPathBasedOnOS("/www/package.json");
+    var pathToPackageJSON = path.join(__dirname, "../www/package.json");
 
     if (debugMode) {
         global.debugMode = debugMode;
         console.log('setDebugFlag - debug passed in: ' + global.debugMode);
     } else {
-        fs.readFile(pathToPackageJSON, {encoding:'utf8'}, function(err, data) {
-            if (err) {
-                // set debugMode default to false;
-                global.debugMode = false;
-            } else {
-                global.debugMode = data.window.devTools;
-            }
+        try {
+            var data = fs.readFileSync(pathToPackageJSON, {encoding:'utf8'});
+            global.debugMode = JSON.parse(data).window.devTools;
+
             console.log('setDebugFlag - get debug from JSON: ' + global.debugMode);
-        });
+        } catch (err) {
+            // set debugMode default to false;
+            global.debugMode = false;
+        }
     }
     trackAppOpened();
 }
