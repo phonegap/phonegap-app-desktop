@@ -165,3 +165,20 @@ function trackDragAndDrop() {
         global.client.addEvent("dragAndDrop", dragAndDrop);
     }
 }
+
+function trackDeviceConnected() {
+    if (getSendUsageFlag()) {
+        var deviceConnected = {
+            userId: getUserId(),
+            platform: determineOperatingSystem(),
+            debug: getDebugFlag(),
+            version: getVersion()
+        };
+
+        var json = basicGELF();
+        json.short_message = 'deviceConnected';
+
+        sendAnalytics(json);
+        global.client.addEvent("deviceConnected", deviceConnected);
+    }
+}
