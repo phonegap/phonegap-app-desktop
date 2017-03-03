@@ -10,7 +10,7 @@
     </f7-navbar>
     <f7-block inner>  
 
-      <f7-card v-for="project in projects">
+      <f7-card v-for="project in projs">
         <f7-card-header>      
           <span>Local Path: <a href="">{{ project.path }}</a></span>
         </f7-card-header>
@@ -25,7 +25,7 @@
           <!--<f7-link @click="openBrowser">Open Dashboard</f7-link>-->
           <f7-link @click="openBrowser">Start</f7-link>
           <f7-link @click="stop">Stop</f7-link>          
-          <f7-link @click="removeProject">Remove</f7-link>          
+          <f7-link @click="removeProject(project)">Remove</f7-link>          
         </f7-card-footer>
       </f7-card>
       <div style="height: 56px">&nbsp;</div>     
@@ -36,15 +36,17 @@
 <script>
 export default {
   name: 'project-list',
+  props: ['projects'],
   data () {
     return {
+      projs: this.projects, // store in a new var so we can mutate
+      // store,
       // Had to specify these here to load statically from dist
       arIcon: 'ar-icon.png',
       stIcon: 'st-icon.png',
       pgIcon: 'pg-icon.png',
       pushIcon: 'push-icon.png',
-      show: false,
-      projects: []
+      show: false
     }
   },
   methods: {
@@ -53,35 +55,26 @@ export default {
       // open links externally by default - will use for dashboard server to open in browser
       // with iframe containing the served app
       event.preventDefault()
-      // shell.openExternal('http://192.168.1.11:3001/')
-      shell.openExternal('file:///Users/hschinsk/vueElectron/dashboard/index.html')
-    },
-    createProjects () {
-      this.projects = [{name: 'Star Track', version: 'v1.1.2', path: '~/my-phonegap-projects/star-track', icon: this.stIcon}, {name: 'Push Sample', version: 'v2.1.0', path: '~/my-phonegap-projects/push-demo', icon: this.pushIcon}, {name: 'Wikitude Demo', version: 'v0.1.2', path: '~/my-phonegap-projects/wikitude-demo', icon: this.arIcon}, {name: 'Blank', version: 'v1.0.1', path: '~/my-phonegap-projects/blank-demo', icon: this.pgIcon}, {name: 'Awesome Sauce', version: 'v1.1.2', path: '~/my-phonegap-projects/awesome-sauce', icon: this.pgIcon}]
-      window.localStorage.setItem('projects', JSON.stringify(this.projects))
-    },
-    getProjects () {
-      this.projects = JSON.parse(window.localStorage.getItem('projects'))
+      shell.openExternal('http://localhost:3000/')
+      // shell.openExternal('file:///Users/hschinsk/vueElectron/dashboard/index.html')
     },
     onRefresh (event, done) {
       setTimeout(() => {
-        console.log('close in 2 seconds')
+        console.log('close')
         done()
       }, 2000)
     },
     stop () {},
-    removeProject () {
-      this.projects.shift()
-    },
-    addProject () {
-      var proj = {name: 'Awesome Sauce', version: 'v1.1.2', path: '~/my-phonegap-projects/awesome-sauce', icon: this.pgIcon}
-      this.projects.push(proj)
+    removeProject (proj) {
+      // console.log('Projs length in project list before remove ' + this.projs.length)
+      var idx = this.projects.indexOf(proj)
+      console.log('Project to remove ' + proj.path + idx)
+      this.projs.splice(idx, 1)
+      console.log('Projs length in project list after remove ' + this.projs.length)
     }
   },
   created () {
-    this.projects = []
-    this.createProjects()
-    console.log('Projs ' + this.projects)
+    console.log('Projs length in project list ' + this.projects.length)
   }
 }
 </script>

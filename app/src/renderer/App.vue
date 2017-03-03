@@ -18,7 +18,10 @@
                   <f7-label>Collect Diagnostics</f7-label>                                    
                   <input type="checkbox" name="diag-checkbox" checked style="font-size: 16px"/>
                 <!--<f7-list-item checkbox name="my-checkbox" value="1" checked>                -->
-                </f7-list-item>                
+                </f7-list-item> 
+                <f7-list-item>
+                  <f7-label></f7-label>                                                      
+                </f7-list-item>  
               </f7-list>
             </f7-block>            
           </f7-page>
@@ -40,119 +43,36 @@
         </f7-navbar>
         <!-- Pages -->
         <f7-pages >
-          <project-list/>
+          <project-list v-bind:projects="projects"/>
         </f7-pages>
       </f7-view>   
-      
-      <f7-popup id="popup-new" tablet-fullscreen class="theme-bluegray">        
-        <f7-navbar>
-          <f7-nav-left>            
-          </f7-nav-left>
-          <f7-nav-center sliding>New App Project</f7-nav-center>
-          <f7-nav-right>                                  
-          </f7-nav-right>
-        </f7-navbar>
-
-        <f7-card>
-            <f7-card-content>            
-              <f7-list form>
-                <f7-list-item>
-                    <f7-input id="nm" type="text" placeholder="Name"/>            
-                    <f7-link icon-f7="info" open-popover="#popover-name"></f7-link>
-                    <f7-popover id="popover-name">
-                      <div class="popover-angle"></div>
-                        <div class="popover-inner">
-                            <p>The display name for your app.</p>                                                            
-                        </div>                
-                    </f7-popover>      
-                </f7-list-item>
-
-                <f7-list-item>
-                  <f7-input type="text" placeholder="ID"/>
-                  <f7-link icon-f7="info" open-popover="#popover-id"></f7-link>
-                  <f7-popover id="popover-id">
-                      <div class="popover-angle"></div>
-                        <div class="popover-inner">                              
-                            <p>The unique identifier across app stores. We recommend you use a reverse domain namespace format (ie: com.phonegap.helloworld).</p>                                                            
-                        </div>                
-                  </f7-popover>             
-                </f7-list-item>
-
-                <f7-list-item>
-                  <f7-input id="localPath" type="text" placeholder="Local Path"/>
-                  <f7-button class="btn" fill color="blue" @click='selectPath'>Browse ...</f7-button>
-                  <f7-link icon-f7="info" open-popover="#popover-path"></f7-link>                          
-                  <f7-popover id="popover-path">
-                      <div class="popover-angle"></div>
-                        <div class="popover-inner">                              
-                            <p>The location where the project will be stored on your computer.</p>                                                            
-                        </div>                
-                  </f7-popover>                     
-                </f7-list-item>                      
-            </f7-list>   
-          </f7-card-content>            
-        </f7-card>
-
-        <f7-grid>
-          <f7-col>         
-            <f7-card>        
-            <f7-card-header>Choose a Layout...</f7-card-header>
-            <f7-card-content>  
-              <f7-list>           
-                  <f7-list-item radio name="my-radio" value="1" title="Blank" checked></f7-list-item>          
-                  <f7-list-item radio name="my-radio" value="2" title="Split View"></f7-list-item>              
-                  <f7-list-item radio name="my-radio" value="3" title="Tabs"></f7-list-item>          
-              </f7-list>  
-            </f7-card-content>            
-          </f7-card>
-          </f7-col>
-          
-          <f7-col>
-          <f7-card>
-            <f7-card-header>or Sample Template</f7-card-header>
-            <f7-card-content>
-              <f7-list>   
-                <f7-list-item radio name="my-radio" value="4" title="Star Track"></f7-list-item>          
-                <f7-list-item radio name="my-radio" value="5" title="React Hot Loader"></f7-list-item>              
-                <f7-list-item radio name="my-radio" value="6" title="Augmented Reality"></f7-list-item>
-              </f7-list>   
-            </f7-card-content>                    
-          </f7-card>      
-          
-          </f7-col>
-        </f7-grid>
-        <f7-button @click="addProj" color="green" class="btn" style="float: right" fill close-popup="#popup-new">Done</f7-button>          
-      </f7-popup>    
+          <new-project v-bind:projects="projects"/>       
     </f7-views>
-  </div>
-      
+  </div>      
 </template>
     
 
 <script>
-  import store from 'renderer/vuex/store'
+  // import store from 'renderer/vuex/store'
   import ProjectList from './components/ProjectList'
+  import NewProject from './components/NewProject'
   export default {
     name: 'app',
-    store,
     components: {
-      'project-list': ProjectList
+      'project-list': ProjectList,
+      'new-project': NewProject
     },
     data () {
-      return {}
+      return this.projects
+      // return window.store
     },
-    methods: {
-      selectPath () {
-        console.log('selecting path')
-        var dialog = require('electron').remote.dialog
-        var path = dialog.showOpenDialog({properties: ['openDirectory']})
-        console.log(path)
-        // this.$$('localPath').val(path)
-        document.getElementById('localPath').value = path
-      },
-      addProj () {
-        console.log('Proj ' + ProjectList)
-      }
+    methods: {//
+    },
+    created () {
+      // this.projects = []
+      console.log('Calling fetch')
+      this.projects = window.store.fetch()
+      console.log('Projs1 ' + this.projects)
     }
   }
 </script>
