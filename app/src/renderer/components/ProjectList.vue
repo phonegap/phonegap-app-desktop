@@ -10,7 +10,7 @@
     </f7-navbar>
     <f7-block inner>  
 
-      <f7-card v-for="project in projs">
+      <f7-card v-for="project in projs">        
         <f7-card-header>      
           <span>Local Path: <a href="">{{ project.path }}</a></span>
         </f7-card-header>
@@ -39,8 +39,8 @@ export default {
   props: ['projects'],
   data () {
     return {
-      projs: this.projects, // store in a new var so we can mutate
-      // store,
+      // store in a new var so we can mutate
+      projs: this.projects,
       // Had to specify these here to load statically from dist
       arIcon: 'ar-icon.png',
       stIcon: 'st-icon.png',

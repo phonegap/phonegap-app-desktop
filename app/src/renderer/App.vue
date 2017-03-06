@@ -63,13 +63,13 @@
       'new-project': NewProject
     },
     data () {
-      return this.projects
-      // return window.store
+      return {
+        projects: []
+      }
     },
     methods: {//
     },
     created () {
-      // this.projects = []
       console.log('Calling fetch')
       this.projects = window.store.fetch()
       console.log('Projs1 ' + this.projects)

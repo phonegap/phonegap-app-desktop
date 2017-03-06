@@ -1,5 +1,5 @@
 {
-  "name": "vue-electron-test",
+  "name": "phonegap-app-desktop",
   "version": "0.0.0",
   "description": "An electron-vue project",
   "scripts": {
