@@ -128,7 +128,6 @@ function removeMissingProjects() {
     }
 
     localStorage.projects = JSON.stringify(projects);
-    trackProjectsLoaded(projects.length);
 
     // if there are still projects remaining, set an active widget
     if (index > 0) {
