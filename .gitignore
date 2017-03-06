@@ -9,6 +9,7 @@ npm-debug.log
 build/
 www/bin/node*
 www/node_modules/
+www/package.json
 installers/osx64/*.zip
 installers/win32/*.zip
 res/installers/osx/license.txt
