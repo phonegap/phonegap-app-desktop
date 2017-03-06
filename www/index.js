@@ -46,12 +46,6 @@ function createWindow () {
         }
     });
 
-    mainWindow.webContents.on('did-finish-load', function() {
-        // make sure the debug window is set properly
-        mainWindow.webContents.executeJavaScript('console.log("debugMode: '+ debugMode +' ");');
-        mainWindow.webContents.executeJavaScript('setDebugFlag('+ debugMode +');');
-    });
-
     // Emitted when the window is closed.
     mainWindow.on('closed', function() {
         // Dereference the window object, usually you would store windows

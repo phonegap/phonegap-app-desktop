@@ -56,6 +56,7 @@ function setServerOnline(projDir) {
 
                 $("#log").prop("disabled", false);
             })
+            .on("deviceConnected", trackDeviceConnected)
             .on("error", function(e) {
                 console.log(e);
                 $("#status-field").css("top", "550px");
@@ -113,6 +114,7 @@ function setServerOffline() {
     global.server.closeServer(function() {
         global.isServerRunning = false;
         global.phonegap.removeListener("log", onLogCallback);
+        global.phonegap.removeListener("deviceConnected", trackDeviceConnected);
         console.log("server closed");
     });
 }
@@ -121,6 +123,7 @@ function setServerOfflineThenOnline(projDir) {
     global.server.closeServer(function() {
         global.isServerRunning = false;
         global.phonegap.removeListener("log", onLogCallback);
+        global.phonegap.removeListener("deviceConnected", trackDeviceConnected);
         setServerOnline(projDir);
     });
 }
