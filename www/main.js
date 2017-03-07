@@ -293,7 +293,13 @@ $(document).ready(function() {
 
     checkForUpdates(autoUpdater);
 
-    var hideLoaderTimeout = setTimeout(hideLoader, 2000);
+    var hideLoaderTimeout = setTimeout(function() {
+        hideLoader();
+
+        // need to fire this event after missing projects have been removed
+        var projects = JSON.parse(localStorage.projects);
+        trackProjectsLoaded(projects.length);
+    }, 2000);
 });
 
 function getProjectPath(e) {
