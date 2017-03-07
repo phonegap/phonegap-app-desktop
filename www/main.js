@@ -1,5 +1,5 @@
-const {autoUpdater} = require('electron').remote.autoUpdater;
-const {dialog} = require('electron').remote.dialog;
+const {autoUpdater} = require('electron').remote;
+const {dialog} = require('electron').remote;
 
 var path = require('path');
 
