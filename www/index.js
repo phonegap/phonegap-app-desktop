@@ -6,11 +6,13 @@ const {BrowserWindow} = require('electron');
 const {ipcMain} = require('electron');
 //ipcMain.on('errorInWindow', function(event, arg){
 ipcMain.on('errorInWindow', function(event, messageOrEvent, source, lineno, colno, error){
+    /*
     mainWindow.webContents.executeJavaScript('console.log("messageOrEvent: ' + messageOrEvent + '");');
     mainWindow.webContents.executeJavaScript('console.log("source: ' + source + '");');
     mainWindow.webContents.executeJavaScript('console.log("lineno: ' + lineno + '");');
     mainWindow.webContents.executeJavaScript('console.log("colno: ' + colno + '");');
     mainWindow.webContents.executeJavaScript('console.log("error: ' + error + '");');
+    */
 });
 
 // Keep a global reference of the window object, if you don't, the window will

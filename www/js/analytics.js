@@ -39,6 +39,19 @@ function sendAnalytics(data) {
     });
 }
 
+function trackErrors(errorData) {
+    if(getSendUsageFlag()) {
+        var json = basicGELF();
+        json.short_message = 'errorInWindow';
+        json._message = errorData.message;
+        json._source = errorData.source;
+        json._line = errorData.line;
+        json._col = errorData.col;
+        json._error_stack = errorData.stack;
+        sendAnalytics(json);
+    }
+}
+
 function trackAppOpened() {
 
     console.log('usage flag: ' + getSendUsageFlag());

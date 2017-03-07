@@ -15,8 +15,16 @@ crashReporter.start({
 
 var ipc = require('electron').ipcRenderer;
 window.onerror = function(messageOrEvent, source, lineno, colno, error) {
+    var errorData = {};
+    errorData.message = messageOrEvent;
+    errorData.source = source;
+    errorData.line = lineno;
+    errorData.col = colno;
+    errorData.stack = error.stack;
+    trackErrors(errorData);
+    // parse error.stack into array so it doesn't cause ipcMain to barf
     var stack = error.stack.split('\n');
-    console.log(stack);
+    // send to ipcMain process
     ipc.send('errorInWindow', messageOrEvent, source, lineno, colno, stack);
 };
 
