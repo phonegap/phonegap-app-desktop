@@ -128,11 +128,6 @@ function removeMissingProjects() {
     }
 
     localStorage.projects = JSON.stringify(projects);
-
-    // if there are still projects remaining, set an active widget
-    if (index > 0) {
-        setActiveWidget(projects[0].id, projects[0].projDir);
-    }
 }
 
 function getProjectConfig(id, projDir, i) {
