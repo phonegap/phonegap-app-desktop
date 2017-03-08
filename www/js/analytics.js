@@ -58,140 +58,90 @@ function trackAppOpened() {
     console.log('debug flag: ' + getDebugFlag());
 
     if(getSendUsageFlag()) {
-        var appOpened = {
-            userId: getUserId(),
-            platform: determineOperatingSystem(),
-            debug: getDebugFlag(),
-            version: getVersion()
-        };
 
         var json = basicGELF();
         json.short_message = 'appOpened';
 
         sendAnalytics(json);
-        global.client.addEvent("appOpened", appOpened);
+        global.client.addEvent("appOpened-gelf", json);
     }
 }
 
 function trackNumIPsFound(count) {
     if(getSendUsageFlag()) {
-        var numIPsFound = {
-            userId: getUserId(),
-            platform: determineOperatingSystem(),
-            debug: getDebugFlag(),
-            version: getVersion(),
-            quantity: count
-        };
 
         var json = basicGELF();
         json.short_message = 'numIPsFound';
         json._quantity = count;
 
         sendAnalytics(json);
-        global.client.addEvent("numIPsFound", numIPsFound);
+        global.client.addEvent("numIPsFound-gelf", json);
     }
 }
 
 function trackProjectsLoaded(count) {
     if(getSendUsageFlag()) {
-        var projectsLoaded = {
-            userId: getUserId(),
-            platform: determineOperatingSystem(),
-            debug: getDebugFlag(),
-            version: getVersion(),
-            quantity: count
-        };
 
         var json = basicGELF();
         json.short_message = 'projectsLoaded';
         json._quantity = count;
 
         sendAnalytics(json);
-        global.client.addEvent("projectsLoaded", projectsLoaded);
+        global.client.addEvent("projectsLoaded-gelf", json);
     }
 }
 
 function trackProjectCreated() {
     if(getSendUsageFlag()) {
-        var projectCreated = {
-            userId: getUserId(),
-            platform: determineOperatingSystem(),
-            debug: getDebugFlag(),
-            version: getVersion()
-        };
 
         var json = basicGELF();
         json.short_message = 'projectCreated';
 
         sendAnalytics(json);
-        global.client.addEvent("projectCreated", projectCreated);
+        global.client.addEvent("projectCreated-gelf", json);
     }
 }
 
 function trackProjectOpened() {
     if(getSendUsageFlag()) {
-        var projectOpened = {
-            userId: getUserId(),
-            platform: determineOperatingSystem(),
-            debug: getDebugFlag(),
-            version: getVersion()
-        };
 
         var json = basicGELF();
         json.short_message = 'projectOpened';
 
         sendAnalytics(json);
-        global.client.addEvent("projectOpened", projectOpened);
+        global.client.addEvent("projectOpened-gelf", json);
     }
 }
 
 function trackProjectRemoved() {
     if(getSendUsageFlag()) {
-        var projectRemoved = {
-            userId: getUserId(),
-            platform: determineOperatingSystem(),
-            debug: getDebugFlag(),
-            version: getVersion()
-        };
 
         var json = basicGELF();
         json.short_message = 'projectRemoved';
 
         sendAnalytics(json);
-        global.client.addEvent("projectRemoved", projectRemoved);
+        global.client.addEvent("projectRemoved-gelf", json);
     }
 }
 
 function trackDragAndDrop() {
     if(getSendUsageFlag()) {
-        var dragAndDrop = {
-            userId: getUserId(),
-            platform: determineOperatingSystem(),
-            debug: getDebugFlag(),
-            version: getVersion()
-        };
 
         var json = basicGELF();
         json.short_message = 'dragAndDrop';
 
         sendAnalytics(json);
-        global.client.addEvent("dragAndDrop", dragAndDrop);
+        global.client.addEvent("dragAndDrop-gelf", json);
     }
 }
 
 function trackDeviceConnected() {
     if (getSendUsageFlag()) {
-        var deviceConnected = {
-            userId: getUserId(),
-            platform: determineOperatingSystem(),
-            debug: getDebugFlag(),
-            version: getVersion()
-        };
 
         var json = basicGELF();
         json.short_message = 'deviceConnected';
 
         sendAnalytics(json);
-        global.client.addEvent("deviceConnected", deviceConnected);
+        global.client.addEvent("deviceConnected-gelf", json);
     }
 }
