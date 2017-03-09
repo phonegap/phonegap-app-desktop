@@ -27,7 +27,6 @@ function createProject(e) {
                 if (err) {
                     fs.readFile(oldPathToConfigFile, {encoding:'utf8'}, function(err, oldPathData) {
                         if (err) {
-                            trackProjectCreated();
                             // if no www/config.xml found then create a new project
                             create(projectName, projectId, projDir);
                         } else {
@@ -187,6 +186,8 @@ function create(projectName, projectId, projDir) {
 
         if (code === 0) {
             hideLoader();
+            trackProjectCreated();
+
             var complete = new Date();
             var diff = complete - start;
             var seconds_diff = diff / 1000;
