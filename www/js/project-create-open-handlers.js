@@ -174,6 +174,7 @@ function create(projectName, projectId, projDir) {
     // Define options
     var opts = [];
     opts.env = process.env;
+    opts.stdio = ['ipc'];
 
     var start = new Date();
     console.log("CREATE *STARTED* AT: "+ start.toUTCString());
@@ -197,15 +198,16 @@ function create(projectName, projectId, projDir) {
             console.log("Save last selected project path of " + options.path);
             setLastSelectedProjectPath(options.path);
         }
-        else {
-            hideLoader();
-            displayErrorMessage("Project create failed with code " + code);
-        }
-
     });
-    child.on('error', function(e) {
-       console.log(e.toString('utf8'));
-       displayErrorMessage(e.toString('utf8'));
+    child.on('message', function(e) {
+        hideLoader();
+
+        if (e.output) {
+            displayErrorMessage(e.output);
+            trackErrors({ message: e.output });
+        } else {
+            displayErrorMessage("Project create failed with code " + e.exitCode);
+        }
     });
 }
 
