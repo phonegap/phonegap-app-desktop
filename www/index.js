@@ -3,6 +3,8 @@ const {app} = require('electron');
 // Module to create native browser window.
 const {BrowserWindow} = require('electron');
 
+const {crashReporter} = require('electron');
+
 const {ipcMain} = require('electron');
 //ipcMain.on('errorInWindow', function(event, arg){
 ipcMain.on('errorInWindow', function(event, messageOrEvent, source, lineno, colno, error){
@@ -30,6 +32,13 @@ function createWindow () {
 
     // and load the index.html of the app.
     mainWindow.loadURL('file://' + __dirname + '/index.html');
+
+    crashReporter.start({
+        productName: 'PhoneGap-Desktop',
+        companyName: 'Adobe',
+        submitURL: 'http://localhost:1127/post',
+        uploadToServer: true
+    });
 
     var fs = require('fs');
     var pathToPackageJSONFile = __dirname + "/package.json";

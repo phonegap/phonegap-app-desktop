@@ -7,9 +7,9 @@ const {app} = require('electron').remote;
 const {crashReporter} = require('electron').remote;
 
 crashReporter.start({
-    productName: 'PhoneGap Desktop',
+    productName: 'PhoneGap-Desktop',
     companyName: 'Adobe',
-    submitURL: 'https://your-domain.com/url-to-submit',
+    submitURL: 'http://localhost:1127/post',
     uploadToServer: true
 });
 
@@ -42,6 +42,11 @@ global.firstProjectDir = null;
 global.isRemoving = false;
 
 $(document).ready(function() {
+
+    $("#crash").click(function() {
+        process.crash();
+    });
+
     setDebugFlag();
 
     // add node binary to PATH
@@ -300,6 +305,7 @@ $(document).ready(function() {
         var projects = JSON.parse(localStorage.projects);
         trackProjectsLoaded(projects.length);
     }, 2000);
+
 });
 
 function getProjectPath(e) {
