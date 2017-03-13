@@ -304,6 +304,9 @@ $(document).ready(function() {
         // need to fire this event after missing projects have been removed
         var projects = JSON.parse(localStorage.projects);
         trackProjectsLoaded(projects.length);
+
+        if (projects.length > 0)
+            setActiveWidget(projects[0].id, projects[0].projDir);
     }, 2000);
 
 });

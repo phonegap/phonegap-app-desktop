@@ -185,7 +185,7 @@ function widgetServerOfflineState(id, widgetId) {
 }
 
 function setActiveWidget(id, projDir) {
-    if (global.activeWidget){
+    if (global.activeWidget && global.activeWidget.watcher){
         global.activeWidget.watcher.close();
     }
 
