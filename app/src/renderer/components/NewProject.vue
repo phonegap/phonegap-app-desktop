@@ -89,12 +89,7 @@ export default {
     return {
       projName: '',
       localPath: '',
-      projID: '',
-      // Had to specify these here to load statically from dist
-      arIcon: 'ar-icon.png',
-      stIcon: 'st-icon.png',
-      pgIcon: 'pg-icon.png',
-      pushIcon: 'push-icon.png'
+      projID: ''    
     }
   },
   methods: {

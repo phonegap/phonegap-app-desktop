@@ -53,7 +53,6 @@
     
 
 <script>
-  // import store from 'renderer/vuex/store'
   import ProjectList from './components/ProjectList'
   import NewProject from './components/NewProject'
   export default {
@@ -70,9 +69,7 @@
     methods: {//
     },
     created () {
-      console.log('Calling fetch')
       this.projects = window.store.fetch()
-      console.log('Projs1 ' + this.projects)
     }
   }
 </script>

@@ -40,13 +40,12 @@ export default {
   data () {
     return {
       // store in a new var so we can mutate
-      projs: this.projects,
+      projs: this.projects
       // Had to specify these here to load statically from dist
-      arIcon: 'ar-icon.png',
-      stIcon: 'st-icon.png',
-      pgIcon: 'pg-icon.png',
-      pushIcon: 'push-icon.png',
-      show: false
+      // arIcon: 'ar-icon.png',
+      // stIcon: 'st-icon.png',
+      // pgIcon: 'pg-icon.png',
+      // pushIcon: 'push-icon.png',
     }
   },
   methods: {

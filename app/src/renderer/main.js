@@ -18,12 +18,17 @@ Vue.use(Framework7Vue)
 
 Vue.config.debug = true
 
+var arIcon = 'ar-icon.png'
+var stIcon = 'st-icon.png'
+var pgIcon = 'pg-icon.png'
+var pushIcon = 'push-icon.png'
+
 // Global store defaults
 window.store = {
   fetch: function () {
     console.log('Running fetch')
     var projects = JSON.parse(localStorage.getItem('phonegap-projects')) || []
-    projects = [{name: 'Star Track', version: 'v1.1.2', path: '~/my-phonegap-projects/star-track', icon: this.stIcon}, {name: 'Push Sample', version: 'v2.1.0', path: '~/my-phonegap-projects/push-demo', icon: this.pushIcon}, {name: 'Wikitude Demo', version: 'v0.1.2', path: '~/my-phonegap-projects/wikitude-demo', icon: this.arIcon}, {name: 'Blank', version: 'v1.0.1', path: '~/my-phonegap-projects/blank-demo', icon: this.pgIcon}, {name: 'Awesome Sauce', version: 'v1.1.2', path: '~/my-phonegap-projects/awesome-sauce', icon: this.pgIcon}]
+    projects = [{name: 'Star Track', version: 'v1.1.2', path: '~/my-phonegap-projects/star-track', icon: stIcon}, {name: 'Push Sample', version: 'v2.1.0', path: '~/my-phonegap-projects/push-demo', icon: pushIcon}, {name: 'Wikitude Demo', version: 'v0.1.2', path: '~/my-phonegap-projects/wikitude-demo', icon: arIcon}, {name: 'Blank', version: 'v1.0.1', path: '~/my-phonegap-projects/blank-demo', icon: pgIcon}, {name: 'Awesome Sauce', version: 'v1.1.2', path: '~/my-phonegap-projects/awesome-sauce', icon: pgIcon}]
     projects.forEach(function (todo, index) {
       projects.id = index
     })
