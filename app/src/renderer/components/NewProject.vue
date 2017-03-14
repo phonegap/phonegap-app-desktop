@@ -89,7 +89,7 @@ export default {
     return {
       projName: '',
       localPath: '',
-      projID: ''    
+      projID: ''
     }
   },
   methods: {
