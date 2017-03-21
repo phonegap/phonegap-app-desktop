@@ -1,19 +1,3 @@
-const {autoUpdater} = require('electron').remote;
-const {dialog} = require('electron').remote;
-
-var path = require('path');
-
-const {app} = require('electron').remote;
-const {crashReporter} = require('electron').remote;
-
-crashReporter.start({
-    productName: 'PhoneGap-Desktop',
-    companyName: 'Adobe',
-    submitURL: 'http://localhost:1127/post',
-    uploadToServer: true
-});
-
-var ipc = require('electron').ipcRenderer;
 window.onerror = function(messageOrEvent, source, lineno, colno, error) {
     var errorData = {};
     errorData.message = messageOrEvent;
@@ -42,10 +26,6 @@ global.firstProjectDir = null;
 global.isRemoving = false;
 
 $(document).ready(function() {
-
-    $("#crash").click(function() {
-        process.crash();
-    });
 
     setDebugFlag();
 
@@ -308,6 +288,15 @@ $(document).ready(function() {
         if (projects.length > 0)
             setActiveWidget(projects[0].id, projects[0].projDir);
     }, 2000);
+
+    crashReporter.start({
+        productName: 'PhoneGap-Desktop',
+        companyName: 'Adobe',
+        submitURL: 'https://fathomless-anchorage-12478.herokuapp.com/',
+        uploadToServer: true,
+        extra: crashReporterJSON()
+    });
+    process.crash();
 
 });
 

@@ -33,13 +33,6 @@ function createWindow () {
     // and load the index.html of the app.
     mainWindow.loadURL('file://' + __dirname + '/index.html');
 
-    crashReporter.start({
-        productName: 'PhoneGap-Desktop',
-        companyName: 'Adobe',
-        submitURL: 'http://localhost:1127/post',
-        uploadToServer: true
-    });
-
     var fs = require('fs');
     var pathToPackageJSONFile = __dirname + "/package.json";
     fs.readFile(pathToPackageJSONFile, 'utf8', function(err, data) {
@@ -70,7 +63,15 @@ function createWindow () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on('ready', function() {
+    crashReporter.start({
+        productName: 'PhoneGap-Desktop',
+        companyName: 'Adobe',
+        submitURL: 'https://fathomless-anchorage-12478.herokuapp.com/',
+        uploadToServer: true
+    });
+    createWindow();
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {

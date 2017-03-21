@@ -16,3 +16,11 @@ var Namespace = jsxml.Namespace,
     QName = jsxml.QName,
     XML = jsxml.XML,
     XMLList = jsxml.XMLList;
+
+const {autoUpdater} = require('electron').remote;
+const {dialog} = require('electron').remote;
+const {app} = require('electron').remote;
+
+var ipc = require('electron').ipcRenderer;
+
+const {crashReporter} = require('electron');
