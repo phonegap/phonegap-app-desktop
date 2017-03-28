@@ -8,9 +8,10 @@
   "dependencies" : {
       "adm-zip": "0.4.7",
       "chokidar":"1.6.0",
+      "configstore":"3.0.0",
       "opener": "1.4.1",
       "node-jsxml": "0.6.0",
-      "node-uuid": "1.4.3",
+      "uuid": "3.0.1",
       "request" : "2.65.0"
   },
   "devDependencies" : {

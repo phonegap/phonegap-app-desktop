@@ -10,7 +10,7 @@ var jsxml= require("node-jsxml");
 var opener = require("opener");
 var path = require("path");
 var shell = require('electron').shell;
-var uuid = require("node-uuid");
+var uuid = require("uuid/v4");
 
 var Namespace = jsxml.Namespace,
     QName = jsxml.QName,
@@ -24,3 +24,6 @@ const {app} = require('electron').remote;
 var ipc = require('electron').ipcRenderer;
 
 const {crashReporter} = require('electron');
+
+const ConfigStore = require('configstore');
+const conf = new ConfigStore('insight-phonegap');

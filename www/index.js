@@ -2,11 +2,15 @@
 const {app} = require('electron');
 // Module to create native browser window.
 const {BrowserWindow} = require('electron');
-
 const {crashReporter} = require('electron');
 
+const ConfigStore = require('configstore');
+const conf = new ConfigStore('insight-phonegap');
+
+var uuid = require("uuid/v4");
+
 const {ipcMain} = require('electron');
-//ipcMain.on('errorInWindow', function(event, arg){
+
 ipcMain.on('errorInWindow', function(event, messageOrEvent, source, lineno, colno, error){
     /*
     mainWindow.webContents.executeJavaScript('console.log("messageOrEvent: ' + messageOrEvent + '");');
@@ -22,7 +26,35 @@ ipcMain.on('errorInWindow', function(event, messageOrEvent, source, lineno, coln
 let mainWindow;
 let debugMode;
 
+function generateId() {
+    // used to generate Ids for user & projects
+    var id = uuid();
+    return id;
+}
+
+function checkForClientId() {
+    // check the configstore to see if clientId exists
+    var key = 'clientId';
+    if (!conf.has(key)) {
+        conf.set(key, generateId());
+    }
+    return conf.get(key);
+}
+
+function crashReporterJSON(debugMode) {
+    var json = {};
+    json.version = "1.1";
+    json.host = "desktop";
+    json.short_message = "crashReporter";
+    json._userID = checkForClientId();
+    json._platform = process.platform;
+    json._appVersion = app.getVersion();
+    json._env = debugMode ? "1" : "0";
+    return json;
+}
+
 function createWindow () {
+
     // Create the browser window.
     if (process.platform != 'win32') {
         mainWindow = new BrowserWindow({width: 450, height: 622, resizable: false, title: 'PhoneGap', center: true});
@@ -47,6 +79,14 @@ function createWindow () {
                 // Open the devtools.
                 mainWindow.openDevTools();
             }
+
+            crashReporter.start({
+                productName: 'PhoneGap-Desktop',
+                companyName: 'Adobe',
+                submitURL: 'https://fathomless-anchorage-12478.herokuapp.com/',
+                uploadToServer: true,
+                extra: crashReporterJSON(debugMode)
+            });
         }
     });
 
@@ -64,12 +104,6 @@ function createWindow () {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', function() {
-    crashReporter.start({
-        productName: 'PhoneGap-Desktop',
-        companyName: 'Adobe',
-        submitURL: 'https://fathomless-anchorage-12478.herokuapp.com/',
-        uploadToServer: true
-    });
     createWindow();
 });
 

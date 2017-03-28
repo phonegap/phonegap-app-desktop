@@ -1,16 +1,16 @@
 function generateId() {
     // used to generate Ids for user & projects
-    var id = uuid.v1();
+    var id = uuid();
     return id;
 }
 
 function getUserId() {
-    var id = null;
-    if (!localStorage.userId) {
-        localStorage.userId = generateId();
+    // check the configstore to see if clientId exists
+    var key = 'clientId';
+    if (!conf.has(key)) {
+        conf.set(key, generateId());
     }
-    id = localStorage.userId;
-    return id;
+    return conf.get(key);
 }
 
 function getLastSelectedProjectPath() {
@@ -34,41 +34,41 @@ function addProject(projName, projVersion, iconPath, projDir) {
     projectObj.projDir = projDir;
     projectObj.projName = projName;
     var projects = [];
-   
+
     if (localStorage.projects) {
         // retrieve exsiting projects to appending a new project
-        projects = JSON.parse(localStorage.projects);        
-    } 
+        projects = JSON.parse(localStorage.projects);
+    }
 
-    projects.push(projectObj);       
+    projects.push(projectObj);
     projects.sort(function(a, b) {
         return a["projName"].toUpperCase().localeCompare(b["projName"].toUpperCase());
-    })       
+    })
     localStorage.projects = JSON.stringify(projects);
-            
+
     // Store the project folder so we can access it when we toggle the server status for the newly added project.
     // The toggle will happen when the overlay animation ends to avoid janky UI (see the sidebar-handlers.js)
-    // rather than here like it used to. 
-    global.projDir = projDir;       
+    // rather than here like it used to.
+    global.projDir = projDir;
 
     // Render newly added project to GUI & set it as the active widget
     // Have to pass in the previous item id so we can add it into the list at the right spot
     // if there is one. Could get moved into the 1st location because of alpha but there are others so we need to insert it
     // first in widget
-    function getCurrentProj(obj) { 
-        return obj["projName"] === projectObj.projName; 
+    function getCurrentProj(obj) {
+        return obj["projName"] === projectObj.projName;
     }
     var prevProjID = -1;
     var currentProjIndex = projects.findIndex(getCurrentProj);
     if (currentProjIndex > 0) {
         prevProjIndex = currentProjIndex-1;
-        prevProjID = projects[prevProjIndex].id;        
+        prevProjID = projects[prevProjIndex].id;
     }
     else if (currentProjIndex==0 && projects.length > 0) {
         // It's getting added to top of list so don't need prev proj id
-        prevProjID = 0;        
+        prevProjID = 0;
     }
-    
+
     addProjectWidget(id, projName, projVersion, iconPath, projDir, prevProjID);
     setActiveWidget(id, projDir);
 }
@@ -76,13 +76,13 @@ function addProject(projName, projVersion, iconPath, projDir) {
 function getProjects() {
     if (localStorage.projects) {
 
-        var projects = JSON.parse(localStorage.projects);        
+        var projects = JSON.parse(localStorage.projects);
         var index = 0;
-        
+
         projects.sort(function(a, b) {
             return a["projName"].toUpperCase().localeCompare(b["projName"].toUpperCase());
         })
-                   
+
         $.each(projects, function(idx, project) {
             var projDir = project.projDir;
             var id = project.id;
@@ -100,7 +100,7 @@ function getProjects() {
                 }
             });
         });
-        
+
     }
 }
 
@@ -166,10 +166,10 @@ function parseConfigForRendering(data, id, projDir, i) {
 
     // get the app icon
     var iconPath = path.join(projDir, findIconPath($.xml.find("icon")));
-    
+
     setTimeout(function() { addProjectWidget(id, projectName, projectVersion, iconPath, projDir); }, 0)
 
-    
+
     if (global.firstProjectDir === projDir) {
         toggleServerStatus(projDir);
     }
@@ -210,7 +210,7 @@ function removeProjectById(currentId) {
         $("#guide-add").show();
         if (global.isServerRunning) {
             setServerOffline();
-        }        
+        }
         serverOfflineState();
     }
 

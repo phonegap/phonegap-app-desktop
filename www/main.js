@@ -289,6 +289,7 @@ $(document).ready(function() {
             setActiveWidget(projects[0].id, projects[0].projDir);
     }, 2000);
 
+
     crashReporter.start({
         productName: 'PhoneGap-Desktop',
         companyName: 'Adobe',
@@ -296,7 +297,8 @@ $(document).ready(function() {
         uploadToServer: true,
         extra: crashReporterJSON()
     });
-    process.crash();
+    
+    //process.crash();
 
 });
 
