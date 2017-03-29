@@ -5,14 +5,26 @@ function initSettings() {
     }
 
     // set default analytics flag if it has not been set
-    if (!localStorage.sendUsage) {
+    var key = "sendUsage";
+    if (!conf.has(key) || !localStorage.sendUsage) {
+        conf.set(key, "true");
         localStorage.sendUsage = "true";
     }
+
 }
 
 function getSendUsageFlag() {
+    /*
     var usageFlag = true;
     if (localStorage.sendUsage == "false") {
+        usageFlag = false;
+    }
+    return usageFlag;
+    */
+    var usageFlag = true;
+
+    var key = 'sendUsage';
+    if (conf.get(key) == "false") {
         usageFlag = false;
     }
     return usageFlag;
@@ -29,9 +41,12 @@ function saveSettings(evt) {
         toggleServerStatus("");
     }
 
+    var key = "sendUsage";
     if ($("#sendUsage").is(":checked")) {
+        conf.set(key, "true");
         localStorage.sendUsage = "true";
     } else {
+        conf.set(key, "false");
         localStorage.sendUsage = "false";
     }
 }
