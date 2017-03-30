@@ -27,3 +27,5 @@ const {crashReporter} = require('electron');
 
 const ConfigStore = require('configstore');
 const conf = new ConfigStore('insight-phonegap');
+
+const osName = require('os-name');

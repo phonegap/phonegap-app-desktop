@@ -7,6 +7,8 @@ const {crashReporter} = require('electron');
 const ConfigStore = require('configstore');
 const conf = new ConfigStore('insight-phonegap');
 
+const osName = require('os-name');
+
 var uuid = require("uuid/v4");
 
 const {ipcMain} = require('electron');
@@ -32,6 +34,22 @@ function generateId() {
     return id;
 }
 
+function initSessionId() {
+    var key = 'sessionId';
+    conf.set(key, generateId);
+}
+
+function getSessionId() {
+    var key = 'sessionId';
+    var sessionId = generateId();
+    if (conf.has(key)) {
+        sessionId = conf.get(key);
+    } else {
+        conf.set(key, sessionId);
+    }
+    return sessionId;
+}
+
 function checkForClientId() {
     // check the configstore to see if clientId exists
     var key = 'clientId';
@@ -47,9 +65,11 @@ function crashReporterJSON(debugMode) {
     json.host = "desktop";
     json.short_message = "crashReporter";
     json._userID = checkForClientId();
-    json._platform = process.platform;
+    json._platform = osName();
     json._appVersion = app.getVersion();
     json._env = debugMode ? "1" : "0";
+    json._session = getSessionId();
+    json._nodeVersion = process.version;
     return json;
 }
 
@@ -104,6 +124,7 @@ function createWindow () {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', function() {
+    initSessionId();
     createWindow();
 });
 

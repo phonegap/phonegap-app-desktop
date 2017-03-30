@@ -17,7 +17,6 @@ function crashReporterJSON() {
     json.short_message = "crashReporter";
     // crashReporter server only accepts strings; we will need to re-format _env property to int on the server side before submitting to analytics server
     json._env = getDebugFlag() ? "1" : "0";
-
     console.log("renderer process json: " + JSON.stringify(json));
 
     return json;
@@ -29,9 +28,11 @@ function basicGELF() {
         "host": "desktop",
         "short_message": "",
         "_userID": getUserId(),
-        "_platform": process.platform,
+        "_platform": osName(),
         "_appVersion": getVersion(),
-        "_env": getDebugFlag() ? 1 : 0
+        "_env": getDebugFlag() ? 1 : 0,
+        "_session": getSessionId(),
+        "_nodeVersion": process.version
     };
 }
 

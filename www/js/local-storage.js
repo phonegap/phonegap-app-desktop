@@ -13,6 +13,18 @@ function getUserId() {
     return conf.get(key);
 }
 
+
+function getSessionId() {
+    var key = 'sessionId';
+    var sessionId = generateId();
+    if (conf.has(key)) {
+        sessionId = conf.get(key);
+    } else {
+        conf.set(key, sessionId);
+    }
+    return sessionId;
+}
+
 function getLastSelectedProjectPath() {
     var projectPath = "Please choose a local path";
     if (localStorage.projectPath) {
