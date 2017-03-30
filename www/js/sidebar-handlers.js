@@ -1,8 +1,8 @@
 // -- template overlay
 function displayTemplateOverlay(evt) {
-    if (!global.backTemplateClicked) {        
+    if (!global.backTemplateClicked) {
         animateTemplateOverlayEntry();
-        hideAddCreateProjectOverlay();                
+        hideAddCreateProjectOverlay();
     }
 }
 
@@ -18,8 +18,8 @@ function animateTemplateOverlayEntry() {
     }
 
     $("#templateOverlay").show();
-    $("#overlay-bg").show();    
-        
+    $("#overlay-bg").show();
+
 }
 
 function hideTemplateOverlay(evt) {
@@ -77,15 +77,15 @@ function hideProjectDetailsOverlay(evt) {
         $("#templateOverlay").addClass("animated slideInLeft");
     }
 
-    $("#projectDetailsOverlay").on("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handlehideProjectDetailsOverlayAnimationEnd);    
-    
+    $("#projectDetailsOverlay").on("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handlehideProjectDetailsOverlayAnimationEnd);
+
 }
 
 function handlehideProjectDetailsOverlayAnimationEnd() {
     $("#projectDetailsOverlay").off("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handlehideProjectDetailsOverlayAnimationEnd);
     // Toggle the server status afterthe overlay is hidden to avoid janky UI, but only if we definitely added one
     // and didn't just cancel out
-    if (global.projDir != undefined) {        
+    if (global.projDir != undefined) {
         $("#projectDetailsOverlay").hide(toggleServerStatus(global.projDir));
     } else $("#projectDetailsOverlay").hide();
 
@@ -96,13 +96,13 @@ function handlehideProjectDetailsOverlayAnimationEnd() {
         resetProjectCreationForm();
         hideProjectPathError();
         hideProjectNameError();
-        hideProjectIdError();        
+        hideProjectIdError();
     } else {
         $("#projectDetailsOverlay").removeClass("animated slideOutRight");
         $("#templateOverlay").removeClass("animated slideInLeft");
         $("#templateOverlay").on("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handleHideTemplateOverlayAnimationEnd);
         global.backTemplateClicked = false;
-    }        
+    }
 }
 
 // -- add new or open existing overlay
@@ -117,21 +117,21 @@ function displayAddCreateProjectOverlay(evt) {
 function hideAddCreateProjectOverlay(evt) {
     $("#templateOverlay").off("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend");
     $("#createOpenProjectOverlay").removeClass("animated slideInLeft");
-        
+
     if ($("#templateOverlay").css('display') == 'none')
         $("#createOpenProjectOverlay").addClass("animatedFast slideOutLeft");
     else $("#createOpenProjectOverlay").addClass("animatedFast fadeOut");
-    
+
     $("#createOpenProjectOverlay").on("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handleHideAddCreateProjectOverlayAnimationEnd);
     $("#plus-holder").removeClass("sidebar-button-active");
 }
 
 function handleHideAddCreateProjectOverlayAnimationEnd() {
-    $("#createOpenProjectOverlay").off("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend");    
+    $("#createOpenProjectOverlay").off("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend");
     //$("#createOpenProjectOverlay").hide();
     // Toggle the server status afterthe overlay is hidden to avoid janky UI, but only if we definitely added one
-    // and didn't just cancel out 
-    if (global.projDir != undefined) {        
+    // and didn't just cancel out
+    if (global.projDir != undefined) {
         $("#createOpenProjectOverlay").hide(toggleServerStatus(global.projDir));
     } else $("#createOpenProjectOverlay").hide();
 
@@ -227,7 +227,7 @@ function toggleSettings() {
         hideOverlays();
         $("#settingsOverlay").off("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd animationend", handleHideSettingsAnimationEnd);
         // prepopulate port number from localStorage
-        $("#portNumber").val(localStorage.portNumber);
+        $("#portNumber").val(getPortNumber());
         $("#sendUsage").prop("checked", usageFlag);
         $("#settings-holder").addClass("sidebar-button-active");
         $("#settingsOverlay").removeClass("animated slideOutLeft");

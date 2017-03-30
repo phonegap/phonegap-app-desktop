@@ -1,11 +1,13 @@
 function initSettings() {
     // set default port number if it has not been set
-    if (!localStorage.portNumber) {
+    var key = "portNumber";
+    if (!conf.has(key) || !localStorage.portNumber) {
+        conf.set(key, 3000);
         localStorage.portNumber = 3000;
     }
 
     // set default analytics flag if it has not been set
-    var key = "sendUsage";
+    key = "sendUsage";
     if (!conf.has(key) || !localStorage.sendUsage) {
         conf.set(key, "true");
         localStorage.sendUsage = "true";
@@ -13,14 +15,26 @@ function initSettings() {
 
 }
 
-function getSendUsageFlag() {
-    /*
-    var usageFlag = true;
-    if (localStorage.sendUsage == "false") {
-        usageFlag = false;
+function getPortNumber() {
+    var portNumber = 3000;
+    var key = "portNumber";
+
+    if (conf.has(key)) {
+        // retrieve portNumber from configstore
+        portNumber = conf.get(key);
+    } else {
+        // if configstore doesn't have portNumber, try to get it from localStorage
+        if (localStorage.portNumber) {
+            conf.set(key, localStorage.portNumber);
+            portNumber = localStorage.portNumber;
+        }
     }
-    return usageFlag;
-    */
+
+    return portNumber;
+
+}
+
+function getSendUsageFlag() {
     var usageFlag = true;
 
     var key = 'sendUsage';
@@ -32,16 +46,18 @@ function getSendUsageFlag() {
 
 function saveSettings(evt) {
     var portNumber = $("#portNumber").val();
+    var key = "portNumber";
 
     if (isNaN(portNumber)) {
         displayPortError();
     } else {
+        conf.set(key, portNumber);
         localStorage.portNumber = portNumber;
         toggleSettings();
         toggleServerStatus("");
     }
 
-    var key = "sendUsage";
+    key = "sendUsage";
     if ($("#sendUsage").is(":checked")) {
         conf.set(key, "true");
         localStorage.sendUsage = "true";
