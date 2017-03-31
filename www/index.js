@@ -36,7 +36,7 @@ function generateId() {
 
 function initSessionId() {
     var key = 'sessionId';
-    conf.set(key, generateId);
+    conf.set(key, generateId());
 }
 
 function getSessionId() {
