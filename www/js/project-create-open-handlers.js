@@ -6,16 +6,18 @@ function createProject(e) {
 
     var isProjectPathEmpty = isProjectPathFieldEmpty(projectPath);
     var isProjectNameEmpty = isEmptyField(projectName);
+    var isValidIdentifier = require('valid-identifier')(projectId);
 
     var projDir = "";
 
     hideProjectPathError();
     hideProjectNameError();
+    hideProjectIdError();
     resetProjectCreationFormHeight();
 
     console.log("name: " + isProjectNameEmpty + " path: " + isProjectPathEmpty);
 
-    if(!isProjectNameEmpty && !isProjectPathEmpty) {
+    if(!isProjectNameEmpty && !isProjectPathEmpty && isValidIdentifier) {
         projDir = projectPath + buildPathBasedOnOS("/") + projectName;
         localStorage.projDir = projDir;
         if(!projectExistsInLocalStorage(projDir)) {
@@ -52,7 +54,11 @@ function createProject(e) {
             displayProjectNameError();
         }
 
-        adjustProjectCreationFormHeight(isProjectPathEmpty, isProjectNameEmpty);
+        if (!isValidIdentifier) {
+            displayProjectIdError();
+        }
+
+        adjustProjectCreationFormHeight();
     }
 }
 
@@ -103,9 +109,6 @@ function selectDirectory(e) {
                             // assume that no www/config.xml means a project doesn't exist in selected local path
                             hideProjectPathError();
                             resetProjectCreationFormHeight();
-
-                            $("#projectDetailsOverlay").removeClass("project-details-overlay-project-path-error");
-                            $("#projectDetailsOverlay").removeClass("project-details-overlay-project-name-or-project-id-error");
                         } else {
                             // www/config.xml exists in selected local path, assume that there is an existing project in the local path
                             displayPhoneGapProjectInFolderError();
@@ -317,10 +320,10 @@ function folderExistsInFileSystem(projDir) {
     fs.exists(folder, function(exists) {
         if (exists) {
             displayDuplicateProjectNameError();
-            $("#projectDetailsOverlay").addClass("project-details-overlay-duplicate-project-name-error");
+            adjustProjectCreationFormHeight();
         } else {
             hideDuplicateProjectNameError();
-            $("#projectDetailsOverlay").removeClass("project-details-overlay-duplicate-project-name-error");
+            resetProjectCreationFormHeight();
         }
     });
 }

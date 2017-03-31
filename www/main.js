@@ -79,7 +79,7 @@ $(document).ready(function() {
             if (isProjectPathEmpty) {
                 // error with project path
                 displayProjectPathError();
-                adjustProjectCreationFormHeight(isProjectPathEmpty, isProjectNameEmpty);
+                adjustProjectCreationFormHeight();
             } else {
                 var project = projectPath + "/" + projectName;
                 folderExistsInFileSystem(project);

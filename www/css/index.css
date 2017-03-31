@@ -148,24 +148,6 @@
     width: 375px;
     height: 485px;
 }
-.project-details-overlay-duplicate-project-name-error {
-    height: 565px;
-}
-.project-details-overlay-project-name-or-project-id-error {
-    height: 525px;
-}
-.project-details-overlay-project-name-and-project-id-error {
-    height: 560px;
-}
-.project-details-overlay-project-path-and-other-error {
-    height: 570px;
-}
-.project-details-overlay-project-path-error {
-    height: 540px;
-}
-.project-details-overlay-all-errors {
-    height: 600px;
-}
 .overlay-form-item-heading {
     padding-top: 20px;
     padding-left: 20px;

@@ -1,9 +1,9 @@
 function displayPhoneGapProjectInFolderError() {
-    $("#projectDetailsOverlay").addClass("project-details-overlay-project-path-error");
     $("#project-path-error-message").text("The chosen folder already contains a PhoneGap project. Please select a different folder.");
     $("#new-project-path-label").addClass("required");
     $("#project-path-warning-icon").show();
     $("#project-path-error-message").show();
+    adjustProjectCreationFormHeight();
 }
 
 function displayProjectPathError() {
@@ -60,35 +60,13 @@ function hideProjectIdError() {
     $("#project-id-error-message").hide();
 }
 
-function adjustProjectCreationFormHeight(isProjectPathEmpty, isProjectNameEmpty) {
-    if (isProjectPathEmpty && isProjectNameEmpty) {
-        // change project creation dialog height to accommodate for project path & project name
-        $("#projectDetailsOverlay").addClass("project-details-overlay-project-path-and-other-error");
-    } else {
-        if (isProjectPathEmpty) {
-            if (!isProjectNameEmpty) {
-                // change project creation dialog height to accommodate for project path error only
-                $("#projectDetailsOverlay").addClass("project-details-overlay-project-path-error");
-            } else {
-                // change project creation dialog height to accommodate for project path error & project name error
-                $("#projectDetailsOverlay").addClass("project-details-overlay-project-path-and-other-error");
-            }
-        } else {
-            if (isProjectNameEmpty) {
-                // change project creation dialog height to accommodate for project path error & project name error
-                $("#projectDetailsOverlay").addClass("project-details-overlay-project-name-or-project-id-error");
-            }
-        }
-    }
+function adjustProjectCreationFormHeight() {
+    var confirmHeight = $("#addNewProject").position().top;
+    $("#projectDetailsOverlay").height(confirmHeight + 49);
 }
 
 function resetProjectCreationFormHeight() {
-    $("#projectDetailsOverlay").removeClass("project-details-overlay-all-errors");
-    $("#projectDetailsOverlay").removeClass("project-details-overlay-project-path-error");
-    $("#projectDetailsOverlay").removeClass("project-details-overlay-project-path-and-other-error");
-    $("#projectDetailsOverlay").removeClass("project-details-overlay-project-name-and-project-id-error");
-    $("#projectDetailsOverlay").removeClass("project-details-overlay-project-name-or-project-id-error");
-    $("#projectDetailsOverlay").removeClass("project-details-overlay-duplicate-project-name-error");
+    $("#projectDetailsOverlay").css("height", "");
 }
 
 function resetProjectCreationForm() {
