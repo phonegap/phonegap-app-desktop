@@ -50,6 +50,13 @@ function getSessionId() {
     return sessionId;
 }
 
+function clearSessionId() {
+    var key = 'sessionId';
+    if (conf.has(key)) {
+        conf.delete(key);
+    }
+}
+
 function checkForClientId() {
     // check the configstore to see if clientId exists
     var key = 'clientId';
@@ -116,6 +123,7 @@ function createWindow () {
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
         mainWindow = null;
+        clearSessionId();
         app.quit();
     })
 }
