@@ -26,7 +26,10 @@ ipcMain.on('errorInWindow', function(event, messageOrEvent, source, lineno, coln
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
-let debugMode;
+let debugMode = false;
+
+var testServer = 'https://serene-harbor-73595.herokuapp.com/';
+var prodServer = 'https://desktop-crash-reporter.herokuapp.com/';
 
 function generateId() {
     // used to generate Ids for user & projects
@@ -63,7 +66,7 @@ function checkForClientId() {
     if (!conf.has(key)) {
         conf.set(key, generateId());
     }
-    return conf.get(key);
+    return conf.get(key).toString();
 }
 
 function crashReporterJSON(debugMode) {
@@ -92,29 +95,17 @@ function createWindow () {
     // and load the index.html of the app.
     mainWindow.loadURL('file://' + __dirname + '/index.html');
 
-    var fs = require('fs');
-    var pathToPackageJSONFile = __dirname + "/package.json";
-    fs.readFile(pathToPackageJSONFile, 'utf8', function(err, data) {
-        if (err) {
-            mainWindow.webContents.executeJavaScript('console.log("not found");');
-        } else {
-            mainWindow.webContents.executeJavaScript('console.log("found");');
-            var obj = JSON.parse(data);
-            debugMode = obj.window.devTools;
+    if (debugMode) {
+        // Open the devtools.
+        mainWindow.openDevTools();
+    }
 
-            if (debugMode) {
-                // Open the devtools.
-                mainWindow.openDevTools();
-            }
-
-            crashReporter.start({
-                productName: 'PhoneGap-Desktop',
-                companyName: 'Adobe',
-                submitURL: 'https://fathomless-anchorage-12478.herokuapp.com/',
-                uploadToServer: true,
-                extra: crashReporterJSON(debugMode)
-            });
-        }
+    crashReporter.start({
+        productName: 'PhoneGap-Desktop',
+        companyName: 'Adobe',
+        submitURL: testServer,
+        uploadToServer: true,
+        extra: crashReporterJSON(debugMode)
     });
 
     // Emitted when the window is closed.
@@ -125,7 +116,9 @@ function createWindow () {
         mainWindow = null;
         clearSessionId();
         app.quit();
-    })
+    });
+
+    //process.crash();
 }
 
 // This method will be called when Electron has finished
@@ -133,7 +126,21 @@ function createWindow () {
 // Some APIs can only be used after this event occurs.
 app.on('ready', function() {
     initSessionId();
-    createWindow();
+
+
+    var fs = require('fs');
+    var pathToPackageJSONFile = __dirname + "/package.json";
+    fs.readFile(pathToPackageJSONFile, 'utf8', function(err, data) {
+        if (err) {
+            //mainWindow.webContents.executeJavaScript('console.log("not found");');
+        } else {
+            //mainWindow.webContents.executeJavaScript('console.log("found");');
+            var obj = JSON.parse(data);
+            debugMode = obj.window.devTools;
+
+            createWindow();
+        }
+    });
 });
 
 // Quit when all windows are closed.
