@@ -10,9 +10,8 @@ function getUserId() {
     if (!conf.has(key)) {
         conf.set(key, generateId());
     }
-    return conf.get(key);
+    return conf.get(key).toString();
 }
-
 
 function getSessionId() {
     var key = 'sessionId';
