@@ -60,8 +60,8 @@ function updateDesktopApp(updater) {
     });
 
     // optional branch param can be used for testing
-    // http://localhost:8080/desktop/<branch>/?platform=' + determineOperatingSystem() + '&version=' + app.getVersion();
     //var feedUrl = 'http://localhost:8080/desktop/?platform=' + determineOperatingSystem() + '&version=' + app.getVersion();
+    //var feedUrl = 'http://stage.update.api.phonegap.com/desktop/?platform=' + determineOperatingSystem() + '&version=' + app.getVersion();
     var feedUrl = 'http://update.api.phonegap.com/desktop/?platform=' + determineOperatingSystem() + '&version=' + app.getVersion();
     console.log(feedUrl);
 
