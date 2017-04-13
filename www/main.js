@@ -29,6 +29,14 @@ $(document).ready(function() {
 
     setDebugFlag();
 
+    crashReporter.start({
+        productName: 'PhoneGap-Desktop',
+        companyName: 'Adobe',
+        submitURL: 'https://fathomless-anchorage-12478.herokuapp.com/',
+        uploadToServer: true,
+        extra: crashReporterJSON()
+    });
+
     // add node binary to PATH
     if (process.platform == 'darwin') {
         process.env.PATH += ':' + path.join(__dirname, 'bin');
@@ -288,15 +296,6 @@ $(document).ready(function() {
         if (projects.length > 0)
             setActiveWidget(projects[0].id, projects[0].projDir);
     }, 2000);
-
-
-    crashReporter.start({
-        productName: 'PhoneGap-Desktop',
-        companyName: 'Adobe',
-        submitURL: 'https://fathomless-anchorage-12478.herokuapp.com/',
-        uploadToServer: true,
-        extra: crashReporterJSON()
-    });
     
     //process.crash();
 

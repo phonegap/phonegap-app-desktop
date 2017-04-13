@@ -7,6 +7,8 @@ const {crashReporter} = require('electron');
 const ConfigStore = require('configstore');
 const conf = new ConfigStore('insight-phonegap');
 
+var fs = require('fs');
+var path = require('path');
 const osName = require('os-name');
 
 var uuid = require("uuid/v4");
@@ -26,10 +28,26 @@ ipcMain.on('errorInWindow', function(event, messageOrEvent, source, lineno, coln
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
-let debugMode = false;
+let debugMode;
+let packageReadError;
+
+try {
+    var object = fs.readFileSync(path.join(__dirname, 'package.json'));
+    debugMode = JSON.parse(object).window.devTools;
+} catch (err) {
+    packageReadError = err;
+}
 
 var testServer = 'https://serene-harbor-73595.herokuapp.com/';
 var prodServer = 'https://desktop-crash-reporter.herokuapp.com/';
+
+crashReporter.start({
+    productName: 'PhoneGap-Desktop',
+    companyName: 'Adobe',
+    submitURL: testServer,
+    uploadToServer: true,
+    extra: crashReporterJSON()
+});
 
 function generateId() {
     // used to generate Ids for user & projects
@@ -69,7 +87,7 @@ function checkForClientId() {
     return conf.get(key).toString();
 }
 
-function crashReporterJSON(debugMode) {
+function crashReporterJSON() {
     var json = {};
     json.version = "1.1";
     json.host = "desktop";
@@ -100,14 +118,6 @@ function createWindow () {
         mainWindow.openDevTools();
     }
 
-    crashReporter.start({
-        productName: 'PhoneGap-Desktop',
-        companyName: 'Adobe',
-        submitURL: testServer,
-        uploadToServer: true,
-        extra: crashReporterJSON(debugMode)
-    });
-
     // Emitted when the window is closed.
     mainWindow.on('closed', function() {
         // Dereference the window object, usually you would store windows
@@ -127,20 +137,9 @@ function createWindow () {
 app.on('ready', function() {
     initSessionId();
 
-
-    var fs = require('fs');
-    var pathToPackageJSONFile = __dirname + "/package.json";
-    fs.readFile(pathToPackageJSONFile, 'utf8', function(err, data) {
-        if (err) {
-            //mainWindow.webContents.executeJavaScript('console.log("not found");');
-        } else {
-            //mainWindow.webContents.executeJavaScript('console.log("found");');
-            var obj = JSON.parse(data);
-            debugMode = obj.window.devTools;
-
-            createWindow();
-        }
-    });
+    if (!packageReadError) {
+        createWindow();
+    }
 });
 
 // Quit when all windows are closed.
