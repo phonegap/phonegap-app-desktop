@@ -27,12 +27,15 @@ global.isRemoving = false;
 
 $(document).ready(function() {
 
+    var testServer = 'https://serene-harbor-73595.herokuapp.com/';
+    var prodServer = 'https://desktop-crash-reporter.herokuapp.com/';
+
     setDebugFlag();
 
     crashReporter.start({
         productName: 'PhoneGap-Desktop',
         companyName: 'Adobe',
-        submitURL: 'https://fathomless-anchorage-12478.herokuapp.com/',
+        submitURL: testServer,
         uploadToServer: true,
         extra: crashReporterJSON()
     });
@@ -296,7 +299,7 @@ $(document).ready(function() {
         if (projects.length > 0)
             setActiveWidget(projects[0].id, projects[0].projDir);
     }, 2000);
-    
+
     //process.crash();
 
 });
