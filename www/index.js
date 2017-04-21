@@ -91,7 +91,7 @@ function crashReporterJSON() {
     var json = {};
     json.version = "1.1";
     json.host = "desktop";
-    json.short_message = "crashReporter";
+    json.short_message = "crash";
     json._userID = checkForClientId();
     json._platform = osName();
     json._appVersion = app.getVersion();

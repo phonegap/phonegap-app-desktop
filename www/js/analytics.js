@@ -14,7 +14,7 @@ global.client = new Keen({
 
 function crashReporterJSON() {
     var json = basicGELF();
-    json.short_message = "crashReporter";
+    json.short_message = "crash";
     // crashReporter server only accepts strings; we will need to re-format _env property to int on the server side before submitting to analytics server
     json._env = getDebugFlag() ? "1" : "0";
     console.log("renderer process json: " + JSON.stringify(json));
