@@ -35,7 +35,7 @@ $(document).ready(function() {
     crashReporter.start({
         productName: 'PhoneGap-Desktop',
         companyName: 'Adobe',
-        submitURL: testServer,
+        submitURL: prodServer,
         uploadToServer: true,
         extra: crashReporterJSON()
     });

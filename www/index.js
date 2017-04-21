@@ -44,7 +44,7 @@ var prodServer = 'https://desktop-crash-reporter.herokuapp.com/';
 crashReporter.start({
     productName: 'PhoneGap-Desktop',
     companyName: 'Adobe',
-    submitURL: testServer,
+    submitURL: prodServer,
     uploadToServer: true,
     extra: crashReporterJSON()
 });
