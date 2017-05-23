@@ -42,6 +42,15 @@ function sendAnalytics(data) {
     });
 }
 
+function trackOptIn() {
+
+    var json = basicGELF();
+    json.short_message = 'optIn';
+    json._optIn = getSendUsageFlag();
+
+    sendAnalytics(json);
+}
+
 function trackErrors(errorData) {
     if(getSendUsageFlag()) {
         var json = basicGELF();
@@ -116,7 +125,6 @@ function trackProjectRemoved() {
 
         var json = basicGELF();
         json.short_message = 'projectRemoved';
-
         sendAnalytics(json);
     }
 }

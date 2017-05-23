@@ -24,18 +24,24 @@ global.newAppPath = null;
 global.stopClicked = false;
 global.firstProjectDir = null;
 global.isRemoving = false;
+global.optInChanged = false;
 
 $(document).ready(function() {
 
-    var testServer = 'https://serene-harbor-73595.herokuapp.com/';
-    var prodServer = 'https://desktop-crash-reporter.herokuapp.com/';
+    var metricsServer = 'https://desktop-crash-reporter.herokuapp.com/';
 
     setDebugFlag();
+
+    if (getDebugFlag()) {
+        metricsServer = 'https://serene-harbor-73595.herokuapp.com/';
+    }
+
+    console.log(metricsServer);
 
     crashReporter.start({
         productName: 'PhoneGap-Desktop',
         companyName: 'Adobe',
-        submitURL: prodServer,
+        submitURL: metricsServer,
         uploadToServer: true,
         extra: crashReporterJSON()
     });
@@ -268,6 +274,10 @@ $(document).ready(function() {
             // other platforms just open the GitHub releases page
             shell.openExternal("https://github.com/phonegap/phonegap-app-desktop/releases");
         }
+    });
+
+    $("#sendUsage").click(function() {
+        global.optInChanged = true;
     });
 
     initSettings();

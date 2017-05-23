@@ -38,13 +38,16 @@ try {
     packageReadError = err;
 }
 
-var testServer = 'https://serene-harbor-73595.herokuapp.com/';
-var prodServer = 'https://desktop-crash-reporter.herokuapp.com/';
+var metricsServer = 'https://desktop-crash-reporter.herokuapp.com/';
+
+if (debugMode) {
+    metricsServer = 'https://serene-harbor-73595.herokuapp.com/';
+}
 
 crashReporter.start({
     productName: 'PhoneGap-Desktop',
     companyName: 'Adobe',
-    submitURL: prodServer,
+    submitURL: metricsServer,
     uploadToServer: true,
     extra: crashReporterJSON()
 });
