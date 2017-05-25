@@ -34,7 +34,7 @@ function getLastSelectedProjectPath() {
 
 function setLastSelectedProjectPath(projectPath) {
     // Set to the parent of the last created project
-    projectPath = projectPath.substring(0,projectPath.lastIndexOf('/'));
+    projectPath = path.dirname(projectPath);
     localStorage.projectPath = projectPath;
 }
 
