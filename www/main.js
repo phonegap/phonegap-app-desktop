@@ -36,8 +36,6 @@ $(document).ready(function() {
         metricsServer = 'https://serene-harbor-73595.herokuapp.com/';
     }
 
-    console.log(metricsServer);
-
     crashReporter.start({
         productName: 'PhoneGap-Desktop',
         companyName: 'Adobe',
@@ -136,7 +134,6 @@ $(document).ready(function() {
     $("#closeServerLog").click(toggleLog);
 
     $("#clearServerLog").click(function() {
-        //console.log($("#serverLog").val());
         var serverLog = $("#serverLog");
         serverLog.val("");
         serverLog.val(serverLog.val());
@@ -321,7 +318,6 @@ function getProjectPath(e) {
             path = path[0];
             $('#projectDirectory').val(path);
             $(".tooltiptext").text(path);
-            console.log(path);
 
             if (global.createChosen) {
                 selectProjectPath(e);
@@ -329,11 +325,7 @@ function getProjectPath(e) {
                 openProject(e);
             }
 
-        } else {
-            console.log("path array was empty");
         }
-    } else {
-        console.log("path returned was not array");
     }
 }
 

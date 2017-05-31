@@ -150,7 +150,6 @@ function getProjectConfig(id, projDir, i) {
         if (err) {
             fs.readFile(oldPathToConfigFile, 'utf8', function(err, data) {
                 if (err) {
-                    console.log("config.xml not found in: " + oldPathToConfigFile + " or " + newPathToConfigFile);
                     displayErrorMessage("config.xml not found in: " + oldPathToConfigFile + " or " + newPathToConfigFile);
                 } else {
                     parseConfigForRendering(data, id, projDir, i);
@@ -164,8 +163,6 @@ function getProjectConfig(id, projDir, i) {
 }
 
 function parseConfigForRendering(data, id, projDir, i) {
-    console.log("parseConfigForRendering");
-
     $.xmlDoc = $.parseXML(data);
     $.xml = $($.xmlDoc);
 

@@ -1,5 +1,4 @@
 function toggleServerStatus(projDir) {
-   console.log("TOGGLE SERVER - is server running? " + global.isServerRunning)
     if (global.isServerRunning) {
         // if server is currently running, stop it before opening a new server instance
         setServerOfflineThenOnline(projDir);
@@ -21,7 +20,6 @@ var onLogCallback = function appendToServerLog(status, url) {
 }
 
 function setServerOnline(projDir) {
-    console.log("Serving project - " + projDir)
     if (projDir != undefined && projDir.length > 0) {
         localStorage.projDir = projDir;
     } else {
@@ -58,21 +56,17 @@ function setServerOnline(projDir) {
             })
             .on("deviceConnected", trackDeviceConnected)
             .on("error", function(e) {
-                console.log(e);
                 $("#status-field").css("top", "550px");
                 formatServerErrorMessages(e.message);
             })
             .on("log", onLogCallback);
         } else {
-            var errMsg = "an existing project doesn't exist in this folder";
-            console.log(errMsg);
             $("#log").prop("disabled", true);
         }
     });
 }
 
 function formatServerErrorMessages(message) {
-    console.log(message);
     var formattedMessage = checkMessageType(message);
 
     $("#server-status-label").html(formattedMessage);
@@ -115,7 +109,6 @@ function setServerOffline() {
         global.isServerRunning = false;
         global.phonegap.removeListener("log", onLogCallback);
         global.phonegap.removeListener("deviceConnected", trackDeviceConnected);
-        console.log("server closed");
     });
 }
 

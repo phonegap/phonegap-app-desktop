@@ -8,7 +8,6 @@ function crashReporterJSON() {
     json.short_message = "crash";
     // crashReporter server only accepts strings; we will need to re-format _env property to int on the server side before submitting to analytics server
     json._env = getDebugFlag() ? "1" : "0";
-    console.log("renderer process json: " + JSON.stringify(json));
 
     return json;
 }
@@ -35,9 +34,7 @@ function sendAnalytics(data) {
         form: JSON.stringify(data)
     }, function(err, res, body) {
         if (err) {
-            console.log('*** post error: ' + err);
-        } else {
-            console.log('*** post success: ' + body);
+            console.error('Error sending analytics data: ' + err);
         }
     });
 }
@@ -65,10 +62,6 @@ function trackErrors(errorData) {
 }
 
 function trackAppOpened() {
-
-    console.log('usage flag: ' + getSendUsageFlag());
-    console.log('debug flag: ' + getDebugFlag());
-
     if(getSendUsageFlag()) {
 
         var json = basicGELF();
