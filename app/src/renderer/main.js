@@ -1,20 +1,26 @@
 import Vue from 'vue'
 import Electron from 'vue-electron'
 import Resource from 'vue-resource'
-import Framework7 from 'framework7'
-import Framework7Vue from 'framework7-vue'
-import routes from './routes'
-import Framework7Theme from 'framework7/dist/css/framework7.material.min.css'
-import Framework7ThemeColors from 'framework7/dist/css/framework7.material.colors.min.css'
-import 'framework7-icons/css/framework7-icons.css'
-import App from './App'
-import ProjectList from './components/ProjectList'
-// require('./file-menu')
-// import { fetchProjectsFromLocalStorage } from './utils/projects';
+import Router from 'vue-router'
 
+// import routes from './routes'
+import axios from 'axios'
+
+import router from './router'
+import store from './store'
+
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-default/index.css'
+
+import App from './App.vue'
+
+Vue.http = Vue.prototype.$http = axios
+Vue.config.productionTip = false
+
+Vue.use(ElementUI)
 Vue.use(Electron)
 Vue.use(Resource)
-Vue.use(Framework7Vue)
+Vue.use(Router)
 
 Vue.config.debug = true
 
@@ -40,23 +46,11 @@ window.store = {
   }
 }
 /* eslint-disable no-new */
-const vm = new Vue({
+new Vue({
+  // components: { App },
+  router,
+  store,
   el: '#app',
-  // data: {
-  // projects: this.projects
-  // },
-  framework7: {
-    root: '#app',
-    routes: routes,
-    material: true
-  },
-  // Register App Component
-  components: {
-    app: App
-  },
-  ...App
-}).$mount('#app')
+  render: h => h(App)
+})
 
-// const projects = JSON.parse(localStorage.getItem('phonegap-projects')) || []
-
-console.log('Framework7 ' + vm + Framework7 + ProjectList + Framework7Theme + Framework7ThemeColors)
