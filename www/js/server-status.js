@@ -34,6 +34,10 @@ function setServerOnline(projDir) {
             process.env.PWD = projDir;
 
             global.phonegap.serve({ isDesktop: true, port: localStorage.portNumber }, function(e, data) {
+                if (e) {
+                    return;
+                }
+
                 var ipAddressesFound = data.addresses.length;
                 trackNumIPsFound(ipAddressesFound);
 
@@ -56,8 +60,12 @@ function setServerOnline(projDir) {
             })
             .on("deviceConnected", trackDeviceConnected)
             .on("error", function(e) {
-                $("#status-field").css("top", "550px");
-                formatServerErrorMessages(e.message);
+                if (e.message) {
+                    $("#status-field").css("top", "550px");
+                    formatServerErrorMessages(e.message);
+                } else {
+                    onLogCallback(e);
+                }
             })
             .on("log", onLogCallback);
         } else {

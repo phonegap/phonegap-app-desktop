@@ -17,7 +17,7 @@
       "valid-identifier": "0.0.1"
   },
   "devDependencies" : {
-      "phonegap" : "6.4.6"
+      "phonegap" : "6.5.1"
   },
   "licenses": [{
       "type":"ALv2",
