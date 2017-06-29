@@ -52,10 +52,10 @@ function trackErrors(errorData) {
     if(getSendUsageFlag()) {
         var json = basicGELF();
         json.short_message = 'errorInWindow';
-        json.full_message = errorData.message;
         json._source = errorData.source;
         json._line = errorData.line;
         json._col = errorData.col;
+        json._error_msg = errorData.message;
         json._error_stack = errorData.stack;
         sendAnalytics(json);
     }
