@@ -168,7 +168,7 @@ module.exports = function(grunt) {
             'electron:' + (process.platform === 'darwin' ? 'osxBuild' : 'winBuild'),
             'copy-license-docs',
             'copy-win-downloadPG-version',
-            // 'open'//,
+            'open'//,
             //'start-localhost'
         ]
     );
