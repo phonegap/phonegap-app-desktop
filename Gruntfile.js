@@ -1,4 +1,5 @@
 var execSync = require('child_process').execSync;
+var path = require('path');
 var shell = require('shelljs');
 
 var APPVERSION = '0.4.4';
@@ -133,10 +134,20 @@ module.exports = function(grunt) {
         }
     });
 
-    // copy the EULA into the installer folders
-    grunt.task.registerTask('copy-eula', function() {
+    // copy the EULA into the installer folders and reference docs to final app bundles
+    grunt.task.registerTask('copy-license-docs', function() {
         grunt.file.copy('./src/license.txt', './res/installers/osx/license.txt');
         grunt.file.copy('./src/license.txt', './res/installers/win/license.txt');
+
+        var buildPath;
+        if (process.platform === 'darwin') {
+            buildPath = './build/PhoneGap-darwin-x64/PhoneGap.app/';
+        } else {
+            buildPath = './build/PhoneGap-win32-ia32/';
+        }
+
+        grunt.file.copy('./README.md', path.join(buildPath, 'README.md'));
+        grunt.file.copy('./INSTALL', path.join(buildPath, 'INSTALL'));
     });
 
     // Open the built app
@@ -154,10 +165,10 @@ module.exports = function(grunt) {
             'clean-old-files',
             'copy-package-json',
             'install-dependencies',
-            'copy-eula',
             'electron:' + (process.platform === 'darwin' ? 'osxBuild' : 'winBuild'),
+            'copy-license-docs',
             'copy-win-downloadPG-version',
-            'open'//,
+            // 'open'//,
             //'start-localhost'
         ]
     );
@@ -169,8 +180,8 @@ module.exports = function(grunt) {
             'clean-old-files',
             'copy-package-json',
             'install-dependencies',
-            'copy-eula',
             'electron:' + (process.platform === 'darwin' ? 'osxBuild' : 'winBuild'),
+            'copy-license-docs',
             'copy-win-downloadPG-version',
             'osx-installer',
             'open'
