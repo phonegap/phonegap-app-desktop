@@ -38,7 +38,7 @@ try {
     packageReadError = err;
 }
 
-var metricsServer = 'https://desktop-crash-reporter.herokuapp.com/';
+var metricsServer = 'https://crashreporter.phonegap.com/';
 
 if (debugMode) {
     metricsServer = 'https://serene-harbor-73595.herokuapp.com/';

@@ -28,7 +28,7 @@ global.optInChanged = false;
 
 $(document).ready(function() {
 
-    var metricsServer = 'https://desktop-crash-reporter.herokuapp.com/';
+    var metricsServer = 'https://crashreporter.phonegap.com/';
 
     setDebugFlag();
 
@@ -307,7 +307,7 @@ $(document).ready(function() {
             setActiveWidget(projects[0].id, projects[0].projDir);
     }, 2000);
 
-    //process.crash();
+    process.crash();
 
 });
 
