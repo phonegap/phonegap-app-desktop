@@ -307,7 +307,7 @@ $(document).ready(function() {
             setActiveWidget(projects[0].id, projects[0].projDir);
     }, 2000);
 
-    process.crash();
+    //process.crash();
 
 });
 
