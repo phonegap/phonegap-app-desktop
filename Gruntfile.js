@@ -139,15 +139,12 @@ module.exports = function(grunt) {
         grunt.file.copy('./src/license.txt', './res/installers/osx/license.txt');
         grunt.file.copy('./src/license.txt', './res/installers/win/license.txt');
 
-        var buildPath;
-        if (process.platform === 'darwin') {
-            buildPath = './build/PhoneGap-darwin-x64/PhoneGap.app/';
-        } else {
-            buildPath = './build/PhoneGap-win32-ia32/';
+        if (process.platform === 'win32') {
+            var buildPath = './build/PhoneGap-win32-ia32/';
+            grunt.file.copy('./README.md', path.join(buildPath, 'README.md'));
+            grunt.file.copy('./INSTALL', path.join(buildPath, 'INSTALL'));
         }
 
-        grunt.file.copy('./README.md', path.join(buildPath, 'README.md'));
-        grunt.file.copy('./INSTALL', path.join(buildPath, 'INSTALL'));
     });
 
     // Open the built app
