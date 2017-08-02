@@ -175,7 +175,6 @@ function create(projectName, projectId, projDir) {
     opts.env = process.env;
     opts.stdio = ['ipc'];
 
-    var start = new Date();
     // spawn child process and include success/error callbacks
     var child = spawn(node, args, opts);
     showLoader(true, 'Creating Project...');
@@ -186,10 +185,6 @@ function create(projectName, projectId, projDir) {
             hideLoader();
             trackProjectCreated();
 
-            var complete = new Date();
-            var diff = complete - start;
-            var seconds_diff = diff / 1000;
-            var seconds_between = Math.abs(seconds_diff);
             createHandler(projectName, projectId, options.path);
             setLastSelectedProjectPath(options.path);
         }
