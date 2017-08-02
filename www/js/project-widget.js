@@ -252,9 +252,6 @@ function setConfigWatcher(id, projDir) {
 }
 
 function setWatcher(filePath, projDir, id) {
-
-    console.log("setWatcher(" + filePath + ", " + projDir + ", " + id + ");");
-
     var chokidar = require("chokidar");
 
     var watcher = chokidar.watch(filePath, {
@@ -265,12 +262,10 @@ function setWatcher(filePath, projDir, id) {
     // Declare the listeners of the watcher
     watcher.on('change', function(filePath) {
         // Ensure the config.xml gets added to avoid timing issues reading/updating it after
-        console.log('config.xml file changed at ' + filePath);
 
         // reload the updated values from config.xml & update the GUI
         fs.readFile(filePath, {encoding:'utf8'}, function(err, data) {
             if (err) {
-                console.log(err.message);
                 displayErrorMessage(err.message);
             }
 

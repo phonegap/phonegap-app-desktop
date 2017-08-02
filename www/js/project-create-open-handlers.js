@@ -15,8 +15,6 @@ function createProject(e) {
     hideProjectIdError();
     resetProjectCreationFormHeight();
 
-    console.log("name: " + isProjectNameEmpty + " path: " + isProjectPathEmpty);
-
     if(!isProjectNameEmpty && !isProjectPathEmpty && isValidIdentifier) {
         projDir = projectPath + buildPathBasedOnOS("/") + projectName;
         localStorage.projDir = projDir;
@@ -103,7 +101,6 @@ function selectDirectory(e) {
 
             fs.readFile(newPathToConfigFile, {encoding:'utf8'}, function(err, newPathData) {
                 if (err) {
-                    console.log("config.xml not found in new path: " + newPathToConfigFile);
                     fs.readFile(oldPathToConfigFile, {encoding:'utf8'}, function(err, oldPathData) {
                         if (err) {
                             // assume that no www/config.xml means a project doesn't exist in selected local path
@@ -115,7 +112,6 @@ function selectDirectory(e) {
                         }
                     });
                 } else {
-                    console.log("config.xml found in new path");
                     // config.xml exists in selected local path, assume that there is an existing project in the local path
                     displayPhoneGapProjectInFolderError();
                 }
@@ -179,9 +175,6 @@ function create(projectName, projectId, projDir) {
     opts.env = process.env;
     opts.stdio = ['ipc'];
 
-    var start = new Date();
-    console.log("CREATE *STARTED* AT: "+ start.toUTCString());
-
     // spawn child process and include success/error callbacks
     var child = spawn(node, args, opts);
     showLoader(true, 'Creating Project...');
@@ -192,13 +185,7 @@ function create(projectName, projectId, projDir) {
             hideLoader();
             trackProjectCreated();
 
-            var complete = new Date();
-            var diff = complete - start;
-            var seconds_diff = diff / 1000;
-            var seconds_between = Math.abs(seconds_diff);
-            console.log("CREATE *COMPLETED* AT " + complete.toUTCString() + ". TOTAL TIME: "+seconds_between + " seconds.");
             createHandler(projectName, projectId, options.path);
-            console.log("Save last selected project path of " + options.path);
             setLastSelectedProjectPath(options.path);
         }
     });
@@ -227,10 +214,8 @@ function readConfig(projName, projId, projDir) {
 
     fs.readFile(newPathToConfigFile, {encoding: 'utf8'}, function(err, newPathData) {
         if(err) {
-            console.log("Error reading config file at " + newPathToConfigFile);
             displayMissingConfigFileNotification();
         } else {
-            console.log("updateConfigOnProjectCreation - newPathData");
             xmlDoc = $.parseXML(newPathData);
             $xml = $(xmlDoc);
             var projVersion = $xml.find("widget").attr("version")
@@ -251,12 +236,10 @@ function checkIfProjectConfigExists(projDir) {
                     displayMissingConfigFileNotification();
 
                 } else {
-                    console.log("oldPathToConfigFile found");
                     parseProjectConfig(data, projDir);
                 }
             });
         } else {
-            console.log("newPathToConfigFile found");
             parseProjectConfig(data, projDir);
         }
     });
