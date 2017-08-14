@@ -89,12 +89,14 @@
     color: white;
     background-color: #0c6d29;
     padding-left: 15px;
+    -webkit-user-select: text;
 }
 .ip-holder {
     width: 100%;
     left: 75px;
     max-height: 150px;
     position: fixed;
+    -webkit-user-select: text;
 }
 .ip-link:hover {
     text-decoration:underline;
