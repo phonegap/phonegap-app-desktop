@@ -65,6 +65,12 @@ function getMenuTemplate() {
             label: 'Help',
             submenu: [
                 {
+                    label: 'Developer Console',
+                    click: function() {
+                        require('electron').remote.getCurrentWindow().toggleDevTools();
+                    }
+                },
+                {
                     label: 'Tutorials',
                     click: function() {
                         openTutorials();

@@ -65,9 +65,16 @@ function saveSettings(evt) {
         conf.set(key, "false");
         localStorage.sendUsage = "false";
     }
+
+    if (global.optInChanged) {
+        trackOptIn();
+        global.optInChanged = false;
+    }
+
 }
 
 function cancelSettings(evt) {
+    global.optInChanged = false;
     toggleSettings();
 }
 

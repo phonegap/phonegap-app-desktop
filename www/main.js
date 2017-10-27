@@ -24,18 +24,22 @@ global.newAppPath = null;
 global.stopClicked = false;
 global.firstProjectDir = null;
 global.isRemoving = false;
+global.optInChanged = false;
 
 $(document).ready(function() {
 
-    var testServer = 'https://serene-harbor-73595.herokuapp.com/';
-    var prodServer = 'https://desktop-crash-reporter.herokuapp.com/';
+    var metricsServer = 'https://crashreporter.phonegap.com/';
 
     setDebugFlag();
+
+    if (getDebugFlag()) {
+        metricsServer = 'https://serene-harbor-73595.herokuapp.com/';
+    }
 
     crashReporter.start({
         productName: 'PhoneGap-Desktop',
         companyName: 'Adobe',
-        submitURL: prodServer,
+        submitURL: metricsServer,
         uploadToServer: true,
         extra: crashReporterJSON()
     });
@@ -130,7 +134,6 @@ $(document).ready(function() {
     $("#closeServerLog").click(toggleLog);
 
     $("#clearServerLog").click(function() {
-        //console.log($("#serverLog").val());
         var serverLog = $("#serverLog");
         serverLog.val("");
         serverLog.val(serverLog.val());
@@ -270,6 +273,10 @@ $(document).ready(function() {
         }
     });
 
+    $("#sendUsage").click(function() {
+        global.optInChanged = true;
+    });
+
     initSettings();
 
     $("#projectPath").text(getLastSelectedProjectPath());
@@ -311,7 +318,6 @@ function getProjectPath(e) {
             path = path[0];
             $('#projectDirectory').val(path);
             $(".tooltiptext").text(path);
-            console.log(path);
 
             if (global.createChosen) {
                 selectProjectPath(e);
@@ -319,11 +325,7 @@ function getProjectPath(e) {
                 openProject(e);
             }
 
-        } else {
-            console.log("path array was empty");
         }
-    } else {
-        console.log("path returned was not array");
     }
 }
 

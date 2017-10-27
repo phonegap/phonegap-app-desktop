@@ -17,14 +17,6 @@ module.exports = [
       "desc"  : "An example app for getting started with push notifications.",
       "npm"   : "phonegap-template-push@1.0.2"
     },
-    { "name"  : "React Hot Loader",
-      "desc"  : "Starter PhoneGap project using React.js, Babel, Webpack and Hot Reloading.",
-      "npm"   : "phonegap-template-react-hot-loader@1.3.0"
-    },
-    { "name"  : "Star Track",
-      "desc"  : "An example app using Framework7 and the Spotify API.",
-      "npm"   : "phonegap-app-star-track@1.0.11"
-    },
     { "name"  : "Wikitude Augmented Reality",
       "desc"  : "Augmented Reality demo app powered by the Wikitude plugin.",
       "npm"   : "phonegap-app-augmented-reality@1.0.1"
