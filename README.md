@@ -24,6 +24,22 @@ $ npm install
 # Follow instructions in the Build Commands section.
 ```
 
+## Build Setup for Linux (tested on Ubuntu only)
+
+```
+# install grunt cli
+$ [sudo] npm install -g grunt-cli
+
+# install dev dependencies
+$ npm install
+$ sudo apt install wine-stable
+$ sudo apt-get install libgconf-2-4
+
+# Create a fork of the phonegap-app-desktop repository.
+# Clone your fork of the repository.
+# Navigate to project folder on your local machine.
+# Follow instructions in the Build Commands section.
+
 ### Windows Gotchas
 
 Once the build is complete, you will need to follow the instructions under `Installation for Windows`.

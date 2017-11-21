@@ -170,9 +170,13 @@ module.exports = function(grunt) {
     // Open the built app
     grunt.task.registerTask('open', function() {
         // disabling on Windows for now, will re-evaluate in the future
-        var opener = require('opener'),
-            macPath = 'build/PhoneGap-darwin-x64/PhoneGap.app';
-            opener(macPath);
+        if (process.platform === 'darwin') {
+            var opener = require('opener'),
+              macPath = 'build/PhoneGap-darwin-x64/PhoneGap.app';
+              opener(macPath);
+        } else {
+            console.log('Skipping: Not on OSX');
+        }
     });
 
     // default - runs the dev build
