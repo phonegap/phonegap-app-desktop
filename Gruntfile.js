@@ -3,7 +3,7 @@ var path = require('path');
 var shell = require('shelljs');
 
 var APPVERSION = '0.4.5';
-var ELECTRONVERSION = '1.6.1';
+var ELECTRONVERSION = '1.7.9';
 var isRelease = (process.argv[2] === 'release');
 
 module.exports = function(grunt) {
