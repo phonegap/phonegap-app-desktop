@@ -7,6 +7,16 @@ var ELECTRONVERSION = '1.6.1';
 var isRelease = (process.argv[2] === 'release');
 
 module.exports = function(grunt) {
+
+    var electronBuild = '';
+    if (process.platform === 'darwin') {
+        electronBuild = 'osxBuild';
+    } else if (process.platform === 'linux') {
+        electronBuild = 'nixBuild';
+    } else {
+        electronBuild = 'winBuild';
+    }
+
     var osxArchive = './installers/osx64/PhoneGap-Desktop-Beta-' + APPVERSION + '-mac.zip';
     var winArchive = './installers/win32/PhoneGap-Desktop-Beta-' + APPVERSION + '-win.zip';
 
@@ -36,6 +46,16 @@ module.exports = function(grunt) {
                     icon: './www/img/app-icons/icon.ico',
                     asar: { unpackDir:'{bin,node_modules/adm-zip,node_modules/adm-zip/**}' }
                 }
+            },
+            nixBuild: {
+                options:{
+                    name: 'PhoneGap',
+                    dir: './www',
+                    out: './build',
+                    version: ELECTRONVERSION,
+                    platform: 'linux',
+                    arch: 'x64'
+                }
             }
         }
     });
@@ -59,7 +79,7 @@ module.exports = function(grunt) {
         execSync(npmInstall, { cwd: './www' });
 
         // npm/phonegap workarounds are for Windows, Mac can install normally
-        if (process.platform === 'darwin' && isRelease) {
+        if ((process.platform === 'darwin' || process.platform === 'linux') && isRelease) {
             var config = JSON.parse(grunt.file.read('./src/config/package.json'));
             var pgVersion = config.devDependencies.phonegap;
             execSync('npm install npm@3.10.3 phonegap@' + pgVersion, { cwd: './www' });
@@ -162,7 +182,7 @@ module.exports = function(grunt) {
             'clean-old-files',
             'copy-package-json',
             'install-dependencies',
-            'electron:' + (process.platform === 'darwin' ? 'osxBuild' : 'winBuild'),
+            'electron:' + electronBuild,
             'copy-license-docs',
             'copy-win-downloadPG-version',
             'open'//,
@@ -177,7 +197,7 @@ module.exports = function(grunt) {
             'clean-old-files',
             'copy-package-json',
             'install-dependencies',
-            'electron:' + (process.platform === 'darwin' ? 'osxBuild' : 'winBuild'),
+            'electron:' + electronBuild,
             'copy-license-docs',
             'copy-win-downloadPG-version',
             'osx-installer',
