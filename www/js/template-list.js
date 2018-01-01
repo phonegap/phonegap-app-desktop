@@ -9,7 +9,7 @@ module.exports = [
       "desc"  : "A blank and empty PhoneGap app.",
       "npm"   : "phonegap-template-blank@1.1.0"
     },
-    { "name"  : "Framework 7",
+    { "name"  : "Framework7",
       "desc"  : "Starter PhoneGap project for Framework7.",
       "npm"   : "phonegap-template-framework7@1.0.3"
     },
