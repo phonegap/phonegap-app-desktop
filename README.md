@@ -1,4 +1,6 @@
-## Phonegap Desktop App [![Build Status](https://travis-ci.org/phonegap/phonegap-app-desktop.svg?branch=master)](https://travis-ci.org/phonegap/phonegap-app-desktop) [![bitHound Score](https://www.bithound.io/github/phonegap/phonegap-app-desktop/badges/score.svg)](https://www.bithound.io/github/phonegap/phonegap-app-desktop)
+## Phonegap Desktop App 
+
+[![Build Status](https://travis-ci.org/phonegap/phonegap-app-desktop.svg?branch=master)](https://travis-ci.org/phonegap/phonegap-app-desktop)
 
 ## Quick Start - Developer Mode
 
