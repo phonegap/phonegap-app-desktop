@@ -16,6 +16,6 @@ test -f ./installers/osx64/PhoneGapDesktop.dmg && rm ./installers/osx64/PhoneGap
 --icon PhoneGap.app 128 160 \
 --hide-extension PhoneGap.app \
 --app-drop-link 388 160 \
---eula ./res/installers/osx/license.txt \
+--eula ./res/installers/osx/license.rtf \
 ./installers/osx64/PhoneGapDesktop.dmg \
 ./build/PhoneGap-darwin-x64/PhoneGap.app

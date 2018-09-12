@@ -155,7 +155,7 @@ module.exports = function(grunt) {
 
     // copy the EULA into the installer folders and reference docs to final app bundles
     grunt.task.registerTask('copy-license-docs', function() {
-        grunt.file.copy('./src/license.txt', './res/installers/osx/license.txt');
+        grunt.file.copy('./src/license.rtf', './res/installers/osx/license.rtf');
         grunt.file.copy('./src/license.txt', './res/installers/win/license.txt');
 
         if (process.platform === 'win32') {

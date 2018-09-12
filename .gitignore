@@ -12,7 +12,7 @@ www/node_modules/
 www/package.json
 installers/osx64/*.zip
 installers/win32/*.zip
-res/installers/osx/license.txt
+res/installers/osx/license.rtf
 res/installers/win/license.txt
 sign-config.json
 
