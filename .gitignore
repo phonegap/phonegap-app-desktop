@@ -18,3 +18,5 @@ sign-config.json
 
 # Node WebKit
 cache/
+
+.vscode/
