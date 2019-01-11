@@ -11,7 +11,7 @@ module.exports = [
     },
     { "name"  : "Framework7",
       "desc"  : "Starter PhoneGap project for Framework7.",
-      "npm"   : "phonegap-template-framework7@1.0.3"
+      "npm"   : "phonegap-template-framework7@1.1.0"
     },
     { "name"  : "Push Notifications",
       "desc"  : "An example app for getting started with push notifications.",
