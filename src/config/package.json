@@ -6,7 +6,7 @@
       "devTools" : true
   },
   "dependencies" : {
-      "adm-zip": "0.4.7",
+      "adm-zip": "0.4.14",
       "chokidar":"1.6.0",
       "configstore":"3.0.0",
       "opener": "1.4.1",
