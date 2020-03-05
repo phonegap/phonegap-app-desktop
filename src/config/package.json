@@ -13,7 +13,7 @@
       "os-name": "2.0.1",
       "node-jsxml": "0.6.0",
       "uuid": "3.0.1",
-      "request" : "2.65.0",
+      "request" : "2.88.2",
       "valid-identifier": "0.0.1"
   },
   "devDependencies" : {
