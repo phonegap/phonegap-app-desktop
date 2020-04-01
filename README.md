@@ -1,3 +1,5 @@
+## **NOTE: The Phonegap Desktop App is a deprecated project. We advise users to move over to Apache Cordova tooling.
+
 ## Phonegap Desktop App 
 
 [![Build Status](https://travis-ci.org/phonegap/phonegap-app-desktop.svg?branch=master)](https://travis-ci.org/phonegap/phonegap-app-desktop)
